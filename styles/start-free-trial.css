@@ -590,8 +590,9 @@ ul {
 
 
 .bubble--answer {
-  color: var(--secondary-foreground);
-  background: var(--secondary);
+  color: var(--foreground);
+  background: var(--card);
+  border: 1px solid var(--border);
 }
 
 /* ===================== Trusted-by footer ===================== */
