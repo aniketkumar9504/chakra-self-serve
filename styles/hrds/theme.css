@@ -1,0 +1,15 @@
+/* HRDS font-role aliases.
+ * In @hackerrank/design-atoms these live in `@theme inline` inside
+ * src/index.css (Tailwind v4), which a plain-CSS page can't consume.
+ * Re-declared here as plain custom properties so this non-Tailwind page can
+ * reference the same roles. Values mirror the design system exactly:
+ *   --font-ds  = Satoshi  (body / UI master role — drives all components)
+ *   --font-mono = Geist Mono (code / mono accents)
+ *   --font-heading = Kalice (h1 / page titles) */
+
+:root {
+  --font-satoshi: "Satoshi", sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, Consolas, monospace;
+  --font-ds: var(--font-satoshi);
+  --font-heading: "Kalice", Georgia, serif;
+}

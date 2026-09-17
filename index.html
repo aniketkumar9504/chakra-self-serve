@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>See HackerRank in action</title>
+  <meta
+    name="description"
+    content="Attend a live, personalized demo with one of our product experts to learn how to hire for the agentic era."
+  />
+
+  <!-- hr-design (HRDS) tokens + self-hosted brand fonts, then page styles -->
+  <link rel="stylesheet" href="styles/hrds/tokens.css" />
+  <link rel="stylesheet" href="styles/hrds/theme.css" />
+  <link rel="stylesheet" href="styles/hrds/fonts.css" />
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body class="is-v1">
+  <!-- ===================== Header / Nav ===================== -->
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="nav__logo" href="#" aria-label="HackerRank home">
+        <img src="assets/logo-dark.svg" alt="HackerRank" width="153" height="16" />
+      </a>
+
+      <!-- Layout variation switch -->
+      <div class="view-toggle" role="group" aria-label="Layout variation">
+        <button type="button" class="view-toggle__btn is-active" data-view="v1" aria-pressed="true">V1</button>
+        <button type="button" class="view-toggle__btn" data-view="v2" aria-pressed="false">V2</button>
+      </div>
+
+      <a class="nav__login" href="#">Log In</a>
+    </nav>
+  </header>
+
+  <!-- ===================== Main ===================== -->
+  <main>
+    <section class="hero">
+      <div class="hero__inner">
+        <!-- V2 only: left hero column -->
+        <div class="stage__left">
+          <h1 class="stage__title">See HackerRank<br />in action</h1>
+          <p class="stage__lead">
+            Attend a live, personalized demo with one of our product experts to
+            learn how to hire for the agentic era.
+          </p>
+        </div>
+
+        <!-- Product selector + inline form (light, on-page) -->
+        <div class="form-card">
+          <!-- Step 1: choose a product. Selection reveals + tailors the form. -->
+          <fieldset class="product-select" id="productSelect">
+            <legend class="product-select__legend">Which product would you like a demo of?</legend>
+            <p class="product-select__subline">
+              Attend a live, personalized demo with one of our product experts.
+            </p>
+            <div class="product-select__grid">
+              <label class="product-card" data-product="chakra">
+                <input class="product-card__input" type="radio" name="product" value="Chakra" checked />
+                <span class="product-card__media product-card__media--chakra">
+                  <img src="assets/products/chakra.svg" alt="" aria-hidden="true" />
+                </span>
+                <span class="product-card__label">Chakra</span>
+              </label>
+
+              <label class="product-card" data-product="screen">
+                <input class="product-card__input" type="radio" name="product" value="Screen" />
+                <span class="product-card__media product-card__media--screen">
+                  <img src="assets/products/screen.svg" alt="" aria-hidden="true" />
+                </span>
+                <span class="product-card__label">Screen</span>
+              </label>
+
+              <label class="product-card" data-product="interview">
+                <input class="product-card__input" type="radio" name="product" value="Interview" />
+                <span class="product-card__media product-card__media--interview">
+                  <img src="assets/products/interview.svg" alt="" aria-hidden="true" />
+                </span>
+                <span class="product-card__label">Interview</span>
+              </label>
+
+              <label class="product-card" data-product="all">
+                <input class="product-card__input" type="radio" name="product" value="All Products" />
+                <span class="product-card__media product-card__media--all">
+                  <img src="assets/products/allproducts.svg" alt="" aria-hidden="true" />
+                </span>
+                <span class="product-card__label">All Products</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- Step 2: form — hidden until a product is chosen -->
+          <form class="form" id="demoForm" novalidate hidden>
+            <div class="field">
+              <label class="field__label" for="email">Business Email*</label>
+              <input class="field__input" type="email" id="email" name="email" autocomplete="email" required />
+            </div>
+
+            <div class="field field--split">
+              <div class="field__col">
+                <label class="field__label" for="firstName">First Name*</label>
+                <input class="field__input" type="text" id="firstName" name="firstName" autocomplete="given-name" required />
+              </div>
+              <div class="field__col">
+                <label class="field__label" for="lastName">Last Name*</label>
+                <input class="field__input" type="text" id="lastName" name="lastName" autocomplete="family-name" required />
+              </div>
+            </div>
+
+            <div class="field field--split">
+              <div class="field__col">
+                <label class="field__label" for="company">Company Name*</label>
+                <input class="field__input" type="text" id="company" name="company" autocomplete="organization" required />
+              </div>
+              <div class="field__col">
+                <label class="field__label" for="jobTitle">Job Title*</label>
+                <input class="field__input" type="text" id="jobTitle" name="jobTitle" autocomplete="organization-title" required />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="companySize">Company Size*</label>
+              <div class="select">
+                <select class="select__control" id="companySize" name="companySize" required>
+                  <option value="" selected disabled hidden>Please Select</option>
+                  <option value="1-50">1&ndash;50</option>
+                  <option value="51-200">51&ndash;200</option>
+                  <option value="201-1000">201&ndash;1,000</option>
+                  <option value="1001-5000">1,001&ndash;5,000</option>
+                  <option value="5000+">5,000+</option>
+                </select>
+                <img class="select__arrow" src="assets/select-arrow.svg" alt="" aria-hidden="true" />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="field__label" for="country">Country*</label>
+              <div class="select">
+                <select class="select__control" id="country" name="country" required>
+                  <option value="" selected disabled hidden>Please Select</option>
+                  <option value="US">United States</option>
+                  <option value="IN">India</option>
+                  <option value="GB">United Kingdom</option>
+                  <option value="CA">Canada</option>
+                  <option value="AU">Australia</option>
+                  <option value="other">Other</option>
+                </select>
+                <img class="select__arrow" src="assets/select-arrow.svg" alt="" aria-hidden="true" />
+              </div>
+            </div>
+
+            <!-- Product is chosen via the cards above; carried through on submit -->
+            <input type="hidden" name="product" id="selectedProduct" />
+
+            <p class="form__consent">
+              By clicking Schedule a Demo below you confirm that you have read and
+              agree to HackerRank&rsquo;s <a href="#">Privacy Policy</a>
+            </p>
+
+            <button class="btn btn--submit" type="submit">Schedule A Demo</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="scripts/app.js"></script>
+</body>
+</html>
