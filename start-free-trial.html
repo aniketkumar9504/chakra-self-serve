@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Start your free trial — HackerRank</title>
+  <meta
+    name="description"
+    content="Start your free trial of HackerRank. No credit card required — sign up with your work email and meet Chakra, an AI interviewer that actually works."
+  />
+
+  <!-- hr-design (HRDS) tokens + self-hosted brand fonts, then page styles -->
+  <link rel="stylesheet" href="styles/hrds/tokens.css" />
+  <link rel="stylesheet" href="styles/hrds/theme.css" />
+  <link rel="stylesheet" href="styles/hrds/fonts.css" />
+  <link rel="stylesheet" href="styles/start-free-trial.css" />
+
+  <!-- Flag JS up front so chat messages start hidden (revealed per speaking
+       turn). Without JS the full conversation renders normally. -->
+  <script>
+    document.documentElement.classList.add("js");
+  </script>
+</head>
+<body>
+  <!-- ===================== Header / Nav ===================== -->
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="nav__logo" href="#" aria-label="HackerRank home">
+        <img src="assets/logo-dark.svg" alt="HackerRank" width="153" height="16" />
+      </a>
+
+      <!-- Background toggle: V1 = Chakra glow, V2 = plain white. -->
+      <div class="ver-toggle" role="group" aria-label="Page background version">
+        <button type="button" class="ver-toggle__btn is-active" data-ver="1" aria-pressed="true">V1</button>
+        <button type="button" class="ver-toggle__btn" data-ver="2" aria-pressed="false">V2</button>
+      </div>
+
+      <a class="btn btn--outline nav__login" href="#">Login</a>
+    </nav>
+  </header>
+
+  <!-- ===================== Main ===================== -->
+  <main class="page">
+    <div class="page__inner">
+      <!-- Left column: sign-up -->
+      <section class="signup" aria-labelledby="signup-title">
+        <div class="signup__head">
+          <h1 class="signup__title" id="signup-title">Start your free trial</h1>
+          <p class="signup__sub">No credit card required. Sign up with your work email.</p>
+        </div>
+
+        <form class="form" novalidate>
+          <div class="field-row">
+            <div class="field">
+              <label class="sr-only" for="firstName">First name</label>
+              <input class="field__input" type="text" id="firstName" name="firstName"
+                     placeholder="First name" autocomplete="given-name" required />
+            </div>
+            <div class="field">
+              <label class="sr-only" for="lastName">Last name</label>
+              <input class="field__input" type="text" id="lastName" name="lastName"
+                     placeholder="Last name" autocomplete="family-name" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="sr-only" for="email">Work email address</label>
+            <input class="field__input" type="email" id="email" name="email"
+                   placeholder="Work email address" autocomplete="email" required />
+          </div>
+
+          <button class="btn btn--submit" type="submit">Sign up</button>
+
+          <p class="divider"><span>Or sign up with...</span></p>
+
+          <div class="social">
+            <a class="btn btn--social" href="#">
+              <svg class="social__icon" width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                <path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.91c1.7-1.57 2.69-3.88 2.69-6.62z"/>
+                <path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.91-2.26c-.81.54-1.84.86-3.05.86-2.35 0-4.34-1.59-5.05-3.71H.96v2.33A9 9 0 0 0 9 18z"/>
+                <path fill="#FBBC05" d="M3.95 10.71a5.4 5.4 0 0 1 0-3.42V4.96H.96a9 9 0 0 0 0 8.08l2.99-2.33z"/>
+                <path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58C13.46.89 11.43 0 9 0A9 9 0 0 0 .96 4.96l2.99 2.33C4.66 5.17 6.65 3.58 9 3.58z"/>
+              </svg>
+              Google
+            </a>
+            <a class="btn btn--social" href="#">
+              <svg class="social__icon" width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                <path fill="#F25022" d="M0 0h8.5v8.5H0z"/>
+                <path fill="#7FBA00" d="M9.5 0H18v8.5H9.5z"/>
+                <path fill="#00A4EF" d="M0 9.5h8.5V18H0z"/>
+                <path fill="#FFB900" d="M9.5 9.5H18V18H9.5z"/>
+              </svg>
+              Microsoft
+            </a>
+          </div>
+
+          <p class="consent">
+            By signing up, you agree to our <a href="#">master subscription agreement</a>
+            and <a href="#">privacy policy.</a>
+          </p>
+
+          <p class="community">
+            Looking to practice your skills? <a href="#">Join our community</a>
+          </p>
+        </form>
+      </section>
+
+      <!-- Right column: Chakra -->
+      <section class="chakra" aria-labelledby="chakra-title">
+        <div class="chakra__intro">
+          <header class="chakra__brand">
+            <img class="chakra__mark" src="assets/chakra-mark.svg" alt="" aria-hidden="true"
+                 width="54" height="50" />
+            <img class="chakra__wordmark" src="assets/chakra-wordmark.svg" alt="Chakra"
+                 id="chakra-title" width="137" height="35" />
+          </header>
+          <p class="chakra__tag">An AI interviewer that actually works</p>
+        </div>
+
+        <div class="chat">
+          <img class="chat__decoration" src="assets/chat-mandala.png" alt="" aria-hidden="true" />
+
+          <!-- Candidate speaks first (left / incoming) -->
+          <div class="msg msg--in">
+            <p class="msg__label">
+              <span class="wave" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span>
+              </span>
+              Candidate
+            </p>
+            <div class="bubble bubble--answer">
+              Phew! I’m done with the problem.
+            </div>
+          </div>
+
+          <!-- Chakra replies (right / outgoing) -->
+          <div class="msg msg--out">
+            <p class="msg__label">
+              <span class="wave" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span>
+              </span>
+              Chakra
+            </p>
+            <div class="bubble bubble--question">
+              Thanks! What was your reasoning for keeping late events in the canonical output rather than removing them?
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- ===================== Trusted-by footer ===================== -->
+  <footer class="brands">
+    <p class="brands__title">Trusted by thousands of companies</p>
+    <ul class="brands__list">
+      <li class="brand brand--airbnb">airbnb</li>
+      <li class="brand brand--stripe">stripe</li>
+      <li class="brand brand--snap">Snap Inc.</li>
+      <li class="brand brand--canva">Canva</li>
+      <li class="brand brand--atlassian">▲ ATLASSIAN</li>
+      <li class="brand brand--goldman">Goldman<br />Sachs</li>
+    </ul>
+  </footer>
+
+  <!-- ===================== Chakra / Candidate live-transcription animation ===================== -->
+  <script src="scripts/chakra-transcript.js"></script>
+</body>
+</html>

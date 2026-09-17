@@ -1,0 +1,707 @@
+/* ============================================================================
+   "Start your free trial" — sign-up page
+   ----------------------------------------------------------------------------
+   Layout follows the Figma proposal (node 73-3056): a centred sign-up form on
+   the left, a Chakra "AI interviewer" chat mock on the right, and a trusted-by
+   logo strip in the footer.
+
+   As with the sibling page, all colour, radius, type and font VALUES come from
+   the hr-design (HRDS) tokens vendored in styles/hrds/*. This sheet references
+   --* tokens, never raw hex — with two documented exceptions kept as local
+   marketing values (the Chakra question-bubble gradient and its cyan mandala),
+   which have no HRDS equivalent.
+   ============================================================================ */
+
+:root {
+  /* Bespoke Chakra marketing values (no HRDS token equivalent). */
+  --chakra-bubble-from: #e7fbff;
+  --chakra-bubble-to: #f1f1ff;
+  --chakra-mandala: #8ae9ff; /* cyan star mandala, rendered faint behind chat */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* Soft Chakra glow (cyan → soft blue → lavender) anchored at the top, fading
+     to white so the lower page — and the form — sit on clean white. A second,
+     horizontal white wash fades in toward the right so the glow eases off over
+     the Chakra chat/animation and doesn't blend with it. Recolored from the
+     sibling "See HackerRank in action" page glow to the Chakra palette. */
+  background-color: var(--background);
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.25) 0%,
+      rgba(255, 255, 255, 0.6) 52%,
+      #ffffff 88%
+    ),
+    linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 42%,
+      rgba(255, 255, 255, 0.75) 82%
+    ),
+    url("../assets/bg-gradient-chakra.svg");
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-position: center top, center top, center -220px;
+  background-size: 100% 960px, 100% 960px, 170% 820px;
+  color: var(--foreground);
+  font-family: var(--font-ds);
+  font-size: var(--hrds-text-body-lg);
+  line-height: var(--hrds-text-body-lg-lh);
+  letter-spacing: 0.16px;
+}
+
+/* v2: no background glow — plain white page. */
+body.no-gradient {
+  background-image: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ===================== Header / Nav ===================== */
+.site-header {
+  height: 64px;
+  flex-shrink: 0;
+}
+
+.nav {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 32px;
+}
+
+/* Centered V1/V2 background toggle. */
+.ver-toggle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  background: var(--tab-container);
+  border-radius: var(--hrds-radius-circle);
+}
+
+.ver-toggle__btn {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  min-width: 42px;
+  padding: 5px 14px;
+  font-family: var(--font-ds);
+  font-size: var(--hrds-text-subtitle-md);
+  line-height: var(--hrds-text-subtitle-md-lh);
+  font-weight: 500;
+  color: var(--muted-foreground);
+  background: transparent;
+  border-radius: var(--hrds-radius-circle);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.ver-toggle__btn.is-active {
+  color: var(--foreground);
+  background: var(--tab-selected);
+  box-shadow: var(--card-shadow);
+}
+
+@media (max-width: 640px) {
+  .ver-toggle {
+    display: none;
+  }
+}
+
+.nav__logo img {
+  width: 153px;
+  height: 16px;
+}
+
+/* ===================== Buttons ===================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-ds);
+  font-size: var(--hrds-text-subtitle-md);
+  line-height: var(--hrds-text-subtitle-md-lh);
+  font-weight: 500;
+  border-radius: var(--hrds-radius-xs);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.btn--outline {
+  height: 39px;
+  padding: 0 20px;
+  border-color: var(--outline-border);
+  color: var(--outline-foreground);
+  background: transparent;
+}
+
+.btn--outline:hover {
+  border-color: var(--outline-border-hover);
+}
+
+.nav__login {
+  border-radius: var(--hrds-radius-sm);
+}
+
+.btn--submit {
+  width: 100%;
+  height: 44px;
+  font-size: var(--hrds-text-subtitle-lg);
+  line-height: var(--hrds-text-subtitle-lg-lh);
+  color: var(--primary-foreground);
+  background: var(--primary);
+}
+
+.btn--submit:hover {
+  background: var(--primary-hover);
+}
+
+.btn--submit:active {
+  background: var(--primary-active);
+}
+
+.btn--social {
+  flex: 1;
+  height: 44px;
+  padding: 0 16px;
+  color: var(--foreground);
+  background: var(--background);
+  border-color: var(--outline-border);
+  font-weight: 500;
+}
+
+.btn--social:hover {
+  border-color: var(--outline-border-hover);
+}
+
+.social__icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* ===================== Page layout ===================== */
+.page {
+  flex: 1;
+  padding: 48px 32px 24px;
+}
+
+.page__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 64px;
+  align-items: center;
+}
+
+/* ===================== Sign-up (left) ===================== */
+.signup {
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  transform: translateY(48px); /* nudge the sign-up column down a little */
+}
+
+.signup__head {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+/* Marketing display heading — HRDS product scale tops out at 36/56; this
+   proposal uses a larger title, so the size is set locally while FONT + COLOUR
+   stay on HRDS tokens (Kalice via --font-heading, --foreground). */
+.signup__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 34px;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  color: var(--foreground);
+}
+
+.signup__sub {
+  margin: 8px 0 0;
+  font-size: var(--hrds-text-body-md);
+  line-height: var(--hrds-text-body-md-lh);
+  color: var(--muted-foreground);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.field__input {
+  width: 100%;
+  height: 42px;
+  padding: 0 12px;
+  font-family: var(--font-ds);
+  font-size: var(--hrds-text-body-md);
+  line-height: var(--hrds-text-body-md-lh);
+  color: var(--foreground);
+  background: var(--background);
+  border: 1px solid var(--input);
+  border-radius: var(--hrds-radius-sm);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.field__input::placeholder {
+  color: var(--muted-foreground);
+}
+
+.field__input:focus {
+  outline: none;
+  border-color: var(--ring);
+  box-shadow: 0 0 0 1px var(--ring);
+}
+
+/* ===================== "Or sign up with..." divider ===================== */
+.divider {
+  margin: 4px 0;
+  text-align: center;
+  font-size: var(--hrds-text-body-md);
+  line-height: var(--hrds-text-body-md-lh);
+  font-weight: 500;
+  color: var(--foreground);
+}
+
+.social {
+  display: flex;
+  gap: 12px;
+}
+
+/* ===================== Consent + community ===================== */
+.consent {
+  margin: 0;
+  text-align: center;
+  font-size: var(--hrds-text-body-sm);
+  line-height: var(--hrds-text-body-sm-lh);
+  color: var(--muted-foreground);
+}
+
+/* --success-foreground reads as a green link with proper contrast on white
+   (the lime --primary is too light for text on a light surface). */
+.consent a,
+.community a {
+  color: var(--success-foreground);
+  font-weight: 500;
+}
+
+.consent a:hover,
+.community a:hover {
+  text-decoration: underline;
+}
+
+.community {
+  margin: 8px 0 0;
+  padding: 12px 16px;
+  text-align: center;
+  font-size: var(--hrds-text-body-sm);
+  line-height: var(--hrds-text-body-sm-lh);
+  color: var(--muted-foreground);
+  background: var(--muted);
+  border-radius: var(--hrds-radius-sm);
+}
+
+/* ===================== Chakra (right) ===================== */
+.chakra {
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto; /* center in its column so it mirrors the left form */
+}
+
+/* The brand + tagline land centered in the panel, then rise to the top to
+   reveal the conversation. JS sets the initial offset; the transition is only
+   switched on (via .is-rising) for the upward move, so the landing is instant. */
+.chakra__intro {
+  will-change: transform;
+}
+
+.js .chakra__intro.is-rising {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.chakra__brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.chakra__mark {
+  width: 40px;
+  height: 37px;
+}
+
+.chakra__wordmark {
+  width: 102px;
+  height: 26px;
+}
+
+.chakra__tag {
+  margin: 6px 0 0;
+  text-align: center;
+  font-size: var(--hrds-text-subtitle-lg);
+  line-height: var(--hrds-text-subtitle-lg-lh);
+  color: var(--muted-foreground);
+}
+
+/* ----- Chat ----- */
+.chat {
+  position: relative;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Faint dotted mandala sitting behind the speech bubbles. */
+.chat__decoration {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 440px;
+  height: auto;
+  transform: translate(-50%, -50%);
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.msg {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 100%;
+}
+
+/* With JS, each message (label + bubble) stays hidden until its speaker takes
+   a turn, then fades/rises in. Space is still reserved by the bubble's sizer,
+   so revealing a message doesn't shove the others around. */
+.js .msg {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.js .msg.is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+.msg--in {
+  align-self: flex-start;
+  align-items: flex-start;
+}
+
+.msg--out {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.msg__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: var(--hrds-text-subtitle-md);
+  line-height: var(--hrds-text-subtitle-md-lh);
+  color: var(--foreground);
+}
+
+/* Mini waveform glyph (3 bars: 9 / 16 / 9), rebuilt from the Figma shapes. */
+.wave {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: 16px;
+}
+
+.wave span {
+  width: 2.5px;
+  border-radius: var(--hrds-radius-circle);
+  background: var(--foreground);
+}
+
+/* Resting waveform: a static symmetric shape. */
+.wave span:nth-child(1),
+.wave span:nth-child(5) {
+  height: 4px;
+}
+.wave span:nth-child(2),
+.wave span:nth-child(4) {
+  height: 7px;
+}
+.wave span:nth-child(3) {
+  height: 11px;
+}
+
+/* Active speaker: an organic equalizer that reads as live audio being
+   transcribed — present but understated so it never out-shouts the form. Each
+   bar runs at its own tempo with a negative delay so they start out of phase. */
+.msg.is-speaking .wave span {
+  animation: eq 0.7s ease-in-out infinite;
+}
+.msg.is-speaking .wave span:nth-child(1) {
+  animation-duration: 0.76s;
+  animation-delay: -0.2s;
+}
+.msg.is-speaking .wave span:nth-child(2) {
+  animation-duration: 0.58s;
+  animation-delay: -0.42s;
+}
+.msg.is-speaking .wave span:nth-child(3) {
+  animation-duration: 0.7s;
+  animation-delay: -0.1s;
+}
+.msg.is-speaking .wave span:nth-child(4) {
+  animation-duration: 0.54s;
+  animation-delay: -0.32s;
+}
+.msg.is-speaking .wave span:nth-child(5) {
+  animation-duration: 0.74s;
+  animation-delay: -0.05s;
+}
+
+@keyframes eq {
+  0%,
+  100% {
+    height: 4px;
+  }
+  50% {
+    height: 11px;
+  }
+}
+
+.bubble {
+  max-width: min(490px, 100%); /* hug content; wrap long lines at the Figma width */
+  display: grid; /* sizer + live text stack in one cell (see .tw-* below) */
+  padding: 16px;
+  border-radius: var(--hrds-radius-xl);
+  font-family: var(--font-heading);
+  font-size: var(--hrds-text-title-sm);
+  line-height: 1.5;
+}
+
+.bubble--question {
+  color: var(--foreground);
+  background: linear-gradient(to bottom, var(--chakra-bubble-from), var(--chakra-bubble-to) 78%);
+}
+
+/* ----- Live transcription (typewriter) ----- *
+ * A hidden sizer holds the bubble at its final size so nothing reflows while
+ * the text types in; the visible text is layered over it and a caret blinks
+ * at the write head. Both layers are created by JS, so the plain text stays
+ * intact when JS is disabled. */
+/* Sizer + live text share one grid cell, so they get identical width and wrap
+   identically: the sizer reserves the final box (no reflow) while the live
+   text types in on top of it. */
+.tw-sizer,
+.tw-text {
+  grid-area: 1 / 1;
+  min-width: 0;
+}
+
+.tw-sizer {
+  visibility: hidden;
+}
+
+/* Each streamed word fades in on insertion via its own animation (reliable —
+   no class-toggle timing to miss). The fade is longer than the inter-word
+   delay, so words overlap into one continuous stream instead of discrete pops. */
+.tw-word {
+  animation: word-in 0.6s ease-out both;
+}
+
+@keyframes word-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
+.bubble--answer {
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+}
+
+/* ===================== Trusted-by footer ===================== */
+.brands {
+  flex-shrink: 0;
+  padding: 24px 32px 48px;
+  text-align: center;
+}
+
+.brands__title {
+  margin: 0 0 20px;
+  font-size: var(--hrds-text-body-sm);
+  line-height: var(--hrds-text-body-sm-lh);
+  color: var(--muted-foreground);
+}
+
+.brands__list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 24px 56px;
+  color: var(--muted-foreground);
+  opacity: 0.75;
+}
+
+/* Brand names are rendered as styled wordmarks — the Figma bakes these logos
+   into a flattened screenshot, so no vector assets exist to export. */
+.brand {
+  font-size: 22px;
+  line-height: 1.1;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.brand--airbnb,
+.brand--stripe {
+  text-transform: lowercase;
+}
+
+.brand--snap {
+  font-family: var(--font-heading);
+  font-weight: 700;
+}
+
+.brand--canva {
+  font-family: var(--font-heading);
+  font-style: italic;
+}
+
+.brand--atlassian {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.brand--goldman {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  line-height: 1.15;
+}
+
+/* ===================== Responsive ===================== */
+@media (max-width: 1024px) {
+  .page__inner {
+    grid-template-columns: 1fr;
+    row-gap: 56px;
+    max-width: 560px;
+  }
+
+  .chakra {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 32px 20px 16px;
+  }
+
+  .nav {
+    padding: 0 20px;
+  }
+
+  .brands__list {
+    gap: 20px 32px;
+  }
+
+  .brand {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 560px) {
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+
+  .social {
+    flex-direction: column;
+  }
+
+  .msg {
+    max-width: 100%;
+  }
+}
+
+/* ===================== Motion preferences ===================== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
