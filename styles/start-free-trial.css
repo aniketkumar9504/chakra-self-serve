@@ -17,7 +17,8 @@
   --chakra-bubble-from: #e7fbff;
   --chakra-bubble-to: #f1f1ff;
   --chakra-mandala: #8ae9ff; /* cyan star mandala, rendered faint behind chat */
-  --chakra-dark: #0e1526; /* dark right-pane surface (deep navy) */
+  --chakra-dark: #1a1a1a; /* near-black Chakra card surface */
+  --chakra-bubble-dark: #0b0b0c; /* candidate bubble on the dark card */
 }
 
 *,
@@ -74,15 +75,11 @@ body {
   background-size: 100% 820px, 150% 720px;
 }
 
-/* RIGHT — dark Chakra showcase with a faint cyan glow behind the logo. */
+/* RIGHT — a dark rounded Chakra card floating on white. */
 .pane--right {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 48px;
-  background:
-    radial-gradient(80% 55% at 50% 32%, rgba(138, 233, 255, 0.12), transparent 62%),
-    var(--chakra-dark);
+  padding: 40px 40px 40px 8px;
+  background: var(--background);
 }
 
 /* The sign-up form sits centered in the space between nav and logos. */
@@ -331,16 +328,27 @@ ul {
   border-radius: var(--hrds-radius-sm);
 }
 
-/* ===================== Chakra (right / dark pane) ===================== */
+/* ===================== Chakra (right / dark card) ===================== */
 .chakra {
-  width: 100%;
-  max-width: 560px;
+  position: relative;
+  overflow: hidden; /* clip the mandala arcs to the card */
+  flex: 1;
+  max-width: 780px;
+  align-self: stretch; /* fill the pane height as a tall card */
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 96px 48px 56px;
+  background: var(--chakra-dark);
+  border-radius: 28px;
 }
 
-/* The brand + tagline land centered in the panel, then rise to the top to
-   reveal the conversation. JS sets the initial offset; the transition is only
-   switched on (via .is-rising) for the upward move, so the landing is instant. */
+/* The brand + tagline land centered in the card, then rise up to reveal the
+   conversation. JS sets the initial offset; the transition is only switched on
+   (via .is-rising) for the upward move, so the landing is instant. */
 .chakra__intro {
+  position: relative;
+  z-index: 1;
   will-change: transform;
 }
 
@@ -399,15 +407,16 @@ ul {
   gap: 24px;
 }
 
-/* Faint dotted mandala sitting behind the speech bubbles. */
+/* Faint dotted mandala — arcs radiating around the logo at the top of the card
+   (its center sits near the brand; the card's overflow clips the top). */
 .chat__decoration {
   position: absolute;
-  top: 50%;
+  top: 40px;
   left: 50%;
-  width: 380px;
+  width: 720px;
   height: auto;
   transform: translate(-50%, -50%);
-  opacity: 0.9;
+  opacity: 0.32;
   pointer-events: none;
   z-index: 0;
 }
@@ -598,15 +607,11 @@ ul {
   background: rgba(255, 255, 255, 0.85);
 }
 
-.pane--right .chat__decoration {
-  opacity: 0.28;
-}
-
-/* Candidate reply: a quiet translucent bubble on dark (was white on light). */
+/* Candidate reply: a solid near-black bubble on the dark card. */
 .pane--right .bubble--answer {
-  color: rgba(255, 255, 255, 0.92);
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.95);
+  background: var(--chakra-bubble-dark);
+  border-color: transparent;
 }
 
 /* ===================== Trusted-by logos (left pane, bottom) ===================== */
