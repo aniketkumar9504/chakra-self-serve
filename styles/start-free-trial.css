@@ -78,6 +78,8 @@ body {
 /* RIGHT — a dark rounded Chakra card floating on white. */
 .pane--right {
   display: flex;
+  align-items: center; /* float the card, centered vertically */
+  justify-content: center;
   padding: 40px 40px 40px 8px;
   background: var(--background);
 }
@@ -332,13 +334,12 @@ ul {
 .chakra {
   position: relative;
   overflow: hidden; /* clip the mandala arcs to the card */
-  flex: 1;
+  width: 100%;
   max-width: 780px;
-  align-self: stretch; /* fill the pane height as a tall card */
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  padding: 96px 48px 56px;
+  padding: 120px 48px 48px; /* top room for the arcs; logo sits below them */
   background: var(--chakra-dark);
   border-radius: 28px;
 }
@@ -401,7 +402,8 @@ ul {
 /* ----- Chat ----- */
 .chat {
   position: relative;
-  margin-top: 40px;
+  z-index: 1; /* bubbles sit above the mandala */
+  margin-top: 48px; /* drop the bubbles lower, clear of the arcs */
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -411,12 +413,12 @@ ul {
    (its center sits near the brand; the card's overflow clips the top). */
 .chat__decoration {
   position: absolute;
-  top: 40px;
+  top: -160px; /* dome of arcs sits at the very top, behind the logo + tagline */
   left: 50%;
-  width: 720px;
+  width: 820px;
   height: auto;
   transform: translate(-50%, -50%);
-  opacity: 0.32;
+  opacity: 0.3;
   pointer-events: none;
   z-index: 0;
 }
