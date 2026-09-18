@@ -510,7 +510,7 @@ ul {
 }
 
 .bubble {
-  max-width: min(490px, 100%); /* hug content; wrap long lines at the Figma width */
+  max-width: min(400px, 100%); /* hug content; wrap so bubbles stay compact */
   display: grid; /* sizer + live text stack in one cell (see .tw-* below) */
   padding: 16px;
   border-radius: var(--hrds-radius-xl);
