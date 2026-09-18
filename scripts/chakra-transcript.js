@@ -1,23 +1,4 @@
-// Chakra live-transcription animation + the header V1/V2 background toggle.
-
-// V1/V2 toggle: V1 = Chakra background glow, V2 = plain white (`no-gradient`).
-(function () {
-  var toggle = document.querySelector(".ver-toggle");
-  if (!toggle) return;
-  toggle.addEventListener("click", function (e) {
-    var btn = e.target.closest(".ver-toggle__btn");
-    if (!btn) return;
-    document.body.classList.toggle("no-gradient", btn.dataset.ver === "2");
-    var btns = toggle.querySelectorAll(".ver-toggle__btn");
-    for (var b = 0; b < btns.length; b++) {
-      var active = btns[b] === btn;
-      btns[b].classList.toggle("is-active", active);
-      btns[b].setAttribute("aria-pressed", active ? "true" : "false");
-    }
-  });
-})();
-
-// Live-transcription animation.
+// Chakra live-transcription animation.
 (function () {
   // Respect reduced-motion: reveal the whole conversation at once with the
   // full text static — no typing, no waveform motion.

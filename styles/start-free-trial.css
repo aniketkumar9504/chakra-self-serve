@@ -67,11 +67,6 @@ body {
   letter-spacing: 0.16px;
 }
 
-/* v2: no background glow — plain white page. */
-body.no-gradient {
-  background-image: none;
-}
-
 a {
   color: inherit;
   text-decoration: none;
@@ -107,53 +102,11 @@ ul {
 }
 
 .nav {
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 100%;
   padding: 0 32px;
-}
-
-/* Centered V1/V2 background toggle. */
-.ver-toggle {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  display: inline-flex;
-  gap: 2px;
-  padding: 3px;
-  background: var(--tab-container);
-  border-radius: var(--hrds-radius-circle);
-}
-
-.ver-toggle__btn {
-  appearance: none;
-  border: 0;
-  cursor: pointer;
-  min-width: 42px;
-  padding: 5px 14px;
-  font-family: var(--font-ds);
-  font-size: var(--hrds-text-subtitle-md);
-  line-height: var(--hrds-text-subtitle-md-lh);
-  font-weight: 500;
-  color: var(--muted-foreground);
-  background: transparent;
-  border-radius: var(--hrds-radius-circle);
-  transition: background-color 0.15s ease, color 0.15s ease;
-}
-
-.ver-toggle__btn.is-active {
-  color: var(--foreground);
-  background: var(--tab-selected);
-  box-shadow: var(--card-shadow);
-}
-
-@media (max-width: 640px) {
-  .ver-toggle {
-    display: none;
-  }
 }
 
 .nav__logo img {
@@ -441,7 +394,7 @@ ul {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 440px;
+  width: 320px;
   height: auto;
   transform: translate(-50%, -50%);
   opacity: 0.9;
