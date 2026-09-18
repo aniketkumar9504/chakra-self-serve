@@ -428,11 +428,13 @@ ul {
 .msg--in {
   align-self: flex-start;
   align-items: flex-start;
+  margin-left: 24px; /* nudge Chakra slightly inward (right) */
 }
 
 .msg--out {
   align-self: flex-end;
   align-items: flex-end;
+  margin-right: 24px; /* nudge Candidate slightly inward (left) */
 }
 
 .msg__label {
