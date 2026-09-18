@@ -38,6 +38,21 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
+  /* Soft Chakra glow spanning the WHOLE page (cyan → soft blue → lavender),
+     anchored at the top and fading to white — continuous across both sides,
+     showing through around the floating dark card. */
+  background-color: var(--background);
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.28) 0%,
+      rgba(255, 255, 255, 0.6) 52%,
+      #ffffff 90%
+    ),
+    url("../assets/bg-gradient-chakra.svg");
+  background-repeat: no-repeat, no-repeat;
+  background-position: center top, center -240px;
+  background-size: 100% 900px, 135% 780px;
   color: var(--foreground);
   font-family: var(--font-ds);
   font-size: var(--hrds-text-body-lg);
@@ -57,31 +72,20 @@ body {
   min-height: 100vh;
 }
 
-/* LEFT — white, carrying the soft Chakra glow at the top (fading to white). */
+/* LEFT — sign-up column; the page glow shows through (transparent). */
 .pane--left {
   display: flex;
   flex-direction: column;
-  background-color: var(--background);
-  background-image:
-    linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0.3) 0%,
-      rgba(255, 255, 255, 0.62) 52%,
-      #ffffff 88%
-    ),
-    url("../assets/bg-gradient-chakra.svg");
-  background-repeat: no-repeat, no-repeat;
-  background-position: center top, center -220px;
-  background-size: 100% 820px, 150% 720px;
+  background: transparent;
 }
 
-/* RIGHT — a dark rounded Chakra card floating on white. */
+/* RIGHT — dark rounded Chakra card floating over the continuous page glow. */
 .pane--right {
   display: flex;
   align-items: center; /* float the card, centered vertically */
   justify-content: center;
   padding: 40px 40px 40px 8px;
-  background: var(--background);
+  background: transparent;
 }
 
 /* The sign-up form sits centered in the space between nav and logos. */
@@ -90,7 +94,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px 32px 32px;
+  padding: 64px 32px 24px; /* top room to clear the floating header */
 }
 
 a {
@@ -122,9 +126,14 @@ ul {
 }
 
 /* ===================== Header / Nav ===================== */
+/* Full-width bar floating over the top of the page: logo left, Login top-right. */
 .site-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
   height: 64px;
-  flex-shrink: 0;
 }
 
 .nav {
