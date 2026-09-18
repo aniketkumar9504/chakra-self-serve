@@ -17,6 +17,7 @@
   --chakra-bubble-from: #e7fbff;
   --chakra-bubble-to: #f1f1ff;
   --chakra-mandala: #8ae9ff; /* cyan star mandala, rendered faint behind chat */
+  --chakra-dark: #0e1526; /* dark right-pane surface (deep navy) */
 }
 
 *,
@@ -36,35 +37,61 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  /* Soft Chakra glow (cyan → soft blue → lavender) anchored at the top, fading
-     to white so the lower page — and the form — sit on clean white. A second,
-     horizontal white wash fades in toward the right so the glow eases off over
-     the Chakra chat/animation and doesn't blend with it. Recolored from the
-     sibling "See HackerRank in action" page glow to the Chakra palette. */
-  background-color: var(--background);
-  background-image:
-    linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0.25) 0%,
-      rgba(255, 255, 255, 0.6) 52%,
-      #ffffff 88%
-    ),
-    linear-gradient(
-      to right,
-      rgba(255, 255, 255, 0) 42%,
-      rgba(255, 255, 255, 0.75) 82%
-    ),
-    url("../assets/bg-gradient-chakra.svg");
-  background-repeat: no-repeat, no-repeat, no-repeat;
-  background-position: center top, center top, center -220px;
-  background-size: 100% 960px, 100% 960px, 170% 820px;
   color: var(--foreground);
   font-family: var(--font-ds);
   font-size: var(--hrds-text-body-lg);
   line-height: var(--hrds-text-body-lg-lh);
   letter-spacing: 0.16px;
+}
+
+/* ===================== Two-pane split ===================== */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+}
+
+.pane {
+  position: relative;
+  min-height: 100vh;
+}
+
+/* LEFT — white, carrying the soft Chakra glow at the top (fading to white). */
+.pane--left {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background);
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.3) 0%,
+      rgba(255, 255, 255, 0.62) 52%,
+      #ffffff 88%
+    ),
+    url("../assets/bg-gradient-chakra.svg");
+  background-repeat: no-repeat, no-repeat;
+  background-position: center top, center -220px;
+  background-size: 100% 820px, 150% 720px;
+}
+
+/* RIGHT — dark Chakra showcase with a faint cyan glow behind the logo. */
+.pane--right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  background:
+    radial-gradient(80% 55% at 50% 32%, rgba(138, 233, 255, 0.12), transparent 62%),
+    var(--chakra-dark);
+}
+
+/* The sign-up form sits centered in the space between nav and logos. */
+.signup-area {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 32px 32px;
 }
 
 a {
@@ -183,27 +210,11 @@ ul {
   flex-shrink: 0;
 }
 
-/* ===================== Page layout ===================== */
-.page {
-  flex: 1;
-  padding: 48px 32px 24px;
-}
-
-.page__inner {
-  max-width: 1280px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 64px;
-  align-items: center;
-}
-
 /* ===================== Sign-up (left) ===================== */
 .signup {
   width: 100%;
   max-width: 360px;
   margin: 0 auto;
-  transform: translateY(48px); /* nudge the sign-up column down a little */
 }
 
 .signup__head {
@@ -320,12 +331,10 @@ ul {
   border-radius: var(--hrds-radius-sm);
 }
 
-/* ===================== Chakra (right) ===================== */
+/* ===================== Chakra (right / dark pane) ===================== */
 .chakra {
   width: 100%;
   max-width: 560px;
-  margin: 0 auto; /* center in its column so it mirrors the left form */
-  transform: translateY(48px); /* match the sign-up column's downward nudge */
 }
 
 /* The brand + tagline land centered in the panel, then rise to the top to
@@ -568,15 +577,47 @@ ul {
   border: 1px solid var(--border);
 }
 
-/* ===================== Trusted-by footer ===================== */
+/* ===================== Dark right pane — recolor Chakra content ===================== *
+ * The animation and layout are unchanged; only colours flip for the dark
+ * surface. The Chakra gradient bubble and the "New" badge stay light (they pop
+ * on dark); the wordmark, tagline, labels, waveform, mandala and the candidate
+ * bubble adopt light-on-dark tones. */
+.pane--right .chakra__wordmark {
+  filter: brightness(0) invert(1); /* black wordmark → white on dark */
+}
+
+.pane--right .chakra__tag {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.pane--right .msg__label {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.pane--right .wave span {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.pane--right .chat__decoration {
+  opacity: 0.28;
+}
+
+/* Candidate reply: a quiet translucent bubble on dark (was white on light). */
+.pane--right .bubble--answer {
+  color: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+/* ===================== Trusted-by logos (left pane, bottom) ===================== */
 .brands {
   flex-shrink: 0;
-  padding: 24px 32px 48px;
+  padding: 8px 32px 40px;
   text-align: center;
 }
 
 .brands__title {
-  margin: 0 0 20px;
+  margin: 0 0 16px;
   font-size: var(--hrds-text-body-sm);
   line-height: var(--hrds-text-body-sm-lh);
   color: var(--muted-foreground);
@@ -587,15 +628,16 @@ ul {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 24px 56px;
+  gap: 14px 28px;
   color: var(--muted-foreground);
   opacity: 0.75;
 }
 
 /* Brand names are rendered as styled wordmarks — the Figma bakes these logos
-   into a flattened screenshot, so no vector assets exist to export. */
+   into a flattened screenshot, so no vector assets exist to export. Sized to
+   fit the narrower left pane. */
 .brand {
-  font-size: 22px;
+  font-size: 17px;
   line-height: 1.1;
   font-weight: 600;
   white-space: nowrap;
@@ -623,38 +665,33 @@ ul {
 
 .brand--goldman {
   font-family: var(--font-heading);
-  font-size: 15px;
+  font-size: 13px;
   line-height: 1.15;
 }
 
 /* ===================== Responsive ===================== */
-@media (max-width: 1024px) {
-  .page__inner {
+@media (max-width: 960px) {
+  /* Stack the panes: white sign-up on top, dark Chakra showcase below. */
+  .split {
     grid-template-columns: 1fr;
-    row-gap: 56px;
-    max-width: 560px;
   }
 
-  .chakra {
-    margin: 0 auto;
+  .pane {
+    min-height: auto;
+  }
+
+  .pane--right {
+    padding: 56px 24px;
   }
 }
 
 @media (max-width: 768px) {
-  .page {
-    padding: 32px 20px 16px;
-  }
-
   .nav {
     padding: 0 20px;
   }
 
-  .brands__list {
-    gap: 20px 32px;
-  }
-
-  .brand {
-    font-size: 18px;
+  .signup-area {
+    padding: 8px 20px 24px;
   }
 }
 

@@ -22,21 +22,20 @@
   </script>
 </head>
 <body>
-  <!-- ===================== Header / Nav ===================== -->
-  <header class="site-header">
-    <nav class="nav" aria-label="Primary">
-      <a class="nav__logo" href="#" aria-label="HackerRank home">
-        <img src="assets/logo-dark.svg" alt="HackerRank" width="153" height="16" />
-      </a>
-      <a class="btn btn--outline nav__login" href="#">Login</a>
-    </nav>
-  </header>
+  <div class="split">
+    <!-- ===================== LEFT (white): nav + sign-up + logos ===================== -->
+    <section class="pane pane--left">
+      <header class="site-header">
+        <nav class="nav" aria-label="Primary">
+          <a class="nav__logo" href="#" aria-label="HackerRank home">
+            <img src="assets/logo-dark.svg" alt="HackerRank" width="153" height="16" />
+          </a>
+          <a class="btn btn--outline nav__login" href="#">Login</a>
+        </nav>
+      </header>
 
-  <!-- ===================== Main ===================== -->
-  <main class="page">
-    <div class="page__inner">
-      <!-- Left column: sign-up -->
-      <section class="signup" aria-labelledby="signup-title">
+      <main class="signup-area">
+        <section class="signup" aria-labelledby="signup-title">
         <div class="signup__head">
           <h1 class="signup__title" id="signup-title">Start your free trial</h1>
           <p class="signup__sub">No credit card required. Sign up with your work email.</p>
@@ -96,9 +95,25 @@
             Looking to practice your skills? <a href="#">Join our community</a>
           </p>
         </form>
-      </section>
+        </section>
+      </main>
 
-      <!-- Right column: Chakra -->
+      <!-- Trusted-by logos live on the white left side -->
+      <footer class="brands">
+        <p class="brands__title">Trusted by thousands of companies</p>
+        <ul class="brands__list">
+          <li class="brand brand--airbnb">airbnb</li>
+          <li class="brand brand--stripe">stripe</li>
+          <li class="brand brand--snap">Snap Inc.</li>
+          <li class="brand brand--canva">Canva</li>
+          <li class="brand brand--atlassian">▲ ATLASSIAN</li>
+          <li class="brand brand--goldman">Goldman<br />Sachs</li>
+        </ul>
+      </footer>
+    </section>
+
+    <!-- ===================== RIGHT (dark): Chakra animation ===================== -->
+    <section class="pane pane--right">
       <section class="chakra" aria-labelledby="chakra-title">
         <div class="chakra__intro">
           <header class="chakra__brand">
@@ -114,7 +129,7 @@
         <div class="chat">
           <img class="chat__decoration" src="assets/chat-mandala.png" alt="" aria-hidden="true" />
 
-          <!-- Chakra speaks first (left / incoming, top) -->
+          <!-- Chakra speaks first (top) -->
           <div class="msg msg--in">
             <p class="msg__label">
               <span class="wave" aria-hidden="true">
@@ -127,7 +142,7 @@
             </div>
           </div>
 
-          <!-- Candidate replies (right / outgoing, bottom) -->
+          <!-- Candidate replies (bottom) -->
           <div class="msg msg--out">
             <p class="msg__label">
               <span class="wave" aria-hidden="true">
@@ -141,21 +156,8 @@
           </div>
         </div>
       </section>
-    </div>
-  </main>
-
-  <!-- ===================== Trusted-by footer ===================== -->
-  <footer class="brands">
-    <p class="brands__title">Trusted by thousands of companies</p>
-    <ul class="brands__list">
-      <li class="brand brand--airbnb">airbnb</li>
-      <li class="brand brand--stripe">stripe</li>
-      <li class="brand brand--snap">Snap Inc.</li>
-      <li class="brand brand--canva">Canva</li>
-      <li class="brand brand--atlassian">▲ ATLASSIAN</li>
-      <li class="brand brand--goldman">Goldman<br />Sachs</li>
-    </ul>
-  </footer>
+    </section>
+  </div>
 
   <!-- ===================== Chakra / Candidate live-transcription animation ===================== -->
   <script src="scripts/chakra-transcript.js"></script>
