@@ -54,21 +54,17 @@
             <p class="product-select__subline">
               Attend a live, personalized demo with one of our product experts.
             </p>
-            <div class="product-select__grid">
+            <div class="product-select__groups">
+              <p class="product-select__group-title product-select__group-title--main">Which product would you like a demo of?</p>
+              <p class="product-select__group-title product-select__group-title--dev">For developers</p>
+
               <label class="product-card" data-product="chakra">
                 <input class="product-card__input" type="radio" name="product" value="Chakra" checked />
                 <span class="product-card__media product-card__media--chakra">
                   <img src="assets/products/chakra.svg" alt="" aria-hidden="true" />
                 </span>
                 <span class="product-card__label">Chakra</span>
-              </label>
-
-              <label class="product-card" data-product="screen">
-                <input class="product-card__input" type="radio" name="product" value="Screen" />
-                <span class="product-card__media product-card__media--screen">
-                  <img src="assets/products/screen.svg" alt="" aria-hidden="true" />
-                </span>
-                <span class="product-card__label">Screen</span>
+                <span class="product-card__desc">AI interviews<br />that actually work</span>
               </label>
 
               <label class="product-card" data-product="interview">
@@ -77,6 +73,7 @@
                   <img src="assets/products/interview.svg" alt="" aria-hidden="true" />
                 </span>
                 <span class="product-card__label">Interview</span>
+                <span class="product-card__desc">Pair-programming<br />interviews for devs</span>
               </label>
 
               <label class="product-card" data-product="all">
@@ -85,6 +82,18 @@
                   <img src="assets/products/allproducts.svg" alt="" aria-hidden="true" />
                 </span>
                 <span class="product-card__label">All Products</span>
+                <span class="product-card__desc">Chakra, Screen<br />&amp; Interview demos</span>
+              </label>
+
+              <div class="product-select__divider" aria-hidden="true"></div>
+
+              <label class="product-card" data-product="community">
+                <input class="product-card__input" type="radio" name="product" value="Community" />
+                <span class="product-card__media product-card__media--community">
+                  <img src="assets/products/community.svg" alt="" aria-hidden="true" />
+                </span>
+                <span class="product-card__label">Community</span>
+                <span class="product-card__desc">Prep for your<br />dream dev job</span>
               </label>
             </div>
           </fieldset>
@@ -134,6 +143,23 @@
             </div>
 
             <div class="field">
+              <label class="field__label" for="rolesHiring">How many technical roles is your company hiring?*</label>
+              <div class="select">
+                <select class="select__control" id="rolesHiring" name="rolesHiring" required>
+                  <option value="" selected disabled hidden>Please Select</option>
+                  <option value="unsure">Unsure</option>
+                  <option value="1-9">1&ndash;9</option>
+                  <option value="10-30">10&ndash;30</option>
+                  <option value="31-99">31&ndash;99</option>
+                  <option value="100-249">100&ndash;249</option>
+                  <option value="250-499">250&ndash;499</option>
+                  <option value="500+">500+</option>
+                </select>
+                <img class="select__arrow" src="assets/select-arrow.svg" alt="" aria-hidden="true" />
+              </div>
+            </div>
+
+            <div class="field">
               <label class="field__label" for="country">Country*</label>
               <div class="select">
                 <select class="select__control" id="country" name="country" required>
@@ -159,12 +185,28 @@
 
             <button class="btn btn--submit" type="submit">Schedule A Demo</button>
           </form>
+
+          <!-- Community: shown instead of the demo form when Community is chosen -->
+          <section class="community-panel" id="communityPanel" hidden aria-label="HackerRank Community">
+            <span class="community-panel__logo">
+              <img src="assets/products/community.svg" alt="" aria-hidden="true" />
+            </span>
+            <h2 class="community-panel__title">Join the HackerRank Community</h2>
+            <p class="community-panel__text">
+              Practice, compete, and prepare for your dream job alongside millions
+              of developers &mdash; no demo required.
+            </p>
+            <div class="community-panel__actions">
+              <a class="btn btn--community" href="https://www.hackerrank.com/community">Sign up to Community</a>
+              <a class="community-panel__link" href="https://www.hackerrank.com/community">Learn more &rarr;</a>
+            </div>
+          </section>
         </div>
       </div>
     </section>
 
   </main>
 
-  <script src="scripts/app.js"></script>
+  <script src="scripts/app.js?v=2"></script>
 </body>
 </html>
