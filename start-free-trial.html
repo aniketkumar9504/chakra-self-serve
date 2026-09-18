@@ -114,21 +114,8 @@
         <div class="chat">
           <img class="chat__decoration" src="assets/chat-mandala.png" alt="" aria-hidden="true" />
 
-          <!-- Candidate speaks first (left / incoming) -->
+          <!-- Chakra speaks first (left / incoming, top) -->
           <div class="msg msg--in">
-            <p class="msg__label">
-              <span class="wave" aria-hidden="true">
-                <span></span><span></span><span></span><span></span><span></span>
-              </span>
-              Candidate
-            </p>
-            <div class="bubble bubble--answer">
-              Phew! I’m done with the problem.
-            </div>
-          </div>
-
-          <!-- Chakra replies (right / outgoing) -->
-          <div class="msg msg--out">
             <p class="msg__label">
               <span class="wave" aria-hidden="true">
                 <span></span><span></span><span></span><span></span><span></span>
@@ -136,7 +123,20 @@
               Chakra
             </p>
             <div class="bubble bubble--question">
-              Thanks! What was your reasoning for keeping late events in the canonical output rather than removing them?
+              So you’re treating lateness as a quality signal, not invalidity. How did you verify those late events actually got used in session reconstruction — did they participate in the timeline?
+            </div>
+          </div>
+
+          <!-- Candidate replies (right / outgoing, bottom) -->
+          <div class="msg msg--out">
+            <p class="msg__label">
+              <span class="wave" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span>
+              </span>
+              Candidate
+            </p>
+            <div class="bubble bubble--answer">
+              Yeah — in the test pipeline we took out-of-order events across mobile, web, and TV, sorted them by event time into a valid session timeline, and the reconstruction metrics confirmed it.
             </div>
           </div>
         </div>
