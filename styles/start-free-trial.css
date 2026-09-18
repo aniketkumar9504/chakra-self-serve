@@ -325,6 +325,7 @@ ul {
   width: 100%;
   max-width: 560px;
   margin: 0 auto; /* center in its column so it mirrors the left form */
+  transform: translateY(48px); /* match the sign-up column's downward nudge */
 }
 
 /* The brand + tagline land centered in the panel, then rise to the top to
