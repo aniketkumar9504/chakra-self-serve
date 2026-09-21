@@ -748,13 +748,15 @@ ul {
   .chakra-compact {
     width: calc(100% - 48px);
     max-width: 520px;
-    min-height: 72px;
+    min-height: 0;
     margin: 0 auto 28px;
-    padding: 16px 20px;
+    padding: 20px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 18px;
+    gap: 8px;
+    text-align: center;
     color: rgba(255, 255, 255, 0.94);
     background: var(--chakra-dark);
     border-radius: var(--hrds-radius-xl);
@@ -793,105 +795,9 @@ ul {
 
   .chakra-compact__tag {
     margin: 0;
-    padding-left: 18px;
-    border-left: 1px solid rgba(255, 255, 255, 0.18);
     font-size: var(--hrds-text-body-sm);
     line-height: var(--hrds-text-body-sm-lh);
     color: rgba(255, 255, 255, 0.64);
-  }
-
-  .brands {
-    padding: 0 24px 32px;
-  }
-
-  .brands__list {
-    max-width: 620px;
-    margin: 0 auto;
-  }
-}
-
-@media (max-width: 768px) {
-  .nav {
-    padding: 0 20px;
-  }
-
-  .signup-area {
-    padding-right: 20px;
-    padding-left: 20px;
-  }
-
-  .chakra-compact {
-    width: calc(100% - 40px);
-  }
-}
-
-@media (max-width: 560px) {
-  .site-header {
-    height: 72px;
-  }
-
-  .nav {
-    padding: 0 20px;
-  }
-
-  .nav__logo img {
-    width: clamp(126px, 38vw, 146px);
-    height: auto;
-  }
-
-  .nav__login {
-    height: 40px;
-    padding: 0 16px;
-  }
-
-  .signup-area {
-    padding: 92px 20px 24px;
-  }
-
-  .signup__head {
-    margin-bottom: 20px;
-  }
-
-  .signup__title {
-    font-size: clamp(30px, 9.5vw, 34px);
-  }
-
-  .signup__sub {
-    max-width: 310px;
-    margin-right: auto;
-    margin-left: auto;
-  }
-
-  .field-row {
-    grid-template-columns: 1fr;
-  }
-
-  .social {
-    flex-direction: column;
-  }
-
-  .btn--social {
-    flex: 0 0 44px;
-    width: 100%;
-  }
-
-  .msg {
-    max-width: 100%;
-  }
-
-  .chakra-compact {
-    width: calc(100% - 40px);
-    min-height: 0;
-    margin-bottom: 28px;
-    padding: 20px;
-    flex-direction: column;
-    gap: 8px;
-    text-align: center;
-  }
-
-  .chakra-compact__tag {
-    padding-left: 0;
-    border-left: 0;
   }
 
   .chakra-compact__chat {
@@ -974,6 +880,85 @@ ul {
     color: rgba(255, 255, 255, 0.94);
     background: var(--chakra-bubble-dark);
     border: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  .brands {
+    padding: 0 24px 32px;
+  }
+
+  .brands__list {
+    max-width: 620px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav {
+    padding: 0 20px;
+  }
+
+  .signup-area {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .chakra-compact {
+    width: calc(100% - 40px);
+  }
+}
+
+@media (max-width: 560px) {
+  .site-header {
+    height: 72px;
+  }
+
+  .nav {
+    padding: 0 20px;
+  }
+
+  .nav__logo img {
+    width: clamp(126px, 38vw, 146px);
+    height: auto;
+  }
+
+  .nav__login {
+    height: 40px;
+    padding: 0 16px;
+  }
+
+  .signup-area {
+    padding: 92px 20px 24px;
+  }
+
+  .signup__head {
+    margin-bottom: 20px;
+  }
+
+  .signup__title {
+    font-size: clamp(30px, 9.5vw, 34px);
+  }
+
+  .signup__sub {
+    max-width: 310px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+
+  .social {
+    flex-direction: column;
+  }
+
+  .btn--social {
+    flex: 0 0 44px;
+    width: 100%;
+  }
+
+  .msg {
+    max-width: 100%;
   }
 
   .brands {
