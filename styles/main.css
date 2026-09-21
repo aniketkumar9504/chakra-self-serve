@@ -106,39 +106,6 @@ ul {
   opacity: 0.64;
 }
 
-/* Layout variation toggle */
-.view-toggle {
-  display: inline-flex;
-  padding: 3px;
-  gap: 2px;
-  background: var(--bg-heavy-alpha);
-  border-radius: var(--hrds-radius-circle);
-}
-
-.view-toggle__btn {
-  min-width: 44px;
-  padding: 5px 14px;
-  border: 0;
-  border-radius: var(--hrds-radius-circle);
-  background: transparent;
-  color: var(--muted-foreground);
-  font-family: var(--font-ds);
-  font-size: var(--hrds-text-subtitle-md);
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.15s ease, color 0.15s ease;
-}
-
-.view-toggle__btn:hover {
-  color: var(--foreground);
-}
-
-.view-toggle__btn.is-active {
-  background: var(--background);
-  color: var(--foreground);
-  box-shadow: var(--card-shadow);
-}
-
 /* ===================== Buttons ===================== */
 .btn {
   display: inline-flex;
