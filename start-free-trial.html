@@ -99,6 +99,45 @@
         </section>
       </main>
 
+      <!-- Compact product proof for widths where the full animated showcase
+           would stack below the form and compete with conversion. -->
+      <aside class="chakra-compact" aria-label="Meet Chakra">
+        <div class="chakra-compact__brand">
+          <img class="chakra-compact__mark" src="assets/chakra-mark.svg" alt="" aria-hidden="true"
+               width="40" height="37" />
+          <img class="chakra-compact__wordmark" src="assets/chakra-wordmark.svg" alt="Chakra"
+               width="102" height="26" />
+          <span class="chakra-compact__badge">New</span>
+        </div>
+        <p class="chakra-compact__tag">An AI interviewer that actually works</p>
+
+        <div class="chakra-compact__chat" aria-label="Example Chakra interview conversation">
+          <div class="chakra-compact__message">
+            <p class="chakra-compact__label">
+              <span class="chakra-compact__wave" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span>
+              </span>
+              Chakra
+            </p>
+            <p class="chakra-compact__bubble chakra-compact__bubble--question">
+              So you’re treating lateness as a quality signal, not invalidity. How did you verify those late events actually got used in session reconstruction?
+            </p>
+          </div>
+
+          <div class="chakra-compact__message chakra-compact__message--candidate">
+            <p class="chakra-compact__label">
+              <span class="chakra-compact__wave" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span>
+              </span>
+              Candidate
+            </p>
+            <p class="chakra-compact__bubble chakra-compact__bubble--answer">
+              Yeah — I sort the out-of-order events by event time into a valid session timeline.
+            </p>
+          </div>
+        </div>
+      </aside>
+
       <!-- Trusted-by logos live on the white left side -->
       <footer class="brands">
         <p class="brands__title">Trusted by thousands of companies</p>
@@ -116,7 +155,8 @@
     <!-- ===================== RIGHT (dark): Chakra animation ===================== -->
     <section class="pane pane--right">
       <section class="chakra" aria-labelledby="chakra-title">
-        <img class="chat__decoration" src="assets/chat-mandala.png" alt="" aria-hidden="true" />
+        <img class="chat__decoration" data-src="assets/chat-mandala.png" alt="" aria-hidden="true"
+             width="367" height="372" />
         <div class="chakra__intro">
           <header class="chakra__brand">
             <img class="chakra__mark" src="assets/chakra-mark.svg" alt="" aria-hidden="true"

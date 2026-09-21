@@ -51,8 +51,12 @@ body {
     ),
     url("../assets/bg-gradient-chakra.svg");
   background-repeat: no-repeat, no-repeat;
-  background-position: center top, center -240px;
-  background-size: 100% 900px, 135% 780px;
+  background-position:
+    center top,
+    center -240px;
+  background-size:
+    100% 900px,
+    135% 780px;
   color: var(--foreground);
   font-family: var(--font-ds);
   font-size: var(--hrds-text-body-lg);
@@ -63,13 +67,16 @@ body {
 /* ===================== Two-pane split ===================== */
 .split {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   min-height: 100vh;
+  min-height: 100svh;
 }
 
 .pane {
   position: relative;
+  min-width: 0;
   min-height: 100vh;
+  min-height: 100svh;
 }
 
 /* LEFT — sign-up column; the page glow shows through (transparent). */
@@ -84,7 +91,8 @@ body {
   display: flex;
   align-items: center; /* float the card, centered vertically */
   justify-content: center;
-  padding: 40px 40px 40px 8px;
+  padding: clamp(64px, 8.3vh, 80px) clamp(24px, 2.8vw, 40px)
+    clamp(24px, 4.4vh, 40px) 8px;
   background: transparent;
 }
 
@@ -94,7 +102,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 64px 32px 24px; /* top room to clear the floating header */
+  min-width: 0;
+  padding: 64px clamp(24px, 3vw, 32px) 24px; /* top room to clear the floating header */
 }
 
 a {
@@ -162,7 +171,10 @@ ul {
   border-radius: var(--hrds-radius-xs);
   border: 1px solid transparent;
   cursor: pointer;
-  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
 }
 
 .btn--outline {
@@ -278,7 +290,9 @@ ul {
   background: var(--background);
   border: 1px solid var(--input);
   border-radius: var(--hrds-radius-sm);
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .field__input::placeholder {
@@ -345,11 +359,11 @@ ul {
   overflow: hidden; /* clip the mandala arcs to the card */
   width: 100%;
   max-width: 680px;
-  min-height: 750px; /* slightly taller than the content so it reads as a card */
+  min-height: clamp(540px, calc(100svh - 112px), 750px);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  padding: 120px 48px 48px; /* top room for the arcs; logo sits below them */
+  padding: clamp(84px, 12vh, 120px) clamp(28px, 3.35vw, 48px) 40px;
   background: var(--chakra-dark);
   border-radius: 28px;
 }
@@ -448,7 +462,9 @@ ul {
 .js .msg {
   opacity: 0;
   transform: translateY(8px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
 }
 
 .js .msg.is-revealed {
@@ -543,7 +559,10 @@ ul {
 }
 
 .bubble {
-  max-width: min(400px, 100%); /* hug content; wrap so bubbles stay compact */
+  max-width: min(
+    400px,
+    calc(100% - 16px)
+  ); /* hug content; wrap so bubbles stay compact */
   display: grid; /* sizer + live text stack in one cell (see .tw-* below) */
   padding: 16px;
   border-radius: var(--hrds-radius-xl);
@@ -554,7 +573,11 @@ ul {
 
 .bubble--question {
   color: var(--foreground);
-  background: linear-gradient(to bottom, var(--chakra-bubble-from), var(--chakra-bubble-to) 78%);
+  background: linear-gradient(
+    to bottom,
+    var(--chakra-bubble-from),
+    var(--chakra-bubble-to) 78%
+  );
 }
 
 /* ----- Live transcription (typewriter) ----- *
@@ -591,7 +614,6 @@ ul {
   }
 }
 
-
 .bubble--answer {
   color: var(--foreground);
   background: var(--card);
@@ -624,6 +646,15 @@ ul {
   color: rgba(255, 255, 255, 0.95);
   background: var(--chakra-bubble-dark);
   border-color: transparent;
+}
+
+/* ===================== Compact Chakra proof (mobile / tablet) ===================== */
+.chakra-compact {
+  display: none;
+}
+
+.chakra-compact__chat {
+  display: none;
 }
 
 /* ===================== Trusted-by logos (left pane, bottom) ===================== */
@@ -687,18 +718,95 @@ ul {
 }
 
 /* ===================== Responsive ===================== */
-@media (max-width: 960px) {
-  /* Stack the panes: white sign-up on top, dark Chakra showcase below. */
+@media (max-width: 959px) {
+  /* The full product demo only earns its space when it sits beside the form.
+     Narrow layouts keep the conversion flow short and show a static lockup. */
   .split {
-    grid-template-columns: 1fr;
+    display: block;
+    min-height: 100vh;
+    min-height: 100svh;
   }
 
   .pane {
     min-height: auto;
   }
 
+  .pane--left {
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+
   .pane--right {
-    padding: 56px 24px;
+    display: none;
+  }
+
+  .signup-area {
+    flex: 0 0 auto;
+    padding: 96px 24px 28px;
+  }
+
+  .chakra-compact {
+    width: calc(100% - 48px);
+    max-width: 520px;
+    min-height: 72px;
+    margin: 0 auto 28px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    color: rgba(255, 255, 255, 0.94);
+    background: var(--chakra-dark);
+    border-radius: var(--hrds-radius-xl);
+  }
+
+  .chakra-compact__brand {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .chakra-compact__mark {
+    width: 26px;
+    height: auto;
+  }
+
+  .chakra-compact__wordmark {
+    width: 72px;
+    height: auto;
+    filter: brightness(0) invert(1);
+  }
+
+  .chakra-compact__badge {
+    align-self: flex-start;
+    padding: 2px 6px;
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #0a6a8c;
+    background: #cdf1ff;
+    border-radius: var(--hrds-radius-circle);
+  }
+
+  .chakra-compact__tag {
+    margin: 0;
+    padding-left: 18px;
+    border-left: 1px solid rgba(255, 255, 255, 0.18);
+    font-size: var(--hrds-text-body-sm);
+    line-height: var(--hrds-text-body-sm-lh);
+    color: rgba(255, 255, 255, 0.64);
+  }
+
+  .brands {
+    padding: 0 24px 32px;
+  }
+
+  .brands__list {
+    max-width: 620px;
+    margin: 0 auto;
   }
 }
 
@@ -708,11 +816,52 @@ ul {
   }
 
   .signup-area {
-    padding: 8px 20px 24px;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .chakra-compact {
+    width: calc(100% - 40px);
   }
 }
 
 @media (max-width: 560px) {
+  .site-header {
+    height: 72px;
+  }
+
+  .nav {
+    padding: 0 20px;
+  }
+
+  .nav__logo img {
+    width: clamp(126px, 38vw, 146px);
+    height: auto;
+  }
+
+  .nav__login {
+    height: 40px;
+    padding: 0 16px;
+  }
+
+  .signup-area {
+    padding: 92px 20px 24px;
+  }
+
+  .signup__head {
+    margin-bottom: 20px;
+  }
+
+  .signup__title {
+    font-size: clamp(30px, 9.5vw, 34px);
+  }
+
+  .signup__sub {
+    max-width: 310px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
   .field-row {
     grid-template-columns: 1fr;
   }
@@ -721,8 +870,160 @@ ul {
     flex-direction: column;
   }
 
+  .btn--social {
+    flex: 0 0 44px;
+    width: 100%;
+  }
+
   .msg {
     max-width: 100%;
+  }
+
+  .chakra-compact {
+    width: calc(100% - 40px);
+    min-height: 0;
+    margin-bottom: 28px;
+    padding: 20px;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .chakra-compact__tag {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .chakra-compact__chat {
+    width: 100%;
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .chakra-compact__message {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .chakra-compact__message--candidate {
+    align-items: flex-end;
+  }
+
+  .chakra-compact__label {
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: var(--hrds-text-body-sm);
+    line-height: var(--hrds-text-body-sm-lh);
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .chakra-compact__wave {
+    height: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .chakra-compact__wave span {
+    width: 2px;
+    border-radius: var(--hrds-radius-circle);
+    background: currentColor;
+  }
+
+  .chakra-compact__wave span:nth-child(1),
+  .chakra-compact__wave span:nth-child(5) {
+    height: 4px;
+  }
+
+  .chakra-compact__wave span:nth-child(2),
+  .chakra-compact__wave span:nth-child(4) {
+    height: 7px;
+  }
+
+  .chakra-compact__wave span:nth-child(3) {
+    height: 11px;
+  }
+
+  .chakra-compact__bubble {
+    max-width: 94%;
+    margin: 0;
+    padding: 14px 16px;
+    text-align: left;
+    font-family: var(--font-heading);
+    font-size: 15px;
+    line-height: 1.45;
+    border-radius: var(--hrds-radius-xl);
+  }
+
+  .chakra-compact__bubble--question {
+    color: var(--foreground);
+    background: linear-gradient(
+      to bottom,
+      var(--chakra-bubble-from),
+      var(--chakra-bubble-to) 78%
+    );
+  }
+
+  .chakra-compact__bubble--answer {
+    color: rgba(255, 255, 255, 0.94);
+    background: var(--chakra-bubble-dark);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  .brands {
+    padding: 0 20px 28px;
+  }
+
+  .brands__list {
+    column-gap: 22px;
+  }
+}
+
+@media (max-width: 359px) {
+  .nav {
+    padding: 0 16px;
+  }
+
+  .nav__logo img {
+    width: 118px;
+  }
+
+  .nav__login {
+    padding: 0 14px;
+  }
+
+  .signup-area {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .chakra-compact {
+    width: calc(100% - 32px);
+  }
+
+  .brands {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+}
+
+@media (min-width: 960px) and (max-width: 1120px) {
+  .msg--in {
+    margin-left: 8px;
+  }
+
+  .msg--out {
+    margin-right: 8px;
+  }
+
+  .bubble {
+    max-width: min(360px, calc(100% - 8px));
   }
 }
 
