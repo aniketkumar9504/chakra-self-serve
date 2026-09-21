@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="styles/hrds/tokens.css" />
   <link rel="stylesheet" href="styles/hrds/theme.css" />
   <link rel="stylesheet" href="styles/hrds/fonts.css" />
-  <link rel="stylesheet" href="styles/main.css?v=3" />
+  <link rel="stylesheet" href="styles/main.css?v=4" />
 </head>
 <body class="is-v2">
   <!-- ===================== Header / Nav ===================== -->
@@ -48,47 +48,100 @@
             <p class="product-select__subline">
               Attend a live, personalized demo with one of our product experts.
             </p>
+            <div
+              class="product-tabs"
+              role="tablist"
+              aria-label="Product categories"
+              data-slot="tabs-list"
+              data-variant="pills"
+              data-active-tab="hiring"
+            >
+              <span
+                class="product-tabs__indicator"
+                data-slot="tabs-indicator"
+                aria-hidden="true"
+              ></span>
+              <button
+                class="product-tabs__tab is-active"
+                id="hiringTab"
+                type="button"
+                role="tab"
+                aria-selected="true"
+                aria-controls="hiringProducts"
+                data-slot="tabs-trigger"
+                data-variant="pills"
+                data-tab="hiring"
+                data-active
+              >Hiring solutions</button>
+              <button
+                class="product-tabs__tab"
+                id="developerTab"
+                type="button"
+                role="tab"
+                aria-selected="false"
+                aria-controls="communityPanel"
+                data-slot="tabs-trigger"
+                data-variant="pills"
+                data-tab="developers"
+                tabindex="-1"
+              >For developers</button>
+            </div>
             <div class="product-select__groups">
-              <p class="product-select__group-title product-select__group-title--main">Hiring solutions for the agentic era</p>
-              <p class="product-select__group-title product-select__group-title--dev">For developers</p>
+              <div
+                class="product-group product-group--main"
+                id="hiringProducts"
+                role="tabpanel"
+                aria-labelledby="hiringTab"
+                data-panel="hiring"
+              >
+                <p class="product-select__group-title">Hiring solutions for the agentic era</p>
 
-              <label class="product-card" data-product="chakra">
-                <input class="product-card__input" type="radio" name="product" value="Chakra" checked />
-                <span class="product-card__media product-card__media--chakra">
-                  <img src="assets/products/chakra.svg" alt="" aria-hidden="true" />
-                </span>
-                <span class="product-card__label">Chakra</span>
-                <span class="product-card__desc">AI interviewer<br />that actually works</span>
-              </label>
+                <label class="product-card" data-product="chakra">
+                  <input class="product-card__input" type="radio" name="product" value="Chakra" checked />
+                  <span class="product-card__media product-card__media--chakra">
+                    <img src="assets/products/chakra.svg" alt="" aria-hidden="true" />
+                  </span>
+                  <span class="product-card__label">Chakra</span>
+                  <span class="product-card__desc">AI interviewer<br />that actually works</span>
+                </label>
 
-              <label class="product-card" data-product="interview">
-                <input class="product-card__input" type="radio" name="product" value="Interview" />
-                <span class="product-card__media product-card__media--interview">
-                  <img src="assets/products/interview.svg" alt="" aria-hidden="true" />
-                </span>
-                <span class="product-card__label">Interview</span>
-                <span class="product-card__desc">Pair programming<br />for the agentic era</span>
-              </label>
+                <label class="product-card" data-product="interview">
+                  <input class="product-card__input" type="radio" name="product" value="Interview" />
+                  <span class="product-card__media product-card__media--interview">
+                    <img src="assets/products/interview.svg" alt="" aria-hidden="true" />
+                  </span>
+                  <span class="product-card__label">Interview</span>
+                  <span class="product-card__desc">Pair programming<br />for the agentic era</span>
+                </label>
 
-              <label class="product-card" data-product="all">
-                <input class="product-card__input" type="radio" name="product" value="All Products" />
-                <span class="product-card__media product-card__media--all">
-                  <img src="assets/products/allproducts.svg" alt="" aria-hidden="true" />
-                </span>
-                <span class="product-card__label">All Products</span>
-                <span class="product-card__desc">Chakra, Screen<br />&amp; Interview demos</span>
-              </label>
+                <label class="product-card" data-product="all">
+                  <input class="product-card__input" type="radio" name="product" value="All Products" />
+                  <span class="product-card__media product-card__media--all">
+                    <img src="assets/products/allproducts.svg" alt="" aria-hidden="true" />
+                  </span>
+                  <span class="product-card__label">All Products</span>
+                  <span class="product-card__desc">Chakra, Screen<br />&amp; Interview demos</span>
+                </label>
+              </div>
 
               <div class="product-select__divider" aria-hidden="true"></div>
 
-              <label class="product-card" data-product="community">
-                <input class="product-card__input" type="radio" name="product" value="Community" />
-                <span class="product-card__media product-card__media--community">
-                  <img src="assets/products/community.svg" alt="" aria-hidden="true" />
-                </span>
-                <span class="product-card__label">Community</span>
-                <span class="product-card__desc">Prep for your<br />dream dev job</span>
-              </label>
+              <div
+                class="product-group product-group--dev"
+                id="developerProducts"
+                data-panel="developers"
+              >
+                <p class="product-select__group-title">For developers</p>
+
+                <label class="product-card" data-product="community">
+                  <input class="product-card__input" type="radio" name="product" value="Community" />
+                  <span class="product-card__media product-card__media--community">
+                    <img src="assets/products/community.svg" alt="" aria-hidden="true" />
+                  </span>
+                  <span class="product-card__label">Community</span>
+                  <span class="product-card__desc">Prep for your<br />dream dev job</span>
+                </label>
+              </div>
             </div>
           </fieldset>
 
@@ -181,7 +234,13 @@
           </form>
 
           <!-- Community: shown instead of the demo form when Community is chosen -->
-          <section class="community-panel" id="communityPanel" hidden aria-label="HackerRank Community">
+          <section
+            class="community-panel"
+            id="communityPanel"
+            role="tabpanel"
+            aria-labelledby="developerTab"
+            hidden
+          >
             <span class="community-panel__logo">
               <img src="assets/products/community.svg" alt="" aria-hidden="true" />
             </span>
@@ -201,6 +260,6 @@
 
   </main>
 
-  <script src="scripts/app.js?v=3"></script>
+  <script src="scripts/app.js?v=4"></script>
 </body>
 </html>

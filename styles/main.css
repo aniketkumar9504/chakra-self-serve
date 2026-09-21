@@ -217,6 +217,7 @@ ul {
 
 /* ---- Step 1: product selector cards ---- */
 .product-select {
+  min-width: 0;
   margin: 0;
   padding: 0;
   border: 0;
@@ -245,48 +246,57 @@ ul {
   color: var(--muted-foreground);
 }
 
-/* Two groups (hiring products | For developers) split by a divider, laid out on
-   one grid: row 1 holds the group titles, row 2 holds the cards + divider — so
-   the divider spans only the card row (never the title), and every card in
-   row 2 stretches to the same height. */
+/* The two product groups share a desktop/tablet row. Each group owns its title
+   and cards, while the divider begins level with the card surfaces. */
 .product-select__groups {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr auto 1fr;
-  grid-template-rows: auto auto;
+  grid-template-columns: minmax(0, 3fr) auto minmax(0, 1fr);
   column-gap: 8px;
-  row-gap: 8px;
   align-items: stretch;
+}
+
+.product-group {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 8px;
+  min-width: 0;
+}
+
+.product-group--main {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.product-group--main .product-select__group-title {
+  grid-column: 1 / -1;
+}
+
+.product-group--dev {
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .product-select__group-title {
   margin: 0;
   align-self: end;
-  font-size: var(--hrds-text-subtitle-md);
-  line-height: var(--hrds-text-subtitle-md-lh);
+  font-size: var(--hrds-text-title-sm);
+  line-height: var(--hrds-text-title-sm-lh);
   font-weight: 500;
   color: var(--muted-foreground);
 }
 
-.product-select__group-title--main {
-  grid-column: 1 / 4;
-  grid-row: 1;
-  display: none; /* only shown in V2; V1 uses the big centred legend */
-}
-
-.product-select__group-title--dev {
-  grid-column: 5;
-  grid-row: 1;
-}
-
-.product-select__groups .product-card {
+.product-group .product-card {
   grid-row: 2;
 }
 
 .product-select__divider {
-  grid-row: 2;
   align-self: stretch;
   width: 0;
+  margin-top: 32px;
   border-left: 2px dotted var(--border-heavy-alpha);
+}
+
+/* Category tabs replace the two visible groups on phones only. */
+.product-tabs {
+  display: none;
 }
 
 .product-card {
@@ -669,15 +679,9 @@ body.is-v2 {
   display: none;
 }
 
-/* V2: "Which product…" and "For developers" are peer group headers on the same
-   line (top-aligned), so the standalone legend is hidden and the inline main
-   header is shown. */
+/* In V2 the category panels carry their own peer group headings. */
 .is-v2 .product-select__legend {
   display: none;
-}
-
-.is-v2 .product-select__group-title--main {
-  display: block;
 }
 
 /* ===================== Responsive ===================== */
@@ -695,24 +699,38 @@ body.is-v2 {
 
   .is-v2 .hero__inner {
     height: auto;
-    grid-template-columns: 1fr;
+    width: 100%;
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr);
     row-gap: 48px;
     max-width: 608px;
   }
 
   .is-v2 .stage__left {
+    min-width: 0;
     justify-content: flex-start;
     padding: 0;
+    transform: none;
   }
 
   .is-v2 .form-card {
+    min-width: 0;
     height: auto;
     overflow: visible;
     padding: 0;
   }
+
+  .btn--submit {
+    position: static;
+    box-shadow: none;
+  }
 }
 
 @media (max-width: 768px) {
+  .nav {
+    padding-inline: 24px;
+  }
+
   .hero,
   .is-v2 .hero {
     padding: 64px 24px 24px;
@@ -729,23 +747,126 @@ body.is-v2 {
 }
 
 @media (max-width: 560px) {
-  /* Stack the selector: titles then their cards, divider hidden. */
+  .product-tabs {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    margin-bottom: 16px;
+    padding: 4px;
+    background: var(--tab-container);
+    border: 0;
+    border-radius: var(--radius);
+    isolation: isolate;
+  }
+
+  .product-tabs__indicator {
+    position: absolute;
+    z-index: 0;
+    top: 4px;
+    left: 4px;
+    width: calc((100% - 8px) / 2);
+    height: 32px;
+    background: var(--tab-selected);
+    border-radius: var(--hrds-radius-sm);
+    box-shadow: var(--card-shadow);
+    pointer-events: none;
+    transition: transform 200ms ease-in-out;
+  }
+
+  .product-tabs[data-active-tab="developers"] .product-tabs__indicator {
+    transform: translateX(100%);
+  }
+
+  .product-tabs__tab {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+    height: 32px;
+    padding: 0 8px;
+    font-family: var(--font-ds);
+    font-size: 13px;
+    line-height: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    color: var(--muted-foreground);
+    background: transparent;
+    border: 0;
+    border-radius: var(--hrds-radius-sm);
+    cursor: pointer;
+    transition: color 150ms ease;
+  }
+
+  .product-tabs__tab:hover,
+  .product-tabs__tab.is-active {
+    color: var(--foreground);
+  }
+
+  .product-tabs__tab:focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--ring) 50%, transparent);
+    outline-offset: 1px;
+  }
+
   .product-select__groups {
+    display: block;
+  }
+
+  .product-group {
     display: flex;
     flex-direction: column;
     gap: 8px;
   }
 
+  .product-group--main {
+    flex-direction: row;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .product-group--main::-webkit-scrollbar {
+    display: none;
+  }
+
+  .product-group--main .product-card {
+    flex: 0 0 168px;
+    min-height: 120px;
+    padding: 12px 8px;
+    gap: 4px;
+    scroll-snap-align: start;
+  }
+
+  .product-group--main .product-card__media {
+    height: 28px;
+  }
+
+  .product-group--main .product-card__media img {
+    height: 24px;
+  }
+
+  .product-group--main .product-card__label {
+    font-size: var(--hrds-text-subtitle-md);
+    line-height: var(--hrds-text-subtitle-md-lh);
+  }
+
+  .product-group--dev {
+    display: none;
+  }
+
+  .product-group[hidden] {
+    display: none;
+  }
+
+  .product-select__group-title,
   .product-select__divider {
     display: none;
   }
 
-  .product-select__group-title { order: 1; }
-  .product-card[data-product="chakra"] { order: 2; }
-  .product-card[data-product="interview"] { order: 3; }
-  .product-card[data-product="all"] { order: 4; }
-  .product-select__group-title--dev { order: 5; margin-top: 8px; }
-  .product-card[data-product="community"] { order: 6; }
+  .product-card {
+    width: 100%;
+    min-height: 132px;
+  }
 
   .field--split {
     grid-template-columns: 1fr;

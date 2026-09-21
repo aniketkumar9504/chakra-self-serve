@@ -9,6 +9,17 @@
   var communityPanel = document.getElementById("communityPanel");
   var hiddenProduct = document.getElementById("selectedProduct");
   var radios = document.querySelectorAll(".product-card__input");
+  var phoneQuery = window.matchMedia("(max-width: 560px)");
+  var tabList = document.querySelector(".product-tabs");
+  var tabs = document.querySelectorAll(".product-tabs__tab");
+  var panels = document.querySelectorAll(".product-group");
+  var communityRadio = document.querySelector(
+    '.product-card__input[value="Community"]'
+  );
+  var lastHiringRadio = document.querySelector(
+    "#hiringProducts .product-card__input:checked"
+  );
+  var activeTab = "hiring";
 
   function show(el) {
     el.hidden = false;
@@ -35,12 +46,107 @@
     }
   }
 
+  function syncTabs() {
+    tabList.dataset.activeTab = activeTab;
+
+    Array.prototype.forEach.call(panels, function (panel) {
+      panel.hidden = phoneQuery.matches && panel.dataset.panel !== activeTab;
+    });
+
+    Array.prototype.forEach.call(tabs, function (tab) {
+      var selected = tab.dataset.tab === activeTab;
+      tab.classList.toggle("is-active", selected);
+      tab.setAttribute("aria-selected", String(selected));
+      tab.tabIndex = selected ? 0 : -1;
+
+      if (selected) {
+        tab.setAttribute("data-active", "");
+      } else {
+        tab.removeAttribute("data-active");
+      }
+    });
+  }
+
+  function syncActiveProductContent() {
+    var checked = document.querySelector(".product-card__input:checked");
+    var activePanel = document.querySelector(
+      '.product-group[data-panel="' + activeTab + '"]'
+    );
+
+    if (checked && (!phoneQuery.matches || activePanel.contains(checked))) {
+      selectProduct(checked.value);
+    } else {
+      hide(form);
+      hide(communityPanel);
+    }
+  }
+
+  function activateTab(tab) {
+    activeTab = tab.dataset.tab;
+    syncTabs();
+
+    if (phoneQuery.matches) {
+      var nextRadio = activeTab === "developers"
+        ? communityRadio
+        : lastHiringRadio || document.querySelector(
+          "#hiringProducts .product-card__input"
+        );
+
+      nextRadio.checked = true;
+      selectProduct(nextRadio.value);
+    } else {
+      syncActiveProductContent();
+    }
+  }
+
   Array.prototype.forEach.call(radios, function (radio) {
     radio.addEventListener("change", function () {
-      if (radio.checked) selectProduct(radio.value);
+      if (!radio.checked) return;
+
+      if (radio.closest("#hiringProducts")) {
+        lastHiringRadio = radio;
+      }
+
+      selectProduct(radio.value);
     });
   });
 
-  var preChecked = document.querySelector(".product-card__input:checked");
-  if (preChecked) selectProduct(preChecked.value);
+  Array.prototype.forEach.call(tabs, function (tab, index) {
+    tab.addEventListener("click", function () {
+      activateTab(tab);
+    });
+
+    tab.addEventListener("keydown", function (event) {
+      var nextIndex = index;
+
+      if (event.key === "ArrowRight") {
+        nextIndex = (index + 1) % tabs.length;
+      } else if (event.key === "ArrowLeft") {
+        nextIndex = (index - 1 + tabs.length) % tabs.length;
+      } else if (event.key === "Home") {
+        nextIndex = 0;
+      } else if (event.key === "End") {
+        nextIndex = tabs.length - 1;
+      } else {
+        return;
+      }
+
+      event.preventDefault();
+      activateTab(tabs[nextIndex]);
+      tabs[nextIndex].focus();
+    });
+  });
+
+  phoneQuery.addEventListener("change", function () {
+    if (phoneQuery.matches) {
+      var checked = document.querySelector(".product-card__input:checked");
+      activeTab = checked === communityRadio ? "developers" : "hiring";
+    }
+
+    syncTabs();
+    syncActiveProductContent();
+  });
+
+  syncTabs();
+  syncActiveProductContent();
 })();
