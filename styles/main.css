@@ -650,7 +650,7 @@ body.is-v2 {
   max-width: none;
   height: 100%;
   overflow-y: auto;
-  padding: 48px 12px 40px 0;
+  padding: 24px 12px 40px 0;
   scrollbar-width: thin;
 }
 
