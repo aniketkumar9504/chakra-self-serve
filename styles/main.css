@@ -27,10 +27,9 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  /* Soft brand glow (Grass / Dew / Sunrise) anchored at the top, fading to
-     white so the lower page — and the form — sit on clean white. A white
-     overlay softens the glow and pulls it to white well before the form.
-     Sourced from the Figma end frame (node 73-3395). */
+  /* Soft Chakra-colours glow (cyan / mint / lavender blurred blobs) anchored at
+     the top, fading to white so the lower page — and the form — sit on clean
+     white. A white overlay softens the glow. Sourced from Figma node 129:390. */
   background-color: var(--background);
   background-image:
     linear-gradient(
@@ -42,7 +41,7 @@ body {
     url("../assets/bg-gradient.svg");
   background-repeat: no-repeat, no-repeat;
   background-position: center top, center -220px;
-  background-size: 100% 960px, 170% 820px;
+  background-size: 100% 960px, 105% 820px;
   color: var(--foreground);
   font-family: var(--font-ds);
   font-size: var(--hrds-text-body-lg);
@@ -94,16 +93,10 @@ ul {
   height: 16px;
 }
 
+/* Outlined "Login" pill (top-right), per node 129:281. */
 .nav__login {
-  font-size: var(--hrds-text-subtitle-md);
-  line-height: var(--hrds-text-subtitle-md-lh);
-  font-weight: 500;
-  color: var(--foreground);
-  transition: opacity 0.15s ease;
-}
-
-.nav__login:hover {
-  opacity: 0.64;
+  flex-shrink: 0;
+  border-radius: var(--hrds-radius-sm);
 }
 
 /* ===================== Buttons ===================== */
@@ -147,17 +140,11 @@ ul {
 .btn--submit {
   width: 100%;
   height: 46px;
+  margin-top: 4px;
   font-size: var(--hrds-text-subtitle-md);
   line-height: var(--hrds-text-subtitle-md-lh);
   color: var(--primary-foreground);
   background: var(--primary);
-  /* Sticky CTA: stays pinned to the bottom of the scrolling form. The white
-     box-shadow band masks fields scrolling underneath it. */
-  position: sticky;
-  bottom: 0;
-  z-index: 2;
-  margin-top: 4px;
-  box-shadow: 0 -6px 12px 8px var(--background);
 }
 
 .btn--submit:hover {
@@ -329,7 +316,7 @@ ul {
 .product-card {
   position: relative;
   display: grid;
-  grid-template-columns: 40px minmax(0, 1fr);
+  grid-template-columns: 30px minmax(0, 1fr);
   grid-template-rows: auto auto;
   align-content: center;
   column-gap: 12px;
@@ -388,14 +375,14 @@ ul {
   grid-column: 1;
   grid-row: 1 / 3;
   align-self: center;
-  height: 40px;
-  width: 40px;
+  height: 30px;
+  width: 30px;
 }
 
 .product-card__media img {
   display: block;
-  width: 38px;
-  height: 38px;
+  width: 28px;
+  height: 28px;
   object-fit: contain;
 }
 
@@ -406,9 +393,10 @@ ul {
   grid-row: 1;
   align-self: end;
   min-width: 0;
-  font-size: var(--hrds-text-subtitle-md);
-  line-height: var(--hrds-text-subtitle-md-lh);
-  font-weight: 500;
+  font-family: var(--font-heading); /* serif (Kalice) title, per node 129:281 */
+  font-size: var(--hrds-text-title-md);
+  line-height: 1.2;
+  font-weight: 400;
   color: var(--foreground);
 }
 
