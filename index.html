@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="styles/hrds/tokens.css" />
   <link rel="stylesheet" href="styles/hrds/theme.css" />
   <link rel="stylesheet" href="styles/hrds/fonts.css" />
-  <link rel="stylesheet" href="styles/main.css?v=12" />
+  <link rel="stylesheet" href="styles/main.css?v=13" />
 </head>
 <body class="is-v2">
   <!-- ===================== Header / Nav ===================== -->
@@ -22,28 +22,6 @@
       <a class="nav__logo" href="#" aria-label="HackerRank home">
         <img src="assets/logo-dark.svg" alt="HackerRank" width="153" height="16" />
       </a>
-
-      <div class="selector-preview">
-        <span class="selector-preview__label">Selector style</span>
-        <div
-          class="selector-preview__toggle"
-          role="group"
-          aria-label="Product selector style"
-        >
-          <button
-            class="selector-preview__button is-active"
-            type="button"
-            data-selector-variant="cards"
-            aria-pressed="true"
-          >V1</button>
-          <button
-            class="selector-preview__button"
-            type="button"
-            data-selector-variant="dropdown"
-            aria-pressed="false"
-          >V2</button>
-        </div>
-      </div>
 
       <a class="nav__login" href="#">Log In</a>
     </nav>
@@ -116,10 +94,7 @@
                 aria-labelledby="hiringTab"
                 data-panel="hiring"
               >
-                <div
-                  class="product-group product-group--main"
-                  data-selector-view="cards"
-                >
+                <div class="product-group product-group--main">
                   <label class="product-card" data-product="chakra">
                     <input class="product-card__input" type="radio" name="product" value="Chakra" checked />
                     <span class="product-card__heading">
@@ -152,109 +127,6 @@
                     </span>
                     <span class="product-card__desc">Chakra, Screen<br />&amp; Interview demos</span>
                   </label>
-                </div>
-
-                <div
-                  class="product-dropdown"
-                  data-selector-view="dropdown"
-                  hidden
-                >
-                  <button
-                    class="product-dropdown__trigger"
-                    id="productDropdownTrigger"
-                    type="button"
-                    aria-haspopup="listbox"
-                    aria-expanded="false"
-                    aria-controls="productDropdownMenu"
-                    aria-label="Change hiring product. Selected: Chakra"
-                  >
-                    <img
-                      class="product-dropdown__trigger-icon"
-                      src="assets/products/chakra.svg"
-                      alt=""
-                      aria-hidden="true"
-                    />
-                    <span class="product-dropdown__copy">
-                      <span class="product-dropdown__name">Chakra</span>
-                      <span class="product-dropdown__description">AI interviewer that actually works</span>
-                    </span>
-                    <span class="product-dropdown__action" aria-hidden="true">
-                      <span class="product-dropdown__change">Change</span>
-                      <svg
-                        class="product-dropdown__chevron"
-                        viewBox="0 0 12 7"
-                        fill="none"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M1 1 6 6l5-5"
-                          stroke="currentColor"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                  <div
-                    class="product-dropdown__menu"
-                    id="productDropdownMenu"
-                    role="listbox"
-                    aria-label="Hiring product"
-                    hidden
-                  >
-                    <button
-                      class="product-dropdown__option is-selected"
-                      type="button"
-                      role="option"
-                      aria-selected="true"
-                      tabindex="-1"
-                      data-product-option="Chakra"
-                      data-icon="assets/products/chakra.svg"
-                      data-description="AI interviewer that actually works"
-                    >
-                      <img src="assets/products/chakra.svg" alt="" aria-hidden="true" />
-                      <span class="product-dropdown__option-copy">
-                        <span class="product-dropdown__option-name">Chakra</span>
-                        <span class="product-dropdown__option-description">AI interviewer that actually works</span>
-                      </span>
-                      <span class="product-dropdown__check" aria-hidden="true">&#10003;</span>
-                    </button>
-                    <button
-                      class="product-dropdown__option"
-                      type="button"
-                      role="option"
-                      aria-selected="false"
-                      tabindex="-1"
-                      data-product-option="Interview"
-                      data-icon="assets/products/interview.svg"
-                      data-description="Pair programming for the agentic era"
-                    >
-                      <img src="assets/products/interview.svg" alt="" aria-hidden="true" />
-                      <span class="product-dropdown__option-copy">
-                        <span class="product-dropdown__option-name">Interview</span>
-                        <span class="product-dropdown__option-description">Pair programming for the agentic era</span>
-                      </span>
-                      <span class="product-dropdown__check" aria-hidden="true">&#10003;</span>
-                    </button>
-                    <button
-                      class="product-dropdown__option"
-                      type="button"
-                      role="option"
-                      aria-selected="false"
-                      tabindex="-1"
-                      data-product-option="All Products"
-                      data-icon="assets/products/allproducts.svg"
-                      data-description="Chakra, Screen &amp; Interview demos"
-                    >
-                      <img src="assets/products/allproducts.svg" alt="" aria-hidden="true" />
-                      <span class="product-dropdown__option-copy">
-                        <span class="product-dropdown__option-name">All Products</span>
-                        <span class="product-dropdown__option-description">Chakra, Screen &amp; Interview demos</span>
-                      </span>
-                      <span class="product-dropdown__check" aria-hidden="true">&#10003;</span>
-                    </button>
-                  </div>
                 </div>
               </div>
 
@@ -383,6 +255,6 @@
 
   </main>
 
-  <script src="scripts/app.js?v=8"></script>
+  <script src="scripts/app.js?v=9"></script>
 </body>
 </html>
