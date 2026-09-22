@@ -1,0 +1,772 @@
+/* ============================================================================
+   "Chakra discoverability in HRW" — v2 (prompt launcher)
+   ----------------------------------------------------------------------------
+   Same HRW shell as v1 (dark global header + "Welcome, Deon!" greeting), but
+   the three product cards are replaced by a gallery of START PROMPTS — each an
+   actionable way in, and each branded to its product (Chakra / Interview /
+   Screen) so it's clear what it belongs to. A product can own several prompts.
+
+   All colour / type / radius / spacing VALUES come from the hr-design (HRDS)
+   tokens vendored in styles/hrds/*. Only the Chakra "New" badge gradient and
+   the mini product-screen greys (which render actual product UI) are literal.
+   ============================================================================ */
+
+:root {
+  --hrw-badge-from: #004b4b;
+  --hrw-badge-to: #01b8b8;
+
+  /* Chakra chat visual, mirrored from the start-free-trial page (bespoke
+     marketing values with no HRDS equivalent). */
+  --chakra-bubble-from: #e7fbff;
+  --chakra-bubble-to: #f1f1ff;
+  --chakra-dark: #1a1a1a;
+  --chakra-bubble-dark: #0b0b0c;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-ds);
+  font-size: var(--hrds-text-body-md);
+  line-height: var(--hrds-text-body-md-lh);
+}
+
+/* Full-bleed page — the wrapper is transparent to layout (no floating card). */
+.app {
+  display: contents;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ===================== HRW global header (dark) ===================== */
+.hrw-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.hrw-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  padding: 0 48px;
+}
+
+.hrw-header__left {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.hrw-header__logo img {
+  width: 98px;
+  height: 14px;
+}
+
+.hrw-nav {
+  display: flex;
+  align-items: stretch;
+  height: 64px;
+  margin-left: 8px;
+}
+
+.hrw-nav__link,
+.hrw-nav__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 64px;
+  padding: 0 24px;
+  border: 0;
+  border-bottom: 4px solid transparent;
+  background: none;
+  font-family: var(--font-ds);
+  font-size: var(--hrds-text-subtitle-md);
+  line-height: 1.6;
+  color: var(--muted-foreground);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.hrw-nav__link:hover,
+.hrw-nav__more:hover,
+.hrw-nav__link.is-active {
+  color: var(--foreground);
+}
+
+.hrw-nav__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  font-size: var(--hrds-text-body-sm);
+  font-weight: 500;
+  line-height: 1.33;
+  color: var(--neutral-foreground);
+  background: linear-gradient(90deg, var(--hrw-badge-from) 0%, var(--hrw-badge-to) 100%);
+  border-radius: var(--hrds-radius-circle);
+}
+
+.hrw-nav__more-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.hrw-header__right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-shrink: 0;
+}
+
+.hrw-search {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 20px;
+  font-family: var(--font-ds);
+  font-size: var(--hrds-text-subtitle-md);
+  font-weight: 500;
+  color: var(--foreground);
+  background: none;
+  border: 1px solid var(--outline-border);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.hrw-search:hover {
+  border-color: var(--outline-border-hover);
+}
+
+.hrw-search__icon {
+  width: 20px;
+  height: 20px;
+}
+
+.hrw-header__divider {
+  width: 1px;
+  height: 32px;
+  background: var(--border);
+}
+
+.hrw-avatar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.hrw-avatar__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  font-size: var(--hrds-text-subtitle-md);
+  color: var(--foreground);
+  background: var(--secondary);
+  border-radius: var(--hrds-radius-xl);
+}
+
+.hrw-avatar__chevron {
+  width: 14px;
+  height: 14px;
+}
+
+/* ===================== Main / greeting ===================== */
+.page {
+  position: relative;
+  flex: 1;
+  padding: 56px 64px 72px;
+}
+
+/* Ambient brand gradient washing down from the top, behind the greeting. */
+.page::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 320px;
+  background:
+    radial-gradient(1000px 340px at 22% -18%, rgba(174, 249, 108, 0.72) 0%, rgba(174, 249, 108, 0) 60%),
+    radial-gradient(900px 320px at 68% -22%, rgba(0, 180, 225, 0.34) 0%, rgba(0, 180, 225, 0) 58%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page__head {
+  margin-bottom: 40px;
+}
+
+.page__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 42px;
+  line-height: 1.1;
+  letter-spacing: -0.6px;
+  color: var(--foreground);
+}
+
+.page__subtitle {
+  margin: 4px 0 0;
+  font-size: var(--hrds-text-subtitle-lg);
+  line-height: var(--hrds-text-subtitle-lg-lh);
+  color: var(--muted-foreground);
+}
+
+/* ===================== Account menu (avatar dropdown) ===================== */
+.hrw-account { position: relative; }
+
+.hrw-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 180px;
+  padding: 6px;
+  background: var(--popover);
+  border: 1px solid var(--border);
+  border-radius: var(--hrds-radius-lg);
+  box-shadow: var(--dropdown-menu-shadow);
+  display: none;
+  z-index: 200;
+}
+
+.hrw-account.is-open .hrw-menu { display: block; }
+
+.hrw-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 10px;
+  font-family: var(--font-ds);
+  font-size: var(--hrds-text-subtitle-md);
+  color: var(--popover-foreground);
+  text-align: left;
+  background: none;
+  border: 0;
+  border-radius: var(--hrds-radius-sm);
+  cursor: pointer;
+}
+
+.hrw-menu__item:hover { background: var(--accent); }
+
+/* ===================== Product board (state-driven) =====================
+   One card per product; each holds a discovery body and a data body. The board
+   grid + each card's placement are set in JS from how many products have data:
+     0 → Chakra hero full-width + Interview/Screen below
+     1 → big active card left, two discovery cards stacked right
+     2 → two active cards on top, remaining discovery card full-width below
+     3 → three equal columns.
+   Chakra's discovery body is the dark cinematic card; the others are light. */
+.board {
+  display: grid;
+  gap: 24px;
+  align-items: stretch;
+}
+
+/* Shared card shell — the commonality across every state. */
+.pcard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 260px;
+  padding: 24px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  container-type: inline-size;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+/* When a data card is wide (e.g. the full-width bottom slot), its list flows
+   into two columns so the card fills the space instead of a lone thin list. */
+@container (min-width: 700px) {
+  .pcard__data .adata__list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 32px;
+  }
+  .pcard__data .adata__list .drow:nth-child(2) { border-top: 0; }
+  .pcard__data .adata__cta { align-self: flex-start; padding-inline: 28px; }
+}
+
+.pcard--chakra { --pc-accent: var(--cyan); }       /* #00b4e1 */
+.pcard--interview { --pc-accent: var(--success); }  /* #05c770 */
+.pcard--screen { --pc-accent: #7bd23f; }            /* readable lime; no exact HRDS token */
+
+/* State visibility */
+.pcard[data-state="discovery"] .pcard__data { display: none; }
+.pcard[data-state="data"] .pcard__disc { display: none; }
+
+.pcard__disc, .pcard__data { display: flex; flex-direction: column; flex: 1; }
+
+/* Discovery cards read as launch targets. */
+.pcard[data-state="discovery"] { cursor: pointer; }
+.pcard[data-state="discovery"]:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--pc-accent) 34%, var(--border));
+  box-shadow: 0 18px 40px -24px rgba(20, 20, 25, 0.3);
+}
+
+/* ---------- Light discovery body (Interview / Screen) ---------- */
+.disc__motif {
+  position: absolute;
+  top: -32px;
+  right: -28px;
+  width: 152px;
+  height: auto;
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+.disc__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: color-mix(in srgb, var(--pc-accent) 12%, var(--card));
+  border: 1px solid color-mix(in srgb, var(--pc-accent) 26%, transparent);
+  border-radius: var(--hrds-radius-lg);
+}
+
+.disc__icon img { width: 24px; height: 24px; }
+
+.disc__name {
+  margin: 20px 0 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 24px;
+  letter-spacing: -0.2px;
+  color: var(--foreground);
+}
+
+.disc__desc {
+  margin: 8px 0 0;
+  max-width: 34ch;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--muted-foreground);
+}
+
+.disc__action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 24px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.disc__action svg { width: 16px; height: 16px; transition: transform 0.18s ease; }
+.pcard[data-state="discovery"]:hover .disc__action svg { transform: translateX(3px); }
+
+/* ---------- Chakra dark hero discovery body ---------- */
+/* Dark card with a soft cool glow on the right, behind the chat scene. */
+.pcard--chakra[data-state="discovery"] {
+  background:
+    radial-gradient(68% 115% at 82% 22%, rgba(150, 188, 214, 0.20) 0%, rgba(150, 188, 214, 0) 58%),
+    radial-gradient(80% 120% at 60% 118%, rgba(96, 150, 186, 0.14) 0%, rgba(96, 150, 186, 0) 60%),
+    var(--chakra-dark);
+  border-color: rgba(255, 255, 255, 0.08);
+  container-type: inline-size;
+}
+
+.chero { display: flex; flex-direction: column; flex: 1; gap: 24px; }
+.chero__content { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+
+/* When the Chakra card is wide (full-width states), the chat scene appears
+   beside the copy — the original hero look. It hides when the card is narrow
+   (stacked in the 1-active layout). */
+.chero__scene { display: none; }
+
+@container (min-width: 620px) {
+  .chero { flex-direction: row; align-items: center; gap: 12px; min-height: 300px; }
+  .chero__content { flex: 1 1 46%; }
+  .chero__scene {
+    display: flex;
+    flex: 1 1 54%;
+    align-self: stretch;
+  }
+}
+
+.chero__brand { display: inline-flex; align-items: center; gap: 8px; }
+.chero__mark { width: 22px; height: auto; }
+.chero__wordmark { width: 90px; height: auto; filter: brightness(0) invert(1); }
+
+.chero__badge {
+  padding: 2px 8px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #0a6a8c;
+  background: #cdf1ff;
+  border-radius: var(--hrds-radius-circle);
+}
+
+.chero__title {
+  margin: 16px 0 0;
+  max-width: 18ch;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 1.2;
+  letter-spacing: -0.3px;
+  color: #fff;
+}
+
+.chero__desc {
+  margin: 10px 0 0;
+  max-width: 46ch;
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.chero__cta {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary-foreground);
+  background: var(--primary);
+  border-radius: var(--hrds-radius-circle);
+  transition: background-color 0.18s ease;
+}
+
+.chero__cta svg { width: 16px; height: 16px; transition: transform 0.18s ease; }
+.pcard--chakra[data-state="discovery"]:hover .chero__cta { background: var(--primary-hover); }
+.pcard--chakra[data-state="discovery"]:hover .chero__cta svg { transform: translateX(3px); }
+
+/* Chakra chat scene (shown when the hero is wide). */
+.chero__scene {
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+  padding: 8px 4px;
+  overflow: hidden;
+}
+
+.scene__mandala {
+  position: absolute;
+  top: 50%;
+  right: -56px;
+  width: 300px;
+  height: auto;
+  transform: translateY(-50%);
+  opacity: 0.16;
+  pointer-events: none;
+}
+
+.chat-msg {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  max-width: 88%;
+}
+.chat-msg--in { align-self: flex-start; }
+.chat-msg--out { align-self: flex-end; align-items: flex-end; }
+
+.chat-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.wave { display: inline-flex; align-items: center; gap: 2px; height: 14px; }
+.wave span { width: 2px; border-radius: 2px; background: currentColor; }
+.wave span:nth-child(1), .wave span:nth-child(5) { height: 4px; }
+.wave span:nth-child(2), .wave span:nth-child(4) { height: 9px; }
+.wave span:nth-child(3) { height: 14px; }
+
+.chat-bubble {
+  margin: 0;
+  padding: 12px 15px;
+  font-family: var(--font-heading);
+  font-size: 15px;
+  line-height: 1.45;
+  border-radius: 14px;
+}
+.chat-bubble--q {
+  color: #141419;
+  background: linear-gradient(to bottom, var(--chakra-bubble-from), var(--chakra-bubble-to) 80%);
+}
+.chat-bubble--a {
+  color: rgba(255, 255, 255, 0.95);
+  background: var(--chakra-bubble-dark);
+}
+
+.pcard--chakra[data-state="discovery"]:hover .chat-msg--in .wave span { animation: eq 0.7s ease-in-out infinite; }
+.pcard--chakra[data-state="discovery"]:hover .chat-msg--in .wave span:nth-child(1) { animation-delay: -0.2s; }
+.pcard--chakra[data-state="discovery"]:hover .chat-msg--in .wave span:nth-child(2) { animation-delay: -0.42s; }
+.pcard--chakra[data-state="discovery"]:hover .chat-msg--in .wave span:nth-child(3) { animation-delay: -0.1s; }
+.pcard--chakra[data-state="discovery"]:hover .chat-msg--in .wave span:nth-child(4) { animation-delay: -0.32s; }
+.pcard--chakra[data-state="discovery"]:hover .chat-msg--in .wave span:nth-child(5) { animation-delay: -0.05s; }
+
+@keyframes eq {
+  0%, 100% { height: 4px; }
+  50% { height: 14px; }
+}
+
+/* ---------- Data body ---------- */
+.adata__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.adata__heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.adata__logo { flex-shrink: 0; width: 22px; height: 22px; }
+
+.adata__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 19px;
+  letter-spacing: -0.2px;
+  color: var(--foreground);
+}
+.adata__title span { color: var(--muted-foreground); }
+
+/* HRDS ghost / tertiary action. */
+.adata__viewall {
+  flex-shrink: 0;
+  padding: 5px 10px;
+  font-family: var(--font-ds);
+  font-size: var(--hrds-text-subtitle-md);
+  font-weight: 500;
+  color: var(--ghost-foreground);
+  background: none;
+  border-radius: var(--hrds-radius-sm);
+  white-space: nowrap;
+  transition: background-color 0.15s ease;
+}
+.adata__viewall:hover { background: var(--ghost-hover); }
+
+.adata__list { display: flex; flex-direction: column; }
+
+.drow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 2px;
+  border-top: 1px solid var(--border);
+}
+.drow:first-child { border-top: 0; }
+
+.drow__star { flex-shrink: 0; width: 15px; height: 15px; color: var(--muted-foreground); }
+.drow__main { flex: 1; min-width: 0; }
+
+.drow__name {
+  margin: 0;
+  font-size: var(--hrds-text-subtitle-md);
+  font-weight: 600;
+  color: var(--foreground);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.drow__meta { margin: 2px 0 0; font-size: var(--hrds-text-body-sm); color: var(--muted-foreground); }
+
+.dpill {
+  flex-shrink: 0;
+  padding: 3px 10px;
+  font-size: var(--hrds-text-body-sm);
+  color: var(--muted-foreground);
+  background: var(--accent);
+  border-radius: var(--hrds-radius-circle);
+  white-space: nowrap;
+}
+
+.davatars { display: inline-flex; gap: 4px; flex-shrink: 0; }
+
+.davatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--foreground);
+  background: var(--accent);
+  border: 1px solid var(--border);
+  border-radius: var(--hrds-radius-circle);
+}
+
+/* HRDS outline button. */
+.adata__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 10px 16px;
+  font-size: var(--hrds-text-subtitle-md);
+  font-weight: 700;
+  color: var(--outline-foreground);
+  border: 1px solid var(--outline-border);
+  border-radius: var(--radius);
+  transition: border-color 0.18s ease;
+}
+.adata__cta:hover { border-color: var(--outline-border-hover); }
+
+/* ===================== Footer ===================== */
+.hrw-footer {
+  border-top: 1px solid var(--border);
+}
+
+.hrw-footer__inner {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 16px 64px;
+}
+
+.hrw-footer__copy {
+  margin: 0;
+  font-size: var(--hrds-text-subtitle-md);
+  color: var(--muted-foreground);
+}
+
+.hrw-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.hrw-footer__links a {
+  font-size: var(--hrds-text-subtitle-md);
+  color: var(--muted-foreground);
+}
+
+.hrw-footer__links a:hover {
+  color: var(--foreground);
+  text-decoration: underline;
+}
+
+/* ===================== Responsive ===================== */
+@media (max-width: 1120px) {
+  .page {
+    padding: 44px 32px 56px;
+  }
+}
+
+@media (max-width: 980px) {
+  .grid {
+    grid-template-columns: 1fr;
+    max-width: 520px;
+  }
+}
+
+@media (max-width: 900px) {
+  .hrw-nav {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .hrw-header__inner {
+    padding: 0 20px;
+  }
+
+  .hrw-search {
+    padding: 0 14px;
+  }
+
+  .page {
+    padding: 28px 20px 40px;
+  }
+
+  .page__title {
+    font-size: 32px;
+  }
+
+  .hrw-footer__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 20px;
+  }
+
+  .hrw-footer__links {
+    gap: 12px 20px;
+  }
+}
+
+/* ===================== Motion preferences ===================== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

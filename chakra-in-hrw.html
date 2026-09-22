@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HackerRank — Welcome</title>
+  <meta
+    name="description"
+    content="HackerRank Workspace home — choose a product to get started: Chakra, Interview, or Screen."
+  />
+
+  <!-- hr-design (HRDS) tokens + self-hosted brand fonts, then page styles -->
+  <link rel="stylesheet" href="styles/hrds/tokens.css" />
+  <link rel="stylesheet" href="styles/hrds/theme.css" />
+  <link rel="stylesheet" href="styles/hrds/fonts.css" />
+  <link rel="stylesheet" href="styles/chakra-in-hrw.css?v=4" />
+</head>
+<body>
+  <!-- ===================== HRW global header (dark) =====================
+       `dark` scopes the HRDS `.dark` token overrides to this bar, so its
+       surface / text / border colours come straight from the design system. -->
+  <header class="hrw-header dark">
+    <div class="hrw-header__inner">
+      <div class="hrw-header__left">
+        <a class="hrw-header__logo" href="#" aria-label="HackerRank home">
+          <img src="assets/hrw/logo-white.svg" alt="HackerRank" width="98" height="14" />
+        </a>
+        <nav class="hrw-nav" aria-label="Primary">
+          <a class="hrw-nav__link is-active" href="#" aria-current="page">
+            Chakra
+            <span class="hrw-nav__badge">New</span>
+          </a>
+          <a class="hrw-nav__link" href="#">Tests</a>
+          <a class="hrw-nav__link" href="#">Interviews</a>
+          <a class="hrw-nav__link" href="#">Library</a>
+          <a class="hrw-nav__link" href="#">Insights</a>
+          <button class="hrw-nav__more" type="button">
+            More
+            <img class="hrw-nav__more-icon" src="assets/hrw/icon-chevron.svg" alt="" aria-hidden="true" />
+          </button>
+        </nav>
+      </div>
+
+      <div class="hrw-header__right">
+        <button class="hrw-search" type="button">
+          <img class="hrw-search__icon" src="assets/hrw/icon-search.svg" alt="" aria-hidden="true" />
+          Search Candidates
+        </button>
+        <span class="hrw-header__divider" aria-hidden="true"></span>
+        <button class="hrw-avatar" type="button" aria-label="Account menu, Deon Davis">
+          <span class="hrw-avatar__badge">DD</span>
+          <img class="hrw-avatar__chevron" src="assets/hrw/icon-chevron.svg" alt="" aria-hidden="true" />
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== Main content ===================== -->
+  <main class="page">
+    <div class="page__inner">
+      <div class="page__head">
+        <h1 class="page__title">Welcome, Deon!</h1>
+        <p class="page__subtitle">Where would you like to start?</p>
+      </div>
+
+      <div class="cards">
+        <!-- ---------- Chakra ---------- -->
+        <article class="card product-card" aria-labelledby="pc-chakra-title">
+          <div class="product-card__media product-card__media--chakra">
+            <div class="sig sig--chakra" aria-hidden="true">
+              <div class="sig-card">
+                <span class="sig-avatar">RD</span>
+                <span class="sig-who">
+                  <b>Ryan Davis</b>
+                  <span>Applied AI Engineer</span>
+                </span>
+                <span class="sig-score">4.6 / 5</span>
+              </div>
+              <div class="sig-flag">
+                <span class="sig-flag__dot"></span>
+                ChatGPT detected
+                <span class="sig-flag__time">3:23 PM</span>
+              </div>
+            </div>
+          </div>
+          <div class="product-card__body">
+            <div class="product-card__intro">
+              <h2 class="product-card__title" id="pc-chakra-title">Chakra</h2>
+              <p class="product-card__desc">An AI interviewer that actually works</p>
+            </div>
+            <ul class="product-card__list">
+              <li>
+                <img class="product-card__check" src="assets/hrw/icon-check.svg" alt="" aria-hidden="true" />
+                <span><strong>Adaptive AI interviews</strong> that probe every answer</span>
+              </li>
+              <li>
+                <img class="product-card__check" src="assets/hrw/icon-check.svg" alt="" aria-hidden="true" />
+                <span><strong>Live cheating signals</strong> — tab switches, AI tools</span>
+              </li>
+              <li>
+                <img class="product-card__check" src="assets/hrw/icon-check.svg" alt="" aria-hidden="true" />
+                <span><strong>Trustworthy scorecards</strong> your team can act on</span>
+              </li>
+            </ul>
+          </div>
+          <a class="btn btn--outline product-card__cta" href="#">Check it out</a>
+        </article>
+
+        <!-- ---------- Interview ---------- -->
+        <article class="card product-card" aria-labelledby="pc-interview-title">
+          <div class="product-card__media product-card__media--interview">
+            <div class="sig sig--code" aria-hidden="true">
+              <div class="sig-code__dots"><i></i><i></i><i></i></div>
+              <pre class="sig-code__body"><span class="tok-key">def</span> <span class="tok-fn">two_sum</span>(nums, target):
+    seen = {}
+    <span class="tok-key">for</span> i, n <span class="tok-key">in</span> <span class="tok-fn">enumerate</span>(nums):
+        <span class="tok-key">if</span> target - n <span class="tok-key">in</span> seen:
+            <span class="tok-key">return</span> [seen[target - n], i]</pre>
+              <span class="sig-code__peer">Priya is editing</span>
+            </div>
+          </div>
+          <div class="product-card__body">
+            <div class="product-card__intro">
+              <h2 class="product-card__title" id="pc-interview-title">Interview</h2>
+              <p class="product-card__desc">Conduct live, interactive programming interviews on demand</p>
+            </div>
+            <ul class="product-card__list">
+              <li>
+                <img class="product-card__check" src="assets/hrw/icon-check.svg" alt="" aria-hidden="true" />
+                <span><strong>Real-time collaborative IDE</strong>, 50+ languages</span>
+              </li>
+              <li>
+                <img class="product-card__check" src="assets/hrw/icon-check.svg" alt="" aria-hidden="true" />
+                <span><strong>Real-world problems</strong>, not toy puzzles</span>
+              </li>
+              <li>
+                <img class="product-card__check" src="assets/hrw/icon-check.svg" alt="" aria-hidden="true" />
+                <span><strong>Live proctoring</strong> flags suspicious actions</span>
+              </li>
+            </ul>
+          </div>
+          <a class="btn btn--outline product-card__cta" href="#">Create your first interview</a>
+        </article>
+
+        <!-- ---------- Screen ---------- -->
+        <article class="card product-card" aria-labelledby="pc-screen-title">
+          <div class="product-card__media product-card__media--screen">
+            <div class="sig sig--rank" aria-hidden="true">
+              <div class="sig-rank__row">
+                <span class="sig-rank__pos">1</span>
+                <span class="sig-rank__name">A. Rivera</span>
+                <span class="sig-rank__score">92</span>
+              </div>
+              <div class="sig-rank__row">
+                <span class="sig-rank__pos">2</span>
+                <span class="sig-rank__name">M. Chen</span>
+                <span class="sig-rank__score">88</span>
+              </div>
+              <div class="sig-rank__row">
+                <span class="sig-rank__pos">3</span>
+                <span class="sig-rank__name">L. Osei</span>
+                <span class="sig-rank__score sig-rank__score--warn">68</span>
+              </div>
+            </div>
+          </div>
+          <div class="product-card__body">
+            <div class="product-card__intro">
+              <h2 class="product-card__title" id="pc-screen-title">Screen</h2>
+              <p class="product-card__desc">Send take-home assessments to test candidates at scale</p>
+            </div>
+            <ul class="product-card__list">
+              <li>
+                <img class="product-card__check" src="assets/hrw/icon-check.svg" alt="" aria-hidden="true" />
+                <span><strong>Auto-scored</strong> across 40+ frameworks</span>
+              </li>
+              <li>
+                <img class="product-card__check" src="assets/hrw/icon-check.svg" alt="" aria-hidden="true" />
+                <span><strong>Rank and filter</strong> thousands at once</span>
+              </li>
+              <li>
+                <img class="product-card__check" src="assets/hrw/icon-check.svg" alt="" aria-hidden="true" />
+                <span><strong>Built-in plagiarism</strong> detection on every test</span>
+              </li>
+            </ul>
+          </div>
+          <a class="btn btn--outline product-card__cta" href="#">Create your first test</a>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===================== Footer ===================== -->
+  <footer class="hrw-footer">
+    <div class="hrw-footer__inner">
+      <p class="hrw-footer__copy">© 2026 HackerRank</p>
+      <nav class="hrw-footer__links" aria-label="Footer">
+        <a href="#">Privacy policy</a>
+        <a href="#">Terms of service</a>
+        <a href="#">API</a>
+        <a href="#">Support</a>
+        <a href="#">Status</a>
+        <a href="#">Security Center</a>
+        <a href="#">Academy</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

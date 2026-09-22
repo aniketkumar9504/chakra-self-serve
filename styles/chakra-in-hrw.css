@@ -1,0 +1,715 @@
+/* ============================================================================
+   "Chakra discoverability in HRW" — Workspace home / dashboard
+   ----------------------------------------------------------------------------
+   Layout follows the Figma proposal (node 47-8888): a dark HackerRank Workspace
+   global header, a "Welcome, Deon!" greeting, and a three-up card row that
+   surfaces Chakra alongside the existing Interview product cards.
+
+   As with the sibling pages, colour / type / radius / spacing VALUES come from
+   the hr-design (HRDS) tokens vendored in styles/hrds/*. This sheet references
+   --* tokens wherever an equivalent exists; the handful of product-chrome values
+   with no HRDS token (the navy header palette, the card hairline, the Chakra
+   marketing gradient) are declared once below as local, documented variables.
+   ============================================================================ */
+
+:root {
+  /* Chakra "New" badge — a brand teal gradient with no HRDS token equivalent
+     (kept bespoke, like the Chakra marketing accents on the sibling pages). */
+  --hrw-badge-from: #004b4b;
+  --hrw-badge-to: #01b8b8;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-ds);
+  font-size: var(--hrds-text-body-md);
+  line-height: var(--hrds-text-body-md-lh);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ===================== HRW global header (dark) =====================
+   Scoped with `.dark` (in markup) so it consumes the design system's dark
+   surface exactly as HRDS intends — --background/--foreground/--border/
+   --outline-border/--secondary all resolve to their `.dark` values here. */
+.hrw-header {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.hrw-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  padding: 0 48px;
+}
+
+.hrw-header__left {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.hrw-header__logo img {
+  width: 98px;
+  height: 14px;
+}
+
+.hrw-nav {
+  display: flex;
+  align-items: stretch;
+  height: 64px;
+  margin-left: 8px;
+}
+
+.hrw-nav__link,
+.hrw-nav__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 64px;
+  padding: 0 24px;
+  border: 0;
+  border-bottom: 4px solid transparent;
+  background: none;
+  font-family: var(--font-ds);
+  font-size: var(--hrds-text-subtitle-md);
+  line-height: 1.6;
+  color: var(--muted-foreground);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.hrw-nav__link:hover,
+.hrw-nav__more:hover {
+  color: var(--foreground);
+}
+
+.hrw-nav__link.is-active {
+  color: var(--foreground);
+}
+
+.hrw-nav__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  font-size: var(--hrds-text-body-sm);
+  font-weight: 500;
+  line-height: 1.33;
+  color: var(--neutral-foreground);
+  background: linear-gradient(90deg, var(--hrw-badge-from) 0%, var(--hrw-badge-to) 100%);
+  border-radius: var(--hrds-radius-circle);
+}
+
+/* Chevron SVG already ships in the nav's muted tone — no recolouring needed. */
+.hrw-nav__more-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.hrw-header__right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-shrink: 0;
+}
+
+.hrw-search {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 20px;
+  font-family: var(--font-ds);
+  font-size: var(--hrds-text-subtitle-md);
+  font-weight: 500;
+  color: var(--foreground);
+  background: none;
+  border: 1px solid var(--outline-border);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.hrw-search:hover {
+  border-color: var(--outline-border-hover);
+}
+
+.hrw-search__icon {
+  width: 20px;
+  height: 20px;
+}
+
+.hrw-header__divider {
+  width: 1px;
+  height: 32px;
+  background: var(--border);
+}
+
+.hrw-avatar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.hrw-avatar__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  font-size: var(--hrds-text-subtitle-md);
+  color: var(--foreground);
+  background: var(--secondary);
+  border-radius: var(--hrds-radius-xl);
+}
+
+.hrw-avatar__chevron {
+  width: 14px;
+  height: 14px;
+}
+
+/* ===================== Main / greeting ===================== */
+.page {
+  flex: 1;
+  padding: 40px 60px 56px;
+}
+
+.page__inner {
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.page__head {
+  margin-bottom: 32px;
+}
+
+/* Display greeting in Kalice (HRDS --font-heading), matching the sibling
+   page's page-title treatment. */
+.page__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  color: var(--foreground);
+}
+
+.page__subtitle {
+  margin: 4px 0 0;
+  font-size: var(--hrds-text-subtitle-lg);
+  line-height: var(--hrds-text-subtitle-lg-lh);
+  color: var(--muted-foreground);
+}
+
+/* ===================== Card grid ===================== */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  align-items: stretch;
+}
+
+.card {
+  min-height: 490px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--hrds-radius-xl);
+}
+
+/* ===================== Buttons ===================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-ds);
+  font-size: var(--hrds-text-subtitle-md);
+  font-weight: 700;
+  line-height: var(--hrds-text-subtitle-lg-lh);
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+/* HRDS "secondary" button: near-black surface, white label. */
+.btn--dark {
+  height: 40px;
+  padding: 8px 20px;
+  color: var(--secondary-foreground);
+  background: var(--secondary);
+  border: 1px solid var(--secondary);
+  border-radius: var(--hrds-radius-lg);
+}
+
+.btn--dark:hover {
+  background: var(--secondary-hover);
+  border-color: var(--secondary-hover);
+}
+
+.btn__icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* HRDS "outline" button. */
+.btn--outline {
+  width: 100%;
+  padding: 8px 24px;
+  min-height: 40px;
+  color: var(--outline-foreground);
+  background: transparent;
+  border: 1px solid var(--outline-border);
+  border-radius: var(--hrds-radius-lg);
+}
+
+.btn--outline:hover {
+  border-color: var(--outline-border-hover);
+}
+
+/* ===================== Product cards ===================== */
+/* Three equal-weight product tiles (Chakra · Interview · Screen): a tinted
+   media header, product identity + description, feature list, and an action
+   pinned to the bottom. Uniform structure — deliberately not a promo banner. */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.product-card__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 148px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--hrds-radius-lg);
+  background: var(--muted);
+}
+
+/* Soft, brand-tinted washes — tints sourced from HRDS decorative/state tokens. */
+.product-card__media--chakra {
+  background: linear-gradient(155deg, var(--cyan-alt) 0%, var(--card) 100%);
+}
+
+.product-card__media--interview {
+  background: linear-gradient(155deg, var(--success-alt) 0%, var(--card) 100%);
+}
+
+.product-card__media--screen {
+  background: linear-gradient(
+    155deg,
+    color-mix(in srgb, var(--primary) 24%, var(--card)) 0%,
+    var(--card) 100%
+  );
+}
+
+.product-card__icon {
+  width: 56px;
+  height: 56px;
+}
+
+.product-card__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.product-card__intro {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.product-card__title {
+  margin: 0;
+  font-weight: 700;
+  font-size: var(--hrds-text-title-md); /* 20px */
+  line-height: var(--hrds-text-title-md-lh);
+  color: var(--foreground);
+}
+
+.product-card__desc {
+  margin: 0;
+  font-size: var(--hrds-text-subtitle-md);
+  line-height: var(--hrds-text-subtitle-md-lh);
+  color: var(--muted-foreground);
+}
+
+.product-card__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.product-card__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-size: var(--hrds-text-subtitle-md);
+  line-height: var(--hrds-text-subtitle-md-lh);
+  color: var(--foreground);
+}
+
+.product-card__check {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+
+/* Lead differentiator of each benefit is emphasised so the USP reads first. */
+.product-card__list strong {
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.product-card__cta {
+  margin-top: 24px;
+}
+
+/* ---------- Signature previews ----------
+   Each media tile carries a mini-render of the product's defining moment, so
+   the USP lands visually instead of relying on a logo + generic ticks. Same
+   frame for all three; distinct interiors. The dark editor's greys render a
+   product screen, so they stay literal (as with the other mini-screens). */
+.product-card__media {
+  height: 160px;
+  overflow: hidden;
+}
+
+.sig {
+  width: 88%;
+  font-family: var(--font-ds);
+}
+
+/* Chakra — scored candidate + a live proctoring flag. */
+.sig--chakra {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sig-card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--hrds-radius-sm);
+  box-shadow: var(--card-shadow);
+}
+
+.sig-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--cyan-foreground);
+  background: var(--cyan-alt);
+  border-radius: var(--hrds-radius-circle);
+}
+
+.sig-who {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.25;
+}
+
+.sig-who b {
+  font-size: 11px;
+  color: var(--foreground);
+}
+
+.sig-who span {
+  font-size: 9px;
+  color: var(--muted-foreground);
+}
+
+.sig-score {
+  flex-shrink: 0;
+  margin-left: auto;
+  padding: 2px 7px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--success-foreground);
+  background: var(--success-alt);
+  border: 1px solid var(--success-border);
+  border-radius: var(--hrds-radius-xs);
+}
+
+.sig-flag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--warning-foreground);
+  background: var(--warning-alt);
+  border: 1px solid var(--warning-border);
+  border-radius: var(--hrds-radius-sm);
+}
+
+.sig-flag__dot {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--hrds-radius-circle);
+  background: var(--warning);
+}
+
+.sig-flag__time {
+  margin-left: auto;
+  font-weight: 400;
+  color: var(--muted-foreground);
+}
+
+/* Interview — a live collaborative code editor. */
+.sig--code {
+  padding: 10px;
+  background: #16161c;
+  border-radius: var(--hrds-radius-sm);
+  box-shadow: var(--card-shadow);
+}
+
+.sig-code__dots {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.sig-code__dots i {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--hrds-radius-circle);
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.sig-code__body {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  line-height: 1.7;
+  white-space: pre;
+  color: #e6e6ea;
+}
+
+.tok-key { color: #c792ea; }
+.tok-fn { color: #82aaff; }
+.tok-str { color: #c3e88d; }
+.tok-num { color: #f78c6c; }
+.tok-com { color: #6a6a75; }
+
+.sig-code__peer {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+  padding: 2px 6px;
+  font-family: var(--font-ds);
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--info-foreground);
+  background: var(--info);
+  border-radius: var(--hrds-radius-xs);
+}
+
+.sig-code__peer::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: var(--hrds-radius-circle);
+  background: currentColor;
+}
+
+/* Screen — an auto-scored, ranked candidate list. */
+.sig--rank {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sig-rank__row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--hrds-radius-sm);
+}
+
+.sig-rank__pos {
+  flex-shrink: 0;
+  width: 14px;
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--muted-foreground);
+}
+
+.sig-rank__name {
+  font-size: 11px;
+  color: var(--foreground);
+}
+
+.sig-rank__score {
+  flex-shrink: 0;
+  margin-left: auto;
+  padding: 2px 7px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--success-foreground);
+  background: var(--success-alt);
+  border: 1px solid var(--success-border);
+  border-radius: var(--hrds-radius-xs);
+}
+
+.sig-rank__score--warn {
+  color: var(--caution-foreground);
+  background: var(--caution-alt);
+  border-color: var(--caution-border);
+}
+
+/* ===================== Footer ===================== */
+.hrw-footer {
+  border-top: 1px solid var(--border);
+}
+
+.hrw-footer__inner {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 16px 64px;
+}
+
+.hrw-footer__copy {
+  margin: 0;
+  font-size: var(--hrds-text-subtitle-md);
+  color: var(--muted-foreground);
+}
+
+.hrw-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.hrw-footer__links a {
+  font-size: var(--hrds-text-subtitle-md);
+  color: var(--muted-foreground);
+}
+
+.hrw-footer__links a:hover {
+  color: var(--foreground);
+  text-decoration: underline;
+}
+
+/* ===================== Responsive ===================== */
+@media (max-width: 1120px) {
+  .page {
+    padding: 40px 32px 48px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .card {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .hrw-nav {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .hrw-header__inner {
+    padding: 0 20px;
+  }
+
+  .hrw-search {
+    padding: 0 14px;
+  }
+
+  .page {
+    padding: 28px 20px 40px;
+  }
+
+  .page__title {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  .hrw-footer__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 20px;
+  }
+
+  .hrw-footer__links {
+    gap: 12px 20px;
+  }
+}
+
+/* ===================== Motion preferences ===================== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
