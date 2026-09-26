@@ -14,7 +14,12 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background: var(--background);
+  /* Soft Chakra-colours glow at the top, fading to white (matches the demo page). */
+  background-color: var(--background);
+  background-image: url("../assets/bg-gradient.svg");
+  background-repeat: no-repeat;
+  background-position: center -240px;
+  background-size: 110% 780px;
   color: var(--foreground);
   font-family: var(--font-ds);
   font-size: var(--hrds-text-body-md);
@@ -129,24 +134,57 @@ img { display: block; max-width: 100%; }
   box-shadow: 0 1px 2px rgba(20, 20, 25, 0.04);
 }
 
-/* ===================== Identify ===================== */
-.bd-identify { max-width: 460px; padding-top: 48px; }
+/* ===================== Identify (full-width split hero) ===================== */
+.bd-identify { max-width: 1160px; padding: 0 40px 56px; }
 .bd-emailform .bd-btn { margin-top: 12px; }
 
-/* Who + how long, made explicit under the heading. */
+/* Two columns: headline bottom-left, form on the right. */
+.bd-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 72px;
+  align-items: end; /* bottom-anchor both columns */
+  min-height: calc(100vh - 64px - 220px);
+  padding-top: 40px;
+}
+.bd-hero__left { align-self: end; padding-bottom: 6px; }
+.bd-hero__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(40px, 5vw, 56px);
+  line-height: 1.08;
+  letter-spacing: -1px;
+  color: var(--foreground);
+}
+.bd-hero__right { align-self: end; }
+
+/* Who + how long, beneath the headline. */
 .bd-meta {
-  list-style: none; margin: 12px 0 20px; padding: 0; display: flex;
+  list-style: none; margin: 20px 0 0; padding: 0; display: flex;
   flex-wrap: wrap; gap: 8px 20px;
 }
-.bd-meta__item { display: inline-flex; align-items: center; gap: 7px; font-size: var(--hrds-text-body-sm); font-weight: 500; }
+.bd-meta__item { display: inline-flex; align-items: center; gap: 7px; font-size: var(--hrds-text-body-md); font-weight: 500; }
 .bd-meta__item svg { color: var(--muted-foreground); flex-shrink: 0; }
 
-/* On identify: product selection sits above the email with a little breathing
-   room, and the try-it cards stack under the narrower card. */
-.bd-identify .bd-chips-wrap { margin-top: 18px; }
-.bd-identify .bd-emailform { margin-top: 20px; }
-.bd-identify .bd-tryit__cards { grid-template-columns: 1fr; }
-.bd-identify .bd-tryit { margin-top: 20px; }
+/* Right column: product selection above the email (no card box). */
+.bd-hero__right .bd-chips-wrap { margin-top: 0; }
+.bd-hero__right .bd-emailform { margin-top: 22px; }
+
+.bd-identify .bd-tryit { margin-top: 40px; }
+
+@media (max-width: 860px) {
+  .bd-identify { padding: 0 24px 48px; }
+  .bd-hero {
+    grid-template-columns: 1fr;
+    row-gap: 32px;
+    min-height: 0;
+    align-items: start;
+    padding-top: 24px;
+  }
+  .bd-hero__left, .bd-hero__right { align-self: start; }
+  .bd-identify .bd-tryit__cards { grid-template-columns: 1fr; }
+}
 
 /* ===================== Loading ===================== */
 .bd-loading { display: flex; flex-direction: column; align-items: center; gap: 16px; padding-top: 140px; text-align: center; }

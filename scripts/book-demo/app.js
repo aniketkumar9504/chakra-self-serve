@@ -123,28 +123,30 @@ const SCREENS = {
 function renderIdentify() {
   return `
   <main class="bd-screen bd-identify" aria-labelledby="bd-id-title">
-    <div class="bd-card bd-identify__card">
-      <h1 class="bd-h1" id="bd-id-title">Book a HackerRank demo</h1>
+    <div class="bd-hero">
+      <div class="bd-hero__left">
+        <h1 class="bd-hero__title" id="bd-id-title">Book a<br />HackerRank demo</h1>
+        <ul class="bd-meta">
+          <li class="bd-meta__item">${clockIcon}<span>30 minutes</span></li>
+          <li class="bd-meta__item">${personIcon}<span>With a product expert</span></li>
+        </ul>
+      </div>
 
-      <ul class="bd-meta">
-        <li class="bd-meta__item">${clockIcon}<span>30 minutes</span></li>
-        <li class="bd-meta__item">${personIcon}<span>With a product expert</span></li>
-      </ul>
-
-      ${renderProductChips()}
-
-      <form class="bd-emailform" data-action="email-submit" novalidate>
-        <label class="bd-label" for="bd-email">Work email</label>
-        <input class="bd-input ${state.emailError ? "bd-input--error" : ""}" type="email"
-               id="bd-email" name="email" placeholder="name@company.com"
-               autocomplete="email" value="${esc(state.email)}"
-               aria-invalid="${state.emailError ? "true" : "false"}"
-               ${state.emailError ? 'aria-describedby="bd-email-err"' : ""} />
-        ${state.emailError
-          ? `<p class="bd-error" id="bd-email-err" role="alert">${esc(state.emailError)}</p>`
-          : ""}
-        <button class="bd-btn bd-btn--primary bd-btn--block" type="submit">Continue</button>
-      </form>
+      <div class="bd-hero__right">
+        ${renderProductChips()}
+        <form class="bd-emailform" data-action="email-submit" novalidate>
+          <label class="bd-label" for="bd-email">Work email</label>
+          <input class="bd-input ${state.emailError ? "bd-input--error" : ""}" type="email"
+                 id="bd-email" name="email" placeholder="name@company.com"
+                 autocomplete="email" value="${esc(state.email)}"
+                 aria-invalid="${state.emailError ? "true" : "false"}"
+                 ${state.emailError ? 'aria-describedby="bd-email-err"' : ""} />
+          ${state.emailError
+            ? `<p class="bd-error" id="bd-email-err" role="alert">${esc(state.emailError)}</p>`
+            : ""}
+          <button class="bd-btn bd-btn--primary bd-btn--block" type="submit">Continue</button>
+        </form>
+      </div>
     </div>
     ${tryItSection()}
   </main>`;
