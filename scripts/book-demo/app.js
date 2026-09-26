@@ -58,18 +58,40 @@ const emailValid = (e) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(e).trim());
 const avatar = (initials, cls = "") =>
   `<span class="bd-avatar ${cls}" aria-hidden="true">${esc(initials)}</span>`;
 
-const googleIcon = () =>
-  `<svg class="bd-oauth__icon" width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
-    <path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.8 2.72v2.26h2.91c1.7-1.57 2.69-3.88 2.69-6.62z"/>
-    <path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.91-2.26c-.81.54-1.84.86-3.05.86-2.35 0-4.34-1.59-5.05-3.71H.96v2.33A9 9 0 0 0 9 18z"/>
-    <path fill="#FBBC05" d="M3.95 10.71a5.4 5.4 0 0 1 0-3.42V4.96H.96a9 9 0 0 0 0 8.08l2.99-2.33z"/>
-    <path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58C13.46.89 11.43 0 9 0A9 9 0 0 0 .96 4.96l2.99 2.33C4.66 5.17 6.65 3.58 9 3.58z"/>
+const clockIcon =
+  `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <circle cx="8" cy="8" r="6.25" stroke="currentColor" stroke-width="1.4"/>
+    <path d="M8 4.75V8l2.25 1.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>`;
-const msIcon = () =>
-  `<svg class="bd-oauth__icon" width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
-    <path fill="#F25022" d="M0 0h8.5v8.5H0z"/><path fill="#7FBA00" d="M9.5 0H18v8.5H9.5z"/>
-    <path fill="#00A4EF" d="M0 9.5h8.5V18H0z"/><path fill="#FFB900" d="M9.5 9.5H18V18H9.5z"/>
+const personIcon =
+  `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <circle cx="8" cy="5" r="2.5" stroke="currentColor" stroke-width="1.4"/>
+    <path d="M3 13c0-2.2 2.2-3.75 5-3.75S13 10.8 13 13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
   </svg>`;
+
+/* Branded "try it yourself" cards — shown on identify and on the book screen. */
+function tryItSection() {
+  return `
+  <section class="bd-tryit" aria-label="Try it yourself">
+    <p class="bd-tryit__lead">Don't have 30 minutes? Try it yourself first</p>
+    <div class="bd-tryit__cards">
+      <a class="bd-trycard bd-trycard--chakra" href="start-free-trial.html">
+        <span class="bd-trycard__icon"><img src="assets/products/chakra.svg" alt="" aria-hidden="true" /></span>
+        <span class="bd-trycard__body">
+          <span class="bd-trycard__title">Try Chakra now</span>
+          <span class="bd-trycard__desc">Take a 5-min AI interview yourself</span>
+        </span>
+      </a>
+      <a class="bd-trycard bd-trycard--interview" href="#" data-action="try">
+        <span class="bd-trycard__icon"><img src="assets/products/interview.svg" alt="" aria-hidden="true" /></span>
+        <span class="bd-trycard__body">
+          <span class="bd-trycard__title">Try Interview now</span>
+          <span class="bd-trycard__desc">Open a live coding pad</span>
+        </span>
+      </a>
+    </div>
+  </section>`;
+}
 
 function bannerFor(p) {
   if (!p) return "";
@@ -103,18 +125,12 @@ function renderIdentify() {
   <main class="bd-screen bd-identify" aria-labelledby="bd-id-title">
     <div class="bd-card bd-identify__card">
       <h1 class="bd-h1" id="bd-id-title">Book a HackerRank demo</h1>
-      <p class="bd-sub">30 minutes with a product expert. Pick a time in under a minute.</p>
+      <p class="bd-sub">Pick a time in under a minute.</p>
 
-      <div class="bd-oauth">
-        <button class="bd-btn bd-btn--outline" type="button" data-action="oauth" data-provider="Google">
-          ${googleIcon()} Continue with Google
-        </button>
-        <button class="bd-btn bd-btn--outline" type="button" data-action="oauth" data-provider="Microsoft">
-          ${msIcon()} Continue with Microsoft
-        </button>
-      </div>
-
-      <div class="bd-divider"><span>or</span></div>
+      <ul class="bd-meta">
+        <li class="bd-meta__item">${clockIcon}<span>30 minutes</span></li>
+        <li class="bd-meta__item">${personIcon}<span>With a product expert</span></li>
+      </ul>
 
       <form class="bd-emailform" data-action="email-submit" novalidate>
         <label class="bd-label" for="bd-email">Work email</label>
@@ -130,6 +146,7 @@ function renderIdentify() {
         <p class="bd-help" id="bd-email-help">We'll fill in your company details for you. No long form.</p>
       </form>
     </div>
+    ${tryItSection()}
   </main>`;
 }
 
@@ -206,10 +223,10 @@ function renderBook() {
           <div class="bd-person__email">${esc(p.email)}</div></div>
         </div>
         ${renderDetailRows(p)}
-        ${renderProductChips()}
       </section>
 
       <section class="bd-panel bd-cal" aria-labelledby="bd-cal-h">
+        ${renderProductChips()}
         <div class="bd-rep">
           ${avatar(state.rep.initials, "bd-avatar--rep")}
           <div>
@@ -231,19 +248,7 @@ function renderBook() {
       </section>
     </div>
 
-    <section class="bd-tryit" aria-label="Try it yourself">
-      <p class="bd-tryit__lead">Don't have 30 minutes? Try it yourself first</p>
-      <div class="bd-tryit__cards">
-        <a class="bd-trycard" href="start-free-trial.html" data-action="try">
-          <span class="bd-trycard__title">Try Chakra now</span>
-          <span class="bd-trycard__desc">Take a 5-min AI interview yourself</span>
-        </a>
-        <a class="bd-trycard" href="#" data-action="try">
-          <span class="bd-trycard__title">Try Interview now</span>
-          <span class="bd-trycard__desc">Open a live coding pad</span>
-        </a>
-      </div>
-    </section>
+    ${tryItSection()}
   </main>`;
 }
 
@@ -560,12 +565,7 @@ app.addEventListener("click", (e) => {
   const btn = e.target.closest("[data-action]");
   if (!btn) return;
   const action = btn.dataset.action;
-  if (action === "oauth") {
-    // mocked sign-in → treat like a known enterprise identity
-    e.preventDefault();
-    state.protoState = null;
-    goFromEmail("priya@acme.com");
-  } else if (action === "product") {
+  if (action === "product") {
     state.product = btn.dataset.product;
     state.productPreselected = false;
     reRoute();

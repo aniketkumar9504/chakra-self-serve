@@ -130,13 +130,21 @@ img { display: block; max-width: 100%; }
 }
 
 /* ===================== Identify ===================== */
-.bd-identify { max-width: 440px; padding-top: 56px; }
-.bd-oauth { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
-.bd-oauth .bd-btn { width: 100%; }
-.bd-oauth__icon { flex-shrink: 0; }
-.bd-divider { display: flex; align-items: center; gap: 12px; margin: 20px 0; color: var(--muted-foreground); font-size: var(--hrds-text-body-sm); }
-.bd-divider::before, .bd-divider::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+.bd-identify { max-width: 460px; padding-top: 48px; }
 .bd-emailform .bd-btn { margin-top: 12px; }
+
+/* Who + how long, made explicit under the heading. */
+.bd-meta {
+  list-style: none; margin: 16px 0 22px; padding: 12px 0; display: flex;
+  flex-wrap: wrap; gap: 8px 20px;
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+}
+.bd-meta__item { display: inline-flex; align-items: center; gap: 7px; font-size: var(--hrds-text-body-sm); font-weight: 500; }
+.bd-meta__item svg { color: var(--muted-foreground); flex-shrink: 0; }
+
+/* On identify the try-it cards stack under the narrower card. */
+.bd-identify .bd-tryit__cards { grid-template-columns: 1fr; }
+.bd-identify .bd-tryit { margin-top: 20px; }
 
 /* ===================== Loading ===================== */
 .bd-loading { display: flex; flex-direction: column; align-items: center; gap: 16px; padding-top: 140px; text-align: center; }
@@ -258,19 +266,30 @@ img { display: block; max-width: 100%; }
 .bd-request { margin-top: 12px; }
 .bd-request .bd-btn { margin-top: 8px; }
 
-/* ---- try it yourself ---- */
+/* ---- try it yourself (branded per product) ---- */
 .bd-tryit { margin-top: 28px; }
 .bd-tryit__lead { margin: 0 0 12px; color: var(--muted-foreground); font-size: var(--hrds-text-body-sm); }
 .bd-tryit__cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .bd-trycard {
-  display: flex; flex-direction: column; gap: 2px; padding: 14px 16px;
+  display: flex; align-items: center; gap: 12px; padding: 14px 16px;
   background: var(--background); border: 1px dashed var(--border);
   border-radius: var(--hrds-radius-md); color: var(--foreground); text-decoration: none;
-  transition: border-color 0.15s ease;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
 }
 .bd-trycard:hover { border-color: var(--foreground); }
+.bd-trycard__icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; flex-shrink: 0; border-radius: var(--hrds-radius-sm);
+}
+.bd-trycard__icon img { width: 22px; height: 22px; object-fit: contain; }
+.bd-trycard__body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .bd-trycard__title { font-weight: 500; font-size: var(--hrds-text-body-sm); }
 .bd-trycard__desc { color: var(--muted-foreground); font-size: var(--hrds-text-body-sm); }
+/* product brand tints */
+.bd-trycard--chakra .bd-trycard__icon { background: #e7fbff; }
+.bd-trycard--chakra:hover { border-color: #7fc4ff; background: color-mix(in srgb, #8ae9ff 8%, transparent); }
+.bd-trycard--interview .bd-trycard__icon { background: color-mix(in srgb, var(--success, #12b76a) 16%, transparent); }
+.bd-trycard--interview:hover { border-color: var(--success, #12b76a); background: color-mix(in srgb, var(--success, #12b76a) 6%, transparent); }
 
 /* ===================== Confirmation ===================== */
 .bd-confirm { max-width: 480px; padding-top: 48px; }
