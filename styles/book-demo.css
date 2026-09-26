@@ -135,14 +135,16 @@ img { display: block; max-width: 100%; }
 
 /* Who + how long, made explicit under the heading. */
 .bd-meta {
-  list-style: none; margin: 16px 0 22px; padding: 12px 0; display: flex;
+  list-style: none; margin: 12px 0 20px; padding: 0; display: flex;
   flex-wrap: wrap; gap: 8px 20px;
-  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
 }
 .bd-meta__item { display: inline-flex; align-items: center; gap: 7px; font-size: var(--hrds-text-body-sm); font-weight: 500; }
 .bd-meta__item svg { color: var(--muted-foreground); flex-shrink: 0; }
 
-/* On identify the try-it cards stack under the narrower card. */
+/* On identify: product selection sits above the email with a little breathing
+   room, and the try-it cards stack under the narrower card. */
+.bd-identify .bd-chips-wrap { margin-top: 18px; }
+.bd-identify .bd-emailform { margin-top: 20px; }
 .bd-identify .bd-tryit__cards { grid-template-columns: 1fr; }
 .bd-identify .bd-tryit { margin-top: 20px; }
 

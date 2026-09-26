@@ -125,12 +125,13 @@ function renderIdentify() {
   <main class="bd-screen bd-identify" aria-labelledby="bd-id-title">
     <div class="bd-card bd-identify__card">
       <h1 class="bd-h1" id="bd-id-title">Book a HackerRank demo</h1>
-      <p class="bd-sub">Pick a time in under a minute.</p>
 
       <ul class="bd-meta">
         <li class="bd-meta__item">${clockIcon}<span>30 minutes</span></li>
         <li class="bd-meta__item">${personIcon}<span>With a product expert</span></li>
       </ul>
+
+      ${renderProductChips()}
 
       <form class="bd-emailform" data-action="email-submit" novalidate>
         <label class="bd-label" for="bd-email">Work email</label>
@@ -138,12 +139,11 @@ function renderIdentify() {
                id="bd-email" name="email" placeholder="name@company.com"
                autocomplete="email" value="${esc(state.email)}"
                aria-invalid="${state.emailError ? "true" : "false"}"
-               aria-describedby="${state.emailError ? "bd-email-err" : "bd-email-help"}" />
+               ${state.emailError ? 'aria-describedby="bd-email-err"' : ""} />
         ${state.emailError
           ? `<p class="bd-error" id="bd-email-err" role="alert">${esc(state.emailError)}</p>`
           : ""}
         <button class="bd-btn bd-btn--primary bd-btn--block" type="submit">Continue</button>
-        <p class="bd-help" id="bd-email-help">We'll fill in your company details for you. No long form.</p>
       </form>
     </div>
     ${tryItSection()}
@@ -226,7 +226,6 @@ function renderBook() {
       </section>
 
       <section class="bd-panel bd-cal" aria-labelledby="bd-cal-h">
-        ${renderProductChips()}
         <div class="bd-rep">
           ${avatar(state.rep.initials, "bd-avatar--rep")}
           <div>
@@ -568,7 +567,9 @@ app.addEventListener("click", (e) => {
   if (action === "product") {
     state.product = btn.dataset.product;
     state.productPreselected = false;
-    reRoute();
+    // On identify the product is just chosen; on the book screen it re-routes.
+    if (state.screen === "book") reRoute();
+    else render();
   } else if (action === "toggle-edit") {
     state.editing = !state.editing;
     render();
