@@ -19,7 +19,7 @@ const state = {
   email: "",
   emailError: "",
   profile: null,
-  product: urlProduct || "all",
+  product: urlProduct || null, // null until the user picks a product card
   productPreselected: !!urlProduct,
   editing: false,
   sizeValue: "",
@@ -78,9 +78,10 @@ const PRODUCT_EXPERTISE = {
 };
 
 /* Branded "try it yourself" cards — shown on identify and on the book screen. */
-function tryItSection() {
+function tryItSection(opts = {}) {
+  const compact = opts.compact ? " bd-tryit--compact" : "";
   return `
-  <section class="bd-tryit" aria-label="Try it yourself">
+  <section class="bd-tryit${compact}" aria-label="Try it yourself">
     <p class="bd-tryit__lead">Don't have 30 minutes? Try it yourself first</p>
     <div class="bd-tryit__cards">
       <a class="bd-trycard bd-trycard--chakra" href="start-free-trial.html">
@@ -141,20 +142,22 @@ function renderIdentify() {
       </div>
 
       <div class="bd-hero__right">
-        ${renderProductChips()}
-        <form class="bd-emailform" data-action="email-submit" novalidate>
-          <label class="bd-label" for="bd-email">Work email</label>
-          <input class="bd-input ${state.emailError ? "bd-input--error" : ""}" type="email"
-                 id="bd-email" name="email" placeholder="name@company.com"
-                 autocomplete="email" value="${esc(state.email)}"
-                 aria-invalid="${state.emailError ? "true" : "false"}"
-                 ${state.emailError ? 'aria-describedby="bd-email-err"' : ""} />
-          ${state.emailError
-            ? `<p class="bd-error" id="bd-email-err" role="alert">${esc(state.emailError)}</p>`
-            : ""}
-          <button class="bd-btn bd-btn--primary bd-btn--block" type="submit">Continue</button>
-        </form>
-        ${tryItSection()}
+        ${renderProductCards()}
+        ${state.product ? `
+          <form class="bd-emailform" data-action="email-submit" novalidate>
+            <label class="bd-label" for="bd-email">Work email</label>
+            <input class="bd-input ${state.emailError ? "bd-input--error" : ""}" type="email"
+                   id="bd-email" name="email" placeholder="name@company.com"
+                   autocomplete="email" value="${esc(state.email)}"
+                   aria-invalid="${state.emailError ? "true" : "false"}"
+                   ${state.emailError ? 'aria-describedby="bd-email-err"' : ""} />
+            ${state.emailError
+              ? `<p class="bd-error" id="bd-email-err" role="alert">${esc(state.emailError)}</p>`
+              : ""}
+            <button class="bd-btn bd-btn--primary bd-btn--block" type="submit">Continue</button>
+          </form>
+          ${tryItSection({ compact: true })}
+        ` : ""}
       </div>
     </div>
   </main>`;
@@ -308,22 +311,28 @@ function sizeRow(p, editing) {
   return `<div class="bd-row"><span class="bd-row__k">Company size</span><span class="bd-row__v">${esc(val)}</span></div>`;
 }
 
-function renderProductChips() {
-  const items = ["chakra", "interview", "all"];
-  const chips = items.map((id) => {
-    const pr = PRODUCTS[id];
+function renderProductCards() {
+  const items = [
+    ["chakra", "chakra.svg", "AI pre-screen interviews"],
+    ["interview", "interview.svg", "Live pair programming"],
+    ["all", "allproducts.svg", "Full platform tour"],
+  ];
+  const cards = items.map(([id, icon, desc]) => {
     const on = state.product === id;
-    return `<button class="bd-chip ${on ? "is-on" : ""}" type="button" role="radio"
-      aria-checked="${on}" data-action="product" data-product="${id}">${esc(pr.label)}</button>`;
+    return `<button class="bd-pcard bd-pcard--${id} ${on ? "is-on" : ""}" type="button" role="radio"
+      aria-checked="${on}" data-action="product" data-product="${id}">
+      <span class="bd-pcard__icon"><img src="assets/products/${icon}" alt="" aria-hidden="true" /></span>
+      <span class="bd-pcard__label">${esc(PRODUCTS[id].label)}</span>
+      <span class="bd-pcard__desc">${esc(desc)}</span>
+    </button>`;
   }).join("");
-  let desc = PRODUCTS[state.product].desc;
-  if (state.productPreselected) {
-    desc += ` Preselected because you came from the ${PRODUCTS[state.product].label} page.`;
-  }
-  return `<div class="bd-chips-wrap">
-    <p class="bd-chips-lead">What should we show you?</p>
-    <div class="bd-chips" role="radiogroup" aria-label="What should we show you?">${chips}</div>
-    <p class="bd-chips-desc">${esc(desc)}</p>
+  const note = state.product && state.productPreselected
+    ? `<p class="bd-pcards__note">Preselected because you came from the ${esc(PRODUCTS[state.product].label)} page.</p>`
+    : "";
+  return `<div class="bd-pcards-wrap">
+    <p class="bd-pcards-lead">What should we show you?</p>
+    <div class="bd-pcards" role="radiogroup" aria-label="What should we show you?">${cards}</div>
+    ${note}
   </div>`;
 }
 
@@ -489,7 +498,7 @@ function restart() {
   state.profile = null;
   state.email = "";
   state.emailError = "";
-  state.product = urlProduct || "all";
+  state.product = urlProduct || null;
   state.productPreselected = !!urlProduct;
   setScreen("identify");
 }

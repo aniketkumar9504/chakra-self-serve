@@ -168,12 +168,21 @@ img { display: block; max-width: 100%; }
 .bd-meta__item { display: inline-flex; align-items: center; gap: 7px; font-size: var(--hrds-text-body-md); font-weight: 500; }
 .bd-meta__item svg { color: var(--muted-foreground); flex-shrink: 0; }
 
-/* Right column: product selection, email, and the try-it cards all stacked
-   on the right (not spread across the page). */
-.bd-hero__right .bd-chips-wrap { margin-top: 0; }
+/* Right column: product selection, then (after a pick) email + compact try-it,
+   all stacked on the right (not spread across the page). */
 .bd-hero__right .bd-emailform { margin-top: 22px; }
-.bd-hero__right .bd-tryit { margin-top: 28px; }
 .bd-hero__right .bd-tryit__cards { grid-template-columns: 1fr; }
+
+/* Compact try-it (identify screen): tighter, title + descriptor on one line. */
+.bd-tryit--compact { margin-top: 24px; }
+.bd-tryit--compact .bd-tryit__lead { margin-bottom: 8px; }
+.bd-tryit--compact .bd-tryit__cards { gap: 8px; }
+.bd-tryit--compact .bd-trycard { padding: 9px 12px; gap: 10px; }
+.bd-tryit--compact .bd-trycard__icon { width: 30px; height: 30px; }
+.bd-tryit--compact .bd-trycard__icon img { width: 18px; height: 18px; }
+.bd-tryit--compact .bd-trycard__body {
+  flex-direction: row; align-items: baseline; column-gap: 8px; row-gap: 0; flex-wrap: wrap;
+}
 
 @media (max-width: 860px) {
   .bd-identify { padding: 0 24px 48px; }
@@ -255,20 +264,33 @@ img { display: block; max-width: 100%; }
 .bd-row--edit .bd-input { max-width: 200px; }
 .bd-row--select { flex-direction: column; align-items: stretch; gap: 6px; }
 
-.bd-chips-wrap { margin-top: 20px; }
-.bd-chips-lead { margin: 0 0 10px; font-weight: 500; font-size: var(--hrds-text-body-sm); }
-.bd-chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.bd-chip {
-  padding: 8px 14px; cursor: pointer;
+/* Product cards: logo + name + one-line descriptor. */
+.bd-pcards-lead { margin: 0 0 10px; font-weight: 500; font-size: var(--hrds-text-body-sm); }
+.bd-pcards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.bd-pcard {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 6px;
+  padding: 14px; text-align: left; cursor: pointer;
   background: var(--background); border: 1px solid var(--border);
-  border-radius: var(--hrds-radius-circle); font-family: var(--font-ds);
-  font-size: var(--hrds-text-body-sm); font-weight: 500; color: var(--foreground);
-  transition: border-color 0.15s ease, background-color 0.15s ease;
+  border-radius: var(--hrds-radius-md);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
 }
-.bd-chip:hover { border-color: var(--foreground); }
-.bd-chip.is-on { border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary); background: color-mix(in srgb, var(--primary) 14%, transparent); }
-.bd-chip:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
-.bd-chips-desc { margin: 12px 0 0; color: var(--muted-foreground); font-size: var(--hrds-text-body-sm); }
+.bd-pcard:hover { border-color: var(--foreground); }
+.bd-pcard.is-on {
+  border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary);
+  background: color-mix(in srgb, var(--primary) 8%, transparent);
+}
+.bd-pcard:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.bd-pcard__icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: var(--hrds-radius-sm);
+}
+.bd-pcard__icon img { width: 22px; height: 22px; object-fit: contain; }
+.bd-pcard--chakra .bd-pcard__icon { background: #e7fbff; }
+.bd-pcard--interview .bd-pcard__icon { background: color-mix(in srgb, var(--success, #12b76a) 16%, transparent); }
+.bd-pcard--all .bd-pcard__icon { background: var(--muted, #f4f4f5); }
+.bd-pcard__label { font-weight: 500; font-size: var(--hrds-text-body-md); }
+.bd-pcard__desc { color: var(--muted-foreground); font-size: var(--hrds-text-body-sm); line-height: 1.3; }
+.bd-pcards__note { margin: 10px 0 0; color: var(--muted-foreground); font-size: var(--hrds-text-body-sm); }
 
 /* ---- calendar ---- */
 .bd-rep { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
