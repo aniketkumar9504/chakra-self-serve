@@ -182,6 +182,14 @@ img { display: block; max-width: 100%; }
    all stacked on the right (not spread across the page). */
 .bd-hero__right .bd-emailform { margin-top: 22px; }
 
+/* Product dropdown (replaces the 3 cards). */
+.bd-pselect { padding-right: 40px; cursor: pointer; }
+.bd-select-arrow {
+  position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+  color: var(--muted-foreground); pointer-events: none;
+}
+.bd-pselect-desc { margin: 10px 0 0; color: var(--muted-foreground); font-size: var(--hrds-text-body-sm); line-height: 1.4; }
+
 /* Try-it is just a text link now (no card). */
 .bd-tryit-link { margin: 24px 0 0; color: var(--muted-foreground); font-size: var(--hrds-text-body-sm); }
 

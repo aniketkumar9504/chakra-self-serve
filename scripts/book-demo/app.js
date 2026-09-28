@@ -69,6 +69,13 @@ const personIcon =
     <path d="M3 13c0-2.2 2.2-3.75 5-3.75S13 10.8 13 13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
   </svg>`;
 
+/* One-line product descriptions (shown under the dropdown). */
+const PRODUCT_DESC = {
+  chakra: "AI interviewer that actually works",
+  interview: "Pair programming for the agentic era",
+  all: "Chakra, Screen & Interview demos",
+};
+
 /* Book-screen labels that reflect the product chosen on the identify screen. */
 const BOOK_TITLE = { chakra: "Chakra", interview: "Interview", all: "HackerRank" };
 const PRODUCT_EXPERTISE = {
@@ -126,7 +133,7 @@ function renderIdentify() {
       </div>
 
       <div class="bd-hero__right">
-        ${renderProductCards()}
+        ${renderProductDropdown()}
         ${state.product ? `
           <form class="bd-emailform" data-action="email-submit" novalidate>
             <label class="bd-label" for="bd-email">Work email</label>
@@ -295,28 +302,25 @@ function sizeRow(p, editing) {
   return `<div class="bd-row"><span class="bd-row__k">Company size</span><span class="bd-row__v">${esc(val)}</span></div>`;
 }
 
-function renderProductCards() {
-  const items = [
-    ["chakra", "chakra.svg", "AI interviewer that actually works"],
-    ["interview", "interview.svg", "Pair programming for the agentic era"],
-    ["all", "allproducts.svg", "Chakra, Screen & Interview demos"],
+function renderProductDropdown() {
+  const opts = [
+    ["chakra", "Chakra"],
+    ["interview", "Interview"],
+    ["all", "All products"],
   ];
-  const cards = items.map(([id, icon, desc]) => {
-    const on = state.product === id;
-    return `<button class="bd-pcard bd-pcard--${id} ${on ? "is-on" : ""}" type="button" role="radio"
-      aria-checked="${on}" data-action="product" data-product="${id}">
-      <span class="bd-pcard__icon"><img src="assets/products/${icon}" alt="" aria-hidden="true" /></span>
-      <span class="bd-pcard__label">${esc(PRODUCTS[id].label)}</span>
-      <span class="bd-pcard__desc">${esc(desc)}</span>
-    </button>`;
-  }).join("");
-  const note = state.product && state.productPreselected
-    ? `<p class="bd-pcards__note">Preselected because you came from the ${esc(PRODUCTS[state.product].label)} page.</p>`
+  const options = opts
+    .map(([id, label]) => `<option value="${id}" ${state.product === id ? "selected" : ""}>${label}</option>`)
+    .join("");
+  const note = state.productPreselected
+    ? ` Preselected because you came from the ${esc(PRODUCTS[state.product].label)} page.`
     : "";
-  return `<div class="bd-pcards-wrap">
-    <p class="bd-pcards-lead">What should we show you?</p>
-    <div class="bd-pcards" role="radiogroup" aria-label="What should we show you?">${cards}</div>
-    ${note}
+  return `<div class="bd-pselect-wrap">
+    <label class="bd-label" for="bd-product">What should we show you?</label>
+    <div class="bd-selectwrap">
+      <select class="bd-input bd-pselect" id="bd-product" data-action="product-select" aria-describedby="bd-product-desc">${options}</select>
+      <svg class="bd-select-arrow" width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <p class="bd-pselect-desc" id="bd-product-desc">${esc(PRODUCT_DESC[state.product])}${note}</p>
   </div>`;
 }
 
@@ -526,12 +530,15 @@ app.addEventListener("submit", (e) => {
 });
 
 app.addEventListener("input", (e) => {
-  if (e.target.id === "bd-email" && state.emailError) {
-    state.emailError = "";
-    const err = document.getElementById("bd-email-err");
-    if (err) err.remove();
-    e.target.classList.remove("bd-input--error");
-    e.target.setAttribute("aria-invalid", "false");
+  if (e.target.id === "bd-email") {
+    state.email = e.target.value; // keep so a re-render (e.g. product change) doesn't clear it
+    if (state.emailError) {
+      state.emailError = "";
+      const err = document.getElementById("bd-email-err");
+      if (err) err.remove();
+      e.target.classList.remove("bd-input--error");
+      e.target.setAttribute("aria-invalid", "false");
+    }
   }
 });
 
@@ -550,6 +557,11 @@ app.addEventListener("change", (e) => {
     document.getElementById("bd-confirm").innerHTML = renderConfirmBtn();
     document.querySelectorAll(".bd-time").forEach((el) =>
       el.classList.toggle("is-on", el.querySelector("input").checked));
+  } else if (t.dataset.action === "product-select") {
+    state.product = t.value;
+    state.productPreselected = false;
+    if (state.screen === "book") reRoute();
+    else render();
   } else if (t.dataset.action === "size") {
     state.sizeValue = t.value;
     state.sizeError = "";
