@@ -80,25 +80,31 @@ const PRODUCT_EXPERTISE = {
 /* Branded "try it yourself" cards — shown on identify and on the book screen. */
 function tryItSection(opts = {}) {
   const compact = opts.compact ? " bd-tryit--compact" : "";
-  return `
-  <section class="bd-tryit${compact}" aria-label="Try it yourself">
-    <p class="bd-tryit__lead">Don't have 30 minutes? Try it yourself first</p>
-    <div class="bd-tryit__cards">
+  const chakraCard = `
       <a class="bd-trycard bd-trycard--chakra" href="start-free-trial.html">
         <span class="bd-trycard__icon"><img src="assets/products/chakra.svg" alt="" aria-hidden="true" /></span>
         <span class="bd-trycard__body">
           <span class="bd-trycard__title">Try Chakra now</span>
           <span class="bd-trycard__desc">Take a 5-min AI interview yourself</span>
         </span>
-      </a>
+      </a>`;
+  const interviewCard = `
       <a class="bd-trycard bd-trycard--interview" href="#" data-action="try">
         <span class="bd-trycard__icon"><img src="assets/products/interview.svg" alt="" aria-hidden="true" /></span>
         <span class="bd-trycard__body">
           <span class="bd-trycard__title">Try Interview now</span>
           <span class="bd-trycard__desc">Open a live coding pad</span>
         </span>
-      </a>
-    </div>
+      </a>`;
+  // Only show the try-it option(s) that match the selected product.
+  const cards = [];
+  if (state.product === "chakra" || state.product === "all") cards.push(chakraCard);
+  if (state.product === "interview" || state.product === "all") cards.push(interviewCard);
+  if (!cards.length) return "";
+  return `
+  <section class="bd-tryit${compact}" aria-label="Try it yourself">
+    <p class="bd-tryit__lead">Don't have 30 minutes? Try it yourself first</p>
+    <div class="bd-tryit__cards">${cards.join("")}</div>
   </section>`;
 }
 
@@ -313,9 +319,9 @@ function sizeRow(p, editing) {
 
 function renderProductCards() {
   const items = [
-    ["chakra", "chakra.svg", "AI pre-screen interviews"],
-    ["interview", "interview.svg", "Live pair programming"],
-    ["all", "allproducts.svg", "Full platform tour"],
+    ["chakra", "chakra.svg", "AI interviewer that actually works"],
+    ["interview", "interview.svg", "Pair programming for the agentic era"],
+    ["all", "allproducts.svg", "Chakra, Screen & Interview demos"],
   ];
   const cards = items.map(([id, icon, desc]) => {
     const on = state.product === id;
