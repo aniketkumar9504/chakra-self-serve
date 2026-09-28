@@ -19,7 +19,7 @@ const state = {
   email: "",
   emailError: "",
   profile: null,
-  product: urlProduct || null, // null until the user picks a product card
+  product: urlProduct || "all", // a product is selected by default
   productPreselected: !!urlProduct,
   editing: false,
   sizeValue: "",
@@ -140,7 +140,7 @@ function renderIdentify() {
   <main class="bd-screen bd-identify" aria-labelledby="bd-id-title">
     <div class="bd-hero">
       <div class="bd-hero__left">
-        <h1 class="bd-hero__title" id="bd-id-title">HackerRank<br />in action</h1>
+        <h1 class="bd-hero__title" id="bd-id-title">Watch HackerRank<br />in action</h1>
         <ul class="bd-meta">
           <li class="bd-meta__item">${clockIcon}<span>30 minutes</span></li>
           <li class="bd-meta__item">${personIcon}<span>With a product expert</span></li>
@@ -504,7 +504,7 @@ function restart() {
   state.profile = null;
   state.email = "";
   state.emailError = "";
-  state.product = urlProduct || null;
+  state.product = urlProduct || "all";
   state.productPreselected = !!urlProduct;
   setScreen("identify");
 }

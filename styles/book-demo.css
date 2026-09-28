@@ -141,14 +141,15 @@ img { display: block; max-width: 100%; }
 /* Two columns: headline bottom-left, form on the right. */
 .bd-hero {
   display: grid;
-  grid-template-columns: 0.9fr 1.2fr;
+  grid-template-columns: 1fr 1fr;
   column-gap: 64px;
-  /* Top-anchor both columns so the cards keep their position no matter which
-     product is selected — only the area below (email + try-it) grows. */
-  align-items: start;
-  padding-top: clamp(48px, 9vh, 110px);
+  /* Fixed-height hero: the headline sits at the bottom-left (like the other
+     version) while the right column (cards + form) is top-anchored, so the
+     cards never move when a product is selected — only the bottom grows. */
+  min-height: calc(100vh - 64px - 56px);
+  padding-top: 24px;
 }
-.bd-hero__left { align-self: start; }
+.bd-hero__left { align-self: end; padding-bottom: 8px; }
 .bd-hero__title {
   margin: 0;
   font-family: var(--font-heading);
