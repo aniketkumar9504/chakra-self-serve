@@ -143,12 +143,12 @@ img { display: block; max-width: 100%; }
   display: grid;
   grid-template-columns: 0.9fr 1.2fr;
   column-gap: 64px;
-  align-items: center; /* balance: headline and form share a vertical center */
-  align-content: center; /* center the block vertically in the viewport */
-  min-height: calc(100vh - 140px);
-  padding-top: 40px;
+  /* Top-anchor both columns so the cards keep their position no matter which
+     product is selected — only the area below (email + try-it) grows. */
+  align-items: start;
+  padding-top: clamp(48px, 9vh, 110px);
 }
-.bd-hero__left { align-self: center; }
+.bd-hero__left { align-self: start; }
 .bd-hero__title {
   margin: 0;
   font-family: var(--font-heading);
@@ -158,7 +158,7 @@ img { display: block; max-width: 100%; }
   letter-spacing: -1px;
   color: var(--foreground);
 }
-.bd-hero__right { align-self: center; }
+.bd-hero__right { align-self: start; }
 
 /* Who + how long, beneath the headline. */
 .bd-meta {
