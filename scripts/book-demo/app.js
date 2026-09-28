@@ -78,34 +78,12 @@ const PRODUCT_EXPERTISE = {
 };
 
 /* Branded "try it yourself" cards — shown on identify and on the book screen. */
-function tryItSection(opts = {}) {
-  const compact = opts.compact ? " bd-tryit--compact" : "";
-  const chakraCard = `
-      <a class="bd-trycard bd-trycard--chakra" href="start-free-trial.html">
-        <span class="bd-trycard__icon"><img src="assets/products/chakra.svg" alt="" aria-hidden="true" /></span>
-        <span class="bd-trycard__body">
-          <span class="bd-trycard__title">Try Chakra now</span>
-          <span class="bd-trycard__desc">Take a 5-min AI interview yourself</span>
-        </span>
-      </a>`;
-  const interviewCard = `
-      <a class="bd-trycard bd-trycard--interview" href="#" data-action="try">
-        <span class="bd-trycard__icon"><img src="assets/products/interview.svg" alt="" aria-hidden="true" /></span>
-        <span class="bd-trycard__body">
-          <span class="bd-trycard__title">Try Interview now</span>
-          <span class="bd-trycard__desc">Open a live coding pad</span>
-        </span>
-      </a>`;
-  // Only show the try-it option(s) that match the selected product.
-  const cards = [];
-  if (state.product === "chakra" || state.product === "all") cards.push(chakraCard);
-  if (state.product === "interview" || state.product === "all") cards.push(interviewCard);
-  if (!cards.length) return "";
-  return `
-  <section class="bd-tryit${compact}" aria-label="Try it yourself">
-    <p class="bd-tryit__lead">Don't have 30 minutes? Try it yourself first</p>
-    <div class="bd-tryit__cards">${cards.join("")}</div>
-  </section>`;
+function tryItSection() {
+  // Just a text link (no card). Points to the relevant product's try experience.
+  const href = state.product === "interview" ? "#" : "start-free-trial.html";
+  const noNav = href === "#" ? ' data-action="try"' : "";
+  return `<p class="bd-tryit-link">Don't have 30 minutes?
+    <a class="bd-link" href="${href}"${noNav}>Try it yourself &rarr;</a></p>`;
 }
 
 function bannerFor(p) {
@@ -162,7 +140,7 @@ function renderIdentify() {
               : ""}
             <button class="bd-btn bd-btn--primary bd-btn--block" type="submit">Continue</button>
           </form>
-          ${tryItSection({ compact: true })}
+          ${tryItSection()}
         ` : ""}
       </div>
     </div>

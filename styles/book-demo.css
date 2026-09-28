@@ -181,11 +181,9 @@ img { display: block; max-width: 100%; }
 /* Right column: product selection, then (after a pick) email + compact try-it,
    all stacked on the right (not spread across the page). */
 .bd-hero__right .bd-emailform { margin-top: 22px; }
-.bd-hero__right .bd-tryit__cards {
-  grid-template-columns: 1fr;
-  min-height: 92px; /* reserve room for up to two cards so the block size (and
-                       therefore the card positions) stays constant */
-}
+
+/* Try-it is just a text link now (no card). */
+.bd-tryit-link { margin: 24px 0 0; color: var(--muted-foreground); font-size: var(--hrds-text-body-sm); }
 
 /* Compact try-it (identify screen): tighter, title + descriptor on one line. */
 .bd-tryit--compact { margin-top: 24px; }
