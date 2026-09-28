@@ -141,8 +141,8 @@ img { display: block; max-width: 100%; }
 /* Two columns: headline bottom-left, form on the right. */
 .bd-hero {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 72px;
+  grid-template-columns: 0.9fr 1.2fr;
+  column-gap: 64px;
   align-items: center; /* balance: headline and form share a vertical center */
   align-content: center; /* center the block vertically in the viewport */
   min-height: calc(100vh - 140px);
@@ -265,31 +265,54 @@ img { display: block; max-width: 100%; }
 .bd-row--select { flex-direction: column; align-items: stretch; gap: 6px; }
 
 /* Product cards: logo + name + one-line descriptor. */
+/* Product cards — same style as the "See HackerRank in action" cards: icon
+   left, serif (Kalice) name, one-line-ish description, frosted-glass surface,
+   lime border when selected. */
 .bd-pcards-lead { margin: 0 0 10px; font-weight: 500; font-size: var(--hrds-text-body-sm); }
-.bd-pcards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.bd-pcards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; align-items: stretch; }
 .bd-pcard {
-  display: flex; flex-direction: column; align-items: flex-start; gap: 6px;
-  padding: 14px; text-align: left; cursor: pointer;
-  background: var(--background); border: 1px solid var(--border);
+  position: relative;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  align-content: center;
+  column-gap: 10px;
+  row-gap: 4px;
+  padding: 14px 13px;
+  min-height: 104px;
+  text-align: left;
+  cursor: pointer;
+  background: color-mix(in srgb, var(--background) 55%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-alpha, var(--border));
   border-radius: var(--hrds-radius-xl);
+  box-shadow: 0 1px 2px rgba(20, 20, 25, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  overflow: hidden;
   transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
 }
-.bd-pcard:hover { border-color: var(--foreground); }
+.bd-pcard:hover { border-color: var(--border-heavy-alpha, var(--foreground)); }
 .bd-pcard.is-on {
-  border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary);
-  background: color-mix(in srgb, var(--primary) 8%, transparent);
+  background: var(--background);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 1px var(--primary), inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 .bd-pcard:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
 .bd-pcard__icon {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 34px; height: 34px; border-radius: var(--hrds-radius-lg);
+  grid-column: 1; grid-row: 1 / 3; align-self: center;
+  display: flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px;
 }
-.bd-pcard__icon img { width: 22px; height: 22px; object-fit: contain; }
-.bd-pcard--chakra .bd-pcard__icon { background: #e7fbff; }
-.bd-pcard--interview .bd-pcard__icon { background: color-mix(in srgb, var(--success, #12b76a) 16%, transparent); }
-.bd-pcard--all .bd-pcard__icon { background: var(--muted, #f4f4f5); }
-.bd-pcard__label { font-family: var(--font-heading); font-weight: 400; font-size: 18px; line-height: 1.2; }
-.bd-pcard__desc { color: var(--muted-foreground); font-size: var(--hrds-text-body-sm); line-height: 1.3; }
+.bd-pcard__icon img { width: 28px; height: 28px; object-fit: contain; }
+.bd-pcard__label {
+  grid-column: 2; grid-row: 1; align-self: end; min-width: 0;
+  font-family: var(--font-heading); font-weight: 400;
+  font-size: var(--hrds-text-title-md); line-height: 1.2; color: var(--foreground);
+}
+.bd-pcard__desc {
+  grid-column: 2; grid-row: 2; align-self: start;
+  color: var(--muted-foreground); font-size: var(--hrds-text-body-sm); line-height: 1.3;
+}
 .bd-pcards__note { margin: 10px 0 0; color: var(--muted-foreground); font-size: var(--hrds-text-body-sm); }
 
 /* ---- calendar ---- */
