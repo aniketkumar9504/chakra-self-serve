@@ -135,7 +135,16 @@ img { display: block; max-width: 100%; }
 }
 
 /* ===================== Identify (full-width split hero) ===================== */
-.bd-identify { max-width: 1160px; padding: 0 40px 56px; }
+.bd-identify {
+  max-width: 1160px;
+  padding: 32px 40px 48px;
+  /* Center the content block vertically so it stays balanced on tall screens
+     instead of the headline sinking to the very bottom. */
+  min-height: calc(100vh - 64px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .bd-emailform .bd-btn { margin-top: 12px; }
 
 /* Two columns: headline bottom-left, form on the right. */
@@ -143,11 +152,11 @@ img { display: block; max-width: 100%; }
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 64px;
-  /* Fixed-height hero: the headline sits at the bottom-left (like the other
-     version) while the right column (cards + form) is top-anchored, so the
-     cards never move when a product is selected — only the bottom grows. */
-  min-height: calc(100vh - 64px - 56px);
-  padding-top: 24px;
+  /* Both columns bottom-aligned: the headline sits bottom-left, aligned with
+     the bottom of the right column (cards + form). The block is centered
+     vertically by .bd-identify, and the reserved try-it height keeps it a
+     constant size, so the cards never move when a product changes. */
+  align-items: end;
 }
 .bd-hero__left { align-self: end; padding-bottom: 8px; }
 .bd-hero__title {
@@ -159,7 +168,7 @@ img { display: block; max-width: 100%; }
   letter-spacing: -1px;
   color: var(--foreground);
 }
-.bd-hero__right { align-self: start; }
+.bd-hero__right { align-self: end; }
 
 /* Who + how long, beneath the headline. */
 .bd-meta {
@@ -172,7 +181,11 @@ img { display: block; max-width: 100%; }
 /* Right column: product selection, then (after a pick) email + compact try-it,
    all stacked on the right (not spread across the page). */
 .bd-hero__right .bd-emailform { margin-top: 22px; }
-.bd-hero__right .bd-tryit__cards { grid-template-columns: 1fr; }
+.bd-hero__right .bd-tryit__cards {
+  grid-template-columns: 1fr;
+  min-height: 92px; /* reserve room for up to two cards so the block size (and
+                       therefore the card positions) stays constant */
+}
 
 /* Compact try-it (identify screen): tighter, title + descriptor on one line. */
 .bd-tryit--compact { margin-top: 24px; }
@@ -186,16 +199,15 @@ img { display: block; max-width: 100%; }
 }
 
 @media (max-width: 860px) {
-  .bd-identify { padding: 0 24px 48px; }
+  .bd-identify { padding: 24px 24px 48px; min-height: 0; justify-content: flex-start; }
   .bd-hero {
     grid-template-columns: 1fr;
     row-gap: 32px;
-    min-height: 0;
     align-items: start;
-    padding-top: 24px;
   }
   .bd-hero__left, .bd-hero__right { align-self: start; }
-  .bd-identify .bd-tryit__cards { grid-template-columns: 1fr; }
+  .bd-hero__left { padding-bottom: 0; }
+  .bd-hero__right .bd-tryit__cards { min-height: 0; }
 }
 
 /* ===================== Loading ===================== */
