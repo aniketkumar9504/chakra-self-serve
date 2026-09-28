@@ -151,7 +151,7 @@ img { display: block; max-width: 100%; }
 .bd-hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  column-gap: 64px;
+  column-gap: 104px;
   /* Both columns bottom-aligned: the headline sits bottom-left, aligned with
      the bottom of the right column (cards + form). The block is centered
      vertically by .bd-identify, and the reserved try-it height keeps it a
