@@ -69,6 +69,14 @@ const personIcon =
     <path d="M3 13c0-2.2 2.2-3.75 5-3.75S13 10.8 13 13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
   </svg>`;
 
+/* Book-screen labels that reflect the product chosen on the identify screen. */
+const BOOK_TITLE = { chakra: "Chakra", interview: "Interview", all: "HackerRank" };
+const PRODUCT_EXPERTISE = {
+  chakra: "Chakra specialist",
+  interview: "Interview specialist",
+  all: "Solutions consultant",
+};
+
 /* Branded "try it yourself" cards — shown on identify and on the book screen. */
 function tryItSection() {
   return `
@@ -211,7 +219,7 @@ function renderBook() {
   const banner = bannerFor(p);
   return `
   <main class="bd-screen bd-book" aria-labelledby="bd-book-title">
-    <h1 class="bd-h1 bd-book__title" id="bd-book-title">Book your demo</h1>
+    <h1 class="bd-h1 bd-book__title" id="bd-book-title">Book your ${esc(BOOK_TITLE[state.product] || "HackerRank")} demo</h1>
     ${banner ? `<div class="bd-banner" role="status">${esc(banner)}</div>` : ""}
     <div class="bd-book__cols">
       <section class="bd-panel" aria-labelledby="bd-details-h">
@@ -232,7 +240,7 @@ function renderBook() {
           ${avatar(state.rep.initials, "bd-avatar--rep")}
           <div>
             <div class="bd-rep__name" id="bd-cal-h">${esc(state.rep.name)}</div>
-            <div class="bd-rep__meta">${esc(state.rep.title)} · ${state.rep.minutes} min</div>
+            <div class="bd-rep__meta">${esc(PRODUCT_EXPERTISE[state.product] || state.rep.title)} · ${state.rep.minutes} min</div>
           </div>
         </div>
         ${renderDays()}
