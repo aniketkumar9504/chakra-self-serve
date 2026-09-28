@@ -144,7 +144,8 @@ img { display: block; max-width: 100%; }
   grid-template-columns: 1fr 1fr;
   column-gap: 72px;
   align-items: end; /* bottom-anchor both columns */
-  min-height: calc(100vh - 64px - 220px);
+  align-content: center; /* center the block vertically in the viewport */
+  min-height: calc(100vh - 140px);
   padding-top: 40px;
 }
 .bd-hero__left { align-self: end; padding-bottom: 6px; }
@@ -167,11 +168,12 @@ img { display: block; max-width: 100%; }
 .bd-meta__item { display: inline-flex; align-items: center; gap: 7px; font-size: var(--hrds-text-body-md); font-weight: 500; }
 .bd-meta__item svg { color: var(--muted-foreground); flex-shrink: 0; }
 
-/* Right column: product selection above the email (no card box). */
+/* Right column: product selection, email, and the try-it cards all stacked
+   on the right (not spread across the page). */
 .bd-hero__right .bd-chips-wrap { margin-top: 0; }
 .bd-hero__right .bd-emailform { margin-top: 22px; }
-
-.bd-identify .bd-tryit { margin-top: 40px; }
+.bd-hero__right .bd-tryit { margin-top: 28px; }
+.bd-hero__right .bd-tryit__cards { grid-template-columns: 1fr; }
 
 @media (max-width: 860px) {
   .bd-identify { padding: 0 24px 48px; }

@@ -146,9 +146,9 @@ function renderIdentify() {
             : ""}
           <button class="bd-btn bd-btn--primary bd-btn--block" type="submit">Continue</button>
         </form>
+        ${tryItSection()}
       </div>
     </div>
-    ${tryItSection()}
   </main>`;
 }
 
