@@ -134,17 +134,21 @@ img { display: block; max-width: 100%; }
   box-shadow: 0 1px 2px rgba(20, 20, 25, 0.04);
 }
 
-/* ===================== Identify (full-width split hero) ===================== */
+/* ===================== Identify (stacked: header on top, fields below) ===================== */
 .bd-identify {
-  max-width: 1160px;
-  padding: 32px 40px 48px;
-  /* Center the content block vertically so it stays balanced on tall screens
-     instead of the headline sinking to the very bottom. */
+  max-width: 520px;
+  padding: 32px 24px 48px;
   min-height: calc(100vh - 64px);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: center; /* center the column vertically */
 }
+.bd-stack { width: 100%; }
+.bd-stack__head { margin-bottom: 32px; }
+.bd-stack .bd-hero__title { font-size: clamp(32px, 4vw, 44px); }
+.bd-stack .bd-meta { margin-top: 16px; }
+.bd-stack .bd-emailform { margin-top: 20px; }
+.bd-stack .bd-tryit-link { margin-top: 22px; }
 .bd-emailform .bd-btn { margin-top: 12px; }
 
 /* Two columns: headline bottom-left, form on the right. */
@@ -180,15 +184,46 @@ img { display: block; max-width: 100%; }
 
 /* Right column: product selection, then (after a pick) email + compact try-it,
    all stacked on the right (not spread across the page). */
-.bd-hero__right .bd-emailform { margin-top: 22px; }
-
-/* Product dropdown (replaces the 3 cards). */
-.bd-pselect { padding-right: 40px; cursor: pointer; }
-.bd-select-arrow {
-  position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
-  color: var(--muted-foreground); pointer-events: none;
+/* ---- Rich product dropdown (logo + name + description) ---- */
+.bd-cdrop { position: relative; }
+.bd-cdrop > .bd-label { display: block; margin-bottom: 6px; }
+.bd-cdrop__trigger {
+  display: flex; align-items: center; gap: 12px; width: 100%;
+  padding: 12px 14px; text-align: left; cursor: pointer;
+  background: var(--background); border: 1px solid var(--input, var(--border));
+  border-radius: var(--hrds-radius-lg);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
-.bd-pselect-desc { margin: 10px 0 0; color: var(--muted-foreground); font-size: var(--hrds-text-body-sm); line-height: 1.4; }
+.bd-cdrop__trigger:hover { border-color: var(--outline-border-hover, var(--foreground)); }
+.bd-cdrop.is-open .bd-cdrop__trigger,
+.bd-cdrop__trigger:focus-visible {
+  outline: none; border-color: var(--ring); box-shadow: 0 0 0 1px var(--ring);
+}
+.bd-cdrop__icon { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; flex-shrink: 0; }
+.bd-cdrop__icon img { width: 30px; height: 30px; object-fit: contain; }
+.bd-cdrop__text { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1; }
+.bd-cdrop__name { font-family: var(--font-heading); font-weight: 400; font-size: var(--hrds-text-title-md); line-height: 1.2; color: var(--foreground); }
+.bd-cdrop__desc { color: var(--muted-foreground); font-size: var(--hrds-text-body-sm); line-height: 1.3; }
+.bd-cdrop__chev { flex-shrink: 0; color: var(--muted-foreground); transition: transform 0.15s ease; }
+.bd-cdrop.is-open .bd-cdrop__chev { transform: rotate(180deg); }
+
+.bd-cdrop__panel {
+  position: absolute; top: calc(100% + 6px); left: 0; right: 0; z-index: 20;
+  display: flex; flex-direction: column; gap: 2px; padding: 6px;
+  background: var(--background); border: 1px solid var(--border);
+  border-radius: var(--hrds-radius-lg);
+  box-shadow: 0 10px 28px rgba(20, 20, 25, 0.14);
+}
+.bd-cdrop__panel[hidden] { display: none; }
+.bd-cdrop__opt {
+  display: flex; align-items: center; gap: 12px; width: 100%;
+  padding: 10px 12px; text-align: left; cursor: pointer;
+  background: transparent; border: 0; border-radius: var(--hrds-radius-md);
+  transition: background-color 0.12s ease;
+}
+.bd-cdrop__opt:hover { background: var(--muted, #f4f4f5); }
+.bd-cdrop__opt.is-on { background: color-mix(in srgb, var(--primary) 14%, transparent); }
+.bd-cdrop__opt:focus-visible { outline: 2px solid var(--ring); outline-offset: -2px; }
 
 /* Try-it is just a text link now (no card). */
 .bd-tryit-link { margin: 24px 0 0; color: var(--muted-foreground); font-size: var(--hrds-text-body-sm); }

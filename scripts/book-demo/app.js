@@ -21,6 +21,7 @@ const state = {
   profile: null,
   product: urlProduct || "all", // a product is selected by default
   productPreselected: !!urlProduct,
+  dropdownOpen: false,
   editing: false,
   sizeValue: "",
   sizeError: "",
@@ -123,33 +124,31 @@ const SCREENS = {
 function renderIdentify() {
   return `
   <main class="bd-screen bd-identify" aria-labelledby="bd-id-title">
-    <div class="bd-hero">
-      <div class="bd-hero__left">
+    <div class="bd-stack">
+      <header class="bd-stack__head">
         <h1 class="bd-hero__title" id="bd-id-title">Watch HackerRank<br />in action</h1>
         <ul class="bd-meta">
           <li class="bd-meta__item">${clockIcon}<span>30 minutes</span></li>
           <li class="bd-meta__item">${personIcon}<span>With a product expert</span></li>
         </ul>
-      </div>
+      </header>
 
-      <div class="bd-hero__right">
-        ${renderProductDropdown()}
-        ${state.product ? `
-          <form class="bd-emailform" data-action="email-submit" novalidate>
-            <label class="bd-label" for="bd-email">Work email</label>
-            <input class="bd-input ${state.emailError ? "bd-input--error" : ""}" type="email"
-                   id="bd-email" name="email" placeholder="name@company.com"
-                   autocomplete="email" value="${esc(state.email)}"
-                   aria-invalid="${state.emailError ? "true" : "false"}"
-                   ${state.emailError ? 'aria-describedby="bd-email-err"' : ""} />
-            ${state.emailError
-              ? `<p class="bd-error" id="bd-email-err" role="alert">${esc(state.emailError)}</p>`
-              : ""}
-            <button class="bd-btn bd-btn--primary bd-btn--block" type="submit">Continue</button>
-          </form>
-          ${tryItSection()}
-        ` : ""}
-      </div>
+      ${renderProductDropdown()}
+
+      <form class="bd-emailform" data-action="email-submit" novalidate>
+        <label class="bd-label" for="bd-email">Work email</label>
+        <input class="bd-input ${state.emailError ? "bd-input--error" : ""}" type="email"
+               id="bd-email" name="email" placeholder="name@company.com"
+               autocomplete="email" value="${esc(state.email)}"
+               aria-invalid="${state.emailError ? "true" : "false"}"
+               ${state.emailError ? 'aria-describedby="bd-email-err"' : ""} />
+        ${state.emailError
+          ? `<p class="bd-error" id="bd-email-err" role="alert">${esc(state.emailError)}</p>`
+          : ""}
+        <button class="bd-btn bd-btn--primary bd-btn--block" type="submit">Continue</button>
+      </form>
+
+      ${tryItSection()}
     </div>
   </main>`;
 }
@@ -302,25 +301,33 @@ function sizeRow(p, editing) {
   return `<div class="bd-row"><span class="bd-row__k">Company size</span><span class="bd-row__v">${esc(val)}</span></div>`;
 }
 
+/* Rich custom dropdown: product logo + name + description, in the trigger and
+   in each option. */
 function renderProductDropdown() {
-  const opts = [
-    ["chakra", "Chakra"],
-    ["interview", "Interview"],
-    ["all", "All products"],
+  const items = [
+    ["chakra", "chakra.svg", "Chakra"],
+    ["interview", "interview.svg", "Interview"],
+    ["all", "allproducts.svg", "All products"],
   ];
-  const options = opts
-    .map(([id, label]) => `<option value="${id}" ${state.product === id ? "selected" : ""}>${label}</option>`)
-    .join("");
-  const note = state.productPreselected
-    ? ` Preselected because you came from the ${esc(PRODUCTS[state.product].label)} page.`
-    : "";
-  return `<div class="bd-pselect-wrap">
-    <label class="bd-label" for="bd-product">What should we show you?</label>
-    <div class="bd-selectwrap">
-      <select class="bd-input bd-pselect" id="bd-product" data-action="product-select" aria-describedby="bd-product-desc">${options}</select>
-      <svg class="bd-select-arrow" width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </div>
-    <p class="bd-pselect-desc" id="bd-product-desc">${esc(PRODUCT_DESC[state.product])}${note}</p>
+  const row = (id, icon, label) => `
+      <span class="bd-cdrop__icon"><img src="assets/products/${icon}" alt="" aria-hidden="true" /></span>
+      <span class="bd-cdrop__text">
+        <span class="bd-cdrop__name">${esc(label)}</span>
+        <span class="bd-cdrop__desc">${esc(PRODUCT_DESC[id])}</span>
+      </span>`;
+  const cur = items.find(([id]) => id === state.product) || items[2];
+  const options = items.map(([id, icon, label]) => `
+    <button type="button" class="bd-cdrop__opt ${state.product === id ? "is-on" : ""}" role="option"
+      aria-selected="${state.product === id}" data-action="product" data-product="${id}">${row(id, icon, label)}
+    </button>`).join("");
+  return `<div class="bd-cdrop ${state.dropdownOpen ? "is-open" : ""}">
+    <span class="bd-label" id="bd-product-label">What should we show you?</span>
+    <button type="button" class="bd-cdrop__trigger" data-action="dropdown-toggle"
+      aria-haspopup="listbox" aria-expanded="${state.dropdownOpen}" aria-labelledby="bd-product-label">
+      ${row(cur[0], cur[1], cur[2])}
+      <svg class="bd-cdrop__chev" width="14" height="9" viewBox="0 0 14 9" aria-hidden="true"><path d="M1 1.5 7 7.5 13 1.5" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="bd-cdrop__panel" role="listbox" aria-labelledby="bd-product-label" ${state.dropdownOpen ? "" : "hidden"}>${options}</div>
   </div>`;
 }
 
@@ -579,9 +586,13 @@ app.addEventListener("click", (e) => {
   const btn = e.target.closest("[data-action]");
   if (!btn) return;
   const action = btn.dataset.action;
-  if (action === "product") {
+  if (action === "dropdown-toggle") {
+    state.dropdownOpen = !state.dropdownOpen;
+    render();
+  } else if (action === "product") {
     state.product = btn.dataset.product;
     state.productPreselected = false;
+    state.dropdownOpen = false;
     // On identify the product is just chosen; on the book screen it re-routes.
     if (state.screen === "book") reRoute();
     else render();
@@ -611,6 +622,20 @@ app.addEventListener("click", (e) => {
     restart();
   } else if (action === "try" || action === "noop") {
     if (btn.getAttribute("href") === "#") e.preventDefault();
+  }
+});
+
+/* Close the product dropdown on an outside click or Escape. */
+document.addEventListener("click", (e) => {
+  if (!state.dropdownOpen) return;
+  if (e.target.closest(".bd-cdrop")) return; // click inside the dropdown
+  state.dropdownOpen = false;
+  render();
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && state.dropdownOpen) {
+    state.dropdownOpen = false;
+    render();
   }
 });
 
