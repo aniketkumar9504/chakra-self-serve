@@ -103,27 +103,30 @@ ul {
   border-color: var(--outline-border-hover);
 }
 
-/* ===================== Main grid ===================== */
+/* ===================== Main layout =====================
+   Both columns are fixed width with a fixed gap between them, and the whole
+   group is centred — so as the viewport grows, the extra width is absorbed by
+   the outer left/right margins and the gap between form and card never changes. */
 .ft-main {
   position: relative;
   z-index: 1;
-  display: grid;
-  grid-template-columns: 457px 1fr;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 48px;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 24px 80px 80px;
+  gap: 120px;
+  padding: 24px 48px 80px;
   min-height: calc(100vh - 160px);
 }
 
 /* ===================== Sign-up (left) ===================== */
 .signup {
+  flex: none;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 32px;
-  width: 100%;
-  max-width: 457px;
+  width: 420px;
+  max-width: 100%;
 }
 
 .signup__head {
@@ -156,6 +159,9 @@ ul {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
 }
 
 /* --- Social buttons --- */
@@ -323,10 +329,10 @@ ul {
 
 /* ===================== Showcase (right) ===================== */
 .showcase {
+  flex: none;
   position: relative;
-  justify-self: center;
-  width: 100%;
-  max-width: 460px;
+  width: 440px;
+  max-width: 100%;
 }
 
 /* Soft cyan glow panel peeking out behind the card's right edge. */
@@ -407,6 +413,27 @@ ul {
 
 .cmsg--candidate {
   align-items: flex-end;
+}
+
+/* Sequential reveal of each message (JS adds .is-in with a stagger). Without JS
+   the whole conversation shows normally. */
+.js .chat-card__body .cmsg {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+.js .chat-card__body .cmsg.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .chat-card__body .cmsg {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 .cmsg__name {
@@ -557,8 +584,7 @@ ul {
 /* ===================== Responsive ===================== */
 @media (max-width: 1040px) {
   .ft-main {
-    grid-template-columns: 1fr;
-    justify-items: center;
+    flex-direction: column;
     gap: 56px;
     padding: 24px 24px 64px;
   }
