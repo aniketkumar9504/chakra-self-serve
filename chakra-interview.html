@@ -108,12 +108,19 @@ body.paused *{animation-play-state:paused!important}
   html,body{height:100%;background:transparent!important}
   body{overflow:hidden}
   #viewport{position:fixed;inset:0}
-  #stage{width:600px;height:510px;background:transparent;box-shadow:none;border-radius:0;overflow:visible}
+  /* Soft edge fade so the glow/content melt into the page instead of a hard clip */
+  #stage{width:600px;height:510px;background:transparent;box-shadow:none;border-radius:0;overflow:visible;
+    -webkit-mask:linear-gradient(to bottom, transparent 0, #000 4%, #000 95%, transparent 100%);
+    mask:linear-gradient(to bottom, transparent 0, #000 4%, #000 95%, transparent 100%);}
   #zone{left:0;top:0;width:600px;height:510px}
   /* Compact single-scene framing (override hero layout values) */
   .e-brand{top:30px!important}
   .lk-head.e-head{top:112px!important}
   .e-stack{top:190px!important}
+  /* Keep the ambient glow fully inside the frame so it fades, never clips */
+  .lk-glow{left:90px!important;top:130px!important;width:420px!important;height:320px!important}
+  /* "New" pill beside the Chakra wordmark */
+  .e-new{font:500 12px var(--sat);background:var(--cyan);color:var(--n950);padding:2px 8px;border-radius:7px;line-height:1.5}
 </style>
 <style id="opt-css"></style>
 </head><body>
@@ -397,7 +404,7 @@ const ICON = {
     css,
     build(z) {
       z.innerHTML = `<div class="lk-glow" style="left:90px;top:200px;width:440px;height:440px"></div>
-        <div class="e-brand"><div class="row">${E.logo(32)}<span class="nm">Chakra</span></div><div class="sub">An AI interviewer that actually works</div></div>
+        <div class="e-brand"><div class="row">${E.logo(32)}<span class="nm">Chakra</span><span class="e-new">New</span></div><div class="sub">An AI interviewer that actually works</div></div>
         <div class="lk-head e-head" style="top:276px"><span class="e-live"></span><span>Interview active</span><span class="role">AI Engineer · Hands-on coding</span></div>
         <div class="e-stack"></div>`;
       this.z = z; this.stack = z.querySelector('.e-stack'); this.cards = [];
