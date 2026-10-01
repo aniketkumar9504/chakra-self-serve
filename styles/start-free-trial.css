@@ -1,24 +1,11 @@
 /* ============================================================================
-   "Start your free trial" — sign-up page
-   ----------------------------------------------------------------------------
-   Layout follows the Figma proposal (node 73-3056): a centred sign-up form on
-   the left, a Chakra "AI interviewer" chat mock on the right, and a trusted-by
-   logo strip in the footer.
-
-   As with the sibling page, all colour, radius, type and font VALUES come from
-   the hr-design (HRDS) tokens vendored in styles/hrds/*. This sheet references
-   --* tokens, never raw hex — with two documented exceptions kept as local
-   marketing values (the Chakra question-bubble gradient and its cyan mandala),
-   which have no HRDS equivalent.
+   Start your free trial — redesign (Figma node 264-5763)
+   Colour / type / radius values come from hr-design (HRDS) tokens where they
+   map; the Chakra cyan is a brand accent not in the token set.
    ============================================================================ */
 
 :root {
-  /* Bespoke Chakra marketing values (no HRDS token equivalent). */
-  --chakra-bubble-from: #e7fbff;
-  --chakra-bubble-to: #f1f1ff;
-  --chakra-mandala: #8ae9ff; /* cyan star mandala, rendered faint behind chat */
-  --chakra-dark: #1a1a1a; /* near-black Chakra card surface */
-  --chakra-bubble-dark: #0b0b0c; /* candidate bubble on the dark card */
+  --chakra-cyan: #8ae9ff;
 }
 
 *,
@@ -27,83 +14,14 @@
   box-sizing: border-box;
 }
 
-html {
-  -webkit-text-size-adjust: 100%;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 body {
   margin: 0;
   min-height: 100vh;
-  /* Soft Chakra glow spanning the WHOLE page (cyan → soft blue → lavender),
-     anchored at the top and fading to white — continuous across both sides,
-     showing through around the floating dark card. */
-  background-color: var(--background);
-  background-image:
-    linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0.28) 0%,
-      rgba(255, 255, 255, 0.6) 52%,
-      #ffffff 90%
-    ),
-    url("../assets/bg-gradient-chakra.svg");
-  background-repeat: no-repeat, no-repeat;
-  background-position:
-    center top,
-    center -240px;
-  background-size:
-    100% 900px,
-    135% 780px;
+  background: var(--background);
   color: var(--foreground);
   font-family: var(--font-ds);
-  font-size: var(--hrds-text-body-lg);
-  line-height: var(--hrds-text-body-lg-lh);
-  letter-spacing: 0.16px;
-}
-
-/* ===================== Two-pane split ===================== */
-.split {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  min-height: 100vh;
-  min-height: 100svh;
-}
-
-.pane {
-  position: relative;
-  min-width: 0;
-  min-height: 100vh;
-  min-height: 100svh;
-}
-
-/* LEFT — sign-up column; the page glow shows through (transparent). */
-.pane--left {
-  display: flex;
-  flex-direction: column;
-  background: transparent;
-}
-
-/* RIGHT — dark rounded Chakra card floating over the continuous page glow. */
-.pane--right {
-  display: flex;
-  align-items: center; /* float the card, centered vertically */
-  justify-content: center;
-  padding: clamp(64px, 8.3vh, 80px) clamp(24px, 2.8vw, 40px)
-    clamp(24px, 4.4vh, 40px) 8px;
-  background: transparent;
-}
-
-/* The sign-up form sits centered in the space between nav and logos. */
-.signup-area {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 0;
-  padding: 64px clamp(24px, 3vw, 32px) 24px; /* top room to clear the floating header */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
@@ -134,165 +52,175 @@ ul {
   border: 0;
 }
 
-/* ===================== Header / Nav ===================== */
-/* Full-width bar floating over the top of the page: logo left, Login top-right. */
-.site-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 50;
-  height: 64px;
+/* ===================== Page shell ===================== */
+.ft {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
 }
 
-.nav {
+/* Faint plus-pattern, concentrated center-right and faded at the edges. */
+.ft__pattern {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Cpath d='M15 11v8M11 15h8' fill='none' stroke='%23c9c9cc' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 30px 30px;
+  opacity: 0.5;
+  -webkit-mask: radial-gradient(58% 55% at 60% 38%, #000 0%, rgba(0, 0, 0, 0.35) 45%, transparent 78%);
+  mask: radial-gradient(58% 55% at 60% 38%, #000 0%, rgba(0, 0, 0, 0.35) 45%, transparent 78%);
+}
+
+/* ===================== Header ===================== */
+.ft-header {
+  position: relative;
+  z-index: 3;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 100%;
-  padding: 0 32px;
+  padding: 28px 80px;
 }
 
-.nav__logo img {
+.ft-header__logo img {
   width: 153px;
   height: 16px;
 }
 
-/* ===================== Buttons ===================== */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-family: var(--font-ds);
+.ft-header__login {
+  padding: 11px 24px;
   font-size: var(--hrds-text-subtitle-md);
-  line-height: var(--hrds-text-subtitle-md-lh);
   font-weight: 500;
-  border-radius: var(--hrds-radius-xs);
-  border: 1px solid transparent;
-  cursor: pointer;
-  transition:
-    background-color 0.15s ease,
-    border-color 0.15s ease,
-    color 0.15s ease;
-}
-
-.btn--outline {
-  height: 39px;
-  padding: 0 20px;
-  border-color: var(--outline-border);
-  color: var(--outline-foreground);
-  background: transparent;
-}
-
-.btn--outline:hover {
-  border-color: var(--outline-border-hover);
-}
-
-.nav__login {
-  border-radius: var(--hrds-radius-sm);
-}
-
-.btn--submit {
-  width: 100%;
-  height: 44px;
-  font-size: var(--hrds-text-subtitle-lg);
-  line-height: var(--hrds-text-subtitle-lg-lh);
-  color: var(--primary-foreground);
-  background: var(--primary);
-}
-
-.btn--submit:hover {
-  background: var(--primary-hover);
-}
-
-.btn--submit:active {
-  background: var(--primary-active);
-}
-
-.btn--social {
-  flex: 1;
-  height: 44px;
-  padding: 0 16px;
   color: var(--foreground);
   background: var(--background);
-  border-color: var(--outline-border);
-  font-weight: 500;
+  border: 1px solid var(--border);
+  border-radius: 1000px;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
-.btn--social:hover {
+.ft-header__login:hover {
+  background: var(--muted);
   border-color: var(--outline-border-hover);
 }
 
-.social__icon {
-  width: 18px;
-  height: 18px;
-  flex-shrink: 0;
+/* ===================== Main grid ===================== */
+.ft-main {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 457px 1fr;
+  align-items: center;
+  gap: 48px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px 80px 80px;
+  min-height: calc(100vh - 160px);
 }
 
 /* ===================== Sign-up (left) ===================== */
 .signup {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
   width: 100%;
-  max-width: 360px;
-  margin: 0 auto;
+  max-width: 457px;
 }
 
 .signup__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
   text-align: center;
-  margin-bottom: 24px;
 }
 
-/* Marketing display heading — HRDS product scale tops out at 36/56; this
-   proposal uses a larger title, so the size is set locally while FONT + COLOUR
-   stay on HRDS tokens (Kalice via --font-heading, --foreground). */
 .signup__title {
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: 34px;
-  line-height: 1.2;
+  font-size: 44px;
+  line-height: 1;
   letter-spacing: -0.5px;
   color: var(--foreground);
 }
 
 .signup__sub {
-  margin: 8px 0 0;
-  font-size: var(--hrds-text-body-md);
-  line-height: var(--hrds-text-body-md-lh);
+  margin: 0;
+  font-size: var(--hrds-text-subtitle-md);
+  line-height: var(--hrds-text-subtitle-md-lh);
+  letter-spacing: 0.16px;
   color: var(--muted-foreground);
 }
 
-.form {
+.signup__form {
   display: flex;
   flex-direction: column;
+  gap: 20px;
+}
+
+/* --- Social buttons --- */
+.social {
+  display: flex;
   gap: 12px;
 }
 
-.field-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+.social__btn {
+  flex: 1 0 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 16px;
+  font-size: var(--hrds-text-subtitle-md);
+  font-weight: 500;
+  letter-spacing: 0.16px;
+  color: var(--foreground);
+  background: var(--background);
+  border: 1px solid var(--input);
+  border-radius: var(--hrds-radius-xs);
+  transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
-.field {
+.social__btn:hover {
+  background: var(--muted);
+  border-color: var(--outline-border-hover);
+}
+
+.social__icon {
+  flex-shrink: 0;
+}
+
+/* --- Or divider --- */
+.or {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  font-size: var(--hrds-text-subtitle-md);
+  font-weight: 500;
+  color: var(--foreground);
 }
 
+.or::before,
+.or::after {
+  content: "";
+  flex: 1 0 0;
+  height: 1px;
+  background: var(--border);
+}
+
+/* --- Email field --- */
 .field__input {
   width: 100%;
   height: 42px;
   padding: 0 12px;
   font-family: var(--font-ds);
-  font-size: var(--hrds-text-body-md);
-  line-height: var(--hrds-text-body-md-lh);
+  font-size: var(--hrds-text-subtitle-md);
   color: var(--foreground);
   background: var(--background);
   border: 1px solid var(--input);
   border-radius: var(--hrds-radius-sm);
-  transition:
-    border-color 0.15s ease,
-    box-shadow 0.15s ease;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .field__input::placeholder {
@@ -301,40 +229,48 @@ ul {
 
 .field__input:focus {
   outline: none;
-  border-color: var(--ring);
-  box-shadow: 0 0 0 1px var(--ring);
+  border-color: var(--foreground);
+  box-shadow: 0 0 0 1px var(--foreground);
 }
 
-/* ===================== "Or sign up with..." divider ===================== */
-.divider {
-  margin: 4px 0;
-  text-align: center;
-  font-size: var(--hrds-text-body-md);
-  line-height: var(--hrds-text-body-md-lh);
+/* --- Submit --- */
+.btn-signup {
+  width: 100%;
+  height: 44px;
+  font-family: var(--font-ds);
+  font-size: var(--hrds-text-body-lg);
+  line-height: var(--hrds-text-body-lg-lh);
   font-weight: 500;
-  color: var(--foreground);
+  color: var(--primary-foreground);
+  background: var(--primary);
+  border: 1px solid transparent;
+  border-radius: var(--hrds-radius-xs);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
 }
 
-.social {
-  display: flex;
-  gap: 12px;
+.btn-signup:hover {
+  background: var(--primary-hover);
 }
 
-/* ===================== Consent + community ===================== */
+.btn-signup:active {
+  background: var(--primary-active);
+}
+
+/* --- Consent / community --- */
 .consent {
   margin: 0;
-  text-align: center;
   font-size: var(--hrds-text-body-sm);
   line-height: var(--hrds-text-body-sm-lh);
+  letter-spacing: 0.16px;
   color: var(--muted-foreground);
+  text-align: center;
 }
 
-/* --success-foreground reads as a green link with proper contrast on white
-   (the lime --primary is too light for text on a light surface). */
 .consent a,
 .community a {
-  color: var(--success-foreground);
   font-weight: 500;
+  color: var(--success-foreground);
 }
 
 .consent a:hover,
@@ -343,332 +279,32 @@ ul {
 }
 
 .community {
-  margin: 8px 0 0;
+  margin: 0;
   padding: 12px 16px;
-  text-align: center;
   font-size: var(--hrds-text-body-sm);
   line-height: var(--hrds-text-body-sm-lh);
+  letter-spacing: 0.16px;
   color: var(--muted-foreground);
+  text-align: center;
   background: var(--muted);
   border-radius: var(--hrds-radius-sm);
 }
 
-/* ===================== Chakra (right / dark card) ===================== */
-.chakra {
-  position: relative;
-  overflow: hidden; /* clip the mandala arcs to the card */
-  width: 100%;
-  max-width: 680px;
-  min-height: clamp(540px, calc(100svh - 112px), 750px);
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  padding: clamp(84px, 12vh, 120px) clamp(28px, 3.35vw, 48px) 40px;
-  background: var(--chakra-dark);
-  border-radius: 28px;
-}
-
-/* The brand + tagline land centered in the card, then rise up to reveal the
-   conversation. JS sets the initial offset; the transition is only switched on
-   (via .is-rising) for the upward move, so the landing is instant. */
-.chakra__intro {
-  position: relative;
-  z-index: 1;
-  will-change: transform;
-}
-
-.js .chakra__intro.is-rising {
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.chakra__brand {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.chakra__mark {
-  width: 40px;
-  height: 37px;
-}
-
-.chakra__wordmark {
-  width: 102px;
-  height: 26px;
-}
-
-/* Small "New" tag, sitting superscript-style beside the Chakra wordmark in the
-   brand's cyan family. */
-.chakra__badge {
-  align-self: flex-start;
-  margin-top: 1px;
-  padding: 3px 8px;
-  font-family: var(--font-ds);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  line-height: 1;
-  color: #0a6a8c;
-  background: #cdf1ff;
-  border-radius: var(--hrds-radius-circle);
-}
-
-.chakra__tag {
-  margin: 6px 0 0;
-  text-align: center;
-  font-size: var(--hrds-text-subtitle-lg);
-  line-height: var(--hrds-text-subtitle-lg-lh);
-  color: var(--muted-foreground);
-}
-
-/* ----- Chat ----- */
-.chat {
-  position: relative;
-  z-index: 1; /* bubbles sit above the mandala */
-  margin-top: 48px; /* drop the bubbles lower, clear of the arcs */
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-/* Faint dotted mandala — arcs radiating around the logo at the top of the card
-   (its center sits near the brand; the card's overflow clips the top). */
-.chat__decoration {
-  position: absolute;
-  top: -160px; /* dome of arcs sits at the very top, behind the logo + tagline */
-  left: 50%;
-  width: 820px;
-  height: auto;
-  transform: translate(-50%, -50%);
-  opacity: 0.3;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.msg {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  max-width: 100%;
-}
-
-/* With JS, each message (label + bubble) stays hidden until its speaker takes
-   a turn, then fades/rises in. Space is still reserved by the bubble's sizer,
-   so revealing a message doesn't shove the others around. */
-.js .msg {
-  opacity: 0;
-  transform: translateY(8px);
-  transition:
-    opacity 0.4s ease,
-    transform 0.4s ease;
-}
-
-.js .msg.is-revealed {
-  opacity: 1;
-  transform: none;
-}
-
-.msg--in {
-  align-self: flex-start;
-  align-items: flex-start;
-  margin-left: 24px; /* nudge Chakra slightly inward (right) */
-}
-
-.msg--out {
-  align-self: flex-end;
-  align-items: flex-end;
-  margin-right: 24px; /* nudge Candidate slightly inward (left) */
-}
-
-.msg__label {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin: 0;
-  font-size: var(--hrds-text-subtitle-md);
-  line-height: var(--hrds-text-subtitle-md-lh);
-  color: var(--foreground);
-}
-
-/* Mini waveform glyph (3 bars: 9 / 16 / 9), rebuilt from the Figma shapes. */
-.wave {
-  display: inline-flex;
-  align-items: center;
-  gap: 2px;
-  height: 16px;
-}
-
-.wave span {
-  width: 2.5px;
-  border-radius: var(--hrds-radius-circle);
-  background: var(--foreground);
-}
-
-/* Resting waveform: a static symmetric shape. */
-.wave span:nth-child(1),
-.wave span:nth-child(5) {
-  height: 4px;
-}
-.wave span:nth-child(2),
-.wave span:nth-child(4) {
-  height: 7px;
-}
-.wave span:nth-child(3) {
-  height: 11px;
-}
-
-/* Active speaker: an organic equalizer that reads as live audio being
-   transcribed — present but understated so it never out-shouts the form. Each
-   bar runs at its own tempo with a negative delay so they start out of phase. */
-.msg.is-speaking .wave span {
-  animation: eq 0.7s ease-in-out infinite;
-}
-.msg.is-speaking .wave span:nth-child(1) {
-  animation-duration: 0.76s;
-  animation-delay: -0.2s;
-}
-.msg.is-speaking .wave span:nth-child(2) {
-  animation-duration: 0.58s;
-  animation-delay: -0.42s;
-}
-.msg.is-speaking .wave span:nth-child(3) {
-  animation-duration: 0.7s;
-  animation-delay: -0.1s;
-}
-.msg.is-speaking .wave span:nth-child(4) {
-  animation-duration: 0.54s;
-  animation-delay: -0.32s;
-}
-.msg.is-speaking .wave span:nth-child(5) {
-  animation-duration: 0.74s;
-  animation-delay: -0.05s;
-}
-
-@keyframes eq {
-  0%,
-  100% {
-    height: 4px;
-  }
-  50% {
-    height: 11px;
-  }
-}
-
-.bubble {
-  max-width: min(
-    400px,
-    calc(100% - 16px)
-  ); /* hug content; wrap so bubbles stay compact */
-  display: grid; /* sizer + live text stack in one cell (see .tw-* below) */
-  padding: 16px;
-  border-radius: var(--hrds-radius-xl);
-  font-family: var(--font-heading);
-  font-size: var(--hrds-text-title-sm);
-  line-height: 1.5;
-}
-
-.bubble--question {
-  color: var(--foreground);
-  background: linear-gradient(
-    to bottom,
-    var(--chakra-bubble-from),
-    var(--chakra-bubble-to) 78%
-  );
-}
-
-/* ----- Live transcription (typewriter) ----- *
- * A hidden sizer holds the bubble at its final size so nothing reflows while
- * the text types in; the visible text is layered over it and a caret blinks
- * at the write head. Both layers are created by JS, so the plain text stays
- * intact when JS is disabled. */
-/* Sizer + live text share one grid cell, so they get identical width and wrap
-   identically: the sizer reserves the final box (no reflow) while the live
-   text types in on top of it. */
-.tw-sizer,
-.tw-text {
-  grid-area: 1 / 1;
-  min-width: 0;
-}
-
-.tw-sizer {
-  visibility: hidden;
-}
-
-/* Each streamed word fades in on insertion via its own animation (reliable —
-   no class-toggle timing to miss). The fade is longer than the inter-word
-   delay, so words overlap into one continuous stream instead of discrete pops. */
-.tw-word {
-  animation: word-in 0.6s ease-out both;
-}
-
-@keyframes word-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.bubble--answer {
-  color: var(--foreground);
-  background: var(--card);
-  border: 1px solid var(--border);
-}
-
-/* ===================== Dark right pane — recolor Chakra content ===================== *
- * The animation and layout are unchanged; only colours flip for the dark
- * surface. The Chakra gradient bubble and the "New" badge stay light (they pop
- * on dark); the wordmark, tagline, labels, waveform, mandala and the candidate
- * bubble adopt light-on-dark tones. */
-.pane--right .chakra__wordmark {
-  filter: brightness(0) invert(1); /* black wordmark → white on dark */
-}
-
-.pane--right .chakra__tag {
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.pane--right .msg__label {
-  color: rgba(255, 255, 255, 0.92);
-}
-
-.pane--right .wave span {
-  background: rgba(255, 255, 255, 0.85);
-}
-
-/* Candidate reply: a solid near-black bubble on the dark card. */
-.pane--right .bubble--answer {
-  color: rgba(255, 255, 255, 0.95);
-  background: var(--chakra-bubble-dark);
-  border-color: transparent;
-}
-
-/* ===================== Compact Chakra proof (mobile / tablet) ===================== */
-.chakra-compact {
-  display: none;
-}
-
-.chakra-compact__chat {
-  display: none;
-}
-
-/* ===================== Trusted-by logos (left pane, bottom) ===================== */
+/* --- Trusted by --- */
 .brands {
-  flex-shrink: 0;
-  padding: 8px 32px 40px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
 }
 
 .brands__title {
-  margin: 0 0 16px;
+  margin: 0;
   font-size: var(--hrds-text-body-sm);
-  line-height: var(--hrds-text-body-sm-lh);
-  color: var(--muted-foreground);
+  line-height: 1.24;
+  color: rgba(0, 0, 0, 0.4);
+  text-align: center;
 }
 
 .brands__list {
@@ -676,346 +312,276 @@ ul {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 14px 28px;
-  color: var(--muted-foreground);
-  opacity: 0.75;
+  gap: 28px;
 }
 
-/* Brand names are rendered as styled wordmarks — the Figma bakes these logos
-   into a flattened screenshot, so no vector assets exist to export. Sized to
-   fit the narrower left pane. */
-.brand {
-  font-size: 17px;
-  line-height: 1.1;
-  font-weight: 600;
+.brands__list img {
+  height: 14px;
+  width: auto;
+  opacity: 0.4;
+}
+
+/* ===================== Showcase (right) ===================== */
+.showcase {
+  position: relative;
+  justify-self: center;
+  width: 100%;
+  max-width: 460px;
+}
+
+/* Soft cyan glow panel peeking out behind the card's right edge. */
+.showcase__glow {
+  position: absolute;
+  right: -34px;
+  top: 64px;
+  width: 300px;
+  height: 320px;
+  border-radius: 12px;
+  background:
+    radial-gradient(120% 90% at 20% 30%, rgba(138, 233, 255, 0.55), rgba(138, 233, 255, 0) 70%),
+    linear-gradient(180deg, #f0fcff, #e6fafe);
+  filter: blur(2px);
+}
+
+/* ===================== Chakra chat card ===================== */
+.chat-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 400px;
+  border: 3px solid rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
+  box-shadow: 0 1px 14px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  background: var(--background);
+}
+
+.chat-card__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 54px;
+  padding: 0 18px;
+  background: var(--base-dark);
+}
+
+.chat-card__brand {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  letter-spacing: -0.5px;
+  color: var(--base-light);
+}
+
+.chat-card__badge {
+  padding: 3px 6px;
+  font-size: 11px;
+  line-height: 1;
+  color: #000;
+  background: var(--chakra-cyan);
+  border-radius: 7px;
+}
+
+.chat-card__tag {
+  margin-left: 6px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.92);
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.brand--airbnb,
-.brand--stripe {
-  text-transform: lowercase;
+.chat-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  background: var(--background);
 }
 
-.brand--snap {
+/* --- Chat messages --- */
+.cmsg {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cmsg--candidate {
+  align-items: flex-end;
+}
+
+.cmsg__name {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
   font-family: var(--font-heading);
-  font-weight: 700;
+  font-size: 12px;
+  color: #000;
 }
 
-.brand--canva {
-  font-family: var(--font-heading);
-  font-style: italic;
+.cmsg__name img {
+  width: 13px;
+  height: 12px;
 }
 
-.brand--atlassian {
-  font-weight: 700;
-  letter-spacing: 0.5px;
+.cmsg__text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.35;
+  color: var(--foreground);
 }
 
-.brand--goldman {
-  font-family: var(--font-heading);
-  font-size: 13px;
-  line-height: 1.15;
+.cmsg__bubble {
+  margin: 0;
+  max-width: 283px;
+  padding: 11px 16px;
+  font-size: 14px;
+  line-height: 1.35;
+  color: #000;
+  background: var(--chakra-cyan);
+  border-radius: 10px;
+}
+
+/* typing caret */
+.cmsg__text--typing {
+  display: inline-flex;
+  align-items: center;
+}
+
+.caret {
+  display: inline-block;
+  width: 1px;
+  height: 15px;
+  margin-left: 1px;
+  background: var(--foreground);
+  animation: ft-blink 1s step-end infinite;
+}
+
+@keyframes ft-blink {
+  50% { opacity: 0; }
+}
+
+/* --- Video tiles --- */
+.tiles {
+  display: flex;
+  gap: 10px;
+}
+
+.tile {
+  flex: 1 0 0;
+  aspect-ratio: 1;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 13px;
+  overflow: hidden;
+}
+
+.tile--viz {
+  position: relative;
+  background: #070707;
+}
+
+.tile--viz img {
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  width: 240%;
+  max-width: none;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: lighten;
+  opacity: 0.7;
+}
+
+.tile--cam img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --- Listening bar --- */
+.listening {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 6px 0 11px;
+  background: rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(57, 57, 57, 0.15);
+  border-radius: 9px;
+}
+
+.listening__wave {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.listening__wave img {
+  width: 18px;
+  height: 16px;
+}
+
+.listening__label {
+  flex: 1 0 0;
+  font-size: 12px;
+  color: #000;
+}
+
+.listening__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.listening__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 28px;
+  border-radius: 6px;
+}
+
+.listening__btn--mic {
+  background: var(--background);
+}
+
+.listening__btn--mic img {
+  width: 12px;
+  height: auto;
+}
+
+.listening__btn--send img {
+  width: 30px;
+  height: 28px;
 }
 
 /* ===================== Responsive ===================== */
-@media (max-width: 959px) {
-  /* The full product demo only earns its space when it sits beside the form.
-     Narrow layouts keep the conversion flow short and show a static lockup. */
-  .split {
-    display: block;
-    min-height: 100vh;
-    min-height: 100svh;
-  }
-
-  .pane {
-    min-height: auto;
-  }
-
-  .pane--left {
-    min-height: 100vh;
-    min-height: 100svh;
-  }
-
-  .pane--right {
-    display: none;
-  }
-
-  .signup-area {
-    flex: 0 0 auto;
-    padding: 96px 24px 28px;
-  }
-
-  .chakra-compact {
-    width: calc(100% - 48px);
-    max-width: 520px;
-    min-height: 0;
-    margin: 0 auto 28px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    text-align: center;
-    color: rgba(255, 255, 255, 0.94);
-    background: var(--chakra-dark);
-    border-radius: var(--hrds-radius-xl);
-  }
-
-  .chakra-compact__brand {
-    flex: 0 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .chakra-compact__mark {
-    width: 26px;
-    height: auto;
-  }
-
-  .chakra-compact__wordmark {
-    width: 72px;
-    height: auto;
-    filter: brightness(0) invert(1);
-  }
-
-  .chakra-compact__badge {
-    align-self: flex-start;
-    padding: 2px 6px;
-    font-size: 9px;
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: #0a6a8c;
-    background: #cdf1ff;
-    border-radius: var(--hrds-radius-circle);
-  }
-
-  .chakra-compact__tag {
-    margin: 0;
-    font-size: var(--hrds-text-body-sm);
-    line-height: var(--hrds-text-body-sm-lh);
-    color: rgba(255, 255, 255, 0.64);
-  }
-
-  .chakra-compact__chat {
-    width: 100%;
-    margin-top: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-  }
-
-  .chakra-compact__message {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-
-  .chakra-compact__message--candidate {
-    align-items: flex-end;
-  }
-
-  .chakra-compact__label {
-    margin: 0;
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    font-size: var(--hrds-text-body-sm);
-    line-height: var(--hrds-text-body-sm-lh);
-    color: rgba(255, 255, 255, 0.8);
-  }
-
-  .chakra-compact__wave {
-    height: 12px;
-    display: inline-flex;
-    align-items: center;
-    gap: 2px;
-  }
-
-  .chakra-compact__wave span {
-    width: 2px;
-    border-radius: var(--hrds-radius-circle);
-    background: currentColor;
-  }
-
-  .chakra-compact__wave span:nth-child(1),
-  .chakra-compact__wave span:nth-child(5) {
-    height: 4px;
-  }
-
-  .chakra-compact__wave span:nth-child(2),
-  .chakra-compact__wave span:nth-child(4) {
-    height: 7px;
-  }
-
-  .chakra-compact__wave span:nth-child(3) {
-    height: 11px;
-  }
-
-  .chakra-compact__bubble {
-    max-width: 94%;
-    margin: 0;
-    padding: 14px 16px;
-    text-align: left;
-    font-family: var(--font-heading);
-    font-size: 15px;
-    line-height: 1.45;
-    border-radius: var(--hrds-radius-xl);
-  }
-
-  .chakra-compact__bubble--question {
-    color: var(--foreground);
-    background: linear-gradient(
-      to bottom,
-      var(--chakra-bubble-from),
-      var(--chakra-bubble-to) 78%
-    );
-  }
-
-  .chakra-compact__bubble--answer {
-    color: rgba(255, 255, 255, 0.94);
-    background: var(--chakra-bubble-dark);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-  }
-
-  .brands {
-    padding: 0 24px 32px;
-  }
-
-  .brands__list {
-    max-width: 620px;
-    margin: 0 auto;
-  }
-}
-
-@media (max-width: 768px) {
-  .nav {
-    padding: 0 20px;
-  }
-
-  .signup-area {
-    padding-right: 20px;
-    padding-left: 20px;
-  }
-
-  .chakra-compact {
-    width: calc(100% - 40px);
-  }
-}
-
-@media (max-width: 560px) {
-  .site-header {
-    height: 72px;
-  }
-
-  .nav {
-    padding: 0 20px;
-  }
-
-  .nav__logo img {
-    width: clamp(126px, 38vw, 146px);
-    height: auto;
-  }
-
-  .nav__login {
-    height: 40px;
-    padding: 0 16px;
-  }
-
-  .signup-area {
-    padding: 92px 20px 24px;
-  }
-
-  .signup__head {
-    margin-bottom: 20px;
-  }
-
-  .signup__title {
-    font-size: clamp(30px, 9.5vw, 34px);
-  }
-
-  .signup__sub {
-    max-width: 310px;
-    margin-right: auto;
-    margin-left: auto;
-  }
-
-  .field-row {
+@media (max-width: 1040px) {
+  .ft-main {
     grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 56px;
+    padding: 24px 24px 64px;
+  }
+
+  .ft-header {
+    padding: 20px 24px;
+  }
+
+  .showcase {
+    order: 2;
+  }
+}
+
+@media (max-width: 520px) {
+  .signup__title {
+    font-size: 36px;
   }
 
   .social {
     flex-direction: column;
   }
 
-  .btn--social {
-    flex: 0 0 44px;
-    width: 100%;
-  }
-
-  .msg {
-    max-width: 100%;
-  }
-
-  .brands {
-    padding: 0 20px 28px;
-  }
-
   .brands__list {
-    column-gap: 22px;
-  }
-}
-
-@media (max-width: 359px) {
-  .nav {
-    padding: 0 16px;
-  }
-
-  .nav__logo img {
-    width: 118px;
-  }
-
-  .nav__login {
-    padding: 0 14px;
-  }
-
-  .signup-area {
-    padding-right: 16px;
-    padding-left: 16px;
-  }
-
-  .chakra-compact {
-    width: calc(100% - 32px);
-  }
-
-  .brands {
-    padding-right: 16px;
-    padding-left: 16px;
-  }
-}
-
-@media (min-width: 960px) and (max-width: 1120px) {
-  .msg--in {
-    margin-left: 8px;
-  }
-
-  .msg--out {
-    margin-right: 8px;
-  }
-
-  .bubble {
-    max-width: min(360px, calc(100% - 8px));
-  }
-}
-
-/* ===================== Motion preferences ===================== */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    transition: none !important;
-    animation: none !important;
+    gap: 20px;
   }
 }
