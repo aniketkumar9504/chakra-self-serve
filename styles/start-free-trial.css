@@ -331,8 +331,18 @@ ul {
 .showcase {
   flex: none;
   position: relative;
-  width: 440px;
+  width: 480px;
   max-width: 100%;
+}
+
+/* Chakra interview animation, isolated in an iframe so its fonts/styles
+   can't collide with the page. Height tracks width via the scene aspect. */
+.showcase__frame {
+  display: block;
+  width: 100%;
+  aspect-ratio: 600 / 510;
+  border: 0;
+  background: transparent;
 }
 
 /* Soft cyan glow panel peeking out behind the card's right edge. */

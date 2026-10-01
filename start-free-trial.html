@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="styles/hrds/tokens.css" />
   <link rel="stylesheet" href="styles/hrds/theme.css" />
   <link rel="stylesheet" href="styles/hrds/fonts.css" />
-  <link rel="stylesheet" href="styles/start-free-trial.css?v=7" />
+  <link rel="stylesheet" href="styles/start-free-trial.css?v=8" />
 
   <!-- Flag JS up front so chat messages start hidden (revealed in sequence).
        Without JS the full conversation renders normally. -->
@@ -101,64 +101,15 @@
         </footer>
       </section>
 
-      <!-- Right: Chakra chat card (with cyan glow behind) -->
+      <!-- Right: Chakra interview showcase (Thread → report animation, isolated in an iframe) -->
       <div class="showcase" aria-hidden="true">
-        <div class="showcase__glow"></div>
-
-        <section class="chat-card" aria-label="Meet Chakra, an AI interviewer">
-          <header class="chat-card__header">
-            <span class="chat-card__brand">Chakra</span>
-            <span class="chat-card__badge">New</span>
-            <span class="chat-card__tag">AI interviewer that actually works</span>
-          </header>
-
-          <div class="chat-card__body">
-            <div class="cmsg">
-              <p class="cmsg__name cmsg__name--chakra">
-                <img src="assets/free-trial/chakra-mini.svg" alt="" aria-hidden="true" />Chakra
-              </p>
-              <p class="cmsg__text">I noticed you have changed your approach. Why?</p>
-            </div>
-
-            <div class="cmsg cmsg--candidate">
-              <p class="cmsg__name">
-                <img src="assets/free-trial/audio-lines.svg" alt="" aria-hidden="true" />Candidate
-              </p>
-              <p class="cmsg__bubble">I directed the agent to make the code more cleaner for hand offs.</p>
-            </div>
-
-            <div class="cmsg">
-              <p class="cmsg__name cmsg__name--chakra">
-                <img src="assets/free-trial/chakra-mini.svg" alt="" aria-hidden="true" />Chakra
-              </p>
-              <p class="cmsg__text cmsg__text--typing">c<span class="caret"></span></p>
-            </div>
-
-            <div class="tiles">
-              <div class="tile tile--viz">
-                <img src="assets/free-trial/particle-viz.png" alt="" aria-hidden="true" />
-              </div>
-              <div class="tile tile--cam">
-                <img src="assets/free-trial/candidate.png" alt="" aria-hidden="true" />
-              </div>
-            </div>
-
-            <div class="listening">
-              <span class="listening__wave">
-                <img src="assets/free-trial/listening-wave.svg" alt="" aria-hidden="true" />
-              </span>
-              <span class="listening__label">Listening&hellip;</span>
-              <span class="listening__actions">
-                <span class="listening__btn listening__btn--mic">
-                  <img src="assets/free-trial/mic.svg" alt="" aria-hidden="true" />
-                </span>
-                <span class="listening__btn listening__btn--send">
-                  <img src="assets/free-trial/send.svg" alt="" aria-hidden="true" />
-                </span>
-              </span>
-            </div>
-          </div>
-        </section>
+        <iframe
+          class="showcase__frame"
+          src="chakra-interview.html"
+          title="Chakra — an AI interviewer that actually works"
+          scrolling="no"
+          loading="lazy"
+        ></iframe>
       </div>
     </main>
   </div>
