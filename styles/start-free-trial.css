@@ -113,7 +113,7 @@ ul {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 176px;
+  gap: 240px;
   padding: 24px 48px 80px;
   min-height: calc(100vh - 160px);
 }
@@ -582,7 +582,7 @@ ul {
 }
 
 /* ===================== Responsive ===================== */
-@media (max-width: 1200px) {
+@media (max-width: 1260px) {
   .ft-main {
     flex-direction: column;
     gap: 56px;
