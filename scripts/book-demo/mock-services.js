@@ -16,26 +16,74 @@ const PERSONAL_DOMAINS = new Set([
   "proton.me", "protonmail.com", "aol.com", "live.com", "me.com", "gmx.com",
 ]);
 
-/* Known company accounts, keyed by email domain. */
+/* Known company accounts, keyed by email domain. `country` is an ISO code that
+   maps to COUNTRIES below (used to prefill the location selector). */
 const COMPANIES = {
   "acme.com": {
     company: "Acme Corp", size: "1,001–5,000", role: "Talent acquisition lead",
-    location: "Bengaluru", timezone: "IST", tier: "enterprise", customer: false,
+    location: "Bengaluru", country: "IN", timezone: "IST", tier: "enterprise", customer: false,
   },
   "globex.com": {
     company: "Globex", size: "5,001–10,000", role: "Head of engineering",
-    location: "New York", timezone: "ET", tier: "enterprise", customer: true,
+    location: "New York", country: "US", timezone: "ET", tier: "enterprise", customer: true,
   },
   "tinylabs.io": {
-    company: "Tiny Labs", size: "11–100", role: "Engineering manager",
-    location: "Austin", timezone: "CT", tier: "smallteam", customer: false,
+    company: "Tiny Labs", size: "51–200", role: "Engineering manager",
+    location: "Austin", country: "US", timezone: "CT", tier: "smallteam", customer: false,
   },
   "unknownco.com": {
     company: "Unknown Co", size: null, role: "Recruiter",
-    location: "London", timezone: "GMT", tier: "enterprise", customer: false,
+    location: "London", country: "GB", timezone: "GMT", tier: "enterprise", customer: false,
     sizeMissing: true,
   },
+  "northwind.com": {
+    company: "Northwind Traders", size: "1,001–5,000", role: "Head of talent",
+    location: null, country: null, timezone: null, tier: "enterprise", customer: false,
+  },
 };
+
+/* Countries the location selector offers → each maps to a sales region (drives
+   rep territory) and a timezone (drives the calendar). Ordered most-common
+   first; the selector is searchable so order only affects the default view. */
+export const COUNTRIES = [
+  { code: "US", name: "United States",        flag: "🇺🇸", tz: "ET",   region: "North America" },
+  { code: "GB", name: "United Kingdom",       flag: "🇬🇧", tz: "GMT",  region: "EMEA" },
+  { code: "IN", name: "India",                flag: "🇮🇳", tz: "IST",  region: "APAC" },
+  { code: "CA", name: "Canada",               flag: "🇨🇦", tz: "ET",   region: "North America" },
+  { code: "AU", name: "Australia",            flag: "🇦🇺", tz: "AET",  region: "APAC" },
+  { code: "DE", name: "Germany",              flag: "🇩🇪", tz: "CET",  region: "EMEA" },
+  { code: "FR", name: "France",               flag: "🇫🇷", tz: "CET",  region: "EMEA" },
+  { code: "NL", name: "Netherlands",          flag: "🇳🇱", tz: "CET",  region: "EMEA" },
+  { code: "IE", name: "Ireland",              flag: "🇮🇪", tz: "GMT",  region: "EMEA" },
+  { code: "ES", name: "Spain",                flag: "🇪🇸", tz: "CET",  region: "EMEA" },
+  { code: "IT", name: "Italy",                flag: "🇮🇹", tz: "CET",  region: "EMEA" },
+  { code: "SE", name: "Sweden",               flag: "🇸🇪", tz: "CET",  region: "EMEA" },
+  { code: "CH", name: "Switzerland",          flag: "🇨🇭", tz: "CET",  region: "EMEA" },
+  { code: "PL", name: "Poland",               flag: "🇵🇱", tz: "CET",  region: "EMEA" },
+  { code: "AE", name: "United Arab Emirates", flag: "🇦🇪", tz: "GST",  region: "EMEA" },
+  { code: "SA", name: "Saudi Arabia",         flag: "🇸🇦", tz: "AST",  region: "EMEA" },
+  { code: "IL", name: "Israel",               flag: "🇮🇱", tz: "GMT+2",region: "EMEA" },
+  { code: "ZA", name: "South Africa",         flag: "🇿🇦", tz: "SAST", region: "EMEA" },
+  { code: "SG", name: "Singapore",            flag: "🇸🇬", tz: "SGT",  region: "APAC" },
+  { code: "JP", name: "Japan",                flag: "🇯🇵", tz: "JST",  region: "APAC" },
+  { code: "CN", name: "China",                flag: "🇨🇳", tz: "CST",  region: "APAC" },
+  { code: "HK", name: "Hong Kong",            flag: "🇭🇰", tz: "HKT",  region: "APAC" },
+  { code: "KR", name: "South Korea",          flag: "🇰🇷", tz: "KST",  region: "APAC" },
+  { code: "NZ", name: "New Zealand",          flag: "🇳🇿", tz: "NZT",  region: "APAC" },
+  { code: "ID", name: "Indonesia",            flag: "🇮🇩", tz: "WIB",  region: "APAC" },
+  { code: "MY", name: "Malaysia",             flag: "🇲🇾", tz: "MYT",  region: "APAC" },
+  { code: "PH", name: "Philippines",          flag: "🇵🇭", tz: "PHT",  region: "APAC" },
+  { code: "VN", name: "Vietnam",              flag: "🇻🇳", tz: "ICT",  region: "APAC" },
+  { code: "TH", name: "Thailand",             flag: "🇹🇭", tz: "ICT",  region: "APAC" },
+  { code: "MX", name: "Mexico",               flag: "🇲🇽", tz: "CT",   region: "LATAM" },
+  { code: "BR", name: "Brazil",               flag: "🇧🇷", tz: "BRT",  region: "LATAM" },
+  { code: "AR", name: "Argentina",            flag: "🇦🇷", tz: "ART",  region: "LATAM" },
+  { code: "CL", name: "Chile",                flag: "🇨🇱", tz: "CLT",  region: "LATAM" },
+];
+
+export function countryByCode(code) {
+  return COUNTRIES.find((c) => c.code === code) || null;
+}
 
 /* Personal emails that we can still match to an employer (enrichment win). */
 const PERSONAL_MATCHES = {
@@ -99,6 +147,7 @@ function profileFrom(email, companyRec, extra = {}) {
     size: companyRec ? companyRec.size : null,
     sizeMissing: companyRec ? !!companyRec.sizeMissing : false,
     location: companyRec ? companyRec.location : null,
+    countryCode: companyRec ? companyRec.country || null : null,
     timezone: companyRec ? companyRec.timezone : "IST",
     tier: companyRec ? companyRec.tier : "unknown",
     isCustomer: companyRec ? !!companyRec.customer : false,
@@ -115,24 +164,24 @@ export function enrich(email) {
   // Personal email matched to an employer (state 5).
   if (PERSONAL_MATCHES[email]) {
     const rec = COMPANIES[PERSONAL_MATCHES[email]];
-    return delay(650).then(() =>
+    return delay(300).then(() =>
       profileFrom(email, rec, { isPersonal: true, employerMatched: true })
     );
   }
   // Personal email, no company (state 6 → intent fork).
   if (PERSONAL_DOMAINS.has(domain)) {
-    return delay(650).then(() => profileFrom(email, null, { isPersonal: true }));
+    return delay(300).then(() => profileFrom(email, null, { isPersonal: true }));
   }
   // Known company (states 1–4).
   if (COMPANIES[domain]) {
-    return delay(650).then(() => profileFrom(email, COMPANIES[domain]));
+    return delay(300).then(() => profileFrom(email, COMPANIES[domain]));
   }
   // Any other business domain → generic enterprise so the flow still works.
   const guessed = capitalize((domain.split(".")[0] || "your company").replace(/[-_]/g, " "));
-  return delay(650).then(() =>
+  return delay(300).then(() =>
     profileFrom(email, {
       company: guessed, size: "201–1,000", role: "Talent acquisition",
-      location: "San Francisco", timezone: "PT", tier: "enterprise", customer: false,
+      location: "San Francisco", country: "US", timezone: "PT", tier: "enterprise", customer: false,
     })
   );
 }
@@ -166,15 +215,18 @@ export function companyHint(email) {
   return null;
 }
 
-/* ---- routing ---- */
+/* ---- routing ----
+   A lead can't be assigned a rep without a location (territory ownership), so
+   callers must resolve profile.location before routing. */
 export function route(profile, product) {
+  if (!profile.location) return null; // caller gates on this (location step)
   let repId;
   if (profile.isCustomer) repId = "csm";
   else if (profile.tier === "smallteam") repId = "growth";
   else if (product === "chakra") repId = "chakra";
   else if (product === "interview") repId = "interview";
   else repId = "solutions";
-  return { ...REPS[repId] };
+  return { ...REPS[repId], region: profile.region || null };
 }
 
 /* ---- calendar availability ---- */
