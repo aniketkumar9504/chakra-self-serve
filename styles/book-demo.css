@@ -495,7 +495,7 @@ img { display: block; max-width: 100%; }
 }
 .bd-time input { position: absolute; opacity: 0; width: 1px; height: 1px; }
 .bd-time:hover { border-color: var(--foreground); }
-.bd-time.is-on { border-color: var(--secondary, #141419); background: var(--secondary, #141419); color: #fff; }
+.bd-time.is-on { border-color: var(--foreground); background: #fff; color: var(--foreground); box-shadow: inset 0 0 0 1px var(--foreground); }
 .bd-time:has(input:focus-visible) { outline: 2px solid var(--ring); outline-offset: 2px; }
 
 .bd-cal__foot { margin: 16px 0 0; color: var(--muted-foreground); font-size: var(--hrds-text-body-sm); }
