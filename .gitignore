@@ -1,0 +1,8 @@
+# dependencies
+/node_modules
+
+# npm auth (contains private registry token — never commit)
+.npmrc
+
+# local tooling
+.DS_Store

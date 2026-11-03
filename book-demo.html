@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book a HackerRank demo</title>
+  <meta name="description" content="Book a 30-minute HackerRank demo. Identify yourself once and pick a time in under a minute." />
+
+  <!-- hr-design (HRDS) tokens + self-hosted brand fonts, then page styles -->
+  <link rel="stylesheet" href="styles/hrds/tokens.css" />
+  <link rel="stylesheet" href="styles/hrds/theme.css" />
+  <link rel="stylesheet" href="styles/hrds/fonts.css" />
+  <link rel="stylesheet" href="styles/book-demo.css?v=89" />
+</head>
+<body>
+  <header class="bd-header">
+    <a class="bd-header__logo" href="#" aria-label="HackerRank home">
+      <img src="assets/logo-dark.svg" alt="HackerRank" width="153" height="16" />
+    </a>
+    <nav class="bd-header__actions" aria-label="Quick actions">
+      <div class="bd-ltoggle" role="group" aria-label="Layout variation">
+        <button type="button" class="bd-ltoggle__btn" data-layout="v1">V1</button>
+        <button type="button" class="bd-ltoggle__btn" data-layout="v2">V2</button>
+      </div>
+      <a class="bd-header__cta" href="start-free-trial.html" data-action="try-header">Try it yourself</a>
+      <a class="bd-header__cta bd-header__cta--primary" href="#" data-action="contact">Contact us</a>
+    </nav>
+  </header>
+
+  <div id="bd-app"><!-- screens render here --></div>
+
+  <script type="module" src="scripts/book-demo/app.js?v=89"></script>
+</body>
+</html>

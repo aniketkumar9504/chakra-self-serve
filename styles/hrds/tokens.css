@@ -1,0 +1,345 @@
+/* Design-system token VALUES — the single source of truth for hr-design colours,
+ * surfaces, state palettes, radius base, and shadows.
+ *
+ * This file intentionally contains ONLY custom-property declarations on :root
+ * and .dark. It has no `@import`, no `@theme`, no `@font-face`, no `@layer`, and
+ * none of the base :root styling (font/color-scheme/background) — so consumers
+ * can pull in the raw token values without dragging in Tailwind, preflight, the
+ * spacing scale, or fonts. `index.css` @imports this and layers the Tailwind
+ * wiring on top; standalone consumers (e.g. apps that run their own Tailwind)
+ * can import just `@hackerrank/design-atoms/tokens.css`. */
+
+:root {
+  /* ── Core / Layout ──────────────────────────────────────── */
+  --background: #ffffff;
+  --foreground: #141419;
+  --muted: #fafafa;
+  --muted-foreground: #626266;
+  --accent: #f2f2f2;
+  --accent-foreground: #141419;
+  --border: #dbdbdc;
+  --input: #bdbdbf;
+  --ring: #aef96c;
+  --textarea-resize-handle: #dbdbdc;
+
+  /* ── Surfaces ───────────────────────────────────────────── */
+  --card: #ffffff;
+  --card-foreground: #141419;
+  --popover: #ffffff;
+  --popover-foreground: #141419;
+
+  /* ── Buttons / Actions ──────────────────────────────────── */
+  --primary: #aef96c;
+  --primary-foreground: #141419;
+  --secondary: #141419;
+  --secondary-foreground: #ffffff;
+  --destructive: #e12a43;
+  --destructive-foreground: #ffffff;
+
+  /* ── Button Hover / Active States ───────────────────────── */
+  --primary-hover: #c2fd9f;
+  --primary-active: #cdfeb5;
+  --secondary-hover: #202025;
+  --secondary-active: #2c2c31;
+  --destructive-hover: #ea5669;
+  --destructive-active: #f17787;
+  --outline-border: #bdbdbf;
+  --outline-border-hover: #9d9da0;
+  --outline-border-active: #7f7f82;
+  --outline-foreground: #141419;
+  --ghost-foreground: #141419;
+  --ghost-hover: rgba(20, 20, 25, 0.06);
+
+  /* ── Semantic States ────────────────────────────────────── */
+  --success: #05c770;
+  --success-alt: #edffe0;
+  --success-foreground: #0a8a48;
+  --info: #3355ff;
+  --info-alt: #eff4ff;
+  --info-foreground: #2846de;
+  --caution: #f5c800;
+  --caution-alt: #fffbec;
+  --caution-foreground: #846500;
+  --warning: #e12a43;
+  --warning-alt: #ffecef;
+  --warning-foreground: #e12a43;
+  --success-border: #ccf6d6;
+  --info-border: #cdddff;
+  --caution-border: #fff7d1;
+  --warning-border: #fdcfd5;
+
+  /* ── Decorative States ──────────────────────────────────── */
+  --orange: #ff6b00;
+  --orange-alt: #fff5ee;
+  --orange-foreground: #ff6b00;
+  --fuscia: #c4187a;
+  --fuscia-alt: #ffedf8;
+  --fuscia-foreground: #c4187a;
+  --purple: #8b59ff;
+  --purple-alt: #eeebff;
+  --purple-foreground: #7d29ff;
+  --cyan: #00b4e1;
+  --cyan-alt: #e6fafe;
+  --cyan-foreground: #007d96;
+  --grey: #bdbdbf;
+  --grey-alt: #f2f2f2;
+  --grey-foreground: #626266;
+
+  /* ── Table Row Tokens ───────────────────────────────────── */
+  --table-row: #ffffff;
+  --table-row-hover: #fafafa;
+  --table-row-selected: #edffe0;
+
+  /* ── Tab Surface Tokens ─────────────────────────────────── */
+  --tab-container: rgba(20, 20, 25, 0.06);
+  --tab-selected: #ffffff;
+  --tab-selected-subtle: rgba(20, 20, 25, 0.06);
+
+  /* ── Overlays & Transparency ────────────────────────────── */
+  --overlay: rgba(20, 20, 25, 0.67);
+  --ring-alpha: rgba(0, 0, 0, 0.04);
+  --border-alpha: rgba(20, 20, 25, 0.15);
+  --border-heavy-alpha: rgba(20, 20, 25, 0.28);
+  --bg-light-alpha: rgba(20, 20, 25, 0.02);
+  --bg-heavy-alpha: rgba(20, 20, 25, 0.06);
+  --accent-light-alpha: rgba(20, 20, 25, 0.42);
+  --accent-medium-alpha: rgba(20, 20, 25, 0.28);
+  --accent-heavy-alpha: rgba(20, 20, 25, 0.67);
+  --inverse-accent-alpha: rgba(20, 20, 25, 0.89);
+
+  /* ── Default State Tokens ───────────────────────────────── */
+  --base-light: #ffffff;
+  --base-dark: #141419;
+  --base-light-alt: rgba(255, 255, 255, 0.72);
+  --base-dark-alt: rgba(20, 20, 25, 0.73);
+  --default-header: #141419;
+  --default-text: rgba(20, 20, 25, 0.73);
+  --default-icon: rgba(20, 20, 25, 0.84);
+
+  /* ── Neutral States ─────────────────────────────────────── */
+  --neutral: #141419;
+  --neutral-alt: #f2f2f2;
+  --neutral-foreground: #ffffff;
+  --neutral-border: rgba(20, 20, 25, 0.15);
+  --neutral-bold: #141419;
+  --neutral-bold-text: #3355ff;
+  --neutral-bold-text-alt: #eaecff;
+
+  /* ── Radius ─────────────────────────────────────────────── */
+  --radius: 0.5rem; /* md base (8px) — shadcn primitive, mapped to --radius-md */
+  --hrds-radius-none: 0px;
+  --hrds-radius-xs: 0.25rem; /* 4px  */
+  --hrds-radius-sm: 0.375rem; /* 6px  */
+  --hrds-radius-lg: 0.75rem; /* 12px */
+  --hrds-radius-xl: 1rem; /* 16px */
+  --hrds-radius-2xl: 1.5rem; /* 24px */
+  --hrds-radius-3xl: 2rem; /* 32px */
+  --hrds-radius-circle: 9999px;
+
+  /* ── Typography ─────────────────────────────────────────────── */
+  --hrds-text-display-lg: 36px;
+  --hrds-text-display-lg-lh: 56px;
+  --hrds-text-display-md: 32px;
+  --hrds-text-display-md-lh: 44px;
+  --hrds-text-title-lg: 24px;
+  --hrds-text-title-lg-lh: 36px;
+  --hrds-text-title-md: 20px;
+  --hrds-text-title-md-lh: 32px;
+  --hrds-text-title-sm: 16px;
+  --hrds-text-title-sm-lh: 24px;
+  --hrds-text-title-xs: 14px;
+  --hrds-text-title-xs-lh: 24px;
+  --hrds-text-subtitle-lg: 16px;
+  --hrds-text-subtitle-lg-lh: 24px;
+  --hrds-text-subtitle-md: 14px;
+  --hrds-text-subtitle-md-lh: 20px;
+  --hrds-text-subtitle-sm: 12px;
+  --hrds-text-subtitle-sm-lh: 20px;
+  --hrds-text-body-lg: 16px;
+  --hrds-text-body-lg-lh: 24px;
+  --hrds-text-body-md: 14px;
+  --hrds-text-body-md-lh: 20px;
+  --hrds-text-body-sm: 12px;
+  --hrds-text-body-sm-lh: 20px;
+  --hrds-text-overline: 16px;
+  --hrds-text-overline-lh: 24px;
+
+  /* ── Typography: Compact (IDE) scale — new sizes only.
+   * ide-mono-small (12/20), ide-body-2xs (10/10 = ide-mono-2xs),
+   * ide-body-reading (16/24), ide-ui-label (14/20), and ide-heading-large
+   * (24/36) reuse existing values below instead of duplicating them. */
+  --hrds-text-ide-mono-2xs: 10px;
+  --hrds-text-ide-mono-2xs-lh: 10px;
+  --hrds-text-ide-mono-xs: 11px;
+  --hrds-text-ide-mono-xs-lh: 20px;
+  --hrds-text-ide-mono-default: 13px;
+  --hrds-text-ide-mono-default-lh: 20px;
+  --hrds-text-ide-mono-large: 18px;
+  --hrds-text-ide-mono-large-lh: 28px;
+  --hrds-text-ide-body-3xs: 9px;
+  --hrds-text-ide-body-3xs-lh: 9px;
+  --hrds-text-ide-body-xs: 11px;
+  --hrds-text-ide-body-xs-lh: 11px;
+  --hrds-text-ide-body-small: 12px;
+  --hrds-text-ide-body-small-lh: 16px;
+  --hrds-text-ide-body-base: 13px;
+  --hrds-text-ide-body-base-lh: 16px;
+  --hrds-text-ide-body-large: 15px;
+  --hrds-text-ide-body-large-lh: 20px;
+  --hrds-text-ide-heading-small: 18px;
+  --hrds-text-ide-heading-small-lh: 27px;
+  --hrds-text-ide-heading-default: 20px;
+  --hrds-text-ide-heading-default-lh: 30px;
+
+  /* ── Sidebar (shadcn defaults — not in HRDS mapping) ─────── */
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+
+  /* ── Shadows ─────────────────────────────────────────────── */
+  --card-shadow:
+    0 0 0 1px rgba(20, 20, 25, 0.06), 0 1px 2px -1px rgba(20, 20, 25, 0.06),
+    0 2px 4px 0 rgba(20, 20, 25, 0.04);
+  --dropdown-menu-shadow: 0 4px 8px 0 rgb(83 83 95 / 0.1);
+  --drawer-shadow: -4px 0 6px 0 rgb(31 32 42 / 0.06), -1px 0 1px 0 rgb(31 32 42 / 0.06);
+  --tooltip-shadow: drop-shadow(0 0 0.5px rgba(20, 20, 25, 0.08))
+    drop-shadow(0 1px 1px rgba(20, 20, 25, 0.06)) drop-shadow(0 2px 2px rgba(20, 20, 25, 0.04));
+}
+
+.dark {
+  /* ── Core / Layout ──────────────────────────────────────── */
+  --background: #141419;
+  --foreground: #ffffff;
+  --muted: #39393d;
+  --muted-foreground: #bdbdbf;
+  --accent: rgba(255, 255, 255, 0.1);
+  --accent-foreground: #ffffff;
+  --border: #535458;
+  --input: #bdbdbf;
+  --ring: #cdfeb5;
+  --textarea-resize-handle: #d4d4d4;
+
+  /* ── Surfaces ───────────────────────────────────────────── */
+  --card: #202025;
+  --card-foreground: #ffffff;
+  --popover: #39393d;
+  --popover-foreground: #ffffff;
+
+  /* ── Buttons / Actions ──────────────────────────────────── */
+  --primary: #aef96c;
+  --primary-foreground: #141419;
+  --secondary: #39393d;
+  --secondary-foreground: #ffffff;
+  --destructive: #e12a43;
+  --destructive-foreground: #ffffff;
+
+  /* ── Button Hover / Active States ───────────────────────── */
+  --primary-hover: #c2fd9f;
+  --primary-active: #cdfeb5;
+  --secondary-hover: #535458;
+  --secondary-active: #626266;
+  --destructive-hover: #ea5669;
+  --destructive-active: #f17787;
+  --outline-border: rgba(255, 255, 255, 0.33);
+  --outline-border-hover: rgba(255, 255, 255, 0.45);
+  --outline-border-active: rgba(255, 255, 255, 0.6);
+  --outline-foreground: #ffffff;
+  --ghost-foreground: #ffffff;
+  --ghost-hover: rgba(255, 255, 255, 0.06);
+
+  /* ── Semantic States ────────────────────────────────────── */
+  --success: #05c770;
+  --success-alt: #023516;
+  --success-foreground: #e6ffeb;
+  --info: #3355ff;
+  --info-alt: #050b62;
+  --info-foreground: #eff4ff;
+  --caution: #f5c800;
+  --caution-alt: #3e2d00;
+  --caution-foreground: #fffbec;
+  --warning: #e12a43;
+  --warning-alt: #4c030d;
+  --warning-foreground: #ffecef;
+  --success-border: #023516;
+  --info-border: #0b1a7f;
+  --caution-border: #604800;
+  --warning-border: #670817;
+
+  /* ── Decorative States ──────────────────────────────────── */
+  --orange: #ff6b00;
+  --orange-alt: #692900;
+  --orange-foreground: #fff5ee;
+  --fuscia: #d14b92;
+  --fuscia-alt: #5c0439;
+  --fuscia-foreground: #ffedf8;
+  --purple: #8b59ff;
+  --purple-alt: #39087c;
+  --purple-foreground: #eeebff;
+  --cyan: #00b4e1;
+  --cyan-alt: #004a53;
+  --cyan-foreground: #e6fafe;
+  --grey: #bdbdbf;
+  --grey-alt: #39393d;
+  --grey-foreground: #ffffff;
+
+  /* ── Table Row Tokens ───────────────────────────────────── */
+  --table-row: #141419;
+  --table-row-hover: #202025;
+  --table-row-selected: #1e3b0b;
+
+  /* ── Tab Surface Tokens ─────────────────────────────────── */
+  --tab-container: rgba(255, 255, 255, 0.1);
+  --tab-selected: #39393d;
+  --tab-selected-subtle: rgba(255, 255, 255, 0.1);
+
+  /* ── Overlays & Transparency ────────────────────────────── */
+  --overlay: rgba(20, 20, 25, 0.67);
+  --ring-alpha: rgba(255, 255, 255, 0.04);
+  --border-alpha: rgba(255, 255, 255, 0.15);
+  --border-heavy-alpha: rgba(255, 255, 255, 0.27);
+  --bg-light-alpha: rgba(255, 255, 255, 0.05);
+  --bg-heavy-alpha: rgba(255, 255, 255, 0.1);
+  --accent-light-alpha: rgba(255, 255, 255, 0.33);
+  --accent-medium-alpha: rgba(255, 255, 255, 0.58);
+  --accent-heavy-alpha: rgba(255, 255, 255, 0.45);
+  --inverse-accent-alpha: rgba(255, 255, 255, 0.95);
+
+  /* ── Default State Tokens ───────────────────────────────── */
+  --base-light: #141419;
+  --base-dark: #ffffff;
+  --base-light-alt: rgba(255, 255, 255, 0.72);
+  --base-dark-alt: rgba(255, 255, 255, 0.72);
+  --default-header: #ffffff;
+  --default-text: rgba(255, 255, 255, 0.73);
+  --default-icon: rgba(255, 255, 255, 0.84);
+
+  /* ── Neutral States ─────────────────────────────────────── */
+  --neutral: #ffffff;
+  --neutral-alt: #2c2c31;
+  --neutral-foreground: #141419;
+  --neutral-border: rgba(255, 255, 255, 0.27);
+  --neutral-bold: #ffffff;
+  --neutral-bold-text: #3355ff;
+  --neutral-bold-text-alt: #adbbff;
+
+  /* ── Shadows ─────────────────────────────────────────────── */
+  --card-shadow: none;
+  --tooltip-shadow: drop-shadow(0 0 0.5px rgba(255, 255, 255, 0.16))
+    drop-shadow(0 -1px 2px rgba(255, 255, 255, 0.1))
+    drop-shadow(0 -2px 4px rgba(255, 255, 255, 0.06));
+
+  /* ── Sidebar (shadcn defaults) ──────────────────────────── */
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}

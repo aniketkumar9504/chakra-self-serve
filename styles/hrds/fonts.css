@@ -1,0 +1,45 @@
+/* HRDS brand fonts, self-hosted.
+ * Family names match the @theme aliases in hr-design's src/index.css:
+ *   'Satoshi'   -> --font-ds   (body / UI — the master role)
+ *   'Geist Mono' -> --font-mono (code / mono accents)
+ * Sourced from interviewstreet/hr-design (.design-sync/fonts-src). */
+
+@font-face {
+  font-family: "Satoshi";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../../assets/fonts/Satoshi-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Satoshi";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../../assets/fonts/Satoshi-500.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Satoshi";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../../assets/fonts/Satoshi-700.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../../assets/fonts/GeistMono-400.ttf") format("truetype");
+}
+
+/* Kalice = --font-heading (h1 / page titles). HRDS loads this from a remote
+   URL; self-hosted here to keep the page self-contained. */
+@font-face {
+  font-family: "Kalice";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../../assets/fonts/Kalice-Regular.otf") format("opentype");
+}

@@ -1,0 +1,14 @@
+{
+  "name": "hackerrank-see-in-action",
+  "version": "1.0.0",
+  "private": true,
+  "description": "See HackerRank in action — demo request landing page",
+  "scripts": {
+    "sync:tokens": "cp node_modules/@hackerrank/design-atoms/src/tokens.css styles/hrds/tokens.css",
+    "verify:tokens": "diff styles/hrds/tokens.css node_modules/@hackerrank/design-atoms/src/tokens.css && echo 'tokens in sync'",
+    "start": "python3 -m http.server 8848"
+  },
+  "dependencies": {
+    "@hackerrank/design-atoms": "^2.1.1"
+  }
+}
