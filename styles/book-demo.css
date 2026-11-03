@@ -757,11 +757,20 @@ img { display: block; max-width: 100%; }
 }
 .bd-stage__right .bd-book__title { margin: 0 0 16px; }
 .bd-stage__right .bd-cal { margin: 0; padding: 28px; }
-/* v1 identify form sits in a card, matching the calendar + confirmation cards. */
+/* v1 identify form sits in a frosted-glass card, so the gradient reads softly
+   through it. Kept a touch more opaque than the product cards for form
+   legibility; same blur/saturate recipe for a cohesive glass system. */
 .bd-v1card {
-  background: var(--card, #fff); border: 1px solid var(--border);
+  background: color-mix(in srgb, #fff 62%, transparent);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.55);
   border-radius: var(--hrds-radius-xl); padding: 28px;
-  box-shadow: 0 16px 40px -20px rgba(16, 24, 40, 0.22);
+  box-shadow: 0 16px 40px -20px rgba(16, 24, 40, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  /* No backdrop-filter support → fall back to a near-opaque card so it stays legible. */
+  .bd-v1card { background: color-mix(in srgb, #fff 92%, transparent); }
 }
 /* The loader + calendar live inside the same v1 card, so strip their own
    panel chrome (no card-in-card) and let the card grow vertically. */
