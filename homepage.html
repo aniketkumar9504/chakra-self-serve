@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<!-- Made with Sherpa · withsherpa.ai 🏔️ -->
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>HackerRank - Online Coding Tests and Technical Interviews</title><meta name="description" content="HackerRank is the market-leading coding test and interview solution for hiring developers. Start hiring at the pace of innovation!"><link rel="canonical" href="https://www.hackerrank.com"><meta property="og:title" content="HackerRank - Online Coding Tests and Technical Interviews"><meta property="og:description" content="HackerRank is the market-leading coding test and interview solution for hiring developers. Start hiring at the pace of innovation!"><meta property="og:image" content="https://cdn.prod.website-files.com/66b6d7fd4d3e9cef94717176/68b0acfb1851d844f61645d1_hero.jpg"><meta name="twitter:title" content="HackerRank - Online Coding Tests and Technical Interviews"><meta name="twitter:description" content="HackerRank is the market-leading coding test and interview solution for hiring developers. Start hiring at the pace of innovation!"><meta name="twitter:image" content="https://cdn.prod.website-files.com/66b6d7fd4d3e9cef94717176/68b0acfb1851d844f61645d1_hero.jpg"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image"><link rel="icon" type="image/png" sizes="32x32" href="https://hackerrank.withsherpa.site/_sherpa/assets/static/favicon.png"><link rel="apple-touch-icon" sizes="256x256" href="https://hackerrank.withsherpa.site/_sherpa/assets/static/apple-touch-icon.png"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","url":"https://www.hackerrank.com/","name":"HackerRank","alternateName":"HackerRank – Developer Skills Platform","inLanguage":"en"},{"@type":"Organization","name":"HackerRank","url":"https://www.hackerrank.com/","logo":"https://cdn.prod.website-files.com/66b6d7fd4d3e9cef94717176/6765dc51a13e31531996cef3_logo-dark.svg","sameAs":["https://en.wikipedia.org/wiki/HackerRank","https://www.wikidata.org/wiki/Q20926425","https://www.linkedin.com/company/hackerrank/","https://www.facebook.com/hackerrank/","https://github.com/interviewstreet","https://x.com/hackerrank","https://www.instagram.com/hackerrank/"],"description":"HackerRank is a developer skills platform used by millions of developers and thousands of companies worldwide.","foundingDate":"2012","founders":[{"@type":"Person","name":"Vivek Ravisankar"},{"@type":"Person","name":"Harishankaran Karunanidhi"}],"contactPoint":{"@type":"ContactPoint","contactType":"customer support","url":"https://www.support.hackerrank.com","availableLanguage":"en"}}]}</script><script data-integration-policy="{&quot;productionHostnames&quot;:[&quot;hackerrank.com&quot;,&quot;www.hackerrank.com&quot;,&quot;hackerrank.withsherpa.site&quot;],&quot;googleTagManagerId&quot;:&quot;GTM-PX2ZJF2&quot;,&quot;vwoAccountId&quot;:1070151,&quot;enabled&quot;:true,&quot;path&quot;:&quot;/&quot;,&quot;tagManagerTiming&quot;:&quot;interaction&quot;,&quot;vwo&quot;:true,&quot;homepageReporting&quot;:true,&quot;additionalScripts&quot;:[]}" data-marketing-integration="gtm">/* Inline in <head>: preserve GTM timing and initialize before the experiment SmartCode. */
+(function () {
+  var element = document.currentScript;
+  var policy = JSON.parse(element.getAttribute('data-integration-policy'));
+  if (!policy.enabled || policy.productionHostnames.indexOf(location.hostname.toLowerCase()) === -1) return;
+  if (window.__hackerrankMarketingLoaded) return;
+  window.__hackerrankMarketingLoaded = true;
+  window.dataLayer = window.dataLayer || [];
+  // A host-level installation owns its initialization, including one added while we wait for interaction.
+  function hasTagManager() {
+    if (window.google_tag_manager && window.google_tag_manager[policy.googleTagManagerId]) return true;
+    return Array.prototype.some.call(document.scripts, function (script) {
+      if (!script.src) return false;
+      try {
+        var url = new URL(script.src, location.href);
+        return (url.hostname === 'www.googletagmanager.com' || url.hostname === 'googletagmanager.com') && url.pathname === '/gtm.js' &&
+          url.searchParams.get('id') === policy.googleTagManagerId;
+      } catch (_) { return false; }
+    });
+  }
+  if (!hasTagManager()) {
+    window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+    function loadTagManager() {
+      if (window.gtmDidLoad) return;
+      window.gtmDidLoad = true;
+      if (hasTagManager()) return;
+      var script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtm.js?id=' + policy.googleTagManagerId;
+      document.head.appendChild(script);
+    }
+    if (policy.tagManagerTiming === 'immediate') loadTagManager();
+    else ['click', 'scroll', 'mousemove', 'keydown'].forEach(function (event) {
+      window.addEventListener(event, loadTagManager, {once: true});
+    });
+  }
+})();
+</script><script id="vwoCode" data-integration-policy="{&quot;productionHostnames&quot;:[&quot;hackerrank.com&quot;,&quot;www.hackerrank.com&quot;,&quot;hackerrank.withsherpa.site&quot;],&quot;googleTagManagerId&quot;:&quot;GTM-PX2ZJF2&quot;,&quot;vwoAccountId&quot;:1070151,&quot;enabled&quot;:true,&quot;path&quot;:&quot;/&quot;,&quot;tagManagerTiming&quot;:&quot;interaction&quot;,&quot;vwo&quot;:true,&quot;homepageReporting&quot;:true,&quot;additionalScripts&quot;:[]}">(function(){var policy=JSON.parse(document.currentScript.getAttribute('data-integration-policy'));if(!policy.enabled||policy.productionHostnames.indexOf(location.hostname.toLowerCase())===-1)return;
+  window._vwo_code || (function() {
+    var account_id=1070151,
+        version=2.1,
+        settings_tolerance=2000,
+        hide_element='body',
+        hide_element_style = 'opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important;transition:none !important;',
+        /* DO NOT EDIT BELOW THIS LINE */
+        f=false,w=window,d=document,v=d.querySelector('#vwoCode'),cK='_vwo_'+account_id+'_settings',cc={};try{var c=JSON.parse(localStorage.getItem('_vwo_'+account_id+'_config'));cc=c&&typeof c==='object'?c:{}}catch(e){}var stT=cc.stT==='session'?w.sessionStorage:w.localStorage;code={nonce:v&&v.nonce,use_existing_jquery:function(){return typeof use_existing_jquery!=='undefined'?use_existing_jquery:undefined},library_tolerance:function(){return typeof library_tolerance!=='undefined'?library_tolerance:undefined},settings_tolerance:function(){return cc.sT||settings_tolerance},hide_element_style:function(){return'{'+(cc.hES||hide_element_style)+'}'},hide_element:function(){if(performance.getEntriesByName('first-contentful-paint')[0]){return''}return typeof cc.hE==='string'?cc.hE:hide_element},getVersion:function(){return version},finish:function(e){if(!f){f=true;var t=d.getElementById('_vis_opt_path_hides');if(t)t.parentNode.removeChild(t);if(e)(new Image).src='https://dev.visualwebsiteoptimizer.com/ee.gif?a='+account_id+e}},finished:function(){return f},addScript:function(e){var t=d.createElement('script');t.type='text/javascript';if(e.src){t.src=e.src}else{t.text=e.text}v&&t.setAttribute('nonce',v.nonce);d.getElementsByTagName('head')[0].appendChild(t)},load:function(e,t){var n=this.getSettings(),i=d.createElement('script'),r=this;t=t||{};if(n){i.textContent=n;d.getElementsByTagName('head')[0].appendChild(i);if(!w.VWO||VWO.caE){stT.removeItem(cK);r.load(e)}}else{var o=new XMLHttpRequest;o.open('GET',e,true);o.withCredentials=!t.dSC;o.responseType=t.responseType||'text';o.onload=function(){if(t.onloadCb){return t.onloadCb(o,e)}if(o.status===200||o.status===304){_vwo_code.addScript({text:o.responseText})}else{_vwo_code.finish('&e=loading_failure:'+e)}};o.onerror=function(){if(t.onerrorCb){return t.onerrorCb(e)}_vwo_code.finish('&e=loading_failure:'+e)};o.send()}},getSettings:function(){try{var e=stT.getItem(cK);if(!e){return}e=JSON.parse(e);if(Date.now()>e.e){stT.removeItem(cK);return}return e.s}catch(e){return}},init:function(){if(d.URL.indexOf('__vwo_disable__')>-1)return;var e=this.settings_tolerance();w._vwo_settings_timer=setTimeout(function(){_vwo_code.finish();stT.removeItem(cK)},e);var t;if(this.hide_element()!=='body'){t=d.createElement('style');var n=this.hide_element(),i=n?n+this.hide_element_style():'',r=d.getElementsByTagName('head')[0];t.setAttribute('id','_vis_opt_path_hides');v&&t.setAttribute('nonce',v.nonce);t.setAttribute('type','text/css');if(t.styleSheet)t.styleSheet.cssText=i;else t.appendChild(d.createTextNode(i));r.appendChild(t)}else{t=d.getElementsByTagName('head')[0];var i=d.createElement('div');i.style.cssText='z-index: 2147483647 !important;position: fixed !important;left: 0 !important;top: 0 !important;width: 100% !important;height: 100% !important;background: white !important;display: block !important;';i.setAttribute('id','_vis_opt_path_hides');i.classList.add('_vis_hide_layer');t.parentNode.insertBefore(i,t.nextSibling)}var o=window._vis_opt_url||d.URL,s='https://dev.visualwebsiteoptimizer.com/j.php?a='+account_id+'&u='+encodeURIComponent(o)+'&vn='+version;if(w.location.search.indexOf('_vwo_xhr')!==-1){this.addScript({src:s})}else{this.load(s+'&x=true')}}};w._vwo_code=code;code.init();})();
+
+})();</script><script type="module">var e=new Set([`/work/free-trial`,`/free-trial`,`/products/free-trial`,`/get-started/hire`,`/get-started/hire-now`]);function t(t,n){try{let r=new URL(n),i=new URL(t,r);return![`http:`,`https:`].includes(i.protocol)||i.origin!==r.origin&&i.origin!==`https://www.hackerrank.com`?!1:e.has(i.pathname.replace(/\/+$/,``))}catch{return!1}}var n=!1;function r(){n||window.self===window.top||(n=!0,document.addEventListener(`click`,e=>{if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;let n=e.composedPath().find(e=>e instanceof HTMLAnchorElement);if(!(n instanceof HTMLAnchorElement)||n.hasAttribute(`target`)||n.hasAttribute(`download`)||document.querySelector(`base[target]`)?.getAttribute(`target`))return;let r=n.getAttribute(`href`);if(!r||!t(r,window.location.href))return;let i=n.getAttribute(`rel`),a=[...new Set([...(i??``).split(/\s+/).filter(Boolean),`noopener`])].join(` `);n.setAttribute(`target`,`_blank`),n.setAttribute(`rel`,a),window.setTimeout(()=>{n.getAttribute(`target`)===`_blank`&&n.removeAttribute(`target`),n.getAttribute(`rel`)===a&&(i===null?n.removeAttribute(`rel`):n.setAttribute(`rel`,i))},0)}))}r();</script><link rel="stylesheet" href="https://hackerrank.withsherpa.site/_sherpa/assets/generated/global.HP7VQp5k.css"><link rel="stylesheet" href="https://hackerrank.withsherpa.site/_sherpa/assets/generated/retained.B4ay_Qtk.css"><link rel="stylesheet" href="https://hackerrank.withsherpa.site/_sherpa/assets/generated/hr-v1.CBZTOgIC.css"><link rel="stylesheet" href="https://hackerrank.withsherpa.site/_sherpa/assets/generated/hr1-cv6.BGtXObvB.css"><link rel="preload" href="https://hackerrank.withsherpa.site/_sherpa/assets/static/fonts/kalice-regular.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="https://hackerrank.withsherpa.site/_sherpa/assets/generated/index.CiShGAwW.css"><link rel="stylesheet" href="https://hackerrank.withsherpa.site/_sherpa/assets/generated/VoicePanel.COtt1DJc.css"><link rel="stylesheet" href="https://hackerrank.withsherpa.site/_sherpa/assets/generated/SiteFooter.DIIQ6FL5.css"><link rel="stylesheet" href="https://hackerrank.withsherpa.site/_sherpa/assets/generated/MarketingPageFrame.BjaXZIed.css"><link rel="stylesheet" href="https://hackerrank.withsherpa.site/_sherpa/assets/generated/fonts.kGeStvxL.css"><style>footer[data-astro-cid-5mghp2bt]{color:#fff;background:#141419;width:100%;padding:80px 40px}.container[data-astro-cid-5mghp2bt]{flex-direction:column;gap:40px;max-width:1120px;margin:auto;display:flex}.columns[data-astro-cid-5mghp2bt]{grid-template-columns:1fr .9fr .8fr .9fr 1fr;gap:16px;display:grid}h2[data-astro-cid-5mghp2bt]{margin:0 0 4px;padding:8px;font:400 16px/1.2 Satoshi,sans-serif}ul[data-astro-cid-5mghp2bt]{flex-direction:column;gap:4px;margin:0;padding:0;list-style:none;display:flex}.column[data-astro-cid-5mghp2bt]:nth-child(2) h2[data-astro-cid-5mghp2bt]{margin-bottom:16px}.column[data-astro-cid-5mghp2bt]:nth-child(2) ul[data-astro-cid-5mghp2bt]{gap:16px}a[data-astro-cid-5mghp2bt]{color:#9ca3af;transition:color .4s var(--footer-hover-easing),background-color .4s var(--footer-hover-easing);background:0 0;border-radius:8px;padding:8px;font:400 16px/1.6 Satoshi,sans-serif;text-decoration:none;display:block}a[data-astro-cid-5mghp2bt]:hover{color:#05c770;background:#ffffff1a}a[data-astro-cid-5mghp2bt]:focus-visible{outline-offset:2px;outline:2px solid #05c770}.bottom[data-astro-cid-5mghp2bt]{justify-content:space-between;align-items:flex-end;gap:10px;height:77px;display:flex}.identity[data-astro-cid-5mghp2bt]{flex-direction:column;justify-content:space-between;height:77px;display:flex}.identity[data-astro-cid-5mghp2bt] img[data-astro-cid-5mghp2bt]{margin-top:14px}.identity[data-astro-cid-5mghp2bt] p[data-astro-cid-5mghp2bt]{color:#9ca3af;margin:0;font:400 16px/1 Satoshi,sans-serif}.right[data-astro-cid-5mghp2bt]{flex-direction:column;align-items:flex-end;gap:4px;height:77px;display:flex}.social[data-astro-cid-5mghp2bt],.legal[data-astro-cid-5mghp2bt]{gap:16px;display:flex}.social[data-astro-cid-5mghp2bt]{align-items:center;height:34px}.social[data-astro-cid-5mghp2bt] a[data-astro-cid-5mghp2bt]{padding:0;line-height:0}.social[data-astro-cid-5mghp2bt] img[data-astro-cid-5mghp2bt]{object-fit:contain;width:24px;height:24px}.legal[data-astro-cid-5mghp2bt]{color:#9ca3af;align-items:center;gap:32px;height:39px;font:400 14px/1.6 Satoshi,sans-serif}.legal[data-astro-cid-5mghp2bt] span[data-astro-cid-5mghp2bt]{padding:8px}.legal[data-astro-cid-5mghp2bt] a[data-astro-cid-5mghp2bt]{font:inherit}@media (width>=810px) and (width<=999.98px){ul[data-astro-cid-5mghp2bt],.column[data-astro-cid-5mghp2bt]:nth-child(2) ul[data-astro-cid-5mghp2bt]{gap:8px}h2[data-astro-cid-5mghp2bt],.column[data-astro-cid-5mghp2bt]:nth-child(2) h2[data-astro-cid-5mghp2bt]{margin-bottom:8px}.bottom[data-astro-cid-5mghp2bt],.identity[data-astro-cid-5mghp2bt],.right[data-astro-cid-5mghp2bt]{height:57px}.identity[data-astro-cid-5mghp2bt] img[data-astro-cid-5mghp2bt]{margin-top:0}.social[data-astro-cid-5mghp2bt]{height:24px}.legal[data-astro-cid-5mghp2bt]{height:33px}.social[data-astro-cid-5mghp2bt] img[data-astro-cid-5mghp2bt]{width:18px;height:18px}}@media (width<=809.98px){footer[data-astro-cid-5mghp2bt]{padding:80px 24px}.container[data-astro-cid-5mghp2bt]{gap:80px}.columns[data-astro-cid-5mghp2bt]{grid-template-columns:1fr;gap:16px}.column[data-astro-cid-5mghp2bt]:nth-child(2),.column[data-astro-cid-5mghp2bt]:nth-child(4){width:90%}.column[data-astro-cid-5mghp2bt]:nth-child(3){width:80%}ul[data-astro-cid-5mghp2bt],.column[data-astro-cid-5mghp2bt]:nth-child(2) ul[data-astro-cid-5mghp2bt]{gap:8px}h2[data-astro-cid-5mghp2bt],.column[data-astro-cid-5mghp2bt]:nth-child(2) h2[data-astro-cid-5mghp2bt]{margin-bottom:8px}a[data-astro-cid-5mghp2bt]{font-size:14px}.bottom[data-astro-cid-5mghp2bt]{flex-direction:column;align-items:flex-start;gap:20px;height:174px}.right[data-astro-cid-5mghp2bt]{align-items:flex-start}.identity[data-astro-cid-5mghp2bt] p[data-astro-cid-5mghp2bt]{font-size:16px}.legal[data-astro-cid-5mghp2bt]{font-size:12px}.social[data-astro-cid-5mghp2bt]{gap:16px}}@media (prefers-reduced-motion:reduce){a[data-astro-cid-5mghp2bt]{transition:none}}
+</style><style id="hr1-hero-tabs">
+/* ── Hero Hire/Practice segmented toggle ───────────────────────────── */
+.hr1-hero__toggle{position:relative;display:inline-flex;align-items:center;gap:0;padding:5px;border-radius:999px;background:rgba(20,20,25,.07);border:1px solid rgba(20,20,25,.08);box-shadow:inset 0 1px 2px rgba(20,20,25,.06);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);margin-bottom:16px;isolation:isolate}
+.hr1-hero__tab{position:relative;z-index:1;appearance:none;-webkit-appearance:none;border:0;background:transparent;cursor:pointer;font:500 17px/1 "SatoshiLocal","Satoshi",Arial,sans-serif;letter-spacing:.01em;color:rgba(20,20,25,.62);padding:14px 32px;border-radius:999px;white-space:nowrap;transition:color .35s cubic-bezier(.22,1,.36,1)}
+.hr1-hero__tab:hover{color:rgba(20,20,25,.85)}
+.hr1-hero__tab[aria-pressed="true"]{color:#141419}
+.hr1-hero__tab:focus-visible{outline:2px solid #141419;outline-offset:3px}
+.hr1-hero__knob{position:absolute;z-index:0;top:5px;bottom:5px;left:0;width:0;border-radius:999px;background:#fff;box-shadow:0 2px 10px rgba(20,20,25,.16),0 1px 2px rgba(20,20,25,.1);opacity:0;transform:translateX(0)}
+.hr1-hero__toggle.is-ready .hr1-hero__knob{opacity:1;transition:transform .42s cubic-bezier(.22,1,.36,1),width .42s cubic-bezier(.22,1,.36,1)}
+/* Per-path background — developer mode swaps in the Figma gradient (node 10:215) */
+.hr1-hero__bg{transition:filter 1.1s cubic-bezier(.22,1,.36,1),opacity 1s ease}
+.hr1-hero__live{transition:opacity 2s cubic-bezier(.12,.23,.5,1),filter 1.1s cubic-bezier(.22,1,.36,1)}
+.hr1-hero__devbg{background:#fff top center/cover no-repeat;background-image:url('assets/homepage/dev-bg.png');opacity:0;transition:opacity 1s ease}
+.hr1-hero.is-practice .hr1-hero__live{opacity:0}
+.hr1-hero.is-practice img.hr1-hero__bg{opacity:0}
+.hr1-hero.is-practice .hr1-hero__devbg{opacity:1}
+.hr1-hero__devgl{display:block;opacity:0;transition:opacity 1s ease}
+.hr1-hero.is-practice .hr1-hero__devgl{opacity:1}
+/* Developer subhead is slightly longer — widen it so the copy stays 2 lines, matching the hiring side */
+.hr1-hero.is-practice .hr1-hero__lede{width:600px;max-width:100%}
+/* Keep both mode CTAs the same width so the button doesn't resize on toggle */
+.hr1-hero__actions .hr1-btn{min-width:184px}
+/* Smooth copy swap on tab change — crossfade only, no layout reflow */
+.hr1-hero__title,.hr1-hero__lede,.hr1-hero__actions{transition:opacity .26s ease,transform .26s ease}
+.hr1-hero.is-swapping .hr1-hero__title,.hr1-hero.is-swapping .hr1-hero__lede,.hr1-hero.is-swapping .hr1-hero__actions{opacity:0;transform:translateY(5px)}
+/* Reserve height for the tallest subheading so differing line-counts don't shift the block */
+.hr1-hero__lede{min-height:88px}
+@media (max-width:809px){.hr1-hero__lede{min-height:120px}}
+@media (prefers-reduced-motion:reduce){
+.hr1-hero__toggle.is-ready .hr1-hero__knob{transition:none}
+.hr1-hero__bg,.hr1-hero__live{transition:none}
+.hr1-hero__title,.hr1-hero__lede,.hr1-hero__actions{transition:none}
+}
+</style><style id="hr1-stickybar-css">
+/* ── Slide-up sticky CTA bar (appears after the first fold) ─────────── */
+.hr1-stickybar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;justify-content:center;padding:0 24px 20px;pointer-events:none;transform:translateY(135%);opacity:0;transition:transform .55s cubic-bezier(.22,1,.36,1),opacity .4s ease}
+.hr1-stickybar.is-visible{transform:translateY(0);opacity:1}
+body.hr1-dev-mode .hr1-stickybar{transform:translateY(135%)!important;opacity:0!important;pointer-events:none}
+.hr1-stickybar__inner{position:relative;pointer-events:auto;display:inline-flex;align-items:center;justify-content:space-between;gap:20px;width:auto;max-width:calc(100% - 48px);padding:9px 9px 9px 26px;border-radius:999px;background:#16161c;box-shadow:0 18px 50px -12px rgba(20,20,25,.55),0 4px 14px rgba(20,20,25,.24);border:1px solid rgba(255,255,255,.1);transition:box-shadow .45s ease,border-color .45s ease}
+.hr1-stickybar__inner::before{content:"";position:absolute;inset:-5px;z-index:-1;border-radius:inherit;background:linear-gradient(90deg,#05c770,#3b6ff4,#aef96c,#05c770);background-size:200% 100%;filter:blur(18px);opacity:0;transition:opacity .5s ease;pointer-events:none}
+.hr1-stickybar__inner:hover::before{opacity:.55}
+.hr1-stickybar__inner:hover{border-color:rgba(255,255,255,.18)}
+@media (prefers-reduced-motion:reduce){.hr1-stickybar__inner::before{transition:none}}
+.hr1-stickybar__text{margin:0;color:#fff;font:500 16px/1.2 var(--hr-body,Satoshi,sans-serif);letter-spacing:.01em;white-space:nowrap}
+.hr1-stickybar__text .hr1-stickybar__sub{color:rgba(255,255,255,.55)}
+.hr1-stickybar__actions{display:flex;align-items:center;gap:4px;flex:none}
+.hr1-stickybar__close{appearance:none;-webkit-appearance:none;border:0;background:transparent;color:rgba(255,255,255,.5);cursor:pointer;width:32px;height:32px;border-radius:999px;display:flex;align-items:center;justify-content:center;transition:color .3s,background-color .3s;flex:none}
+.hr1-stickybar__close:hover{color:#fff;background:rgba(255,255,255,.12)}
+.hr1-stickybar__close:focus-visible{outline:2px solid rgba(255,255,255,.6);outline-offset:2px}
+.hr1-stickybar__close svg{width:18px;height:18px;fill:none}
+/* CTA on the dark bar = white pill */
+.hr1-stickybar__inner .hr1-btn--dark{color:#141419;border-color:transparent}
+.hr1-stickybar__inner .hr1-btn--dark:before{background:#fff}
+.hr1-stickybar__inner .hr1-btn--dark:hover:before{background:#ededf0}
+.hr1-stickybar__inner .hr1-btn--dark img{filter:invert(1)}
+@media (max-width:640px){
+.hr1-stickybar{padding:0 12px 12px}
+.hr1-stickybar__inner{gap:10px;padding:10px 10px 10px 18px;border-radius:14px}
+.hr1-stickybar__text{font-size:15px}
+.hr1-stickybar__text .hr1-stickybar__sub{display:none}
+}
+@media (prefers-reduced-motion:reduce){.hr1-stickybar{transition:opacity .3s ease}.hr1-stickybar:not(.is-visible){transform:translateY(135%)}.hr1-stickybar.is-visible{transform:none}}
+</style><style id="hr1-satoshi-local">
+/* Self-host Satoshi under a unique name so it can't collide with the CDN's CORS-blocked Satoshi faces */
+@font-face{font-family:SatoshiLocal;src:url('assets/fonts/Satoshi-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:SatoshiLocal;src:url('assets/fonts/Satoshi-500.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:SatoshiLocal;src:url('assets/fonts/Satoshi-700.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
+/* Make the whole page prefer the reliably-loaded local Satoshi over the CDN's (--hr-body is set on .hr-v1) */
+:root,.hr-v1{--hr-body:"SatoshiLocal","Satoshi",Arial,sans-serif}
+/* The before/after cards shipped in Geist Mono — unify them to Satoshi */
+.hr1-person__pill,.hr1-person__card{font-family:var(--hr-body)}
+</style><style id="hr1-folds-css">
+/* ── Integrations fold ─────────────────────────────────────────────── */
+.hr1-int{padding:64px 0}
+.hr1-int__wrap{max-width:1160px;margin:0 auto;padding:0 40px}
+.hr1-int__grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:minmax(118px,1fr);grid-template-areas:"a b c d" "e T T f" "g T T h" "i j k l"}
+.hr1-int__cell{border:1px solid rgba(20,20,25,.08);display:flex;align-items:center;justify-content:center;padding:18px;font:600 clamp(16px,1.5vw,22px)/1.05 var(--hr-body,Satoshi,sans-serif);letter-spacing:-.01em;color:rgba(20,20,25,.42);text-align:center;transition:color .25s,background-color .25s}
+.hr1-int__cell:hover{color:#141419;background:rgba(20,20,25,.02)}
+.hr1-int__center{grid-area:T;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:16px;padding:48px 40px}
+.hr1-int__kicker{margin:0;font:600 13px/1 var(--hr-body,Satoshi,sans-serif);letter-spacing:.14em;color:#e8453c;text-transform:uppercase}
+.hr1-int__title{margin:0;font:400 clamp(30px,3vw,44px)/1.06 var(--hr-display,serif);color:#141419}
+.hr1-int__body{margin:0;font:400 16px/1.5 var(--hr-body,Satoshi,sans-serif);color:#51515a;max-width:38ch}
+.hr1-int__cta{margin-top:10px}
+@media (max-width:860px){
+.hr1-int__wrap{padding:0 24px}
+.hr1-int__grid{display:flex;flex-wrap:wrap;gap:0}
+.hr1-int__center{order:-1;flex:1 1 100%;padding:8px 8px 32px}
+.hr1-int__cell{flex:1 1 33.333%;min-height:96px;font-size:16px}
+}
+/* ── Self-serve speed (how fast to get started) ────────────────────── */
+.hr1-spd{padding:72px 0 56px}
+.hr1-spd__wrap{max-width:1160px;margin:0 auto;padding:0 40px;text-align:center}
+.hr1-spd__kicker{margin:0 0 12px;font:600 13px/1 var(--hr-body,Satoshi,sans-serif);letter-spacing:.14em;color:rgba(20,20,25,.5);text-transform:uppercase}
+.hr1-spd__title{margin:0 0 48px;font:400 clamp(30px,3.2vw,46px)/1.08 var(--hr-display,serif);color:#141419}
+.hr1-spd__steps{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1040px;margin:0 auto;text-align:left}
+.hr1-spd__steps::before{content:"";position:absolute;top:48px;left:9%;right:9%;border-top:1px dashed rgba(20,20,25,.2);z-index:0}
+.hr1-spd__step{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-start;gap:14px;background:#fff;border:1px solid rgba(20,20,25,.1);border-radius:20px;padding:28px;box-shadow:0 12px 32px -18px rgba(20,20,25,.25)}
+.hr1-spd__num{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;background:rgba(5,199,112,.14);color:#05a65e;font:600 17px/1 var(--hr-body,Satoshi,sans-serif)}
+.hr1-spd__when{font:600 19px/1 var(--hr-body,Satoshi,sans-serif);color:#141419}
+.hr1-spd__text{margin:0;font:400 16px/1.5 var(--hr-body,Satoshi,sans-serif);color:#51515a}
+@media (max-width:720px){
+.hr1-spd__steps{grid-template-columns:1fr;gap:16px;max-width:420px}
+.hr1-spd__steps::before{display:none}
+.hr1-spd__title{margin-bottom:36px}
+}
+</style><style id="hr1-ps-css">
+/* ── Product showcase (Chakra / Interview) ─────────────────────────── */
+.hr1-ps-sec{padding:40px 0 24px}
+.hr1-ps-wrap{max-width:1160px;margin:0 auto;padding:0 40px}
+.hr1-ps-sec__kicker{font:400 clamp(28px,3vw,38px)/1.1 var(--hr-display,serif);color:#141419;margin:0 0 8px}
+.hr1-ps{display:grid;grid-template-columns:minmax(0,0.92fr) minmax(0,1.08fr);gap:72px;align-items:center;padding:56px 0}
+.hr1-ps+.hr1-ps{border-top:1px solid rgba(20,20,25,.08)}
+/* Reversed block — media on the left, text on the right */
+.hr1-ps--rev{grid-template-columns:minmax(0,1.08fr) minmax(0,0.92fr)}
+.hr1-ps--rev .hr1-ps__media{order:1}
+.hr1-ps--rev .hr1-ps__text{order:2}
+.hr1-ps__text{display:flex;flex-direction:column;align-items:flex-start;gap:20px}
+.hr1-ps__tag{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:12px;background:#fff;box-shadow:0 2px 10px rgba(20,20,25,.08);border:1px solid rgba(20,20,25,.06);font:600 15px/1 var(--hr-body,Satoshi,sans-serif);color:#141419}
+.hr1-ps__tag img{width:18px;height:18px;display:block}
+.hr1-ps__title{font:400 clamp(30px,2.8vw,46px)/1.08 var(--hr-display,serif);color:#141419;margin:0}
+.hr1-ps__intro{font:400 17px/1.5 var(--hr-body,Satoshi,sans-serif);color:#51515a;margin:0;max-width:46ch}
+.hr1-ps__acc{width:100%;margin-top:4px}
+.hr1-ps__item{border-top:1px solid rgba(20,20,25,.1)}
+.hr1-ps__item:last-child{border-bottom:1px solid rgba(20,20,25,.1)}
+.hr1-ps__q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0;background:none;border:0;cursor:pointer;font:500 18px/1.35 var(--hr-body,Satoshi,sans-serif);color:#141419;text-align:left}
+.hr1-ps__item.is-open .hr1-ps__q{font-weight:600}
+.hr1-ps__ico{position:relative;flex:none;width:22px;height:22px;border-radius:999px;border:1px solid rgba(20,20,25,.28);transition:border-color .3s}
+.hr1-ps__ico::before,.hr1-ps__ico::after{content:"";position:absolute;background:#141419}
+.hr1-ps__ico::before{left:5px;right:5px;top:50%;height:1.5px;transform:translateY(-50%)}
+.hr1-ps__ico::after{top:5px;bottom:5px;left:50%;width:1.5px;transform:translateX(-50%);transition:opacity .3s,transform .3s}
+.hr1-ps__item.is-open .hr1-ps__ico::after{opacity:0;transform:translateX(-50%) rotate(90deg)}
+.hr1-ps__a{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.22,1,.36,1)}
+.hr1-ps__a p{margin:0 0 18px;font:400 16px/1.5 var(--hr-body,Satoshi,sans-serif);color:#51515a;max-width:48ch}
+.hr1-ps__item.is-open .hr1-ps__a{max-height:220px}
+.hr1-ps__cta{margin-top:10px}
+.hr1-ps__media img{width:100%;height:auto;display:block;border-radius:20px;box-shadow:0 24px 60px -24px rgba(20,20,25,.35);border:1px solid rgba(20,20,25,.06)}
+@media (max-width:860px){
+.hr1-ps-wrap{padding:0 24px}
+.hr1-ps{grid-template-columns:1fr;gap:28px;padding:40px 0}
+.hr1-ps__title{font-size:30px}
+.hr1-ps--rev .hr1-ps__media{order:2}
+.hr1-ps--rev .hr1-ps__text{order:1}
+}
+@media (prefers-reduced-motion:reduce){.hr1-ps__a,.hr1-ps__ico::after{transition:none}}
+</style></head><body class="hr-v1"><main><script>
+  (function () {
+    var root = document.documentElement;
+    try {
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      var nav = performance.getEntriesByType('navigation')[0];
+      var seen = false;
+      try { seen = localStorage.getItem('hr1-splash-seen') === '1' && !/[?&]splash/.test(location.search); } catch (e) {}
+      if (seen || (nav && (nav.type === 'reload' || nav.type === 'back_forward')) || location.hash || /[?&]nosplash/.test(location.search)) { root.classList.add('hr1-reload'); return; }
+      try { localStorage.setItem('hr1-splash-seen', '1'); } catch (e) {}
+      root.classList.add('hr1-pre');
+      window.scrollTo(0, 0);
+      var fallback = function (e) {
+        if (window.__hr1SplashReady) return;
+        if (e && e.cancelable) e.preventDefault();
+        root.classList.add('hr1-splash-fade');
+        setTimeout(function () {
+          root.classList.remove('hr1-pre');
+          root.classList.add('hr1-revealed');
+          var s = document.querySelector('[data-hr1-splash]');
+          if (s) s.remove();
+        }, 450);
+        ['wheel', 'touchmove', 'keydown', 'click'].forEach(function (t) { window.removeEventListener(t, fallback); });
+      };
+      ['wheel', 'touchmove', 'keydown', 'click'].forEach(function (t) { window.addEventListener(t, fallback, { passive: false }); });
+    } catch (e) {}
+  })();
+</script><section class="hr1-splash" aria-label="Sorry, we made you grind l**tcode. We’ve changed." data-hr1-splash><div class="hr1-splash__inner" aria-hidden="true"><p class="hr1-splash__title" data-hr1-splash-title><span>Sorry,</span> <span>we</span> <span>made</span> <span>you</span> <span>grind</span> <span>l**tcode</span></p><p class="hr1-splash__pill" data-hr1-splash-pill><span>We’ve changed</span></p></div><img class="hr1-splash__logo" src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/hr-logo.svg" alt="" width="158" height="17" data-hr1-splash-logo><p class="hr1-splash__cue" aria-hidden="true"><svg class="hr1-splash__mouse" viewBox="0 0 24 24" width="30" height="30" data-hr1-splash-mouse><path fill="currentColor" d="M11.975 22H12c3.859 0 7-3.14 7-7V9c0-3.841-3.127-6.974-6.981-7h-.06C8.119 2.022 5 5.157 5 9v6c0 3.86 3.129 7 6.975 7M7 9a5.007 5.007 0 0 1 4.985-5C14.75 4.006 17 6.249 17 9v6c0 2.757-2.243 5-5 5h-.025C9.186 20 7 17.804 7 15z"></path><path class="hr1-splash__wheel" fill="currentColor" d="M11 6h2v6h-2z"></path></svg></p></section><div class="hr1-page"><div class="hr1-banner"><span class="hr1-banner__tag">New</span><a class="hr1-banner__cta" href="https://hackerrank.withsherpa.site/writing/why-were-sorry">See why we’re sorry<img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/icon-arrow-right.svg" alt="" width="16" height="16"></a></div><header class="hr1-hero"><img class="hr1-hero__bg" src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/hero-bg.webp" alt="" width="1024" height="640" fetchpriority="high"><div class="hr1-hero__bg hr1-hero__devbg" aria-hidden="true"></div><canvas class="hr1-hero__bg hr1-hero__devgl" aria-hidden="true"></canvas><div class="hr1-nav-dock" data-hr1-nav-dock><nav class="hr1-nav" aria-label="HackerRank"><div class="hr1-nav__inner"><div class="hr1-nav__left"><a class="hr1-nav__logo" href="https://hackerrank.withsherpa.site/" aria-label="HackerRank home"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/hr-logo.svg" alt="HackerRank" width="158" height="17"></a><ul class="hr1-nav__links"><li class="hr1-dd" data-hr1-dd><button class="hr1-dd__trigger" type="button" aria-expanded="false" aria-controls="hr1-dd-0">Products</button><div class="hr1-dd__panel hr1-dd__panel--wide" id="hr1-dd-0" hidden><div class="hr1-dd__group"><p>Products</p><a href="https://www.hackerrank.com/chakra"><span class="hr1-dd__item"><span class="hr1-dd__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span>Chakra</span></span><small>Agentic interviewer</small></a><a href="https://www.hackerrank.com/products/screen"><span class="hr1-dd__item"><span class="hr1-dd__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span>Screen</span></span><small>Save time and accelerate your hiring</small></a><a href="https://www.hackerrank.com/products/interview"><span class="hr1-dd__item"><span class="hr1-dd__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span>Interview</span></span><small>Conduct stellar technical interviews</small></a><a href="https://www.hackerrank.com/features/hiring/ai-add-on"><span class="hr1-dd__item"><span class="hr1-dd__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span>AI Add-on</span></span><small>Redefine hiring with integrity, depth and speed</small></a></div><div class="hr1-dd__sep" aria-hidden="true"></div><div class="hr1-dd__group"><p>Features</p><a href="https://www.hackerrank.com/features/certified-assessments"><span class="hr1-dd__item"><span class="hr1-dd__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span>Certified Assessments</span></span><small>Launch standardized, role-based tests in minutes</small></a><a href="https://www.hackerrank.com/features/plagiarism-detection"><span class="hr1-dd__item"><span class="hr1-dd__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span>Plagiarism Detection</span></span><small>Ensure fairness with AI-powered plagiarism detection</small></a><a href="https://www.hackerrank.com/features/real-world-questions"><span class="hr1-dd__item"><span class="hr1-dd__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span>Real-World Questions</span></span><small>Assess technical hires with real-world coding questions</small></a><a href="https://www.hackerrank.com/integrations"><span class="hr1-dd__item"><span class="hr1-dd__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span>Integrations</span></span><small>Seamlessly connect with your favorite tools</small></a></div></div></li><li class="hr1-dd" data-hr1-dd><button class="hr1-dd__trigger" type="button" aria-expanded="false" aria-controls="hr1-dd-1">Resources</button><div class="hr1-dd__panel" id="hr1-dd-1" hidden><div class="hr1-dd__group"><p>Learn</p><a href="https://www.hackerrank.com/blog"><span class="hr1-dd__item"><span class="hr1-dd__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span>Blog</span></span><small>Hiring best practices and industry insights</small></a><a href="https://www.hackerrank.com/roles-directory"><span class="hr1-dd__item"><span class="hr1-dd__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span>Roles Directory</span></span><small>Explore the definitive directory of tech roles</small></a><a href="https://www.hackerrank.com/customers"><span class="hr1-dd__item"><span class="hr1-dd__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span>Customer Stories</span></span><small>How leading companies use HackerRank</small></a><a href="https://www.hackerrank.com/reports/developer-skills-report-2025"><span class="hr1-dd__item"><span class="hr1-dd__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span>Developer Skills Report</span></span><small>Key trends and forecasts for 2025</small></a><a href="https://hackerrank.com/bench/report"><span class="hr1-dd__item"><span class="hr1-dd__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span>Bench</span></span><small>SWE benchmarking for agentic coding</small></a><a href="https://www.hackerrank.com/partners"><span class="hr1-dd__item"><span class="hr1-dd__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span>Partners</span></span><small>Learn more about the HackerRank Partner Network</small></a></div><div class="hr1-dd__sep" aria-hidden="true"></div><div class="hr1-dd__group"><p>Product Help</p><a href="https://hackerrank.withsherpa.site/release/summer-2026"><span class="hr1-dd__item"><span class="hr1-dd__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span>What&#39;s New</span></span></a><a href="https://www.hackerrank.com/work/mcp/docs/"><span class="hr1-dd__item"><span class="hr1-dd__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span>MCP</span></span><small>Bring HackerRank into your AI tools and workflows</small></a><a href="https://support.hackerrank.com/hc/en-us"><span class="hr1-dd__item"><span class="hr1-dd__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span>Support</span></span><small>Everything you need to know to get started</small></a><a href="https://hackerrank.withsherpa.site/films"><span class="hr1-dd__item"><span class="hr1-dd__arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span>Films</span></span><small>Watch the library from the HackerRank film studio</small></a></div></div></li><li><a href="https://www.hackerrank.com/pricing">Pricing</a></li></ul></div><div class="hr1-nav__right"><a class="hr1-nav__signin" href="https://www.hackerrank.com/access-account">Sign in</a><div class="hr1-nav__ctas"><a class="hr1-btn hr1-btn--light" href="https://www.hackerrank.com/request-demo">Request a demo</a><a class="hr1-btn hr1-btn--dark hr1-btn--sm" href="https://www.hackerrank.com/get-started">Create a free account<img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/icon-arrow-right.svg" alt="" width="16" height="16"></a></div><button class="hr1-nav__burger" type="button" aria-expanded="false" aria-controls="hr1-menu" aria-label="Open menu"><span></span><span></span><span></span></button></div></div><div class="hr1-menu-sheet" id="hr1-menu" hidden><ul><li><details class="hr1-sheet-dd"><summary>Products<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></summary><div class="hr1-sheet-dd__body"><div class="hr1-sheet-dd__group"><p>Products</p><a href="https://www.hackerrank.com/chakra">Chakra</a><a href="https://www.hackerrank.com/products/screen">Screen</a><a href="https://www.hackerrank.com/products/interview">Interview</a><a href="https://www.hackerrank.com/features/hiring/ai-add-on">AI Add-on</a></div><div class="hr1-sheet-dd__group"><p>Features</p><a href="https://www.hackerrank.com/features/certified-assessments">Certified Assessments</a><a href="https://www.hackerrank.com/features/plagiarism-detection">Plagiarism Detection</a><a href="https://www.hackerrank.com/features/real-world-questions">Real-World Questions</a><a href="https://www.hackerrank.com/integrations">Integrations</a></div></div></details></li><li><details class="hr1-sheet-dd"><summary>Resources<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></summary><div class="hr1-sheet-dd__body"><div class="hr1-sheet-dd__group"><p>Learn</p><a href="https://www.hackerrank.com/blog">Blog</a><a href="https://www.hackerrank.com/roles-directory">Roles Directory</a><a href="https://www.hackerrank.com/customers">Customer Stories</a><a href="https://www.hackerrank.com/reports/developer-skills-report-2025">Developer Skills Report</a><a href="https://hackerrank.com/bench/report">Bench</a><a href="https://www.hackerrank.com/partners">Partners</a></div><div class="hr1-sheet-dd__group"><p>Product Help</p><a href="https://hackerrank.withsherpa.site/release/summer-2026">What&#39;s New</a><a href="https://www.hackerrank.com/work/mcp/docs/">MCP</a><a href="https://support.hackerrank.com/hc/en-us">Support</a><a href="https://hackerrank.withsherpa.site/films">Films</a></div></div></details></li><li><a href="https://www.hackerrank.com/pricing">Pricing</a></li><li><a href="https://www.hackerrank.com/access-account">Sign in</a></li></ul><div class="hr1-menu-sheet__ctas"><a class="hr1-btn hr1-btn--dark" href="https://www.hackerrank.com/get-started">Create a free account <img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/icon-arrow-right.svg" alt="" width="16" height="16"></a><a class="hr1-btn hr1-btn--light" href="https://www.hackerrank.com/request-demo">Request a demo</a></div></div></nav></div><div class="hr1-hero__about"><div class="hr1-hero__copy"><div class="hr1-hero__text"><div class="hr1-hero__toggle" role="tablist" aria-label="Choose your path"><span class="hr1-hero__knob" aria-hidden="true"></span><button type="button" class="hr1-hero__tab" data-tab="hire" role="tab" aria-pressed="true">I'm hiring</button><button type="button" class="hr1-hero__tab" data-tab="practice" role="tab" aria-pressed="false">I'm learning</button></div><h1 class="hr1-hero__title"><span class="hr1-w" style="--i:0">Hire</span> <span class="hr1-w" style="--i:1">for</span> <span class="hr1-w" style="--i:2">the</span> <span class="hr1-w" style="--i:3">agentic</span> <span class="hr1-w" style="--i:4">era</span></h1><p class="hr1-hero__lede">We help you hire the next-gen developers who combine strong engineering fundamentals with AI fluency &amp; great taste.</p></div><div class="hr1-hero__actions"><a class="hr1-btn hr1-btn--dark" href="https://www.hackerrank.com/work/free-trial">Start a free trial<img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/icon-arrow-right.svg" alt="" width="16" height="16"></a></div></div></div><div class="hr1-trust"><p class="hr1-trust__label">Trusted by thousands of companies and millions of developers</p><div class="hr1-trust__rail"><div class="hr1-trust__track"><ul class="hr1-trust__logos"><li><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-clay.webp" alt="Clay" width="67.21" height="21.68" style="width:67.21px;height:21.68px"></span></li><li><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-replit.svg" alt="Replit" width="78.08" height="22.31" style="width:78.08px;height:22.31px"></span></li><li><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-cerebras.svg" alt="Cerebras" width="67.21" height="28.12" style="width:67.21px;height:28.12px"></span></li><li><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-google.svg" alt="Google" width="69.08" height="22.8" style="width:69.08px;height:22.8px"></span></li><li><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-doordash.svg" alt="DoorDash" width="117.96" height="13.78" style="width:117.96px;height:13.78px"></span></li><li><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-sarvam.svg" alt="Sarvam" width="87.71" height="13.9" style="width:87.71px;height:13.9px"></span></li><li><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-wayfair.svg" alt="Wayfair" width="87.94" height="21.66" style="width:87.94px;height:21.66px"></span></li><li><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-atlassian.svg" alt="Atlassian" width="116.75" height="13.8" style="width:116.75px;height:13.8px"></span></li><li class="is-dup" aria-hidden="true"><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-clay.webp" alt width="67.21" height="21.68" style="width:67.21px;height:21.68px"></span></li><li class="is-dup" aria-hidden="true"><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-replit.svg" alt width="78.08" height="22.31" style="width:78.08px;height:22.31px"></span></li><li class="is-dup" aria-hidden="true"><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-cerebras.svg" alt width="67.21" height="28.12" style="width:67.21px;height:28.12px"></span></li><li class="is-dup" aria-hidden="true"><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-google.svg" alt width="69.08" height="22.8" style="width:69.08px;height:22.8px"></span></li><li class="is-dup" aria-hidden="true"><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-doordash.svg" alt width="117.96" height="13.78" style="width:117.96px;height:13.78px"></span></li><li class="is-dup" aria-hidden="true"><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-sarvam.svg" alt width="87.71" height="13.9" style="width:87.71px;height:13.9px"></span></li><li class="is-dup" aria-hidden="true"><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-wayfair.svg" alt width="87.94" height="21.66" style="width:87.94px;height:21.66px"></span></li><li class="is-dup" aria-hidden="true"><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-atlassian.svg" alt width="116.75" height="13.8" style="width:116.75px;height:13.8px"></span></li></ul><ul class="hr1-trust__logos" aria-hidden="true"><li><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-clay.webp" alt width="67.21" height="21.68" style="width:67.21px;height:21.68px"></span></li><li><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-replit.svg" alt width="78.08" height="22.31" style="width:78.08px;height:22.31px"></span></li><li><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-cerebras.svg" alt width="67.21" height="28.12" style="width:67.21px;height:28.12px"></span></li><li><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-google.svg" alt width="69.08" height="22.8" style="width:69.08px;height:22.8px"></span></li><li><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-doordash.svg" alt width="117.96" height="13.78" style="width:117.96px;height:13.78px"></span></li><li><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-sarvam.svg" alt width="87.71" height="13.9" style="width:87.71px;height:13.9px"></span></li><li><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-wayfair.svg" alt width="87.94" height="21.66" style="width:87.94px;height:21.66px"></span></li><li><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-atlassian.svg" alt width="116.75" height="13.8" style="width:116.75px;height:13.8px"></span></li><li class="is-dup"><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-clay.webp" alt width="67.21" height="21.68" style="width:67.21px;height:21.68px"></span></li><li class="is-dup"><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-replit.svg" alt width="78.08" height="22.31" style="width:78.08px;height:22.31px"></span></li><li class="is-dup"><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-cerebras.svg" alt width="67.21" height="28.12" style="width:67.21px;height:28.12px"></span></li><li class="is-dup"><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-google.svg" alt width="69.08" height="22.8" style="width:69.08px;height:22.8px"></span></li><li class="is-dup"><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-doordash.svg" alt width="117.96" height="13.78" style="width:117.96px;height:13.78px"></span></li><li class="is-dup"><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-sarvam.svg" alt width="87.71" height="13.9" style="width:87.71px;height:13.9px"></span></li><li class="is-dup"><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-wayfair.svg" alt width="87.94" height="21.66" style="width:87.94px;height:21.66px"></span></li><li class="is-dup"><span class="hr1-trust__logo"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/logo-c-atlassian.svg" alt width="116.75" height="13.8" style="width:116.75px;height:13.8px"></span></li></ul></div></div></div></header><main><section class="hr1-row hr1-ps-sec" data-hr1-in="0.5"><div class="hr1-ps-wrap"><h2 class="hr1-ps-sec__kicker">The next-gen hiring process</h2><div class="hr1-ps" data-hr1-acc><div class="hr1-ps__text"><span class="hr1-ps__tag"><img src="assets/products/chakra.svg" alt="" width="18" height="18">Chakra</span><h3 class="hr1-ps__title">Screen for real-world skill, at scale</h3><p class="hr1-ps__intro">Chakra is an agentic interviewer that spins up a canvas with a real-world problem, observes how candidates work and evaluates judgment, critical thinking &amp; AI fluency.</p><div class="hr1-ps__acc"><div class="hr1-ps__item is-open"><button class="hr1-ps__q" type="button" aria-expanded="true">Agentic, real-world interviews<span class="hr1-ps__ico" aria-hidden="true"></span></button><div class="hr1-ps__a"><p>Chakra spins up a live canvas with a realistic problem and watches how candidates plan, build and debug — measuring judgment, critical thinking and AI fluency, not whether they memorized an algorithm.</p></div></div><div class="hr1-ps__item"><button class="hr1-ps__q" type="button" aria-expanded="false">Hire for any role<span class="hr1-ps__ico" aria-hidden="true"></span></button><div class="hr1-ps__a"><p>From frontend and backend to data, ML and DevOps, spin up real-world interviews tailored to the exact role you are hiring for.</p></div></div><div class="hr1-ps__item"><button class="hr1-ps__q" type="button" aria-expanded="false">Screen at scale, no recruiter hours<span class="hr1-ps__ico" aria-hidden="true"></span></button><div class="hr1-ps__a"><p>Give every applicant a fair, consistent first round without scheduling or manual review.</p></div></div><div class="hr1-ps__item"><button class="hr1-ps__q" type="button" aria-expanded="false">Integrity, even with AI<span class="hr1-ps__ico" aria-hidden="true"></span></button><div class="hr1-ps__a"><p>Integrity isn&rsquo;t about whether candidates use AI — it&rsquo;s about following the rules. Chakra flags suspicious behavior like unauthorized tools, external devices or outside help.</p></div></div><div class="hr1-ps__item"><button class="hr1-ps__q" type="button" aria-expanded="false">Defensible hiring decisions<span class="hr1-ps__ico" aria-hidden="true"></span></button><div class="hr1-ps__a"><p>Every score maps to a clear rubric and links back to the evidence behind it.</p></div></div></div><a class="hr1-btn hr1-btn--dark hr1-ps__cta" href="https://www.hackerrank.com/work/free-trial">Start a free trial<img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/icon-arrow-right.svg" alt="" width="16" height="16"></a></div><div class="hr1-ps__media"><img src="assets/products/chakra-preview.png" alt="Chakra product preview" loading="lazy"></div></div><div class="hr1-ps hr1-ps--rev" data-hr1-acc><div class="hr1-ps__text"><span class="hr1-ps__tag"><img src="assets/products/interview.svg" alt="" width="18" height="18">Interview</span><h3 class="hr1-ps__title">Interview on the work that matters</h3><p class="hr1-ps__intro">Interview is a pair-programming product where the interviewer and candidate work on the same canvas on a real-world task — a glimpse of what it is like to actually work together.</p><div class="hr1-ps__acc"><div class="hr1-ps__item is-open"><button class="hr1-ps__q" type="button" aria-expanded="true">Live pair programming<span class="hr1-ps__ico" aria-hidden="true"></span></button><div class="hr1-ps__a"><p>Interviewer and candidate build on one shared canvas in real time, on a task that mirrors the actual job.</p></div></div><div class="hr1-ps__item"><button class="hr1-ps__q" type="button" aria-expanded="false">Video, chat &amp; shared editor<span class="hr1-ps__ico" aria-hidden="true"></span></button><div class="hr1-ps__a"><p>Everything needed to collaborate is built in — no juggling extra tools during the session.</p></div></div><div class="hr1-ps__item"><button class="hr1-ps__q" type="button" aria-expanded="false">Real-world tasks, real signal<span class="hr1-ps__ico" aria-hidden="true"></span></button><div class="hr1-ps__a"><p>Swap trick questions for the work your team actually does and see how someone really performs.</p></div></div><div class="hr1-ps__item"><button class="hr1-ps__q" type="button" aria-expanded="false">Structured, fair evaluation<span class="hr1-ps__ico" aria-hidden="true"></span></button><div class="hr1-ps__a"><p>Capture notes and scores against a consistent rubric so decisions stay comparable and defensible.</p></div></div></div><a class="hr1-btn hr1-btn--dark hr1-ps__cta" href="https://www.hackerrank.com/work/free-trial">Start a free trial<img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/icon-arrow-right.svg" alt="" width="16" height="16"></a></div><div class="hr1-ps__media"><img src="assets/products/interview-preview.png" alt="Interview product preview" loading="lazy"></div></div></div></section><section class="hr1-row hr1-int" data-hr1-in="0.5"><div class="hr1-int__wrap"><div class="hr1-int__grid"><div class="hr1-int__cell" style="grid-area:a">Greenhouse</div><div class="hr1-int__cell" style="grid-area:b">Lever</div><div class="hr1-int__cell" style="grid-area:c">Ashby</div><div class="hr1-int__cell" style="grid-area:d">Workday</div><div class="hr1-int__cell" style="grid-area:e">iCIMS</div><div class="hr1-int__cell" style="grid-area:f">SmartRecruiters</div><div class="hr1-int__cell" style="grid-area:g">Jobvite</div><div class="hr1-int__cell" style="grid-area:h">SAP</div><div class="hr1-int__cell" style="grid-area:i">Gem</div><div class="hr1-int__cell" style="grid-area:j">BambooHR</div><div class="hr1-int__cell" style="grid-area:k">GoodTime</div><div class="hr1-int__cell" style="grid-area:l">Slack</div><div class="hr1-int__center" style="grid-area:T"><p class="hr1-int__kicker">Integrations</p><h2 class="hr1-int__title">Built for your hiring stack</h2><p class="hr1-int__body">Plug into your ATS and scheduling tools to run screens and interviews in one simple flow.</p><a class="hr1-btn hr1-btn--dark hr1-int__cta" href="https://www.hackerrank.com/integrations">See integrations<img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/icon-arrow-right.svg" alt="" width="16" height="16"></a></div></div></div></section><section class="hr1-row hr1-spd" data-hr1-in="0.5"><div class="hr1-spd__wrap"><p class="hr1-spd__kicker">Self-serve speed</p><h2 class="hr1-spd__title">Up and running in minutes, not weeks</h2><div class="hr1-spd__steps"><div class="hr1-spd__step"><span class="hr1-spd__num">1</span><span class="hr1-spd__when">Today</span><p class="hr1-spd__text">Sign up free and pick the role you are hiring for — no sales call.</p></div><div class="hr1-spd__step"><span class="hr1-spd__num">2</span><span class="hr1-spd__when">In minutes</span><p class="hr1-spd__text">Spin up a real-world interview and invite your first candidates.</p></div><div class="hr1-spd__step"><span class="hr1-spd__num">3</span><span class="hr1-spd__when">Tomorrow</span><p class="hr1-spd__text">Review ranked, explainable results and make a confident hire.</p></div></div></div></section><div class="hr1-row"><div class="hr1-hatch"></div></div><section class="hr1-row hr1-ba"><div class="hr1-col hr1-col--dash"><h2 class="hr1-h2">Build your team for the agentic era</h2><div class="hr1-ba__stage" data-hr1-fit="1151" data-hr1-min="0.56" data-hr1-nofit data-hr1-ba><div class="hr1-ba__scene hr1-ba__scene--before" data-hr1-scene="before" role="img" aria-label="Before: Support Manager, “I answer tickets one by one.”; GTM Engineer, “I build lead lists by hand.”; Engineer, “I write every line myself.”; Product Manager, “I write specs and wait.”; Product Manager, “I write the PRD first.”"><img class="hr1-ba__bg" src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/ba-479.webp" alt="" loading="lazy"><div class="hr1-person hr1-person--0 is-on" style="--x:89.99px;--y:243.11px" data-hr1-person="0"><img class="hr1-person__face" src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/ba-451.webp" alt="" width="100" height="100" draggable="false"><div class="hr1-person__label"><span class="hr1-person__pill">Support Manager</span><div class="hr1-person__card hr1-person__card--dark"><span>Support Manager</span><p data-hr1-before="I answer tickets one by one." data-hr1-after="I run agents that clear the queue.">I answer tickets one by one.</p></div></div></div><div class="hr1-person hr1-person--1" style="--x:273.87px;--y:51.45px" data-hr1-person="1"><img class="hr1-person__face" src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/ba-447.webp" alt="" width="100" height="100" draggable="false"><div class="hr1-person__label"><span class="hr1-person__pill">GTM Engineer</span><div class="hr1-person__card hr1-person__card--dark"><span>GTM Engineer</span><p data-hr1-before="I build lead lists by hand." data-hr1-after="I ship agents that run outbound.">I build lead lists by hand.</p></div></div></div><div class="hr1-person hr1-person--2" style="--x:456.37px;--y:312px" data-hr1-person="2"><img class="hr1-person__face" src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/ba-450.webp" alt="" width="100" height="100" draggable="false"><div class="hr1-person__label"><span class="hr1-person__pill">Engineer</span><div class="hr1-person__card hr1-person__card--dark"><span>Engineer</span><p data-hr1-before="I write every line myself." data-hr1-after="I direct agents and review their code.">I write every line myself.</p></div></div></div><div class="hr1-person hr1-person--3" style="--x:733.88px;--y:298px" data-hr1-person="3"><img class="hr1-person__face" src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/ba-446.webp" alt="" width="100" height="100" draggable="false"><div class="hr1-person__label"><span class="hr1-person__pill">Product Manager</span><div class="hr1-person__card hr1-person__card--dark"><span>Product Manager</span><p data-hr1-before="I write specs and wait." data-hr1-after="I build and ship prototypes">I write specs and wait.</p></div></div></div><div class="hr1-person hr1-person--4" style="--x:892.87px;--y:65.45px" data-hr1-person="4"><img class="hr1-person__face" src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/ba-452.webp" alt="" width="100" height="100" draggable="false"><div class="hr1-person__label"><span class="hr1-person__pill">Product Manager</span><div class="hr1-person__card hr1-person__card--dark"><span>Product Manager</span><p data-hr1-before="I write the PRD first." data-hr1-after="I prototype before the PRD.">I write the PRD first.</p></div></div></div></div><div class="hr1-ba__scene hr1-ba__scene--after" data-hr1-scene="after" role="img" aria-label="After: Support Manager, “I run agents that clear the queue.”; GTM Engineer, “I ship agents that run outbound.”; Engineer, “I direct agents and review their code.”; Product Manager, “I build and ship prototypes”; Product Manager, “I prototype before the PRD.”"><img class="hr1-ba__bg" src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/ba-478.webp" alt="" loading="lazy"><div class="hr1-person hr1-person--0" style="--x:89.99px;--y:243.11px" data-hr1-person="0"><img class="hr1-person__face" src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/ba-451.webp" alt="" width="100" height="100" draggable="false"><div class="hr1-person__label"><span class="hr1-person__pill">Support Manager</span><div class="hr1-person__card hr1-person__card--green"><span>Support Manager</span><p data-hr1-before="I answer tickets one by one." data-hr1-after="I run agents that clear the queue.">I run agents that clear the queue.</p></div></div></div><div class="hr1-person hr1-person--1" style="--x:273.87px;--y:51.45px" data-hr1-person="1"><img class="hr1-person__face" src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/ba-447.webp" alt="" width="100" height="100" draggable="false"><div class="hr1-person__label"><span class="hr1-person__pill">GTM Engineer</span><div class="hr1-person__card hr1-person__card--green"><span>GTM Engineer</span><p data-hr1-before="I build lead lists by hand." data-hr1-after="I ship agents that run outbound.">I ship agents that run outbound.</p></div></div></div><div class="hr1-person hr1-person--2" style="--x:456.37px;--y:312px" data-hr1-person="2"><img class="hr1-person__face" src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/ba-450.webp" alt="" width="100" height="100" draggable="false"><div class="hr1-person__label"><span class="hr1-person__pill">Engineer</span><div class="hr1-person__card hr1-person__card--green"><span>Engineer</span><p data-hr1-before="I write every line myself." data-hr1-after="I direct agents and review their code.">I direct agents and review their code.</p></div></div></div><div class="hr1-person hr1-person--3 is-on" style="--x:733.88px;--y:298px" data-hr1-person="3"><img class="hr1-person__face" src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/ba-446.webp" alt="" width="100" height="100" draggable="false"><div class="hr1-person__label"><span class="hr1-person__pill">Product Manager</span><div class="hr1-person__card hr1-person__card--green"><span>Product Manager</span><p data-hr1-before="I write specs and wait." data-hr1-after="I build and ship prototypes">I build and ship prototypes</p></div></div></div><div class="hr1-person hr1-person--4" style="--x:892.87px;--y:65.45px" data-hr1-person="4"><img class="hr1-person__face" src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/ba-452.webp" alt="" width="100" height="100" draggable="false"><div class="hr1-person__label"><span class="hr1-person__pill">Product Manager</span><div class="hr1-person__card hr1-person__card--green"><span>Product Manager</span><p data-hr1-before="I write the PRD first." data-hr1-after="I prototype before the PRD.">I prototype before the PRD.</p></div></div></div></div><span class="hr1-ba__seam" aria-hidden="true"></span><span class="hr1-ba__handle" role="slider" tabindex="0" aria-label="Before and after" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="Half before, half after"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/ba-maximize.svg" alt=""></span></div></div></section><div class="hr1-row"><div class="hr1-hatch"></div></div><section class="hr1-row hr1-voices"><div class="hr1-col"><h2 class="hr1-h2">See what our customers say</h2><div class="hr1-voices__row"><article class="hr1-voice"><img class="hr1-voice__img" src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/t-deepl-smile.webp" alt="" loading="lazy"><span class="hr1-voice__fade"></span><img class="hr1-voice__logo" src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/t-logo-deepl.svg" alt="DeepL" width="77" height="26" style="width:77px;height:26px"><div class="hr1-voice__foot"><div class="hr1-voice__text"><p class="hr1-voice__stat hr1-voice__stat--quote">“We insist on it.”</p><p class="hr1-voice__label">DeepL makes candidates use AI in its new interview round</p></div><button class="hr1-voice__watch" type="button" data-hr1-video="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/hls/deepl/master.m3u8" data-hr1-poster="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/t-deepl-smile.webp" aria-label="Watch the DeepL story"><i></i>Watch</button></div></article><article class="hr1-voice"><img class="hr1-voice__img" src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/t-cerebras.webp" alt="" loading="lazy"><span class="hr1-voice__fade"></span><img class="hr1-voice__logo" src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/t-logo-cerebras.svg" alt="Cerebras" width="72" height="30" style="width:72px;height:30px"><div class="hr1-voice__foot"><div class="hr1-voice__text"><p class="hr1-voice__stat">1,000+</p><p class="hr1-voice__label">People hired as Cerebras scaled, with HackerRank</p></div><button class="hr1-voice__watch" type="button" data-hr1-video="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/hls/cerebras/master.m3u8" data-hr1-poster="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/t-cerebras.webp" aria-label="Watch the Cerebras story"><i></i>Watch</button></div></article><article class="hr1-voice"><img class="hr1-voice__img" src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/t-hpe-smile.webp" alt="" loading="lazy"><span class="hr1-voice__fade"></span><img class="hr1-voice__logo" src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/t-logo-hpe.svg" alt="HPE" width="82" height="24" style="width:82px;height:24px"><div class="hr1-voice__foot"><div class="hr1-voice__text"><p class="hr1-voice__stat hr1-voice__stat--quote">“A game changer”</p><p class="hr1-voice__label">HackerRank helps HPE find the brightest talent across regions</p></div><button class="hr1-voice__watch" type="button" data-hr1-video="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/hls/hpe/master.m3u8" data-hr1-poster="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/t-hpe-smile.webp" aria-label="Watch the HPE story"><i></i>Watch</button></div></article><article class="hr1-voice"><img class="hr1-voice__img" src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/t-adobe-smile.webp" alt="" loading="lazy"><span class="hr1-voice__fade"></span><img class="hr1-voice__logo" src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/t-logo-adobe.svg" alt="Adobe" width="96" height="24" style="width:96px;height:24px"><div class="hr1-voice__foot"><div class="hr1-voice__text"><p class="hr1-voice__stat hr1-voice__stat--quote">“Engineering fundamentals still matter.”</p><p class="hr1-voice__label">But can someone build with AI, business context and judgment?</p></div><button class="hr1-voice__watch" type="button" data-hr1-video="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/hls/adobe/master.m3u8" data-hr1-poster="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/t-adobe-smile.webp" aria-label="Watch the Adobe story"><i></i>Watch</button></div></article></div></div></section><dialog class="hr1-vbox" aria-label="Customer story" data-hr1-vbox><div class="hr1-vbox__frame"><video class="hr1-vbox__video" controls playsinline preload="none"></video><button class="hr1-vbox__close" type="button" aria-label="Close video" data-hr1-vbox-close><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg></button></div></dialog><div class="hr1-row"><div class="hr1-hatch"></div></div><section class="hr1-row hr1-omt"><div class="hr1-col hr1-col--dash"><div class="hr1-omt__text"><h2 class="hr1-h2">One more thing…</h2><div class="hr1-omt__copy"><p>HackerRank hosts a community of more than 30 million developers who learn AI skills and participate in hackathons, helping them upskill for the new future. As a Hackerrank customer, you will have access to our database of AI-fluent builders to hire from directly.</p><a class="hr1-btn hr1-btn--dark" href="https://www.hackerrank.com/auth/signup">Free developer sign up</a></div></div><img class="hr1-omt__img" src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/omt-orchestrate-v2.webp" alt="HackerRank Orchestrate: a 24-hour hackathon to design, build and ship an agent" width="1154" height="864" loading="lazy"></div></section></main><section class="hr1-cta" data-hr1-in="0.5"><div class="hr1-cta__inner"><h2>Ready to hire for the <span data-hr1-typed>agentic era?</span></h2><div class="hr1-cta__btns"><a class="hr1-btn hr1-btn--dark" href="https://www.hackerrank.com/work/free-trial">Start a free trial<img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/icon-arrow-right.svg" alt="" width="16" height="16"></a><a class="hr1-btn hr1-btn--light hr1-cta__dev" href="https://www.hackerrank.com/auth/signup">For developers</a><a class="hr1-btn hr1-btn--light hr1-cta__demo" href="https://www.hackerrank.com/request-demo">Request a demo</a></div></div></section><footer class="hr1-footer" data-hr1-in="0.15"><div class="hr1-footer__art" aria-hidden="true"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/footer-2.webp" alt="" loading="lazy"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/footer-3.webp" alt="" loading="lazy"></div><div class="hr1-footer__top"><div class="hr1-footer__brand"><a href="https://hackerrank.withsherpa.site/" aria-label="HackerRank home"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/footer-logo.svg" alt="HackerRank" width="130" height="77"></a><ul class="hr1-footer__social"><li><a href="https://www.facebook.com/hackerrank" aria-label="Facebook"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/social-1.svg" alt="" width="18" height="18"></a></li><li><a href="https://www.linkedin.com/company/hackerrank" aria-label="LinkedIn"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/social-2.svg" alt="" width="18" height="18"></a></li><li><a href="https://x.com/hackerrank" aria-label="X"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/social-3.svg" alt="" width="18" height="18"></a></li><li><a href="https://www.instagram.com/hackerrank" aria-label="Instagram"><img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/social-4.svg" alt="" width="18" height="18"></a></li></ul></div><div class="hr1-footer__cols"><div class="hr1-footer__col"><h3>Products</h3><a href="https://www.hackerrank.com/chakra">Chakra</a><a href="https://www.hackerrank.com/products/screen">Screen</a><a href="https://www.hackerrank.com/products/interview">Interview</a><a href="https://www.hackerrank.com/features/hiring/ai-add-on">AI Add-on</a></div><div class="hr1-footer__col"><h3>Features</h3><a href="https://www.hackerrank.com/features/certified-assessments">Certified Assessments</a><a href="https://www.hackerrank.com/features/plagiarism-detection">Plagiarism Detection</a><a href="https://www.hackerrank.com/features/real-world-questions">Real-World Questions</a><a href="https://www.hackerrank.com/integrations">Integrations</a></div><div class="hr1-footer__col"><h3>Resources</h3><a href="https://www.hackerrank.com/blog">Blog</a><a href="https://www.hackerrank.com/roles-directory">Roles Directory</a><a href="https://www.hackerrank.com/customers">Customer Stories</a><a href="https://www.hackerrank.com/reports/developer-skills-report-2025">Developer Skills Report</a><a href="https://hackerrank.com/bench/report">Bench</a><a href="https://www.hackerrank.com/partners">Partners</a></div><div class="hr1-footer__col"><h3>Product help</h3><a href="https://hackerrank.withsherpa.site/release/summer-2026">What&#39;s New</a><a href="https://www.hackerrank.com/work/mcp/docs/">MCP</a><a href="https://support.hackerrank.com/hc/en-us">Support</a><a href="https://hackerrank.withsherpa.site/films">Films</a></div><div class="hr1-footer__col"><h3>Company</h3><a href="https://www.hackerrank.com/careers">Careers</a><a href="https://status.hackerrank.com">Status</a><a href="https://security.hackerrank.com/">Trust</a></div><div class="hr1-footer__col"><h3>Get started</h3><a href="https://www.hackerrank.com/pricing">Pricing</a><a href="https://www.hackerrank.com/astra">Human Data</a><a href="https://www.hackerrank.com/work/free-trial">Start a free trial</a><a href="https://www.hackerrank.com/request-demo">Request a demo</a><a href="https://www.hackerrank.com/auth/signup">For developers</a></div></div></div><div class="hr1-footer__bottom"><p>© 2026 HackerRank All rights reserved.</p><div class="hr1-footer__legal"><a href="https://www.hackerrank.com/about-us/privacy">Privacy Policy</a><a href="https://www.hackerrank.com/about-us/terms-of-service">Terms of Service</a></div></div></footer></div><script type="module" src="https://hackerrank.withsherpa.site/_sherpa/assets/generated/HrV1Page.astro_astro_type_script_index_0_lang.0hnEBzDm.js"></script><script type="module" src="https://hackerrank.withsherpa.site/_sherpa/assets/generated/HrV1Page.astro_astro_type_script_index_1_lang.7crBJXog.js"></script><script type="module" src="https://hackerrank.withsherpa.site/_sherpa/assets/generated/HrV1Page.astro_astro_type_script_index_2_lang.ifY77QWM.js"></script></main><script type="application/json" id="sherpa-cohort-arms">{"homepage-hr":"variant-a"}</script><script data-integration-policy="{&quot;productionHostnames&quot;:[&quot;hackerrank.com&quot;,&quot;www.hackerrank.com&quot;,&quot;hackerrank.withsherpa.site&quot;],&quot;googleTagManagerId&quot;:&quot;GTM-PX2ZJF2&quot;,&quot;vwoAccountId&quot;:1070151,&quot;enabled&quot;:true,&quot;path&quot;:&quot;/&quot;,&quot;tagManagerTiming&quot;:&quot;interaction&quot;,&quot;vwo&quot;:true,&quot;homepageReporting&quot;:true,&quot;additionalScripts&quot;:[]}" data-marketing-integration="page-custom-code">/* Source custom code that belongs after page markup, isolated from component styling. */
+(function () {
+  var policy = JSON.parse(document.currentScript.getAttribute('data-integration-policy'));
+  if (!policy.enabled || policy.productionHostnames.indexOf(location.hostname.toLowerCase()) === -1) return;
+  if (window.__hackerrankMarketingBodyLoaded) return;
+  window.__hackerrankMarketingBodyLoaded = true;
+  if (policy.homepageReporting) {
+    // Source js-cookie default: session cookie, path=/, SameSite unspecified.
+    document.cookie = 'newhomepage=false; path=/';
+    window.dataLayer = window.dataLayer || [];
+    var originalPush = window.dataLayer.push;
+    window.dataLayer.push = function () {
+      var args = Array.prototype.slice.call(arguments);
+      args.forEach(function (value) {
+        if (value && (value.event === 'page_view' || value[0] === 'config') && !value.modified_by_override) {
+          value.page_path = '/home-new';
+          value.page_location = 'https://hackerrank.com/home-new';
+          value.modified_by_override = true;
+        }
+      });
+      return originalPush.apply(window.dataLayer, args);
+    };
+    if (typeof window.gtag === 'function') {
+      var originalGtag = window.gtag;
+      window.gtag = function () {
+        var args = Array.prototype.slice.call(arguments);
+        if (args[0] === 'config') {
+          args[2] = args[2] || {};
+          args[2].page_path = '/home-new';
+          args[2].page_location = 'https://hackerrank.com/home-new';
+        }
+        return originalGtag.apply(window, args);
+      };
+    }
+    // Preserve the production fallback event during the ongoing experiment; do not silently deduplicate it.
+    setTimeout(function () {
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'page_view', {
+          page_path: '/home-new', page_location: 'https://hackerrank.com/home-new', send_to: 'all'
+        });
+      }
+    }, 1000);
+  }
+  policy.additionalScripts.forEach(function (definition) {
+    if (document.getElementById(definition.id)) return;
+    var script = document.createElement('script');
+    script.id = definition.id;
+    script.async = true;
+    script.src = definition.src;
+    if (definition.integrity) script.integrity = definition.integrity;
+    if (definition.crossOrigin) script.crossOrigin = definition.crossOrigin;
+    document.head.appendChild(script);
+  });
+})();
+</script><script id="hr1-hero-tabs-js">
+(function(){
+  var hero=document.querySelector('.hr1-hero');
+  if(!hero) return;
+  var toggle=hero.querySelector('.hr1-hero__toggle');
+  var titleEl=hero.querySelector('.hr1-hero__title');
+  var ledeEl=hero.querySelector('.hr1-hero__lede');
+  var actionsEl=hero.querySelector('.hr1-hero__actions');
+  if(!toggle||!titleEl||!ledeEl) return;
+  var knob=toggle.querySelector('.hr1-hero__knob');
+  var btns=[].slice.call(toggle.querySelectorAll('.hr1-hero__tab'));
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var ARROW='<img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/icon-arrow-right.svg" alt="" width="16" height="16">';
+  var CONTENT={
+    hire:{
+      title:'Hire for the agentic era',
+      lede:'We help you hire the next-gen developers who combine strong engineering fundamentals with AI fluency & great taste.',
+      actions:'<a class="hr1-btn hr1-btn--dark" href="https://www.hackerrank.com/work/free-trial">Start a free trial'+ARROW+'</a>'
+    },
+    practice:{
+      title:'Practice for the agentic era',
+      lede:'Sharpen the skills that matter today - plan, build and review with AI. Join 30M+ developers learning via real-world challenges and hackathons.',
+      actions:'<a class="hr1-btn hr1-btn--dark" href="https://www.hackerrank.com/community">Join the community'+ARROW+'</a>'
+    }
+  };
+  var current='hire';
+  function positionKnob(){
+    var active=toggle.querySelector('.hr1-hero__tab[aria-pressed="true"]')||btns[0];
+    if(!active||!knob) return;
+    knob.style.width=active.offsetWidth+'px';
+    knob.style.transform='translateX('+active.offsetLeft+'px)';
+  }
+  function apply(key){
+    var c=CONTENT[key];
+    titleEl.textContent=c.title;
+    ledeEl.textContent=c.lede;
+    if(actionsEl) actionsEl.innerHTML=c.actions;
+  }
+  function switchTo(key){
+    if(key===current||!CONTENT[key]) return;
+    current=key;
+    btns.forEach(function(b){ b.setAttribute('aria-pressed',b.getAttribute('data-tab')===key?'true':'false'); });
+    positionKnob();
+    hero.classList.toggle('is-practice',key==='practice'); // background recolours on its own 1.1s transition
+    document.body.classList.toggle('hr1-dev-mode',key==='practice'); // hides the hiring sticky bar for self-identified devs
+    if(reduce){ apply(key); return; }
+    // Crossfade: fade copy out, swap at the trough, fade back in — transforms only, no reflow.
+    hero.classList.add('is-swapping');
+    setTimeout(function(){
+      apply(key);
+      requestAnimationFrame(function(){ hero.classList.remove('is-swapping'); });
+    },220);
+  }
+  btns.forEach(function(b){ b.addEventListener('click',function(){ switchTo(b.getAttribute('data-tab')); }); });
+  // Position the knob instantly (no slide on first paint), then enable transitions.
+  positionKnob();
+  requestAnimationFrame(function(){ toggle.classList.add('is-ready'); });
+  window.addEventListener('resize',positionKnob);
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(positionKnob);
+  setTimeout(positionKnob,400);
+})();
+</script><div class="hr1-stickybar" data-hr1-stickybar aria-hidden="true"><div class="hr1-stickybar__inner"><p class="hr1-stickybar__text">Ready to hire for the agentic era?</p><div class="hr1-stickybar__actions"><a class="hr1-btn hr1-btn--dark hr1-btn--sm" href="https://www.hackerrank.com/work/free-trial">Start a free trial<img src="https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/icon-arrow-right.svg" alt="" width="16" height="16"></a></div></div></div>
+<script id="hr1-stickybar-js">
+(function(){
+  var bar=document.querySelector('[data-hr1-stickybar]');
+  if(!bar) return;
+  var hero=document.querySelector('.hr1-hero');
+  // Hide the bar once any of these end-of-page CTAs/footer come into view (avoid duplicate/overlap).
+  var tail=[].slice.call(document.querySelectorAll('.hr1-cta, .hr1-footer'));
+  var dismissed=false;
+  try{ dismissed=sessionStorage.getItem('hr1-stickybar-dismissed')==='1'; }catch(e){}
+  var heroOut=false, tailShown=new Set();
+  function update(){
+    var show=!dismissed && heroOut && tailShown.size===0;
+    bar.classList.toggle('is-visible',show);
+    bar.setAttribute('aria-hidden',show?'false':'true');
+  }
+  if('IntersectionObserver' in window){
+    if(hero) new IntersectionObserver(function(e){ heroOut=!e[0].isIntersecting; update(); },{threshold:0}).observe(hero);
+    var tailIO=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting) tailShown.add(en.target); else tailShown.delete(en.target); });
+      update();
+    },{threshold:0});
+    tail.forEach(function(el){ tailIO.observe(el); });
+  } else {
+    window.addEventListener('scroll',function(){ heroOut=window.scrollY>(hero?hero.offsetHeight*0.85:650); update(); },{passive:true});
+  }
+  var closeBtn=bar.querySelector('[data-hr1-stickybar-close]');
+  if(closeBtn) closeBtn.addEventListener('click',function(){
+    dismissed=true;
+    try{ sessionStorage.setItem('hr1-stickybar-dismissed','1'); }catch(e){}
+    update();
+  });
+})();
+</script><script id="hr1-hero-devgl">
+(function(){
+  var hero=document.querySelector('.hr1-hero');
+  var cv=document.querySelector('.hr1-hero__devgl');
+  if(!hero||!cv) return;
+  var gl=cv.getContext('webgl',{antialias:false})||cv.getContext('experimental-webgl');
+  if(!gl) return; // static Figma image remains as the fallback
+  var vsrc='attribute vec2 p;void main(){gl_Position=vec4(p,0.0,1.0);}';
+  var fsrc=[
+    'precision highp float;',
+    'uniform vec2 u_res;uniform float u_time;',
+    'float blob(vec2 uv,vec2 c,float r){return smoothstep(r,0.0,distance(uv,c));}',
+    'void main(){',
+    ' vec2 uv=gl_FragCoord.xy/u_res;',
+    ' float t=u_time*0.05;',
+    ' vec3 white=vec3(1.0);',
+    ' vec3 lav=vec3(0.80,0.75,0.95);',
+    ' vec3 pur=vec3(0.93,0.84,0.91);',
+    ' vec3 pch=vec3(0.98,0.83,0.69);',
+    ' vec2 c1=vec2(0.13+0.04*sin(t*1.1),0.90+0.04*cos(t*0.9));',
+    ' vec2 c2=vec2(0.52+0.07*sin(t*0.7+1.0),1.02+0.03*cos(t*1.3));',
+    ' vec2 c3=vec2(0.89+0.05*sin(t*0.9+2.0),0.92+0.04*cos(t*0.8));',
+    ' vec3 col=white;',
+    ' col=mix(col,lav,blob(uv,c1,0.60)*0.78);',
+    ' col=mix(col,pur,blob(uv,c2,0.55)*0.42);',
+    ' col=mix(col,pch,blob(uv,c3,0.58)*0.82);',
+    ' float vf=smoothstep(0.34,0.92,uv.y);',
+    ' col=mix(white,col,vf);',
+    ' gl_FragColor=vec4(col,1.0);',
+    '}'
+  ].join('\n');
+  function sh(ty,s){var o=gl.createShader(ty);gl.shaderSource(o,s);gl.compileShader(o);return o;}
+  var prog=gl.createProgram();
+  gl.attachShader(prog,sh(gl.VERTEX_SHADER,vsrc));
+  gl.attachShader(prog,sh(gl.FRAGMENT_SHADER,fsrc));
+  gl.linkProgram(prog);
+  if(!gl.getProgramParameter(prog,gl.LINK_STATUS)) return;
+  gl.useProgram(prog);
+  var buf=gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+  var pl=gl.getAttribLocation(prog,'p');
+  gl.enableVertexAttribArray(pl);
+  gl.vertexAttribPointer(pl,2,gl.FLOAT,false,0,0);
+  var uRes=gl.getUniformLocation(prog,'u_res'),uTime=gl.getUniformLocation(prog,'u_time');
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var running=false,raf=0,t0=performance.now();
+  function resize(){var d=Math.min(window.devicePixelRatio||1,2);var w=Math.max(1,Math.round(cv.clientWidth*d)),h=Math.max(1,Math.round(cv.clientHeight*d));if(cv.width!==w||cv.height!==h){cv.width=w;cv.height=h;}gl.viewport(0,0,cv.width,cv.height);}
+  function draw(now){gl.uniform2f(uRes,cv.width,cv.height);gl.uniform1f(uTime,(now-t0)/1000);gl.drawArrays(gl.TRIANGLES,0,3);}
+  function loop(now){draw(now);raf=requestAnimationFrame(loop);}
+  function startGL(){if(running)return;running=true;resize();if(reduce){draw(performance.now());running=false;return;}raf=requestAnimationFrame(loop);}
+  function stopGL(){running=false;cancelAnimationFrame(raf);}
+  if(hero.classList.contains('is-practice')) startGL();
+  new MutationObserver(function(){hero.classList.contains('is-practice')?startGL():stopGL();}).observe(hero,{attributes:true,attributeFilter:['class']});
+  window.addEventListener('resize',function(){if(running){resize();if(reduce)draw(performance.now());}});
+})();
+</script><script id="hr1-ps-acc">
+(function(){
+  document.querySelectorAll('[data-hr1-acc] .hr1-ps__acc').forEach(function(acc){
+    var items=[].slice.call(acc.querySelectorAll('.hr1-ps__item'));
+    items.forEach(function(item){
+      var q=item.querySelector('.hr1-ps__q');
+      if(!q) return;
+      q.addEventListener('click',function(){
+        var open=item.classList.contains('is-open');
+        items.forEach(function(it){ it.classList.remove('is-open'); var b=it.querySelector('.hr1-ps__q'); if(b) b.setAttribute('aria-expanded','false'); });
+        if(!open){ item.classList.add('is-open'); q.setAttribute('aria-expanded','true'); }
+      });
+    });
+  });
+})();
+</script></body></html><script type="module" src="https://hackerrank.withsherpa.site/_sherpa/assets/generated/index.astro_astro_type_script_index_0_lang.BbzthKfQ.js"></script>
