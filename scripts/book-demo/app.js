@@ -1114,12 +1114,6 @@ document.addEventListener("click", (e) => {
     setScreen("contact");
     return;
   }
-  const tryIt = e.target.closest(".bd-header [data-action='try-header']");
-  if (tryIt) {
-    e.preventDefault();
-    // Product-aware, mirroring the old in-body link (Interview is a placeholder).
-    if (state.product !== "interview") location.href = "start-free-trial.html";
-  }
 });
 
 /* Close the product dropdown on an outside click or Escape. */
