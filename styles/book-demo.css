@@ -844,6 +844,34 @@ img { display: block; max-width: 100%; }
 .bd-contact__card .bd-btn { margin-top: 14px; }
 .bd-contact__card .bd-back { margin-top: 12px; }
 
+/* ---- Contact modal (overlay so booking state is never lost) ---- */
+.bd-modal {
+  position: fixed; inset: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  background: rgba(20, 20, 25, 0.5);
+  -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);
+  animation: bd-modal-fade 0.15s ease;
+}
+.bd-modal__dialog {
+  position: relative; width: 100%; max-width: 400px;
+  max-height: calc(100vh - 48px); overflow: auto;
+  background: #fff; /* opaque card over the dimmed page */
+  animation: bd-modal-pop 0.16s ease;
+}
+.bd-modal__close {
+  position: absolute; top: 12px; right: 12px;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; padding: 0; border: 0; border-radius: 50%;
+  background: transparent; color: var(--muted-foreground); cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.bd-modal__close:hover { background: var(--muted, #f4f4f5); color: var(--foreground); }
+.bd-modal__close:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+@keyframes bd-modal-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes bd-modal-pop { from { opacity: 0; transform: translateY(8px) scale(0.98); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .bd-modal, .bd-modal__dialog { animation: none; } }
+
 /* ===================== Responsive ===================== */
 @media (max-width: 920px) {
   .bd-stage {
