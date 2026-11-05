@@ -39,7 +39,7 @@ const state = {
   validated: false,        // lookup done, size/location revealed
   validatedEmail: "",      // which email the current reveal belongs to
   emailPersonal: false,    // a personal/consumer email was entered
-  contactOpen: false,      // contact-us modal is open (overlay, not a screen)
+  returnScreen: "identify", // where "Back" on the contact page returns to
   contactSent: false,      // contact-us form submitted
   contactError: "",
   contactName: "",
@@ -162,10 +162,7 @@ function bannerFor(p) {
    Render
    ============================================================================ */
 function render() {
-  const screen = SCREENS[state.screen] ? SCREENS[state.screen]() : "";
-  // Contact is a modal overlay on top of the current screen, so the booking
-  // state is never lost when someone just has a quick question.
-  app.innerHTML = screen + (state.contactOpen ? contactModal() : "");
+  app.innerHTML = SCREENS[state.screen] ? SCREENS[state.screen]() : "";
   renderProtoBar();
   syncLayoutToggle();
   afterMount();
@@ -185,6 +182,7 @@ const SCREENS = {
   community: renderCommunity,
   book: renderBook,
   confirm: renderConfirm,
+  contact: renderContact,
 };
 
 /* Shared two-column stage: a static headline on the left, screen content on the
@@ -489,45 +487,48 @@ function renderCommunity() {
 }
 
 /* ---- Contact us ---- */
-/* Contact-us content, shown inside the modal dialog. */
-function contactBody() {
+/* Contact-us page. A clear "Back" returns to wherever the user came from
+   (identify or the calendar), so they never lose their place in booking. */
+function renderContact() {
+  const backLabel = state.returnScreen === "book" ? "Back to your booking" : "Back to demo";
+  const back = `
+    <button class="bd-contact__back bd-link" type="button" data-action="contact-back">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3.5 5.5 8 10 12.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      ${backLabel}
+    </button>`;
   if (state.contactSent) {
     return `
-      <span class="bd-check" aria-hidden="true">✓</span>
-      <h2 class="bd-h2" id="bd-contact-title">Thanks — we'll be in touch</h2>
-      <p class="bd-sub">We've got your question and will reply${state.email ? ` to ${esc(state.email)}` : ""} shortly.</p>
-      <button class="bd-btn bd-btn--primary bd-btn--block" type="button" data-action="contact-close">Done</button>`;
+    <main class="bd-screen bd-contact" aria-labelledby="bd-contact-done">
+      <div class="bd-card bd-contact__card">
+        ${back}
+        <span class="bd-check" aria-hidden="true">✓</span>
+        <h2 class="bd-h2" id="bd-contact-done">Thanks — we'll be in touch</h2>
+        <p class="bd-sub">We've got your question and will reply${state.email ? ` to ${esc(state.email)}` : ""} shortly.</p>
+      </div>
+    </main>`;
   }
   return `
-    <h2 class="bd-h2" id="bd-contact-title">Have a question?</h2>
-    <p class="bd-sub">Tell us what you need and we'll get back to you.</p>
-    <form data-action="contact-submit" novalidate>
-      <label class="bd-label" for="bd-contact-email">Work email</label>
-      <input class="bd-input" type="email" id="bd-contact-email" autocomplete="email"
-             placeholder="name@company.com" value="${esc(state.email)}" />
+  <main class="bd-screen bd-contact" aria-labelledby="bd-contact-title">
+    <div class="bd-card bd-contact__card">
+      ${back}
+      <h2 class="bd-h2" id="bd-contact-title">Have a question?</h2>
+      <p class="bd-sub">Tell us what you need and we'll get back to you.</p>
+      <form data-action="contact-submit" novalidate>
+        <label class="bd-label" for="bd-contact-email">Work email</label>
+        <input class="bd-input" type="email" id="bd-contact-email" autocomplete="email"
+               placeholder="name@company.com" value="${esc(state.email)}" />
 
-      <div class="bd-formrow">
-        <label class="bd-label" for="bd-contact-msg">Your question</label>
-        <textarea class="bd-input bd-textarea" id="bd-contact-msg" rows="3"
-                  placeholder="What would you like to know?">${esc(state.contactMsg)}</textarea>
-      </div>
+        <div class="bd-formrow">
+          <label class="bd-label" for="bd-contact-msg">Your question</label>
+          <textarea class="bd-input bd-textarea" id="bd-contact-msg" rows="3"
+                    placeholder="What would you like to know?">${esc(state.contactMsg)}</textarea>
+        </div>
 
-      ${state.contactError ? `<p class="bd-error" role="alert">${esc(state.contactError)}</p>` : ""}
-      <button class="bd-btn bd-btn--primary bd-btn--block" type="submit">Send</button>
-    </form>`;
-}
-
-/* Contact-us modal: overlays the current screen so booking state is kept. */
-function contactModal() {
-  return `
-  <div class="bd-modal">
-    <div class="bd-modal__dialog bd-card bd-contact__card" role="dialog" aria-modal="true" aria-labelledby="bd-contact-title">
-      <button class="bd-modal__close" type="button" data-action="contact-close" aria-label="Close">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-      </button>
-      ${contactBody()}
+        ${state.contactError ? `<p class="bd-error" role="alert">${esc(state.contactError)}</p>` : ""}
+        <button class="bd-btn bd-btn--primary bd-btn--block" type="submit">Send</button>
+      </form>
     </div>
-  </div>`;
+  </main>`;
 }
 
 /* ---- Screen 3a: Book ---- */
@@ -1096,6 +1097,10 @@ app.addEventListener("click", (e) => {
     else note.textContent = "Enter a valid email to invite a teammate.";
   } else if (action === "restart") {
     restart();
+  } else if (action === "contact-back") {
+    state.contactSent = false;
+    state.contactError = "";
+    setScreen(state.returnScreen || "identify");
   } else if (action === "edit-email") {
     // Unlock the email field and hide the revealed fields until re-validated.
     state.validated = false;
@@ -1135,36 +1140,12 @@ document.addEventListener("click", (e) => {
   const contact = e.target.closest(".bd-header [data-action='contact']");
   if (contact) {
     e.preventDefault();
-    openContact();
+    if (state.screen !== "contact") state.returnScreen = state.screen;
+    state.contactSent = false;
+    state.contactError = "";
+    setScreen("contact");
     return;
   }
-});
-
-/* ---- Contact modal open/close ---- */
-function openContact() {
-  state.contactSent = false;
-  state.contactError = "";
-  state.contactOpen = true;
-  render();
-  const input = document.getElementById("bd-contact-email");
-  if (input) input.focus();
-}
-function closeContact() {
-  if (!state.contactOpen) return;
-  state.contactOpen = false;
-  render();
-  const btn = document.querySelector(".bd-header [data-action='contact']");
-  if (btn) btn.focus();
-}
-/* Close on the X, on a backdrop click (outside the dialog), or Escape. */
-document.addEventListener("click", (e) => {
-  if (!state.contactOpen) return;
-  if (e.target.closest("[data-action='contact-close']") || e.target.classList.contains("bd-modal")) {
-    closeContact();
-  }
-});
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && state.contactOpen) closeContact();
 });
 
 /* Close the product dropdown on an outside click or Escape. */
