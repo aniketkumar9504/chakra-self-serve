@@ -189,9 +189,9 @@ const SCREENS = {
    right swaps from the form to the calendar. */
 const DEMO_CHECK = `<svg class="bd-demolist__check" viewBox="0 0 20 20" width="22" height="22" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 7" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 const DEMO_POINTS = [
-  ["Hire for the agentic era", "with Chakra's AI interviewer that tests real, on-the-job skills"],
-  ["Screen any role at scale", "use Chakra from a single hire to thousands, without losing signal"],
-  ["See pricing for your team", "a clear plan matched to how you hire"],
+  ["Hire for the agentic era", "with Chakra's AI interviewer"],
+  ["Screen any role at scale", "one hire to thousands"],
+  ["See pricing", "built for your team"],
 ];
 function demoInfo() {
   const items = DEMO_POINTS.map(
