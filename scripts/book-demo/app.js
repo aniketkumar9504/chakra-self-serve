@@ -189,8 +189,8 @@ const SCREENS = {
    right swaps from the form to the calendar. */
 const DEMO_CHECK = `<svg class="bd-demolist__check" viewBox="0 0 20 20" width="22" height="22" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 7" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 const DEMO_POINTS = [
-  "Learn to <strong>hire for the agentic era</strong>",
-  "See <strong>Chakra scale across every role</strong>",
+  "Learn how <strong>Chakra fits into your hiring workflow</strong>",
+  "See how <strong>Chakra screens any role, at scale</strong>",
   "Get <strong>pricing built for your team</strong>",
 ];
 function demoInfo() {
