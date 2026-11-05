@@ -187,12 +187,30 @@ const SCREENS = {
 /* Shared two-column stage: a static headline on the left, screen content on the
    right. Used by identify → loading → book so the left stays put while the
    right swaps from the form to the calendar. */
+const DEMO_CHECK = `<svg class="bd-demolist__check" viewBox="0 0 20 20" width="22" height="22" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 7" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const DEMO_POINTS = [
+  ["See HackerRank in action", "on your real hiring workflow"],
+  ["Get expert answers", "to your hiring and technical questions"],
+  ["Walk away with a plan", "tailored to your team"],
+];
+function demoInfo() {
+  const items = DEMO_POINTS.map(
+    ([lead, rest]) => `<li class="bd-demolist__item">${DEMO_CHECK}<span><strong>${lead}</strong> ${rest}</span></li>`
+  ).join("");
+  return `
+    <div class="bd-demoinfo">
+      <p class="bd-demoinfo__lead">In 30 minutes, you'll:</p>
+      <ul class="bd-demolist">${items}</ul>
+    </div>`;
+}
+
 function stageLayout(right) {
   return `
   <main class="bd-screen bd-stage" aria-labelledby="bd-id-title">
     <div class="bd-stage__left">
       <h1 class="bd-hero__title" id="bd-id-title">See HackerRank<br />in action</h1>
       <p class="bd-hero__sub">Attend a live, personalized demo with one of our product experts to learn how to hire for the agentic era.</p>
+      ${demoInfo()}
     </div>
     <div class="bd-stage__right">${right}</div>
   </main>`;

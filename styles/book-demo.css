@@ -759,6 +759,22 @@ img { display: block; max-width: 100%; }
   margin: 20px 0 0; max-width: 420px;
   font-size: var(--hrds-text-body-md); line-height: 1.5; color: var(--muted-foreground);
 }
+/* "What happens in your demo" checklist on the split-layout left column. */
+.bd-demoinfo { margin-top: 32px; max-width: 420px; }
+.bd-demoinfo__lead {
+  margin: 0 0 16px; font-weight: 600;
+  font-size: var(--hrds-text-body-md); color: var(--foreground);
+}
+.bd-demolist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.bd-demolist__item {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: var(--hrds-text-body-md); line-height: 1.45; color: var(--muted-foreground);
+}
+.bd-demolist__item strong { color: var(--foreground); font-weight: 600; }
+.bd-demolist__check {
+  flex: 0 0 auto; margin-top: 1px; padding: 3px; border-radius: 50%;
+  background: var(--primary); color: var(--foreground);
+}
 .bd-stage__right {
   display: flex; flex-direction: column; justify-content: center;
   width: 100%; max-width: 600px;
