@@ -206,11 +206,13 @@ img { display: block; max-width: 100%; }
   border-color: var(--foreground);
   box-shadow: 0 4px 12px -4px rgba(16, 24, 40, 0.14);
 }
-/* Selected = lime border + a faint lime tint, lifted with a subtle lime glow. */
+/* Selected = lime border + a faint lime tint, lifted with a subtle lime glow.
+   Keep the border at 1px and draw the extra ring with box-shadow so the content
+   box width never changes — otherwise the description reflows/wraps on select. */
 .bd-prodsel__card.is-on {
-  border: 2px solid var(--primary);
+  border-color: var(--primary);
   background: color-mix(in srgb, var(--primary) 9%, #fff);
-  box-shadow: 0 4px 14px -6px color-mix(in srgb, var(--primary) 55%, transparent);
+  box-shadow: 0 0 0 1px var(--primary), 0 4px 14px -6px color-mix(in srgb, var(--primary) 55%, transparent);
 }
 .bd-prodsel__icon {
   grid-area: icon; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;

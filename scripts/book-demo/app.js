@@ -189,13 +189,26 @@ const SCREENS = {
    right. Used by identify → loading → book so the left stays put while the
    right swaps from the form to the calendar. */
 const DEMO_CHECK = `<svg class="bd-demolist__check" viewBox="0 0 20 20" width="22" height="22" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 7" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-const DEMO_POINTS = [
-  "Learn how <strong>Chakra fits into your hiring workflow</strong>",
-  "See how <strong>Chakra screens any role, at scale</strong>",
-  "Get <strong>pricing built for your team</strong>",
-];
+const DEMO_POINTS = {
+  chakra: [
+    "Learn how <strong>Chakra fits into your hiring workflow</strong>",
+    "See how <strong>Chakra screens any role, at scale</strong>",
+    "Get <strong>pricing built for your team</strong>",
+  ],
+  interview: [
+    "Learn how <strong>Interviews fit into your hiring workflow</strong>",
+    "See <strong>live, collaborative coding interviews</strong>",
+    "Get <strong>pricing built for your team</strong>",
+  ],
+  all: [
+    "Learn how <strong>HackerRank fits into your hiring workflow</strong>",
+    "See how <strong>Screen, Interview & Chakra work together</strong>",
+    "Get <strong>pricing built for your team</strong>",
+  ],
+};
 function demoInfo() {
-  const items = DEMO_POINTS.map(
+  const points = DEMO_POINTS[state.product] || DEMO_POINTS.chakra;
+  const items = points.map(
     (point) => `<li class="bd-demolist__item">${DEMO_CHECK}<span>${point}</span></li>`
   ).join("");
   return `
