@@ -521,11 +521,12 @@ img { display: block; max-width: 100%; }
 /* Back button — small round control inline next to the avatar */
 .bd-cal__back {
   display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
-  width: 32px; height: 32px; margin: 0; padding: 0; cursor: pointer;
-  border: 1px solid var(--border); background: var(--background); border-radius: 50%;
-  color: var(--muted-foreground); transition: color 0.15s ease, border-color 0.15s ease;
+  width: 28px; height: 32px; margin: 0 -2px 0 0; padding: 0; cursor: pointer;
+  border: 0; background: none; border-radius: 0;
+  color: var(--foreground); transition: opacity 0.15s ease;
 }
-.bd-cal__back:hover { color: var(--foreground); border-color: var(--foreground); }
+.bd-cal__back:hover { opacity: 0.6; }
+.bd-cal__back:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; border-radius: 4px; }
 .bd-request { margin-top: 12px; }
 .bd-request .bd-btn { margin-top: 8px; }
 
