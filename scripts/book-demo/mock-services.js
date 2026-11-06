@@ -98,7 +98,7 @@ const NAMES = {
 
 /* Reps the router can hand out. minutes = meeting length. */
 export const REPS = {
-  chakra:    { id: "chakra",    name: "Ana Reyes",    title: "Chakra specialist",               initials: "AR", minutes: 30 },
+  chakra:    { id: "chakra",    name: "Dev RS",       title: "Chakra specialist",               initials: "DR", minutes: 30, photo: "assets/reps/dev-rs.png" },
   interview: { id: "interview", name: "Marcus Lee",   title: "Interview specialist",            initials: "ML", minutes: 30 },
   solutions: { id: "solutions", name: "Dana Okafor",  title: "Solutions consultant",            initials: "DO", minutes: 30 },
   csm:       { id: "csm",       name: "Jordan Blake", title: "Your account manager",            initials: "JB", minutes: 30 },

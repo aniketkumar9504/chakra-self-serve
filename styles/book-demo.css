@@ -754,6 +754,11 @@ img { display: block; max-width: 100%; }
   display: flex; flex-direction: column;
   justify-content: center;     /* centre vertically */
   align-items: flex-start;     /* left-aligned */
+  /* Pin the left to a constant viewport-height band (not the grid row), so it
+     stays put when the right card grows (e.g. the note box appears on slot
+     select). align-self:start stops it stretching to the taller row. */
+  align-self: start;
+  min-height: calc(100vh - 200px);
 }
 .bd-stage__left .bd-hero__title { margin: 0; text-align: left; white-space: nowrap; }
 .bd-stage__left .bd-meta { margin-top: 18px; justify-content: flex-start; }
@@ -861,7 +866,7 @@ img { display: block; max-width: 100%; }
     grid-template-columns: 1fr; gap: 24px; max-width: 480px;
     align-items: start; min-height: 0; padding-top: 32px;
   }
-  .bd-stage__left { justify-content: flex-start; padding-bottom: 0; }
+  .bd-stage__left { justify-content: flex-start; padding-bottom: 0; min-height: 0; align-self: stretch; }
   .bd-stage__left .bd-hero__title { font-size: clamp(30px, 8vw, 40px); }
   .bd-stage__right { max-width: 100%; justify-content: flex-start; }
 }

@@ -557,7 +557,7 @@ function renderBook() {
           <button class="bd-cal__back" type="button" data-action="back" aria-label="Back">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3.5 5.5 8 10 12.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
-          <span class="bd-avatar bd-avatar--rep bd-avatar--photo" aria-hidden="true"><img src="assets/avatar-placeholder.svg" alt="" /></span>
+          <span class="bd-avatar bd-avatar--rep bd-avatar--photo" aria-hidden="true"><img src="${state.rep.photo || "assets/avatar-placeholder.svg"}" alt="" /></span>
           <div>
             <div class="bd-rep__name" id="bd-cal-h">${esc(state.rep.name)}</div>
             <div class="bd-rep__meta">${esc(repTitle())} · ${state.rep.minutes} min</div>
