@@ -485,10 +485,12 @@ img { display: block; max-width: 100%; }
 .bd-day__dom { font-size: var(--hrds-text-subtitle-lg); font-weight: 600; }
 .bd-day__mon { font-size: 11px; color: var(--muted-foreground); }
 .bd-day:hover { border-color: rgba(20, 20, 25, 0.28); }
-/* Selected reads via a clean white fill + soft lift, not a heavy dark outline. */
+/* Selected = soft brand-green tint + green ring (matches the product cards),
+   so it reads clearly against the light card without a heavy fill. */
 .bd-day.is-on {
-  background: #fff; border-color: rgba(20, 20, 25, 0.2); color: var(--foreground);
-  box-shadow: 0 2px 8px -3px rgba(20, 20, 25, 0.16);
+  background: color-mix(in srgb, var(--primary) 14%, #fff);
+  border-color: var(--primary); color: var(--foreground);
+  box-shadow: 0 0 0 1px var(--primary), 0 3px 12px -5px color-mix(in srgb, var(--primary) 50%, transparent);
 }
 .bd-day:has(input:focus-visible) { outline: 2px solid var(--ring); outline-offset: 2px; }
 
@@ -503,8 +505,9 @@ img { display: block; max-width: 100%; }
 .bd-time input { position: absolute; opacity: 0; width: 1px; height: 1px; }
 .bd-time:hover { border-color: rgba(20, 20, 25, 0.28); }
 .bd-time.is-on {
-  background: #fff; border-color: rgba(20, 20, 25, 0.2); color: var(--foreground);
-  box-shadow: 0 2px 8px -3px rgba(20, 20, 25, 0.16);
+  background: color-mix(in srgb, var(--primary) 14%, #fff);
+  border-color: var(--primary); color: var(--foreground);
+  box-shadow: 0 0 0 1px var(--primary), 0 3px 12px -5px color-mix(in srgb, var(--primary) 50%, transparent);
 }
 .bd-time:has(input:focus-visible) { outline: 2px solid var(--ring); outline-offset: 2px; }
 
