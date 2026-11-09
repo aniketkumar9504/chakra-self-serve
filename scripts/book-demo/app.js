@@ -1148,7 +1148,7 @@ document.addEventListener("click", (e) => {
   render();
 });
 
-/* Header CTAs ("Try it yourself" / "Contact us") live outside #bd-app. */
+/* Header CTAs ("Contact us") and the footer community link live outside #bd-app. */
 document.addEventListener("click", (e) => {
   const contact = e.target.closest(".bd-header [data-action='contact']");
   if (contact) {
@@ -1157,6 +1157,12 @@ document.addEventListener("click", (e) => {
     state.contactSent = false;
     state.contactError = "";
     setScreen("contact");
+    return;
+  }
+  const community = e.target.closest(".bd-footer [data-action='community']");
+  if (community) {
+    e.preventDefault();
+    setScreen("community");
     return;
   }
 });
