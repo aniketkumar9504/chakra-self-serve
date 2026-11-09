@@ -14,6 +14,9 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
+  /* header (64) + footer (~96): subtracted from viewport-fill screens so the
+     footer sits within the fold instead of just below it. */
+  --bd-chrome: 160px;
   /* Soft Chakra-colours glow at the top, fading to white (matches the demo page). */
   background-color: var(--background);
   background-image: url("../assets/bg-gradient-strong.svg");
@@ -172,7 +175,7 @@ img { display: block; max-width: 100%; }
 .bd-identify {
   max-width: 520px;
   padding: 32px 24px 48px;
-  min-height: calc(100vh - 64px);
+  min-height: calc(100vh - var(--bd-chrome));
   display: flex;
   flex-direction: column;
   justify-content: center; /* center the column vertically */
@@ -234,7 +237,7 @@ img { display: block; max-width: 100%; }
 /* v2 centered booking (calendar card centered on the page) */
 .bd-bookcenter {
   max-width: 516px; margin: 0 auto; padding: 48px 24px 56px;
-  min-height: calc(100vh - 64px);
+  min-height: calc(100vh - var(--bd-chrome));
   display: flex; flex-direction: column; justify-content: center;
 }
 .bd-bookcenter__inner { width: 100%; }
@@ -618,7 +621,7 @@ img { display: block; max-width: 100%; }
   grid-template-columns: 1.08fr 0.92fr;
   gap: 60px;
   align-items: center;
-  min-height: calc(100vh - 64px);
+  min-height: calc(100vh - var(--bd-chrome));
   padding: 48px 32px 56px;
 }
 
@@ -748,7 +751,7 @@ img { display: block; max-width: 100%; }
   grid-template-columns: 1fr 1.25fr;
   gap: 80px;
   align-items: stretch;
-  min-height: calc(100vh - 64px);
+  min-height: calc(100vh - var(--bd-chrome));
   padding: 64px 64px 72px;
 }
 /* Both columns are vertically centered in the viewport. The card grows
@@ -762,7 +765,7 @@ img { display: block; max-width: 100%; }
      stays put when the right card grows (e.g. the note box appears on slot
      select). align-self:start stops it stretching to the taller row. */
   align-self: start;
-  min-height: calc(100vh - 200px);
+  min-height: calc(100vh - var(--bd-chrome) - 136px);
 }
 .bd-stage__left .bd-hero__title { margin: 0; text-align: left; white-space: nowrap; }
 .bd-stage__left .bd-meta { margin-top: 18px; justify-content: flex-start; }
