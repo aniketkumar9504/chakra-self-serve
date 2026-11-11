@@ -1165,6 +1165,12 @@ document.addEventListener("click", (e) => {
     setScreen("community");
     return;
   }
+  // "Start a free trial" — placeholder for now (destination TBD).
+  const trial = e.target.closest(".bd-header [data-action='trial']");
+  if (trial) {
+    e.preventDefault();
+    return;
+  }
 });
 
 /* Close the product dropdown on an outside click or Escape. */
