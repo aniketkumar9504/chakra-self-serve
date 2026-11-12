@@ -368,6 +368,9 @@ function renderIdentify() {
           ${state.validating
             ? `<p class="bd-validating" role="status"><span class="bd-validating__spin" aria-hidden="true"></span>Looking up your company…</p>`
             : ""}
+          ${state.layout === "v1" && !state.validated && !state.validating && !emailErrMsg && !state.emailPersonal
+            ? `<p class="bd-field-hint">We'll use this to pull in your company details automatically — then you just pick a time. No long forms.</p>`
+            : ""}
         </div>
 
         ${state.validated ? `

@@ -116,6 +116,12 @@ img { display: block; max-width: 100%; }
 .bd-help { margin: 12px 0 0; color: var(--muted-foreground); font-size: var(--hrds-text-body-sm); line-height: var(--hrds-text-body-sm-lh); }
 .bd-label { display: block; margin: 0 0 6px; font-size: var(--hrds-text-body-sm); line-height: var(--hrds-text-body-sm-lh); font-weight: 500; }
 .bd-error { margin: 6px 0 0; color: var(--destructive, #c0362c); font-weight: 500; font-size: var(--hrds-text-body-sm); line-height: var(--hrds-text-body-sm-lh); }
+/* Helper microcopy under the email field: sets expectations for what clicking
+   "Book a demo" does (auto-fills details, then pick a slot). */
+.bd-field-hint {
+  margin: 8px 0 0; color: var(--muted-foreground);
+  font-size: var(--hrds-text-body-sm); line-height: 1.45;
+}
 
 /* ---- inputs ---- */
 .bd-input {
