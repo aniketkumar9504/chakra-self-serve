@@ -14,8 +14,11 @@ const app = document.getElementById("bd-app");
 const params = new URLSearchParams(location.search);
 const validProducts = ["chakra", "interview", "all"];
 const urlProduct = validProducts.includes(params.get("product")) ? params.get("product") : null;
-// Layout variation: v1 = split (headline left / content right), v2 = centered.
-const initLayout = params.get("layout") === "v2" ? "v2" : "v1";
+// Layout variation: v1 = split (headline left / content right), v2 = centered,
+// v3 = heading on top + form card left + customer testimonial right (no product
+// selector, no checklist). v3 is set per-page via <body data-layout="v3">.
+const layoutHint = params.get("layout") || (document.body && document.body.dataset.layout) || "";
+const initLayout = layoutHint === "v2" ? "v2" : layoutHint === "v3" ? "v3" : "v1";
 
 const state = {
   screen: "identify",
@@ -229,6 +232,72 @@ function stageLayout(right) {
   </main>`;
 }
 
+/* ===== v3 layout: heading on top, form card left, customer testimonial right =====
+   Reuses the current flow; the only differences are the frame (below) plus a
+   hidden product selector (handled in renderIdentify). */
+const VOICE_HOST = "https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1";
+const CF_STREAM = "https://customer-f790wlz2d5j6kkhy.cloudflarestream.com";
+const hlsUrl = (uid) => `${CF_STREAM}/${uid}/manifest/video.m3u8`;
+const VOICES = [
+  { quote: "“We insist on it.”", label: "DeepL makes candidates use AI in its new interview round",
+    photo: `${VOICE_HOST}/t-deepl-smile.webp`, logo: `${VOICE_HOST}/t-logo-deepl.svg`, company: "DeepL",
+    video: "f19901c76b601d1f41ce7b7e44b9ec95" },
+  { quote: "1,000+", label: "People hired as Cerebras scaled, with HackerRank",
+    photo: `${VOICE_HOST}/t-cerebras.webp`, logo: `${VOICE_HOST}/t-logo-cerebras.svg`, company: "Cerebras",
+    video: "26dbc856835b403b61f6071f7d9aa8fb" },
+  { quote: "“A game changer”", label: "HackerRank helps HPE find the brightest talent across regions",
+    photo: `${VOICE_HOST}/t-hpe-smile.webp`, logo: `${VOICE_HOST}/t-logo-hpe.svg`, company: "HPE",
+    video: null },
+  { quote: "“Engineering fundamentals still matter.”", label: "But can someone build with AI, business context and judgment?",
+    photo: `${VOICE_HOST}/t-adobe-smile.webp`, logo: `${VOICE_HOST}/t-logo-adobe.svg`, company: "Adobe",
+    video: "a17d027c898fe7ac4a10e93b1025d6df" },
+];
+const activeVoice = VOICES[Math.floor(Math.random() * VOICES.length)];
+function renderVoice() {
+  const v = activeVoice;
+  const media = v.video
+    ? `<video class="bd-voice__media" data-hls="${hlsUrl(v.video)}" poster="${v.photo}"
+         muted loop playsinline preload="auto" aria-hidden="true"></video>`
+    : `<img class="bd-voice__media" src="${v.photo}" alt="" loading="lazy" />`;
+  return `<figure class="bd-voice ${v.video ? "bd-voice--video" : "bd-voice--photo"}">
+    ${media}
+    <span class="bd-voice__fade" aria-hidden="true"></span>
+    <img class="bd-voice__logo" src="${v.logo}" alt="${esc(v.company)}" loading="lazy" />
+    <figcaption class="bd-voice__foot">
+      <p class="bd-voice__quote">${esc(v.quote)}</p>
+      <p class="bd-voice__label">${esc(v.label)}</p>
+    </figcaption>
+  </figure>`;
+}
+function initVoiceVideo() {
+  const vid = app.querySelector("video.bd-voice__media[data-hls]");
+  if (!vid || vid.dataset.wired) return;
+  vid.dataset.wired = "1";
+  vid.muted = true;
+  const src = vid.dataset.hls;
+  const start = () => { const p = vid.play(); if (p && p.catch) p.catch(() => {}); };
+  setTimeout(start, 3000);
+  if (vid.canPlayType("application/vnd.apple.mpegurl")) {
+    vid.src = src;
+  } else if (window.Hls && window.Hls.isSupported()) {
+    const hls = new window.Hls({ capLevelToPlayerSize: true, startLevel: -1 });
+    hls.loadSource(src);
+    hls.attachMedia(vid);
+  }
+}
+function v3Layout(inner) {
+  return `
+  <main class="bd-screen bd-studio" aria-labelledby="bd-id-title">
+    <header class="bd-studio__head">
+      <h1 class="bd-hero__title" id="bd-id-title">See HackerRank in action</h1>
+    </header>
+    <div class="bd-studio__cols">
+      <div class="bd-studio__main">${inner}</div>
+      <aside class="bd-studio__voice">${renderVoice()}</aside>
+    </div>
+  </main>`;
+}
+
 /* v2 centered hero header — shared across identify / loading / book so the
    top stays put and the transition into the calendar feels seamless. */
 function v2Header() {
@@ -260,10 +329,10 @@ function renderIdentify() {
   const ctaReady = state.validated && state.sizeValue && state.countryValue;
   const form = `
       <form class="bd-emailform" data-action="email-submit" novalidate>
-        <div class="bd-formrow">
+        ${state.layout === "v3" ? "" : `<div class="bd-formrow">
           <span class="bd-label" id="bd-product-label">Which product are you interested in?</span>
           ${renderProductTabs()}
-        </div>
+        </div>`}
 
         <div class="bd-formrow">
           <div class="bd-label-row">
@@ -312,6 +381,10 @@ function renderIdentify() {
         <p class="bd-card-dev">Are you a developer? <a class="bd-link" href="#" data-action="community">Join our community &rarr;</a></p>
       </form>`;
 
+  // v3 — heading on top, form card left, testimonial right.
+  if (state.layout === "v3") {
+    return v3Layout(`<div class="bd-v1card">${form}</div>`);
+  }
   // v2 — centered single column (hero on top, form below).
   if (state.layout === "v2") {
     return v2Layout(`<div class="bd-formcard">${form}</div>`);
@@ -412,6 +485,9 @@ function renderLoading() {
       <div class="bd-spinner" aria-hidden="true"></div>
       <p class="bd-loading__text">${esc(state.loadingText)}</p>
     </div>`;
+  if (state.layout === "v3") {
+    return v3Layout(`<div class="bd-v1card">${spinner}</div>`);
+  }
   if (state.layout === "v2") {
     return v2Layout(spinner);
   }
@@ -578,6 +654,10 @@ function renderBook() {
         </form>
       </section>`;
 
+  // v3 — heading on top, calendar card left, testimonial right (same frame as identify).
+  if (state.layout === "v3") {
+    return v3Layout(`<div class="bd-v1card">${bannerHTML}${calPanel}</div>`);
+  }
   // v2 — same hero header as the form, calendar opens as a card below (seamless).
   if (state.layout === "v2") {
     return v2Layout(`${bannerHTML}${calPanel}`);
@@ -1289,6 +1369,7 @@ document.addEventListener("keydown", (e) => {
 
 /* ---- focus management ---- */
 function afterMount() {
+  if (state.layout === "v3") initVoiceVideo();
   const h1 = app.querySelector(".bd-h1");
   if (h1 && state.screen !== "book") h1.setAttribute("tabindex", "-1");
   if (state.countryOpen) {
