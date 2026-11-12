@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="styles/hrds/tokens.css" />
   <link rel="stylesheet" href="styles/hrds/theme.css" />
   <link rel="stylesheet" href="styles/hrds/fonts.css" />
-  <link rel="stylesheet" href="styles/book-demo.css?v=131" />
+  <link rel="stylesheet" href="styles/book-demo.css?v=132" />
 </head>
 <body>
   <header class="bd-header">
@@ -34,33 +34,85 @@
     <div class="bd-trust__rotator" id="bd-trust-rotator" aria-live="polite"></div>
   </section>
 
-  <script type="module" src="scripts/book-demo/app.js?v=131"></script>
+  <script type="module" src="scripts/book-demo/app.js?v=132"></script>
   <script>
-  /* Rotating customer testimonial strip (logo + an AI-in-hiring line), reusing
-     the homepage customer voices. Cycles with a soft cross-fade; pauses on hover
-     and respects prefers-reduced-motion. */
+  /* Rotating customer testimonial strip: a clickable video thumbnail + company
+     logo + an AI-in-hiring line, reusing the homepage customer voices. Clicking a
+     thumbnail opens that customer's film (Cloudflare Stream) in a lightbox. Cycles
+     with a soft cross-fade; pauses on hover; respects prefers-reduced-motion. */
   (function () {
     var H = "https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1";
+    var CF = "https://customer-f790wlz2d5j6kkhy.cloudflarestream.com";
     var T = [
-      { logo: H + "/t-logo-deepl.svg",    company: "DeepL",    line: "Every candidate uses AI in our interviews now. We insist on it." },
-      { logo: H + "/t-logo-adobe.svg",    company: "Adobe",    line: "We hire for judgment and AI fluency, not just the fundamentals." },
-      { logo: H + "/t-logo-cerebras.svg", company: "Cerebras", line: "We hired 1,000+ engineers as we scaled, without lowering the bar." },
-      { logo: H + "/t-logo-hpe.svg",      company: "HPE",      line: "We find the brightest talent across every region." }
+      { logo: H + "/t-logo-deepl.svg",    company: "DeepL",    photo: H + "/t-deepl-smile.webp", video: "f19901c76b601d1f41ce7b7e44b9ec95", line: "Every candidate uses AI in our interviews now. We insist on it." },
+      { logo: H + "/t-logo-adobe.svg",    company: "Adobe",    photo: H + "/t-adobe-smile.webp", video: "a17d027c898fe7ac4a10e93b1025d6df", line: "We hire for judgment and AI fluency, not just the fundamentals." },
+      { logo: H + "/t-logo-cerebras.svg", company: "Cerebras", photo: H + "/t-cerebras.webp",    video: "26dbc856835b403b61f6071f7d9aa8fb", line: "We hired 1,000+ engineers as we scaled, without lowering the bar." },
+      { logo: H + "/t-logo-hpe.svg",      company: "HPE",      photo: H + "/t-hpe-smile.webp",   video: null, line: "We find the brightest talent across every region." }
     ];
     var el = document.getElementById("bd-trust-rotator");
     if (!el) return;
-    // Start on Cerebras (not DeepL) so the strip doesn't twin the left-column
-    // DeepL testimonial on load.
-    var i = 2;
+    var i = 0;
+    var timer;
+
+    function thumb(t) {
+      if (t.video) {
+        return '<button class="bd-trust__thumb" type="button" data-video="' + t.video +
+               '" aria-label="Play the ' + t.company + ' customer story">' +
+               '<img src="' + t.photo + '" alt="" loading="lazy" />' +
+               '<span class="bd-trust__play" aria-hidden="true"></span></button>';
+      }
+      return '<span class="bd-trust__thumb bd-trust__thumb--static">' +
+             '<img src="' + t.photo + '" alt="" loading="lazy" /></span>';
+    }
     function html(t) {
-      return '<img class="bd-trust__logo" src="' + t.logo + '" alt="' + t.company + '" loading="lazy" />' +
+      return thumb(t) +
+             '<img class="bd-trust__logo" src="' + t.logo + '" alt="' + t.company + '" loading="lazy" />' +
              '<p class="bd-trust__quote">“' + t.line + '”</p>';
     }
     el.innerHTML = html(T[i]);
+
+    /* ---- Video lightbox ---- */
+    var modal = document.createElement("div");
+    modal.className = "bd-vmodal";
+    modal.hidden = true;
+    modal.innerHTML =
+      '<div class="bd-vmodal__backdrop" data-close></div>' +
+      '<div class="bd-vmodal__dialog" role="dialog" aria-modal="true" aria-label="Customer story">' +
+        '<button class="bd-vmodal__close" type="button" data-close aria-label="Close">✕</button>' +
+        '<div class="bd-vmodal__frame" id="bd-vmodal-frame"></div>' +
+      '</div>';
+    document.body.appendChild(modal);
+    var frame = modal.querySelector("#bd-vmodal-frame");
+    function openVideo(uid) {
+      frame.innerHTML = '<iframe src="' + CF + "/" + uid + '/iframe?autoplay=true" ' +
+        'allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" ' +
+        'allowfullscreen="true"></iframe>';
+      modal.hidden = false;
+      document.body.style.overflow = "hidden";
+    }
+    function closeVideo() {
+      modal.hidden = true;
+      frame.innerHTML = ""; // stop playback
+      document.body.style.overflow = "";
+    }
+    modal.addEventListener("click", function (e) {
+      if (e.target.hasAttribute("data-close")) closeVideo();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !modal.hidden) closeVideo();
+    });
+    // Delegated so it survives the innerHTML swap on each rotation.
+    el.addEventListener("click", function (e) {
+      var btn = e.target.closest ? e.target.closest("[data-video]") : null;
+      if (btn) { clearInterval(timer); openVideo(btn.getAttribute("data-video")); }
+    });
+
+    /* ---- Rotation ---- */
     var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) return;
-    var timer = setInterval(rotate, 4200);
+    timer = setInterval(rotate, 4200);
     function rotate() {
+      if (!modal.hidden) return; // hold while a film is open
       el.classList.add("is-out");
       setTimeout(function () {
         i = (i + 1) % T.length;
