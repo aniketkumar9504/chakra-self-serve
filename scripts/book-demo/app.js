@@ -288,12 +288,14 @@ function initVoiceVideo() {
 function v3Layout(inner) {
   return `
   <main class="bd-screen bd-studio" aria-labelledby="bd-id-title">
-    <header class="bd-studio__head">
-      <h1 class="bd-hero__title" id="bd-id-title">See HackerRank in action</h1>
-      <p class="bd-studio__sub">Attend a live, personalized demo with one of our product experts to learn how to hire for the agentic era.</p>
-    </header>
     <div class="bd-studio__cols">
-      <div class="bd-studio__main">${inner}</div>
+      <div class="bd-studio__left">
+        <header class="bd-studio__head">
+          <h1 class="bd-hero__title" id="bd-id-title">See HackerRank in action</h1>
+          <p class="bd-studio__sub">Attend a live, personalized demo with one of our product experts to learn how to hire for the agentic era.</p>
+        </header>
+        <div class="bd-studio__main">${inner}</div>
+      </div>
       <aside class="bd-studio__voice">${renderVoice()}</aside>
     </div>
   </main>`;
