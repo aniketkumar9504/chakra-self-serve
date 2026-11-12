@@ -194,9 +194,9 @@ const SCREENS = {
 const DEMO_CHECK = `<svg class="bd-demolist__check" viewBox="0 0 20 20" width="22" height="22" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 7" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 /* Generic, product-agnostic value points for the v1 left column. */
 const DEMO_POINTS = [
-  "Learn how <strong>HackerRank fits into your hiring workflow</strong>",
-  "See how we <strong>screen and interview any role, at scale</strong>",
-  "Get <strong>pricing built for your team</strong>",
+  "Learn how HackerRank fits into your hiring workflow",
+  "See how we screen and interview any role, at scale",
+  "Get pricing built for your team",
 ];
 function demoInfo() {
   const points = DEMO_POINTS;
@@ -214,7 +214,7 @@ function stageLayout(right) {
   return `
   <main class="bd-screen bd-stage" aria-labelledby="bd-id-title">
     <div class="bd-stage__left">
-      <h1 class="bd-hero__title" id="bd-id-title">See HackerRank<br />in action</h1>
+      <h1 class="bd-hero__title" id="bd-id-title">Book a HackerRank<br />demo</h1>
       ${demoInfo()}
     </div>
     <div class="bd-stage__right">${right}</div>
