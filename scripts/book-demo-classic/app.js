@@ -153,8 +153,9 @@ function renderContact() {
   </main>`;
 }
 
-/* Customer testimonials (same voices as the homepage), shown on the right of
-   the identify screen. Images are served from the shared hr-v1 asset host. */
+/* Customer testimonials (same voices as the homepage). One fills the whole
+   right side of the identify screen; a different one shows on each page load.
+   Images are served from the shared hr-v1 asset host. */
 const VOICE_HOST = "https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1";
 const VOICES = [
   { quote: "“We insist on it.”", label: "DeepL makes candidates use AI in its new interview round",
@@ -166,18 +167,19 @@ const VOICES = [
   { quote: "“Engineering fundamentals still matter.”", label: "But can someone build with AI, business context and judgment?",
     photo: `${VOICE_HOST}/t-adobe-smile.webp`, logo: `${VOICE_HOST}/t-logo-adobe.svg`, company: "Adobe" },
 ];
-function renderVoices() {
-  return `<div class="bd-voices" aria-label="What customers say">
-    ${VOICES.map((v) => `
-      <figure class="bd-voice">
-        <img class="bd-voice__photo" src="${v.photo}" alt="" width="56" height="56" loading="lazy" />
-        <figcaption class="bd-voice__body">
-          <p class="bd-voice__quote">${esc(v.quote)}</p>
-          <p class="bd-voice__label">${esc(v.label)}</p>
-          <img class="bd-voice__logo" src="${v.logo}" alt="${esc(v.company)}" loading="lazy" />
-        </figcaption>
-      </figure>`).join("")}
-  </div>`;
+// Pick one voice per page load (random), so it cycles on refresh.
+const activeVoice = VOICES[Math.floor(Math.random() * VOICES.length)];
+function renderVoice() {
+  const v = activeVoice;
+  return `<figure class="bd-voice">
+    <img class="bd-voice__img" src="${v.photo}" alt="" loading="lazy" />
+    <span class="bd-voice__fade" aria-hidden="true"></span>
+    <img class="bd-voice__logo" src="${v.logo}" alt="${esc(v.company)}" loading="lazy" />
+    <figcaption class="bd-voice__foot">
+      <p class="bd-voice__quote">${esc(v.quote)}</p>
+      <p class="bd-voice__label">${esc(v.label)}</p>
+    </figcaption>
+  </figure>`;
 }
 
 /* ---- Screen 1: Identify ---- */
@@ -204,7 +206,7 @@ function renderIdentify() {
       </div>
 
       <div class="bd-hero__right">
-        ${renderVoices()}
+        ${renderVoice()}
       </div>
     </div>
   </main>`;
