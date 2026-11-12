@@ -154,7 +154,10 @@ img { display: block; max-width: 100%; }
 /* ===================== Identify (full-width split hero) ===================== */
 /* The whole landing (header + hero + logo strip) is sized to fit within one
    viewport, so the "Trusted by" strip never slips below the fold. */
-.bd-identify { max-width: 1160px; padding: 0 40px 0; }
+/* Share the logo strip's container (max-width + side padding) so the hero
+   content lines up with the logos edge-to-edge. The wider container also opens
+   up the gap between the left text and the film. */
+.bd-identify { max-width: 1280px; padding: 0 64px 0; }
 .bd-emailform .bd-btn { margin-top: 12px; }
 
 /* Two columns: title + subtext + email on the left, customer voices right. */
