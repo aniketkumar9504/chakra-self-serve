@@ -950,12 +950,15 @@ img { display: block; max-width: 100%; }
   /* leave room for header (64) + logo strip (~104) so content AND the strip
      stay within the fold (no scroll) on a normal desktop. */
   min-height: calc(100vh - 64px - 104px);
-  display: flex; flex-direction: column; justify-content: center;
-  padding: 16px 56px;
+  /* Top-anchored (not centred) so advancing identify -> calendar doesn't
+     re-centre and shift the heading/video; the taller calendar just extends
+     downward instead. */
+  display: flex; flex-direction: column; justify-content: flex-start;
+  padding: 40px 56px 16px;
 }
 /* Left block (title + subline + form) and the film split the row into two
    halves, matching the reference proportions. */
-.bd-studio__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+.bd-studio__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
 .bd-studio__left { min-width: 0; display: flex; flex-direction: column; }
 .bd-studio__head .bd-hero__title {
   margin: 0; text-align: left; white-space: normal;
