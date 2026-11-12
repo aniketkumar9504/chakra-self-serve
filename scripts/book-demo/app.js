@@ -291,7 +291,7 @@ function v3Layout(inner) {
     <div class="bd-studio__cols">
       <div class="bd-studio__left">
         <header class="bd-studio__head">
-          <h1 class="bd-hero__title" id="bd-id-title">See HackerRank in action</h1>
+          <h1 class="bd-hero__title" id="bd-id-title">See HackerRank<br />in action</h1>
           <p class="bd-studio__sub">Attend a live, personalized demo with one of our product experts to learn how to hire for the agentic era.</p>
         </header>
         <div class="bd-studio__main">${inner}</div>
@@ -384,9 +384,9 @@ function renderIdentify() {
         <p class="bd-card-dev">Are you a developer? <a class="bd-link" href="#" data-action="community">Join our community &rarr;</a></p>
       </form>`;
 
-  // v3 — heading on top, form card left, testimonial right.
+  // v3 — title + subline + form (no card wrapper) left, large 9:16 film right.
   if (state.layout === "v3") {
-    return v3Layout(`<div class="bd-v1card">${form}</div>`);
+    return v3Layout(form);
   }
   // v2 — centered single column (hero on top, form below).
   if (state.layout === "v2") {
@@ -489,7 +489,7 @@ function renderLoading() {
       <p class="bd-loading__text">${esc(state.loadingText)}</p>
     </div>`;
   if (state.layout === "v3") {
-    return v3Layout(`<div class="bd-v1card">${spinner}</div>`);
+    return v3Layout(spinner);
   }
   if (state.layout === "v2") {
     return v2Layout(spinner);
