@@ -321,6 +321,8 @@ const names = ["candidate-a","candidate-east-asian-man","candidate-african-ameri
     }
   };
   var current='hire';
+  var LABELS={hire:{short:'Hire',long:"I'm here to hire"},practice:{short:'Learn',long:"I'm here to learn"}};
+  function setLabels(){ btns.forEach(function(b){ var k=b.getAttribute('data-tab'); if(LABELS[k]) b.textContent=(k===current?LABELS[k].long:LABELS[k].short); }); }
   function positionKnob(){
     var active=toggle.querySelector('.hr1-hero__tab[aria-pressed="true"]')||btns[0];
     if(!active||!knob) return;
@@ -337,6 +339,7 @@ const names = ["candidate-a","candidate-east-asian-man","candidate-african-ameri
     if(key===current||!CONTENT[key]) return;
     current=key;
     btns.forEach(function(b){ b.setAttribute('aria-pressed',b.getAttribute('data-tab')===key?'true':'false'); });
+    setLabels();
     positionKnob();
     hero.classList.toggle('is-practice',key==='practice'); // background recolours on its own 1.1s transition
     document.body.classList.toggle('hr1-dev-mode',key==='practice'); // hides the hiring sticky bar for self-identified devs
@@ -349,6 +352,7 @@ const names = ["candidate-a","candidate-east-asian-man","candidate-african-ameri
     },220);
   }
   btns.forEach(function(b){ b.addEventListener('click',function(){ switchTo(b.getAttribute('data-tab')); }); });
+  setLabels();
   // Position the knob instantly (no slide on first paint), then enable transitions.
   positionKnob();
   requestAnimationFrame(function(){ toggle.classList.add('is-ready'); });
