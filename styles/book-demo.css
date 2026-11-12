@@ -829,6 +829,15 @@ img { display: block; max-width: 100%; }
   /* No backdrop-filter support → fall back to a near-opaque card so it stays legible. */
   .bd-v1card { background: color-mix(in srgb, #fff 92%, transparent); }
 }
+/* Match the identify card's height to the left text block (heading + checklist)
+   so the two columns are equal-height and aligned top-to-bottom. The hero title
+   is a constant 56px on desktop, so this height is stable. The form is centered
+   within the slightly taller card. */
+.bd-v1card--identify {
+  min-height: 286px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+@media (max-width: 920px) { .bd-v1card--identify { min-height: 0; display: block; } }
 /* The loader + calendar live inside the same v1 card, so strip their own
    panel chrome (no card-in-card) and let the card grow vertically. */
 .bd-v1card .bd-cal { background: none; border: 0; border-radius: 0; box-shadow: none; padding: 0; margin: 0; }

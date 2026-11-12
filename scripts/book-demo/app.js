@@ -380,7 +380,9 @@ function renderIdentify() {
     return v2Layout(`<div class="bd-formcard">${form}</div>`);
   }
   // v1 — split (headline left / form card right, matching the calendar card).
-  return stageLayout(`<div class="bd-v1card">${form}</div>`);
+  // The identify card matches the height of the left text block (heading +
+  // checklist) so the two columns read as equal-height, top/bottom aligned.
+  return stageLayout(`<div class="bd-v1card bd-v1card--identify">${form}</div>`);
 }
 
 /* Product switcher — simple text segmented pills (no logos). */
