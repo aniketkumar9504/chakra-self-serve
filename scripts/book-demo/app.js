@@ -396,7 +396,8 @@ function renderIdentify() {
       <img src="assets/products/hr-logo-3.png" alt="" />
       <img src="assets/products/hr-logo-4.png" alt="" />
     </div>`;
-  return stageLayout(`<div class="bd-v1card bd-v1card--identify">${cardLogos}${form}</div>`);
+  // Logos sit behind the card and peek out above its top edge.
+  return stageLayout(`${cardLogos}<div class="bd-v1card bd-v1card--identify">${form}</div>`);
 }
 
 /* Product switcher — simple text segmented pills (no logos). */
@@ -498,8 +499,9 @@ function renderLoading() {
   if (state.layout === "v2") {
     return v2Layout(spinner);
   }
-  // v1 — reserve the calendar card's height so loader → calendar doesn't jerk.
-  return stageLayout(`<div class="bd-v1card bd-v1card--loading">${spinner}</div>`);
+  // v1 — ghost prefill card (reserves space) + the loader card, so the two-card
+  // layout matches the calendar screen and loader → calendar doesn't jerk.
+  return stageLayout(`<div class="bd-prefillcard bd-prefillcard--ghost" aria-hidden="true"></div><div class="bd-v1card bd-v1card--loading">${spinner}</div>`);
 }
 
 /* ---- Screen 2b: Location (only when enrichment can't prefill it) ---- */
@@ -645,14 +647,14 @@ function renderBook() {
     sizeTxt ? `${sizeTxt} employees` : "",
     locTxt,
   ].filter(Boolean);
-  const prefillHTML = `
-        <div class="bd-prefill">
-          <p class="bd-prefill__text">${prefillBits.map(esc).join(" &middot; ")}</p>
-          <button type="button" class="bd-link bd-prefill__edit" data-action="edit-details">Edit</button>
-        </div>`;
+  // Prefilled details live on their own translucent card, above the calendar card.
+  const prefillCard = `
+      <div class="bd-prefillcard">
+        <p class="bd-prefill__text">${prefillBits.map(esc).join(" &middot; ")}</p>
+        <button type="button" class="bd-link bd-prefill__edit" data-action="edit-details">Edit</button>
+      </div>`;
   const calPanel = `
       <section class="bd-panel bd-cal" aria-labelledby="bd-cal-h">
-        ${prefillHTML}
         <div class="bd-rep">
           <button class="bd-cal__back" type="button" data-action="back" aria-label="Back">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3.5 5.5 8 10 12.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -688,8 +690,8 @@ function renderBook() {
     return v2Layout(`${bannerHTML}${calPanel}`);
   }
   // v1 — split (static headline left, calendar right) with a book title.
-  // v1 — same card as the form/loader, so form → loader → calendar is one seamless surface.
-  return stageLayout(`<div class="bd-v1card">${bannerHTML}${calPanel}</div>`);
+  // v1 — prefilled-details card on top, then the calendar card.
+  return stageLayout(`${prefillCard}<div class="bd-v1card">${bannerHTML}${calPanel}</div>`);
 }
 
 /* Rich custom dropdown: product logo + name + description, in the trigger and
