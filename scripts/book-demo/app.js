@@ -175,6 +175,9 @@ function render() {
   app.innerHTML = SCREENS[state.screen] ? SCREENS[state.screen]() : "";
   renderProtoBar();
   syncLayoutToggle();
+  // Hide the testimonial strip on the confirmation (thank-you) screen.
+  const trust = document.querySelector(".bd-trust");
+  if (trust) trust.style.display = state.screen === "confirm" ? "none" : "";
   afterMount();
 }
 
@@ -1257,14 +1260,15 @@ app.addEventListener("click", (e) => {
     state.contactError = "";
     setScreen(state.returnScreen || "identify");
   } else if (action === "edit-details") {
-    // Back to the plain email field so they can change their email and re-enter.
-    state.validated = false;
-    state.validatedEmail = "";
+    // Return to the identify screen with all three details editable (email,
+    // company size, location), prefilled from what we looked up.
+    state.sizeValue = state.sizeValue || (state.profile && state.profile.size) || "";
+    state.countryValue = state.countryValue || (state.profile && state.profile.countryCode) || "";
+    state.validated = true;
+    state.validatedEmail = state.email;
     state.sizeError = "";
     state.countryError = "";
     setScreen("identify");
-    const el = document.getElementById("bd-email");
-    if (el) { el.focus(); const n = el.value.length; el.setSelectionRange(n, n); }
   } else if (action === "edit-email") {
     // Unlock the email field and hide the revealed fields until re-validated.
     state.validated = false;
