@@ -769,6 +769,10 @@ function afterMount() {
   const h1 = app.querySelector(".bd-h1");
   if (h1 && state.screen !== "book") h1.setAttribute("tabindex", "-1");
   if (state.screen === "identify") initVoiceVideo();
+  // The "Trusted by" logo strip belongs on the landing only — hide it once the
+  // visitor is in the loading / calendar / other flow screens.
+  const logos = document.querySelector(".bd-logos");
+  if (logos) logos.hidden = state.screen !== "identify";
 }
 
 /* ---- boot ---- */
