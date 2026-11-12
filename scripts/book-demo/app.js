@@ -210,32 +210,12 @@ function demoInfo() {
     </div>`;
 }
 
-/* Compact text testimonial for the v1 left column — a customer pull-quote with
-   the company logo. Uses the same brand customer-voice assets as the testimonial
-   page. (Swap this block for a small <video> to make it a video testimonial.) */
-const LEFT_TESTIMONIAL = {
-  quote: "We have every candidate use AI in our interviews now — we insist on it.",
-  logo: "https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/t-logo-deepl.svg",
-  company: "DeepL",
-};
-function demoTestimonial() {
-  const t = LEFT_TESTIMONIAL;
-  return `
-    <figure class="bd-quote">
-      <blockquote class="bd-quote__text">“${esc(t.quote)}”</blockquote>
-      <figcaption class="bd-quote__by">
-        <img class="bd-quote__logo" src="${t.logo}" alt="${esc(t.company)}" loading="lazy" />
-      </figcaption>
-    </figure>`;
-}
-
 function stageLayout(right) {
   return `
   <main class="bd-screen bd-stage" aria-labelledby="bd-id-title">
     <div class="bd-stage__left">
       <h1 class="bd-hero__title" id="bd-id-title">See HackerRank<br />in action</h1>
       ${demoInfo()}
-      ${demoTestimonial()}
     </div>
     <div class="bd-stage__right">${right}</div>
   </main>`;
@@ -369,7 +349,7 @@ function renderIdentify() {
             ? `<p class="bd-validating" role="status"><span class="bd-validating__spin" aria-hidden="true"></span>Looking up your company…</p>`
             : ""}
           ${state.layout === "v1" && !state.validated && !state.validating && !emailErrMsg && !state.emailPersonal
-            ? `<p class="bd-field-hint">We'll auto-fill your company details from your email — no long forms.</p>`
+            ? `<p class="bd-field-hint">We'll auto-fill your company details from your email. No long forms.</p>`
             : ""}
         </div>
 

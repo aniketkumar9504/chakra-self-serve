@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="styles/hrds/tokens.css" />
   <link rel="stylesheet" href="styles/hrds/theme.css" />
   <link rel="stylesheet" href="styles/hrds/fonts.css" />
-  <link rel="stylesheet" href="styles/book-demo.css?v=128" />
+  <link rel="stylesheet" href="styles/book-demo.css?v=129" />
 </head>
 <body>
   <header class="bd-header">
@@ -34,7 +34,7 @@
     <div class="bd-trust__rotator" id="bd-trust-rotator" aria-live="polite"></div>
   </section>
 
-  <script type="module" src="scripts/book-demo/app.js?v=128"></script>
+  <script type="module" src="scripts/book-demo/app.js?v=129"></script>
   <script>
   /* Rotating customer testimonial strip (logo + an AI-in-hiring line), reusing
      the homepage customer voices. Cycles with a soft cross-fade; pauses on hover
@@ -42,9 +42,9 @@
   (function () {
     var H = "https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1";
     var T = [
-      { logo: H + "/t-logo-deepl.svg",    company: "DeepL",    line: "Every candidate uses AI in our interviews now — we insist on it." },
+      { logo: H + "/t-logo-deepl.svg",    company: "DeepL",    line: "Every candidate uses AI in our interviews now. We insist on it." },
       { logo: H + "/t-logo-adobe.svg",    company: "Adobe",    line: "We hire for judgment and AI fluency, not just the fundamentals." },
-      { logo: H + "/t-logo-cerebras.svg", company: "Cerebras", line: "1,000+ engineers hired as we scaled — without lowering the bar." },
+      { logo: H + "/t-logo-cerebras.svg", company: "Cerebras", line: "We hired 1,000+ engineers as we scaled, without lowering the bar." },
       { logo: H + "/t-logo-hpe.svg",      company: "HPE",      line: "We find the brightest talent across every region." }
     ];
     var el = document.getElementById("bd-trust-rotator");
@@ -54,7 +54,7 @@
     var i = 2;
     function html(t) {
       return '<img class="bd-trust__logo" src="' + t.logo + '" alt="' + t.company + '" loading="lazy" />' +
-             '<p class="bd-trust__quote">' + t.line + '</p>';
+             '<p class="bd-trust__quote">“' + t.line + '”</p>';
     }
     el.innerHTML = html(T[i]);
     var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
