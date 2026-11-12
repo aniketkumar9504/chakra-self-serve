@@ -369,7 +369,7 @@ function renderIdentify() {
             ? `<p class="bd-validating" role="status"><span class="bd-validating__spin" aria-hidden="true"></span>Looking up your company…</p>`
             : ""}
           ${state.layout === "v1" && !state.validated && !state.validating && !emailErrMsg && !state.emailPersonal
-            ? `<p class="bd-field-hint">We'll use this to pull in your company details automatically — then you just pick a time. No long forms.</p>`
+            ? `<p class="bd-field-hint">We'll auto-fill your company details from your email — no long forms.</p>`
             : ""}
         </div>
 
@@ -387,7 +387,7 @@ function renderIdentify() {
           </div>
         </div>` : ""}
 
-        <button class="bd-btn bd-btn--primary bd-btn--block" type="submit">${ctaReady ? "Select a slot" : "Book a demo"}</button>
+        <button class="bd-btn bd-btn--primary bd-btn--block" type="submit">${ctaReady ? "Select a slot" : "Find a time &rarr;"}</button>
         <p class="bd-card-dev">Are you a developer? <a class="bd-link" href="#" data-action="community">Join our community &rarr;</a></p>
       </form>`;
 
