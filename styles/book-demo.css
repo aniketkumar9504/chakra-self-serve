@@ -765,10 +765,10 @@ img { display: block; max-width: 100%; }
 
 /* ===================== Stage: static headline (left) + content (right) ===================== */
 .bd-stage {
-  max-width: 1340px;
+  max-width: 1280px;
   display: grid;
-  grid-template-columns: 1fr 1.35fr;
-  gap: 64px;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 80px;
   align-items: stretch;
   min-height: calc(100vh - var(--bd-chrome));
   padding: 64px 64px 72px;
@@ -810,7 +810,7 @@ img { display: block; max-width: 100%; }
 }
 .bd-stage__right {
   display: flex; flex-direction: column; justify-content: center;
-  width: 100%; max-width: 660px;
+  width: 100%; max-width: 600px;
 }
 .bd-stage__right .bd-book__title { margin: 0 0 16px; }
 .bd-stage__right .bd-cal { margin: 0; padding: 28px; }
@@ -834,7 +834,7 @@ img { display: block; max-width: 100%; }
    is a constant 56px on desktop, so this height is stable. The form is centered
    within the slightly taller card. */
 .bd-v1card--identify {
-  min-height: 286px;
+  min-height: 380px;
   display: flex; flex-direction: column; justify-content: center;
 }
 @media (max-width: 920px) { .bd-v1card--identify { min-height: 0; display: block; } }
