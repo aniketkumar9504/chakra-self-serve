@@ -838,10 +838,16 @@ img { display: block; max-width: 100%; }
   display: flex; flex-direction: column; justify-content: center; gap: 28px;
 }
 @media (max-width: 920px) { .bd-v1card--identify { min-height: 0; display: block; padding: 28px; } }
-/* HackerRank product logos row across the top of the identify card. */
-.bd-cardlogos { display: flex; align-items: center; justify-content: center; gap: 24px; }
+/* HackerRank product logos row across the top of the identify card, with a
+   subtle divider underneath. */
+.bd-cardlogos {
+  display: flex; align-items: center; justify-content: center; gap: 24px;
+  padding-bottom: 22px; border-bottom: 1px solid rgba(20, 20, 25, 0.08);
+}
 .bd-cardlogos img { height: 46px; width: auto; display: block; }
 @media (max-width: 920px) { .bd-cardlogos { margin-bottom: 20px; } }
+/* Roomier, evenly spaced gap between the email field and the CTA on the card. */
+.bd-v1card--identify .bd-emailform .bd-btn { margin-top: 30px; }
 /* Loading card reserves the calendar card's height so the loader → calendar
    transition doesn't resize (jerk). Spinner centered in the reserved space. */
 .bd-v1card--loading {
