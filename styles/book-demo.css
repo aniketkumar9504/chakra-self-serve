@@ -236,9 +236,10 @@ img { display: block; max-width: 100%; }
 }
 .bd-prodsel__desc { grid-area: desc; font-size: 12px; color: var(--muted-foreground); line-height: 1.35; }
 
-/* v1 consent line above the Schedule-a-demo button */
+/* consent line, directly below the Schedule-a-demo button */
 .bd-consent {
-  margin: 22px 0 16px; font-size: var(--hrds-text-body-sm); line-height: 1.5; color: var(--muted-foreground);
+  margin: 12px 0 0; text-align: center;
+  font-size: var(--hrds-text-body-sm); line-height: 1.5; color: var(--muted-foreground);
 }
 .bd-consent .bd-link { text-decoration: underline; text-underline-offset: 2px; }
 /* v2 centered booking (calendar card centered on the page) */

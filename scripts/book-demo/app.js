@@ -567,8 +567,8 @@ function renderBook() {
         </div>
         ${renderDays()}
         <div id="bd-times">${renderTimes()}</div>
-        <p class="bd-consent">By clicking Schedule a Demo below you confirm that you have read and agree to HackerRank's <a class="bd-link" href="#" data-action="noop">Privacy Policy</a>.</p>
         <div id="bd-confirm">${renderConfirmBtn()}</div>
+        <p class="bd-consent">By scheduling a demo you confirm that you have read and agree to HackerRank's <a class="bd-link" href="#" data-action="noop">Privacy Policy</a>.</p>
         <p class="bd-cal__foot">
           <button class="bd-link" type="button" data-action="request-time">None of these work? Request a time</button>
         </p>
