@@ -765,10 +765,10 @@ img { display: block; max-width: 100%; }
 
 /* ===================== Stage: static headline (left) + content (right) ===================== */
 .bd-stage {
-  max-width: 1280px;
+  max-width: 1340px;
   display: grid;
-  grid-template-columns: 1fr 1.25fr;
-  gap: 80px;
+  grid-template-columns: 1fr 1.35fr;
+  gap: 64px;
   align-items: stretch;
   min-height: calc(100vh - var(--bd-chrome));
   padding: 64px 64px 72px;
@@ -810,7 +810,7 @@ img { display: block; max-width: 100%; }
 }
 .bd-stage__right {
   display: flex; flex-direction: column; justify-content: center;
-  width: 100%; max-width: 600px;
+  width: 100%; max-width: 660px;
 }
 .bd-stage__right .bd-book__title { margin: 0 0 16px; }
 .bd-stage__right .bd-cal { margin: 0; padding: 28px; }
@@ -848,8 +848,9 @@ img { display: block; max-width: 100%; }
 /* The loader + calendar live inside the same v1 card, so strip their own
    panel chrome (no card-in-card) and let the card grow vertically. */
 .bd-v1card .bd-cal { background: none; border: 0; border-radius: 0; box-shadow: none; padding: 0; margin: 0; }
-/* Loader fills the same height the form card had, so form → loader doesn't resize. */
-.bd-v1card .bd-loading__inner { min-height: 476px; }
+/* Loader reserves exactly the calendar card's inner height (454 + 2×28 padding
+   + 2×1 border = 512, the calendar card height), so loader → calendar doesn't resize. */
+.bd-v1card .bd-loading__inner { min-height: 454px; }
 /* Make the calendar a roomier widget (vertical only — width stays the same as
    the form so navigating identify → book doesn't shift the layout). */
 .bd-cal .bd-day { min-height: 70px; }
