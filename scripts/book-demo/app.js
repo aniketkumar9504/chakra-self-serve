@@ -380,9 +380,16 @@ function renderIdentify() {
     return v2Layout(`<div class="bd-formcard">${form}</div>`);
   }
   // v1 — split (headline left / form card right, matching the calendar card).
-  // The identify card matches the height of the left text block (heading +
-  // checklist) so the two columns read as equal-height, top/bottom aligned.
-  return stageLayout(`<div class="bd-v1card bd-v1card--identify">${form}</div>`);
+  // A row of the four HackerRank product logos sits at the top of the card for
+  // visual interest; the form sits below.
+  const cardLogos = `
+    <div class="bd-cardlogos" aria-hidden="true">
+      <img src="assets/products/hr-logo-1.png" alt="" />
+      <img src="assets/products/hr-logo-2.png" alt="" />
+      <img src="assets/products/hr-logo-3.png" alt="" />
+      <img src="assets/products/hr-logo-4.png" alt="" />
+    </div>`;
+  return stageLayout(`<div class="bd-v1card bd-v1card--identify">${cardLogos}${form}</div>`);
 }
 
 /* Product switcher — simple text segmented pills (no logos). */

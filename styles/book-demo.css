@@ -834,10 +834,14 @@ img { display: block; max-width: 100%; }
    is a constant 56px on desktop, so this height is stable. The form is centered
    within the slightly taller card. */
 .bd-v1card--identify {
-  min-height: 380px;
-  display: flex; flex-direction: column; justify-content: center;
+  min-height: 380px; padding: 36px 40px;
+  display: flex; flex-direction: column; justify-content: center; gap: 28px;
 }
-@media (max-width: 920px) { .bd-v1card--identify { min-height: 0; display: block; } }
+@media (max-width: 920px) { .bd-v1card--identify { min-height: 0; display: block; padding: 28px; } }
+/* HackerRank product logos row across the top of the identify card. */
+.bd-cardlogos { display: flex; align-items: center; justify-content: center; gap: 24px; }
+.bd-cardlogos img { height: 46px; width: auto; display: block; }
+@media (max-width: 920px) { .bd-cardlogos { margin-bottom: 20px; } }
 /* Loading card reserves the calendar card's height so the loader → calendar
    transition doesn't resize (jerk). Spinner centered in the reserved space. */
 .bd-v1card--loading {
