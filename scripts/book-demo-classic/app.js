@@ -32,6 +32,10 @@ const state = {
   loadingText: "Getting things ready…",
   booking: null,
   protoState: null,
+  returnScreen: "identify", // where "Back" on the contact page returns to
+  contactSent: false,       // contact-us form submitted
+  contactError: "",
+  contactMsg: "",
 };
 
 /* ---- prototype states (state switcher) ---- */
@@ -125,7 +129,53 @@ const SCREENS = {
   community: renderCommunity,
   book: renderBook,
   confirm: renderConfirm,
+  contact: renderContact,
 };
+
+/* ---- Contact us ---- */
+/* Contact-us page. A clear "Back" returns to wherever the user came from
+   (identify or the calendar), so they never lose their place in booking. */
+function renderContact() {
+  const backLabel = state.returnScreen === "book" ? "Back to your booking" : "Back to demo";
+  const back = `
+    <button class="bd-contact__back bd-link" type="button" data-action="contact-back">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3.5 5.5 8 10 12.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      ${backLabel}
+    </button>`;
+  if (state.contactSent) {
+    return `
+    <main class="bd-screen bd-contact" aria-labelledby="bd-contact-done">
+      <div class="bd-card bd-contact__card">
+        ${back}
+        <span class="bd-check" aria-hidden="true">✓</span>
+        <h2 class="bd-h2" id="bd-contact-done">Thanks — we'll be in touch</h2>
+        <p class="bd-sub">We've got your question and will reply${state.email ? ` to ${esc(state.email)}` : ""} shortly.</p>
+      </div>
+    </main>`;
+  }
+  return `
+  <main class="bd-screen bd-contact" aria-labelledby="bd-contact-title">
+    <div class="bd-card bd-contact__card">
+      ${back}
+      <h2 class="bd-h2" id="bd-contact-title">Have a question?</h2>
+      <p class="bd-sub">Tell us what you need and we'll get back to you.</p>
+      <form data-action="contact-submit" novalidate>
+        <label class="bd-label" for="bd-contact-email">Work email</label>
+        <input class="bd-input" type="email" id="bd-contact-email" autocomplete="email"
+               placeholder="name@company.com" value="${esc(state.email)}" />
+
+        <div class="bd-formrow">
+          <label class="bd-label" for="bd-contact-msg">Your question</label>
+          <textarea class="bd-input bd-textarea" id="bd-contact-msg" rows="3"
+                    placeholder="What would you like to know?">${esc(state.contactMsg)}</textarea>
+        </div>
+
+        ${state.contactError ? `<p class="bd-error" role="alert">${esc(state.contactError)}</p>` : ""}
+        <button class="bd-btn bd-btn--primary bd-btn--block" type="submit">Send</button>
+      </form>
+    </div>
+  </main>`;
+}
 
 /* ---- Screen 1: Identify ---- */
 function renderIdentify() {
@@ -489,6 +539,9 @@ function restart() {
   state.profile = null;
   state.email = "";
   state.emailError = "";
+  state.contactSent = false;
+  state.contactError = "";
+  state.contactMsg = "";
   state.product = urlProduct || "all";
   state.productPreselected = !!urlProduct;
   setScreen("identify");
@@ -518,6 +571,15 @@ app.addEventListener("submit", (e) => {
     enrichCompany(name).then((c) => enterBook({ ...state.profile, ...c }));
     state.loadingText = name ? `Finding the right person for ${name}…` : "Getting things ready…";
     setScreen("loading");
+  } else if (action === "contact-submit") {
+    // Persist fields first so an error re-render doesn't wipe them.
+    state.email = document.getElementById("bd-contact-email").value.trim();
+    state.contactMsg = document.getElementById("bd-contact-msg").value.trim();
+    if (!emailValid(state.email)) { state.contactError = "Enter a valid email so we can reply."; render(); return; }
+    if (!state.contactMsg) { state.contactError = "Add your question before sending."; render(); return; }
+    state.contactError = "";
+    state.contactSent = true;
+    render();
   } else if (action === "community-submit") {
     // mock: pretend the community account is created
     alert("Community account created (mock).");
@@ -604,8 +666,38 @@ app.addEventListener("click", (e) => {
     else note.textContent = "Enter a valid email to invite a teammate.";
   } else if (action === "restart") {
     restart();
+  } else if (action === "contact-back") {
+    state.contactSent = false;
+    state.contactError = "";
+    setScreen(state.returnScreen || "identify");
   } else if (action === "try" || action === "noop") {
     if (btn.getAttribute("href") === "#") e.preventDefault();
+  }
+});
+
+/* Header CTAs ("Start a free trial", "Contact us") and the footer community
+   link live outside #bd-app, so they're handled on document. */
+document.addEventListener("click", (e) => {
+  const contact = e.target.closest(".bd-header [data-action='contact']");
+  if (contact) {
+    e.preventDefault();
+    if (state.screen !== "contact") state.returnScreen = state.screen;
+    state.contactSent = false;
+    state.contactError = "";
+    setScreen("contact");
+    return;
+  }
+  const community = e.target.closest(".bd-footer [data-action='community']");
+  if (community) {
+    e.preventDefault();
+    setScreen("community");
+    return;
+  }
+  // "Start a free trial" — placeholder for now (destination TBD).
+  const trial = e.target.closest(".bd-header [data-action='trial']");
+  if (trial) {
+    e.preventDefault();
+    return;
   }
 });
 
