@@ -84,6 +84,13 @@ const personalEmail = (e) => {
   const d = String(e).trim().toLowerCase().split("@")[1];
   return !!d && PERSONAL_DOMAINS.has(d);
 };
+// Internal HackerRank emails keep the step-by-step flow (reveal details on the
+// identify screen, then pick a slot); everyone else goes straight to the
+// calendar with their details prefilled and editable there.
+const internalEmail = (e) => {
+  const d = String(e).trim().toLowerCase().split("@")[1];
+  return !!d && (d === "hackerrank.com" || d.endsWith(".hackerrank.com"));
+};
 const avatar = (initials, cls = "") =>
   `<span class="bd-avatar ${cls}" aria-hidden="true">${esc(initials)}</span>`;
 
@@ -131,9 +138,9 @@ const PRODUCT_ICON = { chakra: "chakra.svg", interview: "interview.svg", all: "a
 const PRODUCT_ORDER = ["chakra", "interview", "all"];
 
 /* Book-screen labels that reflect the product chosen on the identify screen. */
-const BOOK_TITLE = { chakra: "Chakra", interview: "Interview", all: "HackerRank" };
+const BOOK_TITLE = { chakra: "HackerRank", interview: "Interview", all: "HackerRank" };
 const PRODUCT_EXPERTISE = {
-  chakra: "Chakra specialist",
+  chakra: "Solutions specialist",
   interview: "Interview specialist",
   all: "Solutions consultant",
 };
@@ -627,8 +634,25 @@ function renderBook() {
   const bannerHTML = banner ? `<div class="bd-banner" role="status">${esc(banner)}</div>` : "";
   const country = countryByCode(state.countryValue || (p && p.countryCode));
   const tzFlag = country ? `<span class="bd-cal__tzflag" aria-hidden="true">${country.flag}</span>` : "";
+  // Prefilled details summary (email, company, size, location) with an Edit
+  // control, shown above the calendar so the user can confirm/adjust what we
+  // looked up from their email.
+  const sizeTxt = state.sizeValue || (p && p.size) || "";
+  const locTxt = (country && country.name) || (p && p.location) || "";
+  const prefillBits = [
+    state.email,
+    p && p.company,
+    sizeTxt ? `${sizeTxt} employees` : "",
+    locTxt,
+  ].filter(Boolean);
+  const prefillHTML = `
+        <div class="bd-prefill">
+          <p class="bd-prefill__text">${prefillBits.map(esc).join(" &middot; ")}</p>
+          <button type="button" class="bd-link bd-prefill__edit" data-action="edit-details">Edit</button>
+        </div>`;
   const calPanel = `
       <section class="bd-panel bd-cal" aria-labelledby="bd-cal-h">
+        ${prefillHTML}
         <div class="bd-rep">
           <button class="bd-cal__back" type="button" data-action="back" aria-label="Back">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3.5 5.5 8 10 12.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -746,16 +770,46 @@ function renderConfirmBtn() {
 /* ---- Screen 4: Confirmation ---- */
 function renderConfirm() {
   const b = state.booking;
+  const title = BOOK_TITLE[b.product] || "HackerRank";
+  const rep = b.repName || "Your specialist";
+  const emailBit = b.email ? ` at <strong>${esc(b.email)}</strong>` : "";
+
+  // "Request a time" → a request was sent, not a confirmed slot.
+  if (b.requested) {
+    return `
+    <main class="bd-screen bd-confirm" aria-labelledby="bd-conf-title">
+      <div class="bd-card bd-confirm__card">
+        <span class="bd-check" aria-hidden="true">✓</span>
+        <h1 class="bd-h1" id="bd-conf-title">Request received</h1>
+        <p class="bd-confirm__when">We'll find a time close to "${esc(b.preferred || b.time)}" and confirm by email.</p>
+        <ul class="bd-next">
+          <li>Watch your inbox${emailBit} — ${esc(rep)} will reply with a proposed time to confirm.</li>
+          <li>Once you confirm, you'll get a calendar invite.</li>
+          <li>Bring your hiring goals or a role you're filling.</li>
+        </ul>
+      </div>
+    </main>`;
+  }
+
   return `
   <main class="bd-screen bd-confirm" aria-labelledby="bd-conf-title">
     <div class="bd-card bd-confirm__card">
       <span class="bd-check" aria-hidden="true">✓</span>
-      <h1 class="bd-h1" id="bd-conf-title">Your ${esc(BOOK_TITLE[b.product] || "HackerRank")} demo is booked</h1>
-      <p class="bd-confirm__when">${esc(b.dayLabel)} · ${esc(b.time)} ${esc(b.timezone)} with ${esc(b.repName)}</p>
+      <h1 class="bd-h1" id="bd-conf-title">Your ${esc(title)} demo is booked</h1>
+      <p class="bd-confirm__when">${esc(b.dayLabel)} · ${esc(b.time)} ${esc(b.timezone)} with ${esc(rep)}</p>
 
       <div class="bd-confirm__cal">
         <button class="bd-btn bd-btn--outline" type="button" data-action="noop">${googleLogo}Add to Google Calendar</button>
         <button class="bd-btn bd-btn--outline" type="button" data-action="noop">${outlookLogo}Add to Outlook</button>
+      </div>
+
+      <div class="bd-next-wrap">
+        <p class="bd-next__lead">What happens next</p>
+        <ul class="bd-next">
+          <li>Check your inbox${emailBit} for the calendar invite.</li>
+          <li>${esc(rep)} will send a short prep note before the call.</li>
+          <li>Bring your hiring goals or a role you're filling.</li>
+        </ul>
       </div>
 
       <p class="bd-help">Need to move it? Use the reschedule link in your invite.</p>
@@ -912,7 +966,10 @@ function doConfirm() {
     timezone: state.profile.timezone, repName: state.rep.name, product: state.product,
     note: state.bookingNote.trim(),
   };
-  book(slot).then((res) => { state.booking = res.confirmation; setScreen("confirm"); });
+  book(slot).then((res) => {
+    state.booking = { ...res.confirmation, email: state.email, requested: false };
+    setScreen("confirm");
+  });
 }
 
 /* Load a prototype state, mirroring the real flow for that email. */
@@ -1003,8 +1060,15 @@ app.addEventListener("submit", (e) => {
       return;
     }
     state.emailPersonal = false;
-    // Email valid but we haven't looked it up yet → run the validation step
-    // (reveals size + location). The user confirms, then continues.
+    // Default flow: go straight to the calendar; details are enriched and shown
+    // (editable) on the booking screen. Internal HackerRank emails keep the
+    // step-by-step reveal → confirm → pick-a-slot flow.
+    if (!internalEmail(val) && !state.validated) {
+      state.protoState = null;
+      goFromEmail(val);
+      return;
+    }
+    // Internal / edit flow: look up first (reveals size + location) and confirm.
     if (!state.validated || state.validatedEmail !== val) {
       startValidation(val);
       return;
@@ -1059,6 +1123,7 @@ app.addEventListener("submit", (e) => {
     state.booking = {
       dayLabel: "Requested", time: t, timezone: state.profile.timezone,
       repName: state.rep.name, product: state.product,
+      email: state.email, requested: true, preferred: t,
     };
     setScreen("confirm");
   }
@@ -1105,7 +1170,9 @@ app.addEventListener("focusout", (e) => {
     }
   } else if (emailValid(val)) {
     if (state.emailPersonal) { state.emailPersonal = false; render(); }
-    if (!state.validating && state.validatedEmail !== val) startValidation(val);
+    // Only the internal/edit flow reveals the details inline on blur; the
+    // default flow keeps the card minimal and reveals them on the calendar.
+    if (internalEmail(val) && !state.validating && state.validatedEmail !== val) startValidation(val);
   } else if (state.validated || state.validating || state.emailPersonal) {
     state.validating = false;
     state.validated = false;
@@ -1195,6 +1262,18 @@ app.addEventListener("click", (e) => {
     state.contactSent = false;
     state.contactError = "";
     setScreen(state.returnScreen || "identify");
+  } else if (action === "edit-details") {
+    // Return to the identify screen with the looked-up details revealed and
+    // editable (email + company size + location), then re-enter the calendar.
+    state.sizeValue = state.sizeValue || (state.profile && state.profile.size) || "";
+    state.countryValue = state.countryValue || (state.profile && state.profile.countryCode) || "";
+    state.validated = true;
+    state.validatedEmail = state.email;
+    state.sizeError = "";
+    state.countryError = "";
+    setScreen("identify");
+    const el = document.getElementById("bd-email");
+    if (el) el.focus();
   } else if (action === "edit-email") {
     // Unlock the email field and hide the revealed fields until re-validated.
     state.validated = false;
@@ -1249,6 +1328,12 @@ document.addEventListener("click", (e) => {
   // "Start a free trial" — placeholder for now (destination TBD).
   const trial = e.target.closest(".bd-header [data-action='trial']");
   if (trial) {
+    e.preventDefault();
+    return;
+  }
+  // "Pricing" — placeholder for now (destination TBD).
+  const pricing = e.target.closest(".bd-header [data-action='pricing']");
+  if (pricing) {
     e.preventDefault();
     return;
   }

@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="styles/hrds/tokens.css" />
   <link rel="stylesheet" href="styles/hrds/theme.css" />
   <link rel="stylesheet" href="styles/hrds/fonts.css" />
-  <link rel="stylesheet" href="styles/book-demo.css?v=142" />
+  <link rel="stylesheet" href="styles/book-demo.css?v=144" />
 </head>
 <body>
   <header class="bd-header">
@@ -22,8 +22,9 @@
         <button type="button" class="bd-ltoggle__btn" data-layout="v1">V1</button>
         <button type="button" class="bd-ltoggle__btn" data-layout="v2">V2</button>
       </div>
-      <a class="bd-header__cta" href="#" data-action="trial">Start a free trial</a>
-      <a class="bd-header__cta" href="#" data-action="contact">Contact us</a>
+      <a class="bd-header__link" href="#" data-action="pricing">Pricing</a>
+      <a class="bd-header__link" href="#" data-action="trial">Start a free trial</a>
+      <a class="bd-header__link" href="#" data-action="contact">Contact us</a>
     </nav>
   </header>
 
@@ -34,7 +35,7 @@
     <div class="bd-trust__rotator" id="bd-trust-rotator" aria-live="polite"></div>
   </section>
 
-  <script type="module" src="scripts/book-demo/app.js?v=142"></script>
+  <script type="module" src="scripts/book-demo/app.js?v=144"></script>
   <script>
   /* Rotating customer testimonial strip: a clickable video thumbnail + company
      logo + an AI-in-hiring line, reusing the homepage customer voices. Clicking a
@@ -44,10 +45,10 @@
     var H = "https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1";
     var CF = "https://customer-f790wlz2d5j6kkhy.cloudflarestream.com";
     var T = [
-      { logo: H + "/t-logo-deepl.svg",    company: "DeepL",    photo: H + "/t-deepl-smile.webp", video: "f19901c76b601d1f41ce7b7e44b9ec95", line: "Every candidate uses AI in our interviews now. We insist on it." },
-      { logo: H + "/t-logo-adobe.svg",    company: "Adobe",    photo: H + "/t-adobe-smile.webp", video: "a17d027c898fe7ac4a10e93b1025d6df", line: "We hire for judgment and AI fluency, not just the fundamentals." },
-      { logo: H + "/t-logo-cerebras.svg", company: "Cerebras", photo: H + "/t-cerebras.webp",    video: "26dbc856835b403b61f6071f7d9aa8fb", line: "We hired 1,000+ engineers as we scaled, without lowering the bar." },
-      { logo: H + "/t-logo-hpe.svg",      company: "HPE",      photo: H + "/t-hpe-smile.webp",   video: null, line: "We find the brightest talent across every region." }
+      { company: "DeepL",    name: "Lena Fischer",   role: "Head of Talent",        photo: H + "/t-deepl-smile.webp", video: "f19901c76b601d1f41ce7b7e44b9ec95", line: "Every candidate uses AI in our interviews now. We insist on it." },
+      { company: "Adobe",    name: "Marcus Lee",     role: "Director of Engineering", photo: H + "/t-adobe-smile.webp", video: "a17d027c898fe7ac4a10e93b1025d6df", line: "We hire for judgment and AI fluency, not just the fundamentals." },
+      { company: "Cerebras", name: "Priya Nair",     role: "Head of Recruiting",    photo: H + "/t-cerebras.webp",    video: "26dbc856835b403b61f6071f7d9aa8fb", line: "We hired 1,000+ engineers as we scaled, without lowering the bar." },
+      { company: "HPE",      name: "David Alvarez",  role: "Global Talent Partner", photo: H + "/t-hpe-smile.webp",   video: null, line: "We find the brightest talent across every region." }
     ];
     var el = document.getElementById("bd-trust-rotator");
     if (!el) return;
@@ -66,7 +67,10 @@
     }
     function html(t) {
       return thumb(t) +
-             '<img class="bd-trust__logo" src="' + t.logo + '" alt="' + t.company + '" loading="lazy" />' +
+             '<span class="bd-trust__who">' +
+               '<span class="bd-trust__name">' + t.name + '</span>' +
+               '<span class="bd-trust__role">' + t.role + ', ' + t.company + '</span>' +
+             '</span>' +
              '<p class="bd-trust__quote">“' + t.line + '”</p>';
     }
     el.innerHTML = html(T[i]);
