@@ -14,9 +14,9 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  /* header (64) + footer (~96): subtracted from viewport-fill screens so the
+  /* header (64) + footer (~62): subtracted from viewport-fill screens so the
      footer sits within the fold instead of just below it. */
-  --bd-chrome: 160px;
+  --bd-chrome: 126px;
   /* Soft Chakra-colours glow at the top, fading to white (matches the demo page). */
   background-color: var(--background);
   background-image: url("../assets/bg-gradient-strong.svg");
@@ -851,7 +851,7 @@ img { display: block; max-width: 100%; }
 /* ---- Footer: developer → community ---- */
 .bd-footer {
   display: flex; justify-content: center;
-  padding: 28px 24px 36px;
+  padding: 15px 24px 17px;
   border-top: 1px solid var(--border-alpha, rgba(20, 20, 25, 0.1));
 }
 .bd-footer__text {
