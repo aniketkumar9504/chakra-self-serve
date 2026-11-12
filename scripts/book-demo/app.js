@@ -328,7 +328,7 @@ function renderIdentify() {
   const emailErrMsg = state.emailError
     || (state.emailPersonal ? "Please use your business email to book a demo." : "");
   // All details in → the final "Schedule a demo" step; otherwise just "Continue".
-  const ctaReady = state.validated && state.sizeValue && state.countryValue;
+  const ctaReady = state.validated && state.countryValue;
   const form = `
       <form class="bd-emailform" data-action="email-submit" novalidate>
         <div class="bd-formrow">
@@ -365,11 +365,6 @@ function renderIdentify() {
 
         ${state.validated ? `
         <div class="bd-reveal">
-          <div class="bd-formrow">
-            <span class="bd-label" id="bd-size-label">Company size</span>
-            ${renderSizeSelect()}
-            ${state.sizeError ? `<p class="bd-error" id="bd-size-err" role="alert">${esc(state.sizeError)}</p>` : ""}
-          </div>
           <div class="bd-formrow">
             <label class="bd-label" for="bd-country-trigger">Company location</label>
             ${renderCountryCombo()}
@@ -1070,11 +1065,10 @@ app.addEventListener("submit", (e) => {
       startValidation(val);
       return;
     }
-    state.sizeError = state.sizeValue ? "" : "Select your company size.";
     state.countryError = state.countryValue ? "" : "Select your company location.";
-    if (state.sizeError || state.countryError) {
+    if (state.countryError) {
       render();
-      const el = state.sizeError ? app.querySelector(".bd-chip") : document.getElementById("bd-country-trigger");
+      const el = document.getElementById("bd-country-trigger");
       if (el) el.focus();
       return;
     }
