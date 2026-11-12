@@ -1,0 +1,39 @@
+<svg width="1505.61" height="820" viewBox="0 0 1505.61 820" fill="none" xmlns="http://www.w3.org/2000/svg">
+<!-- Chakra-colours top glow (node 129:390): lavender + mint + cyan blurred blobs. -->
+<svg x="524.3" y="87.1" width="933.813" height="595.445" viewBox="0 0 933.813 595.445" overflow="visible">
+<g opacity="0.4" filter="url(#bgblur_lav)">
+<path d="M471.406 419.969C633.334 408.398 762.589 344.287 760.104 276.772C757.619 209.257 624.335 163.905 462.407 175.476C300.478 187.047 171.224 251.158 173.709 318.673C176.194 386.188 309.478 431.539 471.406 419.969Z" fill="#9C99FF"/>
+</g>
+<defs>
+<filter id="bgblur_lav" x="0" y="0" width="933.813" height="595.445" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="86.8369" result="blur"/>
+</filter>
+</defs>
+</svg>
+<svg x="31.7" y="122" width="1000.38" height="661.557" viewBox="0 0 1000.38 661.557" overflow="visible">
+<g opacity="0.6" filter="url(#bgblur_mint)">
+<path d="M470.883 467.259C650.474 510.204 809.183 483.913 825.368 408.536C841.554 333.16 709.088 237.242 529.497 194.297C349.907 151.353 191.198 177.644 175.012 253.021C158.827 328.397 291.293 424.315 470.883 467.259Z" fill="#EFFFE5"/>
+</g>
+<defs>
+<filter id="bgblur_mint" x="0" y="0" width="1000.38" height="661.557" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="86.8369" result="blur"/>
+</filter>
+</defs>
+</svg>
+<svg x="115.6" y="-5.8" width="1065.34" height="693.953" viewBox="0 0 1065.34 693.953" overflow="visible">
+<g opacity="0.4" filter="url(#bgblur_cyan)">
+<path d="M514.488 485.537C697.217 510.305 853.488 468.348 863.529 391.823C873.571 315.299 733.579 233.185 550.85 208.416C368.121 183.648 211.849 225.605 201.808 302.13C191.767 378.654 331.758 460.769 514.488 485.537Z" fill="#8AE9FF"/>
+</g>
+<defs>
+<filter id="bgblur_cyan" x="0" y="0" width="1065.34" height="693.953" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="100.65" result="blur"/>
+</filter>
+</defs>
+</svg>
+</svg>
