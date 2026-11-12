@@ -1263,17 +1263,14 @@ app.addEventListener("click", (e) => {
     state.contactError = "";
     setScreen(state.returnScreen || "identify");
   } else if (action === "edit-details") {
-    // Return to the identify screen with the looked-up details revealed and
-    // editable (email + company size + location), then re-enter the calendar.
-    state.sizeValue = state.sizeValue || (state.profile && state.profile.size) || "";
-    state.countryValue = state.countryValue || (state.profile && state.profile.countryCode) || "";
-    state.validated = true;
-    state.validatedEmail = state.email;
+    // Back to the plain email field so they can change their email and re-enter.
+    state.validated = false;
+    state.validatedEmail = "";
     state.sizeError = "";
     state.countryError = "";
     setScreen("identify");
     const el = document.getElementById("bd-email");
-    if (el) el.focus();
+    if (el) { el.focus(); const n = el.value.length; el.setSelectionRange(n, n); }
   } else if (action === "edit-email") {
     // Unlock the email field and hide the revealed fields until re-validated.
     state.validated = false;
