@@ -223,7 +223,6 @@ function stageLayout(right) {
   <main class="bd-screen bd-stage" aria-labelledby="bd-id-title">
     <div class="bd-stage__left">
       <h1 class="bd-hero__title" id="bd-id-title">See HackerRank<br />in action</h1>
-      <p class="bd-hero__sub">Attend a live, personalized demo with one of our product experts to learn how to hire for the agentic era.</p>
       ${demoInfo()}
     </div>
     <div class="bd-stage__right">${right}</div>
