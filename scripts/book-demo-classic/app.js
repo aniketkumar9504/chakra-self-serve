@@ -245,6 +245,7 @@ function renderIdentify() {
       </div>
 
       <div class="bd-hero__right">
+        <p class="bd-voices__eyebrow">What AI-first companies are saying</p>
         ${renderVoice()}
       </div>
     </div>
