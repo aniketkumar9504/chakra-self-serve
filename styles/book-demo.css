@@ -14,9 +14,9 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  /* header (64) + logo strip (~82) + footer (~62): subtracted from viewport-fill
-     screens so the trust strip + footer sit within the fold, not below it. */
-  --bd-chrome: 208px;
+  /* header (64) + logo strip (~88): subtracted from viewport-fill screens so the
+     trust strip sits within the fold, not below it. */
+  --bd-chrome: 152px;
   /* Soft Chakra-colours glow at the top, fading to white (matches the demo page). */
   background-color: var(--background);
   background-image: url("../assets/bg-gradient-strong.svg");
@@ -47,8 +47,16 @@ img { display: block; max-width: 100%; }
 }
 .bd-header__logo img { width: 153px; height: 16px; display: block; }
 .bd-header__actions { display: flex; align-items: center; gap: 12px; }
-/* V1 / V2 layout toggle (segmented pill) */
-.bd-ltoggle { display: inline-flex; gap: 2px; padding: 3px; background: var(--muted, #f4f4f5); border-radius: 999px; }
+/* V1 / V2 layout toggle (segmented pill) — hidden for now */
+.bd-ltoggle { display: none; gap: 2px; padding: 3px; background: var(--muted, #f4f4f5); border-radius: 999px; }
+/* Developer → community link in the header */
+.bd-header__dev {
+  font-family: var(--font-ds); font-size: var(--hrds-text-body-sm); font-weight: 500;
+  color: var(--foreground); text-decoration: none; white-space: nowrap; margin-right: 4px;
+}
+.bd-header__dev .bd-header__dev-q { color: var(--muted-foreground); font-weight: 400; }
+.bd-header__dev:hover { color: var(--success-foreground, #0a8a48); }
+@media (max-width: 720px) { .bd-header__dev { display: none; } }
 .bd-ltoggle__btn {
   appearance: none; border: 0; cursor: pointer; background: transparent;
   min-width: 36px; height: 30px; padding: 0 10px; border-radius: 999px;
@@ -849,7 +857,9 @@ img { display: block; max-width: 100%; }
 .bd-personal__alt { margin: 6px 0 0; font-size: var(--hrds-text-body-sm); color: var(--muted-foreground); }
 
 /* ---- Trusted-by logo strip (auto-scrolling marquee, like the homepage) ---- */
-.bd-logos { padding: 18px 24px 6px; }
+/* Capped to the content block width + centered (not full-bleed). */
+.bd-logos { max-width: 1280px; margin: 0 auto; padding: 18px 64px 10px; }
+@media (max-width: 920px) { .bd-logos { padding: 16px 24px 10px; } }
 .bd-logos__label {
   margin: 0 0 14px; text-align: center;
   font-size: var(--hrds-text-body-sm); color: var(--muted-foreground);

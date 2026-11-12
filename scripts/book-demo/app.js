@@ -1159,7 +1159,7 @@ document.addEventListener("click", (e) => {
     setScreen("contact");
     return;
   }
-  const community = e.target.closest(".bd-footer [data-action='community']");
+  const community = e.target.closest(".bd-header [data-action='community']");
   if (community) {
     e.preventDefault();
     setScreen("community");
