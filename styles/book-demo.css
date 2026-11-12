@@ -869,6 +869,12 @@ img { display: block; max-width: 100%; }
    the community callout down toward the bottom. */
 .bd-v1card--identify .bd-emailform .bd-btn { margin-top: 44px; }
 .bd-v1card--identify .bd-card-dev { margin-top: 26px; }
+/* Bump the identify card's form text up 2px, uniformly. */
+.bd-v1card--identify .bd-label,
+.bd-v1card--identify .bd-field-hint,
+.bd-v1card--identify .bd-card-dev { font-size: calc(var(--hrds-text-body-sm) + 2px); }
+.bd-v1card--identify .bd-input,
+.bd-v1card--identify .bd-input::placeholder { font-size: calc(var(--hrds-text-body-md) + 2px); }
 /* Loading card reserves the calendar card's height so the loader → calendar
    transition doesn't resize (jerk). Spinner centered in the reserved space. */
 .bd-v1card--loading {
