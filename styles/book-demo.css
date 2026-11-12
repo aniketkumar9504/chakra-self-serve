@@ -507,12 +507,12 @@ img { display: block; max-width: 100%; }
 .bd-day__dom { font-size: var(--hrds-text-subtitle-lg); font-weight: 600; }
 .bd-day__mon { font-size: 11px; color: var(--muted-foreground); }
 .bd-day:hover { border-color: rgba(20, 20, 25, 0.28); }
-/* Selected = soft brand-green tint + green ring (matches the product cards),
-   so it reads clearly against the light card without a heavy fill. */
+/* Selected = solid white fill with a dark border (like the form's input fields),
+   so it reads clearly against the translucent unselected tiles on the glass card. */
 .bd-day.is-on {
-  background: color-mix(in srgb, var(--primary) 14%, #fff);
-  border-color: var(--primary); color: var(--foreground);
-  box-shadow: 0 0 0 1px var(--primary), 0 3px 12px -5px color-mix(in srgb, var(--primary) 50%, transparent);
+  background: #fff;
+  border-color: var(--foreground); color: var(--foreground);
+  box-shadow: inset 0 0 0 1px var(--foreground), 0 3px 12px -6px rgba(16, 24, 40, 0.25);
 }
 .bd-day:has(input:focus-visible) { outline: 2px solid var(--ring); outline-offset: 2px; }
 
@@ -527,9 +527,9 @@ img { display: block; max-width: 100%; }
 .bd-time input { position: absolute; opacity: 0; width: 1px; height: 1px; }
 .bd-time:hover { border-color: rgba(20, 20, 25, 0.28); }
 .bd-time.is-on {
-  background: color-mix(in srgb, var(--primary) 14%, #fff);
-  border-color: var(--primary); color: var(--foreground);
-  box-shadow: 0 0 0 1px var(--primary), 0 3px 12px -5px color-mix(in srgb, var(--primary) 50%, transparent);
+  background: #fff;
+  border-color: var(--foreground); color: var(--foreground);
+  box-shadow: inset 0 0 0 1px var(--foreground), 0 3px 12px -6px rgba(16, 24, 40, 0.25);
 }
 .bd-time:has(input:focus-visible) { outline: 2px solid var(--ring); outline-offset: 2px; }
 
