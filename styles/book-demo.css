@@ -89,7 +89,9 @@ img { display: block; max-width: 100%; }
 .bd-header__link:hover { color: var(--success-foreground, #0a8a48); }
 
 /* ---- screen shell ---- */
-#bd-app { display: block; }
+/* Reserve the stage height before the (deferred) JS renders into it, so the
+   content + trusted-by strip don't snap into place on first paint. */
+#bd-app { display: block; min-height: calc(100vh - var(--bd-chrome)); }
 .bd-screen {
   max-width: 480px;
   margin: 0 auto;
