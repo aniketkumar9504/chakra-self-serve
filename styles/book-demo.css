@@ -14,9 +14,9 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  /* header (64) + logo strip (~88): subtracted from viewport-fill screens so the
-     trust strip sits within the fold, not below it. */
-  --bd-chrome: 152px;
+  /* header (64) + logo strip (~88) + extra slack so the strip sits closer to the
+     content rather than pinned to the very bottom. */
+  --bd-chrome: 220px;
   /* Soft Chakra-colours glow at the top, fading to white (matches the demo page). */
   background-color: var(--background);
   background-image: url("../assets/bg-gradient-strong.svg");
@@ -49,14 +49,13 @@ img { display: block; max-width: 100%; }
 .bd-header__actions { display: flex; align-items: center; gap: 12px; }
 /* V1 / V2 layout toggle (segmented pill) — hidden for now */
 .bd-ltoggle { display: none; gap: 2px; padding: 3px; background: var(--muted, #f4f4f5); border-radius: 999px; }
-/* Developer → community link in the header */
-.bd-header__dev {
-  font-family: var(--font-ds); font-size: var(--hrds-text-body-sm); font-weight: 500;
-  color: var(--foreground); text-decoration: none; white-space: nowrap; margin-right: 4px;
+/* Developer → community line, below the CTA inside the form card */
+.bd-card-dev {
+  margin: 14px 0 0; text-align: center;
+  font-size: var(--hrds-text-body-sm); color: var(--muted-foreground);
 }
-.bd-header__dev .bd-header__dev-q { color: var(--muted-foreground); font-weight: 400; }
-.bd-header__dev:hover { color: var(--success-foreground, #0a8a48); }
-@media (max-width: 720px) { .bd-header__dev { display: none; } }
+.bd-card-dev .bd-link { font-weight: 500; color: var(--foreground); }
+.bd-card-dev .bd-link:hover { color: var(--success-foreground, #0a8a48); }
 .bd-ltoggle__btn {
   appearance: none; border: 0; cursor: pointer; background: transparent;
   min-width: 36px; height: 30px; padding: 0 10px; border-radius: 999px;

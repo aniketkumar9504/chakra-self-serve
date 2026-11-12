@@ -309,7 +309,8 @@ function renderIdentify() {
           </div>
         </div>` : ""}
 
-        <button class="bd-btn bd-btn--primary bd-btn--block" type="submit">${ctaReady ? "Select a slot" : "Continue"}</button>
+        <button class="bd-btn bd-btn--primary bd-btn--block" type="submit">${ctaReady ? "Select a slot" : "Book a demo"}</button>
+        <p class="bd-card-dev">Are you a developer? <a class="bd-link" href="#" data-action="community">Join our community &rarr;</a></p>
       </form>`;
 
   // v2 — centered single column (hero on top, form below).
