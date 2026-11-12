@@ -806,7 +806,7 @@ img { display: block; max-width: 100%; }
 .bd-demolist__item strong { color: var(--foreground); font-weight: 600; }
 .bd-demolist__check {
   flex: 0 0 auto; margin-top: 1px; padding: 3px; border-radius: 50%;
-  background: var(--primary); color: var(--foreground);
+  background: var(--foreground); color: #fff;
 }
 .bd-stage__right {
   display: flex; flex-direction: column; justify-content: center;
