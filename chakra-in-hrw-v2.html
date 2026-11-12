@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HackerRank — Welcome</title>
+  <meta
+    name="description"
+    content="HackerRank Workspace home — pick a prompt to get started with Chakra, Interview, or Screen."
+  />
+
+  <!-- hr-design (HRDS) tokens + self-hosted brand fonts, then page styles -->
+  <link rel="stylesheet" href="styles/hrds/tokens.css" />
+  <link rel="stylesheet" href="styles/hrds/theme.css" />
+  <link rel="stylesheet" href="styles/hrds/fonts.css" />
+  <link rel="stylesheet" href="styles/chakra-in-hrw-v2.css?v=52" />
+</head>
+<body data-layout="v2">
+  <div class="app">
+  <!-- ===================== HRW global header (dark) ===================== -->
+  <header class="hrw-header dark">
+    <div class="hrw-header__inner">
+      <div class="hrw-header__left">
+        <a class="hrw-header__logo" href="#" aria-label="HackerRank home">
+          <img src="assets/hrw/logo-white.svg" alt="HackerRank" width="98" height="14" />
+        </a>
+        <nav class="hrw-nav" aria-label="Primary">
+          <a class="hrw-nav__link is-active" href="#" aria-current="page">
+            Chakra
+            <span class="hrw-nav__badge">New</span>
+          </a>
+          <a class="hrw-nav__link" href="#">Tests</a>
+          <a class="hrw-nav__link" href="#">Interviews</a>
+          <a class="hrw-nav__link" href="#">Library</a>
+          <a class="hrw-nav__link" href="#">Insights</a>
+          <button class="hrw-nav__more" type="button">
+            More
+            <img class="hrw-nav__more-icon" src="assets/hrw/icon-chevron.svg" alt="" aria-hidden="true" />
+          </button>
+        </nav>
+      </div>
+
+      <div class="hrw-header__right">
+        <button class="hrw-search" type="button">
+          <img class="hrw-search__icon" src="assets/hrw/icon-search.svg" alt="" aria-hidden="true" />
+          Search Candidates
+        </button>
+        <span class="hrw-header__divider" aria-hidden="true"></span>
+        <div class="hrw-account">
+          <button class="hrw-avatar" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Account menu, Deon Davis">
+            <span class="hrw-avatar__badge">DD</span>
+            <img class="hrw-avatar__chevron" src="assets/hrw/icon-chevron.svg" alt="" aria-hidden="true" />
+          </button>
+          <div class="hrw-menu" role="menu">
+            <button class="hrw-menu__item" type="button" role="menuitem" data-set="discovery,discovery,discovery">Clear data (new user)</button>
+            <button class="hrw-menu__item" type="button" role="menuitem" data-set="data,discovery,discovery">Chakra only</button>
+            <button class="hrw-menu__item" type="button" role="menuitem" data-set="discovery,data,discovery">Interview only</button>
+            <button class="hrw-menu__item" type="button" role="menuitem" data-set="discovery,discovery,data">Screen only</button>
+            <button class="hrw-menu__item" type="button" role="menuitem" data-set="data,data,discovery">Chakra + Interview</button>
+            <button class="hrw-menu__item" type="button" role="menuitem" data-set="data,discovery,data">Chakra + Screen</button>
+            <button class="hrw-menu__item" type="button" role="menuitem" data-set="discovery,data,data">Interview + Screen</button>
+            <button class="hrw-menu__item" type="button" role="menuitem" data-set="data,data,data">Populate all data</button>
+            <span class="hrw-menu__sep" role="separator"></span>
+            <button class="hrw-menu__item" type="button" role="menuitem" data-layout-set="v2">Design: Product cards</button>
+            <button class="hrw-menu__item" type="button" role="menuitem" data-layout-set="v1">Design: Chakra hero</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== Main content ===================== -->
+  <main class="page">
+    <div class="page__inner">
+      <div class="page__head">
+        <h1 class="page__title">Welcome, Deon!</h1>
+        <p class="page__subtitle">Where would you like to start?</p>
+      </div>
+
+      <div class="board">
+        <!-- Chakra -->
+        <section class="pcard pcard--chakra" data-product="chakra">
+          <!-- Design A · "Chakra hero" (dark, live chat scene) -->
+          <div class="pcard__disc chero disc--hero">
+            <div class="chero__content">
+              <span class="chero__brand">
+                <img class="chero__mark" src="assets/chakra-mark.svg" alt="" aria-hidden="true" />
+                <span class="chero__badge">New</span>
+              </span>
+              <h2 class="chero__title">Chakra: an AI interviewer that actually works</h2>
+              <p class="chero__desc">Let an AI interviewer <span class="chero__hl">screen</span> your candidates and flag anything suspicious, so you review only the ones worth your time.</p>
+              <div class="chero__actions">
+                <a class="chero__cta" href="#">Set up a Chakra interview <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5"/></svg></a>
+                <a class="chero__cta chero__cta--secondary" href="#">Book a demo</a>
+              </div>
+            </div>
+            <div class="chero__scene" aria-hidden="true">
+              <img class="scene__mandala" src="assets/chat-mandala.png" alt="" />
+              <div class="chat-msg chat-msg--in">
+                <span class="chat-label"><span class="wave"><span></span><span></span><span></span><span></span><span></span></span> Chakra</span>
+                <p class="chat-bubble chat-bubble--q">So you're treating lateness as a quality signal, not invalidity?</p>
+              </div>
+              <div class="chat-msg chat-msg--out">
+                <span class="chat-label"><span class="wave"><span></span><span></span><span></span><span></span><span></span></span> Candidate</span>
+                <p class="chat-bubble chat-bubble--a">Yeah — I sort the out-of-order events by event time.</p>
+              </div>
+            </div>
+          </div>
+          <!-- Design B · "Product cards" (light, image-led) -->
+          <div class="pcard__disc chero disc--cards">
+            <div class="chero__scene chero__scene--img" aria-hidden="true">
+              <img class="chero__img" src="assets/products/chakra-preview.png" alt="" />
+            </div>
+            <div class="chero__content">
+              <h2 class="chero__title">Chakra</h2>
+              <p class="chero__desc">Let an AI interviewer <span class="chero__hl">screen</span> your candidates and flag anything suspicious, so you review only the ones worth your time.</p>
+              <div class="chero__actions">
+                <a class="chero__cta" href="#">Set up a Chakra interview <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5"/></svg></a>
+                <a class="chero__cta chero__cta--secondary" href="#">Book a demo</a>
+              </div>
+            </div>
+          </div>
+          <div class="pcard__data">
+            <div class="adata__head">
+              <span class="adata__heading">
+                <img class="adata__logo" src="assets/products/chakra.svg" alt="" aria-hidden="true" />
+                <h2 class="adata__title">Recent Chakras <span>(12)</span></h2>
+              </span>
+              <a class="adata__viewall" href="#">View all</a>
+            </div>
+            <ul class="adata__list">
+              <li class="drow"><div class="drow__main"><p class="drow__name">Data Engineer II - Bangalore (Hybrid)</p><p class="drow__meta">Last attempt was Today, at 1:40 am</p></div><span class="dpill">21 attempts</span></li>
+              <li class="drow"><div class="drow__main"><p class="drow__name">Lead Data Engineer - Bangalore</p><p class="drow__meta">Last attempt was Yesterday, at 5:40 pm</p></div><span class="dpill">391 attempts</span></li>
+              <li class="drow"><div class="drow__main"><p class="drow__name">Customer Experience Engineer 1</p><p class="drow__meta">Last attempt was Yesterday, at 6:51 am</p></div><span class="dpill">62 attempts</span></li>
+              <li class="drow"><div class="drow__main"><p class="drow__name">Data Engineer II</p><p class="drow__meta">Last attempt was Yesterday, at 4:12 pm</p></div><span class="dpill">21 attempts</span></li>
+              <li class="drow"><div class="drow__main"><p class="drow__name">Lead Data Engineer</p><p class="drow__meta">Last attempt was Wednesday, at 11:20 am</p></div><span class="dpill">21 attempts</span></li>
+            </ul>
+            <a class="adata__cta" href="#">+ Create interviewer</a>
+          </div>
+        </section>
+
+        <!-- Interview -->
+        <section class="pcard pcard--interview" data-product="interview">
+          <!-- Design A · "Chakra hero" (light icon card) -->
+          <div class="pcard__disc disc--hero">
+            <img class="disc__motif" src="assets/products/interview.svg" alt="" aria-hidden="true" />
+            <span class="disc__icon"><img src="assets/products/interview.svg" alt="" aria-hidden="true" /></span>
+            <h2 class="disc__name">Interview</h2>
+            <p class="disc__desc">Run <span class="chero__hl">live coding interviews</span> with your team in a shared agentic development environment (ADE).</p>
+            <div class="chero__actions">
+              <a class="chero__cta" href="#">Start a live interview <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5"/></svg></a>
+              <a class="chero__cta chero__cta--secondary" href="#">Book a demo</a>
+            </div>
+          </div>
+          <!-- Design B · "Product cards" (light, image-led) -->
+          <div class="pcard__disc disc--cards">
+            <div class="disc__media disc__media--img" aria-hidden="true"><img class="disc__media-img" src="assets/products/interview-preview.png" alt="" /></div>
+            <h2 class="chero__title">Interview</h2>
+            <p class="chero__desc">Run <span class="chero__hl">live coding interviews</span> with your team in a shared agentic development environment (ADE).</p>
+            <div class="chero__actions">
+              <a class="chero__cta" href="#">Start a live interview <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5"/></svg></a>
+              <a class="chero__cta chero__cta--secondary" href="#">Book a demo</a>
+            </div>
+          </div>
+          <div class="pcard__data">
+            <div class="adata__head">
+              <span class="adata__heading">
+                <img class="adata__logo" src="assets/products/interview.svg" alt="" aria-hidden="true" />
+                <h2 class="adata__title">Recent Interviews <span>(151)</span></h2>
+              </span>
+              <a class="adata__viewall" href="#">View all</a>
+            </div>
+            <ul class="adata__list">
+              <li class="drow"><div class="drow__main"><p class="drow__name">Technical Deep-Dive + System Design Round</p><p class="drow__meta">Last Friday, at 10:42 pm</p></div><span class="davatars"><span class="davatar">M</span><span class="davatar">P</span></span></li>
+              <li class="drow"><div class="drow__main"><p class="drow__name">System Design Round - Saurabh Nambiar</p><p class="drow__meta">Last Friday, at 3:02 pm</p></div><span class="davatars"><span class="davatar">P</span><span class="davatar">S</span></span></li>
+              <li class="drow"><div class="drow__main"><p class="drow__name">Plan Build Review - Sahil Brodiya - Senior</p><p class="drow__meta">Last Friday, at 12:54 pm</p></div><span class="davatars"><span class="davatar">S</span><span class="davatar">S</span></span></li>
+              <li class="drow"><div class="drow__main"><p class="drow__name">Cloud Expertise &amp; DevOps Tools Round</p><p class="drow__meta">Last Friday, at 12:32 pm</p></div><span class="davatars"><span class="davatar">E</span><span class="davatar">P</span></span></li>
+              <li class="drow"><div class="drow__main"><p class="drow__name">Frontend Systems - React Deep Dive</p><p class="drow__meta">Thursday, at 4:18 pm</p></div><span class="davatars"><span class="davatar">A</span><span class="davatar">R</span></span></li>
+            </ul>
+            <a class="adata__cta" href="#">+ Create interview</a>
+          </div>
+        </section>
+
+        <!-- Screen -->
+        <section class="pcard pcard--screen" data-product="screen">
+          <!-- Design A · "Chakra hero" (light icon card) -->
+          <div class="pcard__disc disc--hero">
+            <img class="disc__motif" src="assets/products/screen.svg" alt="" aria-hidden="true" />
+            <span class="disc__icon"><img src="assets/products/screen.svg" alt="" aria-hidden="true" /></span>
+            <h2 class="disc__name">Screen</h2>
+            <p class="disc__desc">Send take-home tests that score themselves, then rank candidates by how they did.</p>
+            <div class="chero__actions">
+              <a class="chero__cta" href="#">Create a take-home test <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5"/></svg></a>
+              <a class="chero__cta chero__cta--secondary" href="#">Book a demo</a>
+            </div>
+          </div>
+          <!-- Design B · "Product cards" (light, mark tile) -->
+          <div class="pcard__disc disc--cards">
+            <div class="disc__media" aria-hidden="true"><img class="disc__media-mark" src="assets/products/screen.svg" alt="" /></div>
+            <h2 class="chero__title">Screen</h2>
+            <p class="chero__desc">Send take-home tests that score themselves, then rank candidates by how they did.</p>
+            <div class="chero__actions">
+              <a class="chero__cta" href="#">Create a take-home test <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5"/></svg></a>
+              <a class="chero__cta chero__cta--secondary" href="#">Book a demo</a>
+            </div>
+          </div>
+          <div class="pcard__data">
+            <div class="adata__head">
+              <span class="adata__heading">
+                <img class="adata__logo" src="assets/products/screen.svg" alt="" aria-hidden="true" />
+                <h2 class="adata__title">Recent Tests <span>(1079)</span></h2>
+              </span>
+              <a class="adata__viewall" href="#">View all</a>
+            </div>
+            <ul class="adata__list">
+              <li class="drow"><svg class="drow__star" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" aria-hidden="true"><path d="M10 2.5l2.35 4.76 5.25.76-3.8 3.7.9 5.23L10 14.98l-4.7 2.47.9-5.23-3.8-3.7 5.25-.76z"/></svg><div class="drow__main"><p class="drow__name">Code Review Sample Test</p><p class="drow__meta">Last attempt was Today, at 1:40 am</p></div><span class="dpill">21 attempts</span></li>
+              <li class="drow"><svg class="drow__star" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" aria-hidden="true"><path d="M10 2.5l2.35 4.76 5.25.76-3.8 3.7.9 5.23L10 14.98l-4.7 2.47.9-5.23-3.8-3.7 5.25-.76z"/></svg><div class="drow__main"><p class="drow__name">HackerRank SSE Backend Engineer</p><p class="drow__meta">Last attempt was Yesterday, at 5:40 pm</p></div><span class="dpill">391 attempts</span></li>
+              <li class="drow"><svg class="drow__star" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" aria-hidden="true"><path d="M10 2.5l2.35 4.76 5.25.76-3.8 3.7.9 5.23L10 14.98l-4.7 2.47.9-5.23-3.8-3.7 5.25-.76z"/></svg><div class="drow__main"><p class="drow__name">Forward Deployed Engineer - 2026</p><p class="drow__meta">Last attempt was Yesterday, at 6:51 am</p></div><span class="dpill">62 attempts</span></li>
+              <li class="drow"><svg class="drow__star" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" aria-hidden="true"><path d="M10 2.5l2.35 4.76 5.25.76-3.8 3.7.9 5.23L10 14.98l-4.7 2.47.9-5.23-3.8-3.7 5.25-.76z"/></svg><div class="drow__main"><p class="drow__name">Frontend Engineer - Screening</p><p class="drow__meta">Last attempt was Yesterday, at 9:15 am</p></div><span class="dpill">148 attempts</span></li>
+              <li class="drow"><svg class="drow__star" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" aria-hidden="true"><path d="M10 2.5l2.35 4.76 5.25.76-3.8 3.7.9 5.23L10 14.98l-4.7 2.47.9-5.23-3.8-3.7 5.25-.76z"/></svg><div class="drow__main"><p class="drow__name">Data Structures - Core</p><p class="drow__meta">Wednesday, at 2:08 pm</p></div><span class="dpill">304 attempts</span></li>
+            </ul>
+            <a class="adata__cta" href="#">+ Create test</a>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===================== Footer ===================== -->
+  <footer class="hrw-footer">
+    <div class="hrw-footer__inner">
+      <p class="hrw-footer__copy">© 2026 HackerRank</p>
+      <nav class="hrw-footer__links" aria-label="Footer">
+        <a href="#">Privacy policy</a>
+        <a href="#">Terms of service</a>
+        <a href="#">API</a>
+        <a href="#">Support</a>
+        <a href="#">Status</a>
+        <a href="#">Security Center</a>
+        <a href="#">Academy</a>
+      </nav>
+    </div>
+  </footer>
+  </div>
+
+  <script>
+    (function () {
+      var account = document.querySelector('.hrw-account');
+      var avatar = account.querySelector('.hrw-avatar');
+      function closeMenu() {
+        account.classList.remove('is-open');
+        avatar.setAttribute('aria-expanded', 'false');
+      }
+
+      avatar.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var open = account.classList.toggle('is-open');
+        avatar.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+
+      document.addEventListener('click', closeMenu);
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeMenu();
+      });
+
+      var PRODUCTS = ['chakra', 'interview', 'screen'];
+      var board = document.querySelector('.board');
+      var cards = {};
+      PRODUCTS.forEach(function (p) {
+        cards[p] = board.querySelector('.pcard[data-product="' + p + '"]');
+      });
+
+      function place(card, col, row) {
+        card.style.gridColumn = col;
+        card.style.gridRow = row;
+      }
+
+      // Screen is being sunsetted, so we don't promote it to new users: it has
+      // NO discovery card and only appears on the homepage once a customer
+      // already has Screen data. Chakra and Interview still show in discovery.
+      var DATA_ONLY = { screen: true };
+
+      // Each card flips between its discovery and data body per its state; any
+      // data-only product whose state isn't "data" is removed from the board.
+      function layout(states) {
+        PRODUCTS.forEach(function (p, i) {
+          cards[p].setAttribute('data-state', states[i] || 'discovery');
+          cards[p].style.gridColumn = '';
+          cards[p].style.gridRow = '';
+          // Hide data-only products until they actually have data.
+          var hidden = DATA_ONLY[p] && states[i] !== 'data';
+          cards[p].style.display = hidden ? 'none' : '';
+          cards[p].toggleAttribute('hidden', !!hidden);
+        });
+
+        // The set of cards that actually render, in canonical product order.
+        var visible = PRODUCTS.filter(function (p, i) {
+          return !(DATA_ONLY[p] && states[i] !== 'data');
+        });
+        var stateOf = {};
+        PRODUCTS.forEach(function (p, i) { stateOf[p] = states[i] || 'discovery'; });
+
+        // v2 — equal columns across whatever is visible (2 cols when Screen is
+        // absent, 3 once Screen has data).
+        if (document.body.dataset.layout !== 'v1') {
+          board.style.gridTemplateColumns = visible.map(function () { return '1fr'; }).join(' ');
+          board.dataset.cols = String(visible.length);
+          visible.forEach(function (p, idx) { place(cards[p], String(idx + 1), '1'); });
+          return;
+        }
+
+        // v1 — Chakra hero / promoted-card arrangements keyed off how many
+        // visible products have data. Screen, when present, is always "data".
+        board.removeAttribute('data-cols');
+        var active = visible.filter(function (p) { return stateOf[p] === 'data'; });
+        var disco = visible.filter(function (p) { return stateOf[p] !== 'data'; });
+
+        if (active.length === 0) {
+          // All discovery (Chakra + Interview) — stack as full-width heroes,
+          // Chakra on top.
+          board.style.gridTemplateColumns = '1fr';
+          disco.forEach(function (p, idx) { place(cards[p], '1', String(idx + 1)); });
+        } else if (active.length === 1) {
+          board.style.gridTemplateColumns = disco.length ? '1.7fr 1fr' : '1fr';
+          if (!disco.length) {
+            place(cards[active[0]], '1', '1');
+          } else {
+            place(cards[active[0]], '1', '1 / span ' + Math.max(disco.length, 1));
+            var stack = disco.slice().sort(function (a, b) {
+              return (a === 'chakra' ? 1 : 0) - (b === 'chakra' ? 1 : 0);
+            });
+            stack.forEach(function (p, idx) { place(cards[p], '2', String(idx + 1)); });
+          }
+        } else {
+          // Two or three active: active cards share the top row; a single
+          // remaining discovery product (Chakra) spans full-width below.
+          board.style.gridTemplateColumns = active.map(function () { return '1fr'; }).join(' ');
+          active.forEach(function (p, idx) { place(cards[p], String(idx + 1), '1'); });
+          if (disco.length) place(cards[disco[0]], '1 / -1', '2');
+        }
+      }
+
+      // Default: brand-new account — everything in discovery.
+      var currentStates = ['discovery', 'discovery', 'discovery'];
+      function render(states) { currentStates = states; layout(states); }
+      render(currentStates);
+
+      account.querySelectorAll('[data-set]').forEach(function (item) {
+        item.addEventListener('click', function (e) {
+          e.stopPropagation();
+          render(item.getAttribute('data-set').split(','));
+          closeMenu();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+
+      // Switch the discovery layout variation (v1 hero / v2 product cards).
+      account.querySelectorAll('[data-layout-set]').forEach(function (item) {
+        item.addEventListener('click', function (e) {
+          e.stopPropagation();
+          document.body.dataset.layout = item.getAttribute('data-layout-set');
+          render(currentStates);
+          closeMenu();
+        });
+      });
+
+      // Toggle the Chakra banner between dark and light.
+      var bannerToggle = account.querySelector('[data-banner-toggle]');
+      var chakraCard = document.querySelector('.pcard--chakra');
+      if (bannerToggle && chakraCard) {
+        bannerToggle.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var light = chakraCard.classList.toggle('is-light');
+          bannerToggle.textContent = light ? 'Chakra banner: dark' : 'Chakra banner: light';
+          closeMenu();
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
