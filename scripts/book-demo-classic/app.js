@@ -81,30 +81,6 @@ const PRODUCT_EXPERTISE = {
   all: "Solutions consultant",
 };
 
-/* Branded "try it yourself" cards — shown on identify and on the book screen. */
-function tryItSection() {
-  return `
-  <section class="bd-tryit" aria-label="Try it yourself">
-    <p class="bd-tryit__lead">Don't have 30 minutes? Try it yourself first</p>
-    <div class="bd-tryit__cards">
-      <a class="bd-trycard bd-trycard--chakra" href="start-free-trial.html">
-        <span class="bd-trycard__icon"><img src="assets/products/chakra.svg" alt="" aria-hidden="true" /></span>
-        <span class="bd-trycard__body">
-          <span class="bd-trycard__title">Try Chakra now</span>
-          <span class="bd-trycard__desc">Take a 5-min AI interview yourself</span>
-        </span>
-      </a>
-      <a class="bd-trycard bd-trycard--interview" href="#" data-action="try">
-        <span class="bd-trycard__icon"><img src="assets/products/interview.svg" alt="" aria-hidden="true" /></span>
-        <span class="bd-trycard__body">
-          <span class="bd-trycard__title">Try Interview now</span>
-          <span class="bd-trycard__desc">Open a live coding pad</span>
-        </span>
-      </a>
-    </div>
-  </section>`;
-}
-
 function bannerFor(p) {
   if (!p) return "";
   if (p.isCustomer) return `${p.company} already uses HackerRank, so you'll meet your account team.`;
@@ -204,7 +180,6 @@ function renderIdentify() {
             : ""}
           <button class="bd-btn bd-btn--primary bd-btn--block" type="submit">Continue</button>
         </form>
-        ${tryItSection()}
       </div>
     </div>
   </main>`;
@@ -306,8 +281,6 @@ function renderBook() {
         </form>
       </section>
     </div>
-
-    ${tryItSection()}
   </main>`;
 }
 
