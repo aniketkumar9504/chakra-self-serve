@@ -415,24 +415,6 @@ img { display: block; max-width: 100%; }
 @keyframes bd-logos-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) { .bd-logos__track { animation: none; } }
 
-/* ---- Footer: developer → community ---- */
-.bd-footer {
-  display: flex; justify-content: center;
-  padding: 15px 24px 17px;
-  border-top: 1px solid var(--border-alpha, rgba(20, 20, 25, 0.1));
-}
-.bd-footer__text {
-  margin: 0; text-align: center;
-  font-size: var(--hrds-text-body-md); color: var(--muted-foreground);
-}
-.bd-footer__link {
-  margin-left: 4px; font-weight: 500; color: var(--foreground);
-  text-decoration: none; white-space: nowrap;
-  transition: color 0.15s ease;
-}
-.bd-footer__link:hover { color: var(--success-foreground, #0a8a48); text-decoration: underline; text-underline-offset: 2px; }
-.bd-footer__link:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; border-radius: 3px; }
-
 /* ---- Contact us (compact) ---- */
 .bd-contact { max-width: 400px; padding-top: 48px; }
 .bd-contact__card { padding: 24px; }
