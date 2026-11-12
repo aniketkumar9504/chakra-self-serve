@@ -865,8 +865,10 @@ img { display: block; max-width: 100%; }
   display: flex; flex-direction: column; justify-content: center;
 }
 @media (max-width: 920px) { .bd-v1card--identify { min-height: 0; display: block; padding: 28px; } }
-/* Roomier, evenly spaced gap between the email field and the CTA on the card. */
-.bd-v1card--identify .bd-emailform .bd-btn { margin-top: 30px; }
+/* Roomier gap between the email field (+hint) and the CTA on the card, and push
+   the community callout down toward the bottom. */
+.bd-v1card--identify .bd-emailform .bd-btn { margin-top: 44px; }
+.bd-v1card--identify .bd-card-dev { margin-top: 26px; }
 /* Loading card reserves the calendar card's height so the loader → calendar
    transition doesn't resize (jerk). Spinner centered in the reserved space. */
 .bd-v1card--loading {
