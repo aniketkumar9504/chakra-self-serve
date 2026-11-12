@@ -155,24 +155,38 @@ function renderContact() {
 
 /* Customer testimonials (same voices as the homepage). One fills the whole
    right side of the identify screen; a different one shows on each page load.
-   Images are served from the shared hr-v1 asset host. */
+   Photos/logos come from the shared hr-v1 asset host; the story films are
+   the same ones on hackerrank.com, served via Cloudflare Stream (CORS-enabled
+   HLS) so we can autoplay them muted in the card. */
 const VOICE_HOST = "https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1";
+const CF_STREAM = "https://customer-f790wlz2d5j6kkhy.cloudflarestream.com";
+const hlsUrl = (uid) => `${CF_STREAM}/${uid}/manifest/video.m3u8`;
 const VOICES = [
   { quote: "“We insist on it.”", label: "DeepL makes candidates use AI in its new interview round",
-    photo: `${VOICE_HOST}/t-deepl-smile.webp`, logo: `${VOICE_HOST}/t-logo-deepl.svg`, company: "DeepL" },
+    photo: `${VOICE_HOST}/t-deepl-smile.webp`, logo: `${VOICE_HOST}/t-logo-deepl.svg`, company: "DeepL",
+    video: "f19901c76b601d1f41ce7b7e44b9ec95" },
   { quote: "1,000+", label: "People hired as Cerebras scaled, with HackerRank",
-    photo: `${VOICE_HOST}/t-cerebras.webp`, logo: `${VOICE_HOST}/t-logo-cerebras.svg`, company: "Cerebras" },
+    photo: `${VOICE_HOST}/t-cerebras.webp`, logo: `${VOICE_HOST}/t-logo-cerebras.svg`, company: "Cerebras",
+    video: "26dbc856835b403b61f6071f7d9aa8fb" },
   { quote: "“A game changer”", label: "HackerRank helps HPE find the brightest talent across regions",
-    photo: `${VOICE_HOST}/t-hpe-smile.webp`, logo: `${VOICE_HOST}/t-logo-hpe.svg`, company: "HPE" },
+    photo: `${VOICE_HOST}/t-hpe-smile.webp`, logo: `${VOICE_HOST}/t-logo-hpe.svg`, company: "HPE",
+    video: null }, // no customer-story film published for HPE → stays a photo
   { quote: "“Engineering fundamentals still matter.”", label: "But can someone build with AI, business context and judgment?",
-    photo: `${VOICE_HOST}/t-adobe-smile.webp`, logo: `${VOICE_HOST}/t-logo-adobe.svg`, company: "Adobe" },
+    photo: `${VOICE_HOST}/t-adobe-smile.webp`, logo: `${VOICE_HOST}/t-logo-adobe.svg`, company: "Adobe",
+    video: "a17d027c898fe7ac4a10e93b1025d6df" },
 ];
 // Pick one voice per page load (random), so it cycles on refresh.
 const activeVoice = VOICES[Math.floor(Math.random() * VOICES.length)];
 function renderVoice() {
   const v = activeVoice;
+  // With a film: an autoplaying, muted, looping video (wired up in afterMount);
+  // the photo doubles as its poster. Without one: just the photo.
+  const media = v.video
+    ? `<video class="bd-voice__media" data-hls="${hlsUrl(v.video)}" poster="${v.photo}"
+         muted autoplay loop playsinline preload="auto" aria-hidden="true"></video>`
+    : `<img class="bd-voice__media" src="${v.photo}" alt="" loading="lazy" />`;
   return `<figure class="bd-voice">
-    <img class="bd-voice__img" src="${v.photo}" alt="" loading="lazy" />
+    ${media}
     <span class="bd-voice__fade" aria-hidden="true"></span>
     <img class="bd-voice__logo" src="${v.logo}" alt="${esc(v.company)}" loading="lazy" />
     <figcaption class="bd-voice__foot">
@@ -180,6 +194,28 @@ function renderVoice() {
       <p class="bd-voice__label">${esc(v.label)}</p>
     </figcaption>
   </figure>`;
+}
+
+/* Attach the HLS stream to the voice <video> and start muted autoplay.
+   Safari plays HLS natively; everything else uses hls.js (loaded in the page).
+   Called after each identify render. */
+function initVoiceVideo() {
+  const vid = app.querySelector("video.bd-voice__media[data-hls]");
+  if (!vid || vid.dataset.wired) return;
+  vid.dataset.wired = "1";
+  vid.muted = true; // required for autoplay
+  const src = vid.dataset.hls;
+  const start = () => { const p = vid.play(); if (p && p.catch) p.catch(() => {}); };
+  if (vid.canPlayType("application/vnd.apple.mpegurl")) {
+    vid.src = src;
+    vid.addEventListener("loadedmetadata", start, { once: true });
+  } else if (window.Hls && window.Hls.isSupported()) {
+    const hls = new window.Hls({ capLevelToPlayerSize: true, startLevel: -1 });
+    hls.loadSource(src);
+    hls.attachMedia(vid);
+    hls.on(window.Hls.Events.MANIFEST_PARSED, start);
+  }
+  // else: no HLS support → the poster photo stays visible.
 }
 
 /* ---- Screen 1: Identify ---- */
@@ -729,6 +765,7 @@ document.addEventListener("keydown", (e) => {
 function afterMount() {
   const h1 = app.querySelector(".bd-h1");
   if (h1 && state.screen !== "book") h1.setAttribute("tabindex", "-1");
+  if (state.screen === "identify") initVoiceVideo();
 }
 
 /* ---- boot ---- */

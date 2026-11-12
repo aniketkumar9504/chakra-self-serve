@@ -193,9 +193,11 @@ img { display: block; max-width: 100%; }
   min-height: 300px; height: 100%; /* stretches to the hero height (capped to the fold) */
   border-radius: var(--hrds-radius-xl, 20px);
   overflow: hidden; isolation: isolate;
+  background: #0a0c10; /* dark base so there's no white flash before media loads */
   box-shadow: 0 10px 30px rgba(20, 20, 25, 0.12);
 }
-.bd-voice__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+/* Photo or autoplaying film — both fill the card edge to edge. */
+.bd-voice__media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
 /* Dark gradient so the white type stays readable over any photo. */
 .bd-voice__fade {
   position: absolute; inset: 0; z-index: 1;
