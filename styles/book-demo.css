@@ -955,8 +955,12 @@ img { display: block; max-width: 100%; }
   margin: 0; text-align: left; white-space: nowrap;
   font-size: clamp(34px, 4.4vw, 50px); line-height: 1.04;
 }
+.bd-studio__sub {
+  margin: 14px 0 0; max-width: 560px;
+  font-size: var(--hrds-text-body-md); line-height: 1.5; color: var(--muted-foreground);
+}
 .bd-studio__cols {
-  display: grid; grid-template-columns: minmax(360px, 430px) 1fr; gap: 28px;
+  display: grid; grid-template-columns: minmax(360px, 430px) 1fr; gap: 64px;
   align-items: stretch;
 }
 .bd-studio__main { min-width: 0; display: flex; }
