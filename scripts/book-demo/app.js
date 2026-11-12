@@ -489,7 +489,8 @@ function renderLoading() {
       <p class="bd-loading__text">${esc(state.loadingText)}</p>
     </div>`;
   if (state.layout === "v3") {
-    return v3Layout(spinner);
+    // Slot selection stands on its own (no testimonial) → centered booking view.
+    return v2Layout(spinner);
   }
   if (state.layout === "v2") {
     return v2Layout(spinner);
@@ -657,9 +658,10 @@ function renderBook() {
         </form>
       </section>`;
 
-  // v3 — heading on top, calendar card left, testimonial right (same frame as identify).
+  // v3 — the slot selection shows independently (no testimonial): a centered
+  // calendar view, same as v2's booking screen.
   if (state.layout === "v3") {
-    return v3Layout(`<div class="bd-v1card">${bannerHTML}${calPanel}</div>`);
+    return v2Layout(`${bannerHTML}${calPanel}`);
   }
   // v2 — same hero header as the form, calendar opens as a card below (seamless).
   if (state.layout === "v2") {
