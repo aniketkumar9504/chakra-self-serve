@@ -161,7 +161,7 @@ img { display: block; max-width: 100%; }
 .bd-hero {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  column-gap: 72px;
+  column-gap: 104px;
   align-items: center; /* vertically centre both columns */
   /* 100vh minus header (64) + logo strip (~96) + this padding + a little slack. */
   min-height: calc(100vh - 196px);
@@ -213,6 +213,17 @@ img { display: block; max-width: 100%; }
   filter: brightness(0) invert(1); /* force the brand mark white */
 }
 .bd-voice__foot { position: absolute; z-index: 2; left: 30px; right: 30px; bottom: 30px; color: #fff; }
+
+/* Video cards: the film has its own burned-in subtitles at the bottom, so put
+   our quote/label at the TOP (under the logo) and darken the top instead. */
+.bd-voice--video .bd-voice__fade {
+  background: linear-gradient(180deg,
+    rgba(10, 12, 16, 0.78) 0%,
+    rgba(10, 12, 16, 0.45) 26%,
+    rgba(10, 12, 16, 0.08) 48%,
+    rgba(10, 12, 16, 0) 62%);
+}
+.bd-voice--video .bd-voice__foot { top: 72px; bottom: auto; }
 .bd-voice__quote {
   margin: 0; color: #fff;
   font-family: var(--font-heading); font-weight: 400;

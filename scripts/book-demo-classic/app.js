@@ -185,7 +185,10 @@ function renderVoice() {
     ? `<video class="bd-voice__media" data-hls="${hlsUrl(v.video)}" poster="${v.photo}"
          muted autoplay loop playsinline preload="auto" aria-hidden="true"></video>`
     : `<img class="bd-voice__media" src="${v.photo}" alt="" loading="lazy" />`;
-  return `<figure class="bd-voice">
+  // Films carry their own burned-in subtitles at the bottom, so for video we
+  // move our quote/label to the top to avoid overlapping them. Photos keep the
+  // quote at the bottom.
+  return `<figure class="bd-voice ${v.video ? "bd-voice--video" : "bd-voice--photo"}">
     ${media}
     <span class="bd-voice__fade" aria-hidden="true"></span>
     <img class="bd-voice__logo" src="${v.logo}" alt="${esc(v.company)}" loading="lazy" />
