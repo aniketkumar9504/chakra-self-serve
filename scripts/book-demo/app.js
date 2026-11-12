@@ -484,8 +484,8 @@ function renderLoading() {
   if (state.layout === "v2") {
     return v2Layout(spinner);
   }
-  // v1 — same card as the form, so the loader → calendar transition is seamless.
-  return stageLayout(`<div class="bd-v1card">${spinner}</div>`);
+  // v1 — reserve the calendar card's height so loader → calendar doesn't jerk.
+  return stageLayout(`<div class="bd-v1card bd-v1card--loading">${spinner}</div>`);
 }
 
 /* ---- Screen 2b: Location (only when enrichment can't prefill it) ---- */
