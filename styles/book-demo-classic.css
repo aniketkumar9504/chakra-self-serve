@@ -152,7 +152,9 @@ img { display: block; max-width: 100%; }
 }
 
 /* ===================== Identify (full-width split hero) ===================== */
-.bd-identify { max-width: 1160px; padding: 0 40px 56px; }
+/* The whole landing (header + hero + logo strip) is sized to fit within one
+   viewport, so the "Trusted by" strip never slips below the fold. */
+.bd-identify { max-width: 1160px; padding: 0 40px 0; }
 .bd-emailform .bd-btn { margin-top: 12px; }
 
 /* Two columns: title + subtext + email on the left, customer voices right. */
@@ -161,8 +163,9 @@ img { display: block; max-width: 100%; }
   grid-template-columns: 1fr 1fr;
   column-gap: 72px;
   align-items: center; /* vertically centre both columns */
-  min-height: calc(100vh - 230px);
-  padding: 40px 0;
+  /* 100vh minus header (64) + logo strip (~96) + this padding + a little slack. */
+  min-height: calc(100vh - 196px);
+  padding: 24px 0 0;
 }
 .bd-hero__title {
   margin: 0;
@@ -187,7 +190,7 @@ img { display: block; max-width: 100%; }
    homepage), a different one shown on each page load. */
 .bd-voice {
   position: relative; margin: 0; flex: 1;
-  min-height: min(620px, calc(100vh - 160px));
+  min-height: 300px; height: 100%; /* stretches to the hero height (capped to the fold) */
   border-radius: var(--hrds-radius-xl, 20px);
   overflow: hidden; isolation: isolate;
   box-shadow: 0 10px 30px rgba(20, 20, 25, 0.12);
