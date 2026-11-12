@@ -214,9 +214,9 @@ function demoInfo() {
    the company logo. Uses the same brand customer-voice assets as the testimonial
    page. (Swap this block for a small <video> to make it a video testimonial.) */
 const LEFT_TESTIMONIAL = {
-  quote: "We hired 1,000+ engineers as we scaled — without lowering the bar.",
-  logo: "https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/t-logo-cerebras.svg",
-  company: "Cerebras",
+  quote: "We have every candidate use AI in our interviews now — we insist on it.",
+  logo: "https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/t-logo-deepl.svg",
+  company: "DeepL",
 };
 function demoTestimonial() {
   const t = LEFT_TESTIMONIAL;
