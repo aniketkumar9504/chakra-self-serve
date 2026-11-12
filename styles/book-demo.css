@@ -232,9 +232,14 @@ img { display: block; max-width: 100%; }
 .bd-prodsel__text { display: contents; }
 .bd-prodsel__name {
   grid-area: name; align-self: center;
-  font-family: var(--font-heading); font-weight: 500; font-size: 16px; line-height: 1.1; white-space: nowrap;
+  /* Kalice only ships a 400 weight; 500 forces a faux-bold that squeezes the
+     serif (reads as "narrow / tight kerning"). Use the real weight + proper
+     kerning, and size up a touch for balance. */
+  font-family: var(--font-heading); font-weight: 400;
+  font-size: 18px; line-height: 1.15; letter-spacing: normal; white-space: nowrap;
+  font-kerning: normal; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
 }
-.bd-prodsel__desc { grid-area: desc; font-size: 12px; color: var(--muted-foreground); line-height: 1.35; }
+.bd-prodsel__desc { grid-area: desc; font-size: 13px; color: var(--muted-foreground); line-height: 1.4; }
 
 /* consent line, directly below the Schedule-a-demo button */
 .bd-consent {
