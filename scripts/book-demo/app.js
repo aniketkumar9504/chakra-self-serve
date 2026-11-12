@@ -192,25 +192,14 @@ const SCREENS = {
    right. Used by identify → loading → book so the left stays put while the
    right swaps from the form to the calendar. */
 const DEMO_CHECK = `<svg class="bd-demolist__check" viewBox="0 0 20 20" width="22" height="22" aria-hidden="true"><path d="M5 10.5l3.2 3.2L15 7" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-const DEMO_POINTS = {
-  chakra: [
-    "Learn how <strong>Chakra fits into your hiring workflow</strong>",
-    "See how <strong>Chakra screens any role, at scale</strong>",
-    "Get <strong>pricing built for your team</strong>",
-  ],
-  interview: [
-    "Learn how <strong>Interviews fit into your hiring workflow</strong>",
-    "See <strong>live, collaborative coding interviews</strong>",
-    "Get <strong>pricing built for your team</strong>",
-  ],
-  all: [
-    "Learn how <strong>HackerRank fits into your hiring workflow</strong>",
-    "See how <strong>Screen, Interview & Chakra work together</strong>",
-    "Get <strong>pricing built for your team</strong>",
-  ],
-};
+/* Generic, product-agnostic value points for the v1 left column. */
+const DEMO_POINTS = [
+  "Learn how <strong>HackerRank fits into your hiring workflow</strong>",
+  "See how we <strong>screen and interview any role, at scale</strong>",
+  "Get <strong>pricing built for your team</strong>",
+];
 function demoInfo() {
-  const points = DEMO_POINTS[state.product] || DEMO_POINTS.chakra;
+  const points = DEMO_POINTS;
   const items = points.map(
     (point) => `<li class="bd-demolist__item">${DEMO_CHECK}<span>${point}</span></li>`
   ).join("");
@@ -221,12 +210,32 @@ function demoInfo() {
     </div>`;
 }
 
+/* Compact text testimonial for the v1 left column — a customer pull-quote with
+   the company logo. Uses the same brand customer-voice assets as the testimonial
+   page. (Swap this block for a small <video> to make it a video testimonial.) */
+const LEFT_TESTIMONIAL = {
+  quote: "We hired 1,000+ engineers as we scaled — without lowering the bar.",
+  logo: "https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1/t-logo-cerebras.svg",
+  company: "Cerebras",
+};
+function demoTestimonial() {
+  const t = LEFT_TESTIMONIAL;
+  return `
+    <figure class="bd-quote">
+      <blockquote class="bd-quote__text">“${esc(t.quote)}”</blockquote>
+      <figcaption class="bd-quote__by">
+        <img class="bd-quote__logo" src="${t.logo}" alt="${esc(t.company)}" loading="lazy" />
+      </figcaption>
+    </figure>`;
+}
+
 function stageLayout(right) {
   return `
   <main class="bd-screen bd-stage" aria-labelledby="bd-id-title">
     <div class="bd-stage__left">
       <h1 class="bd-hero__title" id="bd-id-title">See HackerRank<br />in action</h1>
       ${demoInfo()}
+      ${demoTestimonial()}
     </div>
     <div class="bd-stage__right">${right}</div>
   </main>`;
@@ -332,11 +341,6 @@ function renderIdentify() {
   const ctaReady = state.validated && state.sizeValue && state.countryValue;
   const form = `
       <form class="bd-emailform" data-action="email-submit" novalidate>
-        ${state.layout === "v3" ? "" : `<div class="bd-formrow">
-          <span class="bd-label" id="bd-product-label">Which product are you interested in?</span>
-          ${renderProductTabs()}
-        </div>`}
-
         <div class="bd-formrow">
           <div class="bd-label-row">
             ${state.validated

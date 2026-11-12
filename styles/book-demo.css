@@ -802,6 +802,18 @@ img { display: block; max-width: 100%; }
   flex: 0 0 auto; margin-top: 1px; padding: 3px; border-radius: 50%;
   background: var(--primary); color: var(--foreground);
 }
+/* Customer pull-quote testimonial on the v1 left column. */
+.bd-quote {
+  margin: 32px 0 0; max-width: 420px;
+  padding-top: 24px; border-top: 1px solid rgba(20, 20, 25, 0.1);
+}
+.bd-quote__text {
+  margin: 0; font-family: var(--font-heading, Georgia, serif);
+  font-size: clamp(18px, 1.5vw, 21px); line-height: 1.4;
+  color: var(--foreground); font-weight: 400;
+}
+.bd-quote__by { margin-top: 16px; display: flex; align-items: center; }
+.bd-quote__logo { height: 22px; width: auto; opacity: 0.8; }
 .bd-stage__right {
   display: flex; flex-direction: column; justify-content: center;
   width: 100%; max-width: 600px;
