@@ -183,7 +183,7 @@ function renderVoice() {
   // the photo doubles as its poster. Without one: just the photo.
   const media = v.video
     ? `<video class="bd-voice__media" data-hls="${hlsUrl(v.video)}" poster="${v.photo}"
-         muted autoplay loop playsinline preload="auto" aria-hidden="true"></video>`
+         muted loop playsinline preload="auto" aria-hidden="true"></video>`
     : `<img class="bd-voice__media" src="${v.photo}" alt="" loading="lazy" />`;
   // Films carry their own burned-in subtitles at the bottom, so for video we
   // move our quote/label to the top to avoid overlapping them. Photos keep the
@@ -209,14 +209,14 @@ function initVoiceVideo() {
   vid.muted = true; // required for autoplay
   const src = vid.dataset.hls;
   const start = () => { const p = vid.play(); if (p && p.catch) p.catch(() => {}); };
+  // Hold the poster photo for ~3s after landing, then start the film.
+  setTimeout(start, 3000);
   if (vid.canPlayType("application/vnd.apple.mpegurl")) {
-    vid.src = src;
-    vid.addEventListener("loadedmetadata", start, { once: true });
+    vid.src = src; // Safari: native HLS, buffers ahead of the delayed play()
   } else if (window.Hls && window.Hls.isSupported()) {
     const hls = new window.Hls({ capLevelToPlayerSize: true, startLevel: -1 });
     hls.loadSource(src);
     hls.attachMedia(vid);
-    hls.on(window.Hls.Events.MANIFEST_PARSED, start);
   }
   // else: no HLS support → the poster photo stays visible.
 }
@@ -768,7 +768,14 @@ document.addEventListener("keydown", (e) => {
 function afterMount() {
   const h1 = app.querySelector(".bd-h1");
   if (h1 && state.screen !== "book") h1.setAttribute("tabindex", "-1");
-  if (state.screen === "identify") initVoiceVideo();
+  if (state.screen === "identify") {
+    initVoiceVideo();
+    // Autofocus the email field on landing (don't steal focus if the visitor
+    // is already interacting with something).
+    const email = document.getElementById("bd-email");
+    const ae = document.activeElement;
+    if (email && (!ae || ae === document.body)) email.focus();
+  }
   // The "Trusted by" logo strip belongs on the landing only — hide it once the
   // visitor is in the loading / calendar / other flow screens.
   const logos = document.querySelector(".bd-logos");
