@@ -417,11 +417,13 @@ img { display: block; max-width: 100%; }
 #bd-proto .bd-btn--ghost { background: transparent; border: 1px solid rgba(255,255,255,0.3); }
 
 /* ---- Trusted-by logo strip (auto-scrolling marquee, like the homepage) ---- */
-.bd-logos { max-width: 1280px; margin: 0 auto; padding: 18px 64px 10px; }
-@media (max-width: 920px) { .bd-logos { padding: 16px 24px 10px; } }
+/* Nudged a little lower (margin-top) and slightly smaller overall (logos
+   scaled down, tighter gap, smaller label). */
+.bd-logos { max-width: 1280px; margin: 26px auto 0; padding: 8px 64px 10px; }
+@media (max-width: 920px) { .bd-logos { padding: 8px 24px 10px; } }
 .bd-logos__label {
-  margin: 0 0 14px; text-align: center;
-  font-size: var(--hrds-text-body-sm); color: var(--muted-foreground);
+  margin: 0 0 11px; text-align: center;
+  font-size: 12px; color: var(--muted-foreground);
 }
 .bd-logos__rail {
   overflow: hidden;
@@ -429,12 +431,12 @@ img { display: block; max-width: 100%; }
   mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
 }
 .bd-logos__track {
-  display: flex; align-items: center; gap: 56px;
+  display: flex; align-items: center; gap: 46px;
   width: max-content; margin: 0; padding: 0; list-style: none;
   animation: bd-logos-scroll 34s linear infinite;
 }
 .bd-logos__track li { flex: none; display: flex; align-items: center; }
-.bd-logos__track img { display: block; filter: grayscale(1); opacity: 0.55; }
+.bd-logos__track img { display: block; filter: grayscale(1); opacity: 0.55; transform: scale(0.85); }
 .bd-logos__rail:hover .bd-logos__track { animation-play-state: paused; }
 @keyframes bd-logos-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) { .bd-logos__track { animation: none; } }

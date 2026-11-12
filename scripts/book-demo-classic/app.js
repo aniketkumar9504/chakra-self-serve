@@ -240,7 +240,7 @@ function renderIdentify() {
           ${state.emailError
             ? `<p class="bd-error" id="bd-email-err" role="alert">${esc(state.emailError)}</p>`
             : ""}
-          <button class="bd-btn bd-btn--primary bd-btn--block" type="submit">Continue</button>
+          <button class="bd-btn bd-btn--primary bd-btn--block" type="submit">Book a demo</button>
         </form>
       </div>
 
