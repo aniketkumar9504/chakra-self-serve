@@ -887,6 +887,27 @@ img { display: block; max-width: 100%; }
   margin: 0 0 14px; text-align: center;
   font-size: var(--hrds-text-body-sm); color: var(--muted-foreground);
 }
+
+/* ---- Trusted-by rotating testimonial strip (logo + an AI-in-hiring line) ---- */
+.bd-trust { max-width: 1280px; margin: 0 auto; padding: 18px 64px 14px; text-align: center; }
+@media (max-width: 920px) { .bd-trust { padding: 16px 24px 12px; } }
+.bd-trust__label {
+  margin: 0 0 14px; font-size: var(--hrds-text-body-sm); color: var(--muted-foreground);
+}
+.bd-trust__rotator {
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  min-height: 26px; transition: opacity 0.3s ease; opacity: 1;
+}
+.bd-trust__rotator.is-out { opacity: 0; }
+.bd-trust__logo { flex: none; height: 22px; width: auto; filter: grayscale(1); opacity: 0.8; }
+.bd-trust__quote {
+  margin: 0; padding-left: 16px; border-left: 1px solid rgba(20, 20, 25, 0.14);
+  font-size: var(--hrds-text-body-md); line-height: 1.4; color: var(--foreground);
+}
+@media (max-width: 620px) {
+  .bd-trust__rotator { flex-direction: column; gap: 8px; }
+  .bd-trust__quote { padding-left: 0; border-left: 0; }
+}
 .bd-logos__rail {
   overflow: hidden;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
