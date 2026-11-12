@@ -153,21 +153,42 @@ function renderContact() {
   </main>`;
 }
 
+/* Customer testimonials (same voices as the homepage), shown on the right of
+   the identify screen. Images are served from the shared hr-v1 asset host. */
+const VOICE_HOST = "https://hackerrank.withsherpa.site/_sherpa/assets/static/hr-v1";
+const VOICES = [
+  { quote: "“We insist on it.”", label: "DeepL makes candidates use AI in its new interview round",
+    photo: `${VOICE_HOST}/t-deepl-smile.webp`, logo: `${VOICE_HOST}/t-logo-deepl.svg`, company: "DeepL" },
+  { quote: "1,000+", label: "People hired as Cerebras scaled, with HackerRank",
+    photo: `${VOICE_HOST}/t-cerebras.webp`, logo: `${VOICE_HOST}/t-logo-cerebras.svg`, company: "Cerebras" },
+  { quote: "“A game changer”", label: "HackerRank helps HPE find the brightest talent across regions",
+    photo: `${VOICE_HOST}/t-hpe-smile.webp`, logo: `${VOICE_HOST}/t-logo-hpe.svg`, company: "HPE" },
+  { quote: "“Engineering fundamentals still matter.”", label: "But can someone build with AI, business context and judgment?",
+    photo: `${VOICE_HOST}/t-adobe-smile.webp`, logo: `${VOICE_HOST}/t-logo-adobe.svg`, company: "Adobe" },
+];
+function renderVoices() {
+  return `<div class="bd-voices" aria-label="What customers say">
+    ${VOICES.map((v) => `
+      <figure class="bd-voice">
+        <img class="bd-voice__photo" src="${v.photo}" alt="" width="56" height="56" loading="lazy" />
+        <figcaption class="bd-voice__body">
+          <p class="bd-voice__quote">${esc(v.quote)}</p>
+          <p class="bd-voice__label">${esc(v.label)}</p>
+          <img class="bd-voice__logo" src="${v.logo}" alt="${esc(v.company)}" loading="lazy" />
+        </figcaption>
+      </figure>`).join("")}
+  </div>`;
+}
+
 /* ---- Screen 1: Identify ---- */
+/* Left: title + subtext + just the work-email field. Right: customer voices. */
 function renderIdentify() {
   return `
   <main class="bd-screen bd-identify" aria-labelledby="bd-id-title">
     <div class="bd-hero">
       <div class="bd-hero__left">
-        <h1 class="bd-hero__title" id="bd-id-title">Book a<br />HackerRank demo</h1>
-        <ul class="bd-meta">
-          <li class="bd-meta__item">${clockIcon}<span>30 minutes</span></li>
-          <li class="bd-meta__item">${personIcon}<span>With a product expert</span></li>
-        </ul>
-      </div>
-
-      <div class="bd-hero__right">
-        ${renderProductChips()}
+        <h1 class="bd-hero__title" id="bd-id-title">See HackerRank<br />in action</h1>
+        <p class="bd-hero__sub">Attend a live, personalized demo with one of our product experts to learn how to hire for the agentic era.</p>
         <form class="bd-emailform" data-action="email-submit" novalidate>
           <label class="bd-label" for="bd-email">Work email</label>
           <input class="bd-input ${state.emailError ? "bd-input--error" : ""}" type="email"
@@ -180,6 +201,10 @@ function renderIdentify() {
             : ""}
           <button class="bd-btn bd-btn--primary bd-btn--block" type="submit">Continue</button>
         </form>
+      </div>
+
+      <div class="bd-hero__right">
+        ${renderVoices()}
       </div>
     </div>
   </main>`;
