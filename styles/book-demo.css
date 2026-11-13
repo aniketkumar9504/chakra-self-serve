@@ -828,7 +828,7 @@ img { display: block; max-width: 100%; }
 .bd-demolist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
 .bd-demolist__item {
   display: flex; align-items: flex-start; gap: 12px;
-  font-size: var(--hrds-text-body-md); line-height: 1.45; color: var(--muted-foreground);
+  font-size: calc(var(--hrds-text-body-md) + 2px); line-height: 1.45; color: var(--muted-foreground);
 }
 .bd-demolist__item strong { color: var(--foreground); font-weight: 600; }
 .bd-demolist__check {
