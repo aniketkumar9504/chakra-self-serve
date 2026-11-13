@@ -31,6 +31,7 @@ const state = {
 
   dropdownOpen: false,
   editing: false,
+  companyValue: "",
   sizeValue: "",
   sizeError: "",
   countryValue: "",
@@ -366,6 +367,11 @@ function renderIdentify() {
         ${state.validated ? `
         <div class="bd-reveal">
           <div class="bd-formrow">
+            <label class="bd-label" for="bd-company-name">Company name</label>
+            <input class="bd-input" type="text" id="bd-company-name" name="company"
+                   placeholder="Company name" value="${esc(state.companyValue)}" autocomplete="organization" />
+          </div>
+          <div class="bd-formrow">
             <label class="bd-label" for="bd-country-trigger">Company location</label>
             ${renderCountryCombo()}
             ${state.countryError ? `<p class="bd-error" id="bd-country-err" role="alert">${esc(state.countryError)}</p>` : ""}
@@ -629,12 +635,10 @@ function renderBook() {
   // Prefilled details summary (email, company, size, location) with an Edit
   // control, shown above the calendar so the user can confirm/adjust what we
   // looked up from their email.
-  const sizeTxt = state.sizeValue || (p && p.size) || "";
   const locTxt = (country && country.name) || (p && p.location) || "";
   const prefillBits = [
     state.email,
-    p && p.company,
-    sizeTxt ? `${sizeTxt} employees` : "",
+    state.companyValue || (p && p.company),
     locTxt,
   ].filter(Boolean);
   // Prefilled details live on their own translucent card, above the calendar card.
@@ -867,6 +871,7 @@ function startValidation(email) {
   enrich(email).then((profile) => {
     if (state.validatedEmail !== email || state.screen !== "identify") return; // stale / navigated
     state.profile = profile;
+    state.companyValue = profile.company || "";
     state.sizeValue = profile.size || "";
     state.countryValue = profile.countryCode || "";
     state.sizeError = "";
@@ -904,6 +909,7 @@ function tierFromSize(size) {
    values the user just entered win over anything enrichment guessed. */
 function applyFormData(profile) {
   const p = { ...profile };
+  if (state.companyValue) { p.company = state.companyValue; p.companyFound = true; }
   if (state.sizeValue) {
     p.size = state.sizeValue;
     p.sizeMissing = false;
@@ -1139,6 +1145,8 @@ app.addEventListener("input", (e) => {
     state.countryQuery = e.target.value;
     state.countryActive = 0;
     updateCountryList();
+  } else if (e.target.id === "bd-company-name") {
+    state.companyValue = e.target.value; // keep so a re-render doesn't clear it
   } else if (e.target.id === "bd-note") {
     state.bookingNote = e.target.value; // keep so day/time re-render doesn't clear it
   }
@@ -1254,9 +1262,9 @@ app.addEventListener("click", (e) => {
     state.contactError = "";
     setScreen(state.returnScreen || "identify");
   } else if (action === "edit-details") {
-    // Return to the identify screen with all three details editable (email,
-    // company size, location), prefilled from what we looked up.
-    state.sizeValue = state.sizeValue || (state.profile && state.profile.size) || "";
+    // Return to the identify screen with the details editable (email, company
+    // name, location), prefilled from what we looked up.
+    state.companyValue = state.companyValue || (state.profile && state.profile.company) || "";
     state.countryValue = state.countryValue || (state.profile && state.profile.countryCode) || "";
     state.validated = true;
     state.validatedEmail = state.email;
