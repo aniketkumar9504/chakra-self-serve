@@ -333,22 +333,12 @@ function renderIdentify() {
   const form = `
       <form class="bd-emailform" data-action="email-submit" novalidate>
         <div class="bd-formrow">
-          <div class="bd-label-row">
-            ${state.validated
-              ? `<span class="bd-label">Business email</span>`
-              : `<label class="bd-label" for="bd-email">Business email</label>`}
-            ${state.validated
-              ? `<button type="button" class="bd-link bd-edit-email" data-action="edit-email">Edit</button>`
-              : ""}
-          </div>
-          ${state.validated
-            ? `<input class="bd-input is-locked" type="email" value="${esc(state.email)}"
-                 readonly aria-label="Business email" />`
-            : `<input class="bd-input ${emailErrMsg ? "bd-input--error" : ""}" type="email"
+          <label class="bd-label" for="bd-email">Business email</label>
+          <input class="bd-input ${emailErrMsg ? "bd-input--error" : ""}" type="email"
                  id="bd-email" name="email" placeholder="name@company.com"
                  autocomplete="email" value="${esc(state.email)}"
                  aria-invalid="${emailErrMsg ? "true" : "false"}"
-                 ${emailErrMsg ? 'aria-describedby="bd-email-err"' : ""} />`}
+                 ${emailErrMsg ? 'aria-describedby="bd-email-err"' : ""} />
           ${emailErrMsg
             ? `<p class="bd-error" id="bd-email-err" role="alert">${esc(emailErrMsg)}</p>`
             : ""}
@@ -882,6 +872,21 @@ function startValidation(email) {
   });
 }
 
+/* Re-run enrichment while the details are already revealed (edit mode), updating
+   company + location in place without the lookup spinner. */
+function reenrichFields(email) {
+  state.email = email;
+  state.validatedEmail = email;
+  enrich(email).then((profile) => {
+    if (state.validatedEmail !== email || state.screen !== "identify") return;
+    state.profile = profile;
+    state.companyValue = profile.company || "";
+    state.sizeValue = profile.size || "";
+    state.countryValue = profile.countryCode || "";
+    render();
+  });
+}
+
 async function goFromEmail(email, { viaProto = false } = {}) {
   state.email = email;
   const hint = companyHint(email);
@@ -1169,9 +1174,14 @@ app.addEventListener("focusout", (e) => {
     }
   } else if (emailValid(val)) {
     if (state.emailPersonal) { state.emailPersonal = false; render(); }
-    // Only the internal/edit flow reveals the details inline on blur; the
-    // default flow keeps the card minimal and reveals them on the calendar.
-    if (internalEmail(val) && !state.validating && state.validatedEmail !== val) startValidation(val);
+    if (state.validated) {
+      // Editing the email with the details already shown → refresh them in place.
+      if (state.validatedEmail !== val) reenrichFields(val);
+    } else if (internalEmail(val) && !state.validating && state.validatedEmail !== val) {
+      // Internal emails reveal the details inline; the default flow reveals them
+      // on the calendar instead.
+      startValidation(val);
+    }
   } else if (state.validated || state.validating || state.emailPersonal) {
     state.validating = false;
     state.validated = false;
