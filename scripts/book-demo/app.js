@@ -362,9 +362,10 @@ function renderIdentify() {
                    placeholder="Company name" value="${esc(state.companyValue)}" autocomplete="organization" />
           </div>
           <div class="bd-formrow">
-            <label class="bd-label" for="bd-country-trigger">Company location</label>
+            <label class="bd-label" for="bd-country-trigger">Country</label>
             ${renderCountryCombo()}
             ${state.countryError ? `<p class="bd-error" id="bd-country-err" role="alert">${esc(state.countryError)}</p>` : ""}
+            <p class="bd-field-hint">We use this to show demo times in your local timezone.</p>
           </div>
         </div>` : ""}
 
