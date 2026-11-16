@@ -3,9 +3,19 @@
    ----------------------------------------------------------------------------
    Step 1 asks which product the trial is for (Chakra / Interviews / Both) and
    Step 2 is an Intercom-style onboarding home whose prompt chips, checklist and
-   sidebar are tailored to that choice. All colour/type/radius values come from
-   the hr-design (HRDS) tokens in styles/hrds/*.
+   header are tailored to that choice. All colour/type/radius values come from
+   the hr-design (HRDS) tokens in styles/hrds/*; the dark HRW header mirrors
+   chakra-in-hrw-v2 by scoping HRDS `.dark` tokens. The only literals are
+   documented brand accents with no HRDS equivalent (the teal "New" badge and
+   the composer's gradient ring).
    ============================================================================ */
+
+:root {
+  /* Chakra "New" badge — brand teal gradient, no HRDS token (same as the
+     sibling chakra-in-hrw-v2 page). */
+  --hrw-badge-from: #004b4b;
+  --hrw-badge-to: #01b8b8;
+}
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -77,7 +87,7 @@ body {
   text-align: left;
   background: var(--card);
   border: 1.5px solid var(--border);
-  border-radius: 18px;
+  border-radius: var(--hrds-radius-xl);
   cursor: pointer;
   transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
 }
@@ -119,7 +129,7 @@ body {
   display: inline-block;
   align-self: flex-start;
   font-size: 11px; font-weight: 700; letter-spacing: 0.03em;
-  padding: 3px 9px; border-radius: 999px;
+  padding: 3px 9px; border-radius: var(--hrds-radius-circle);
   color: var(--muted-foreground); background: var(--accent);
 }
 .pcard__desc { font-size: 14px; line-height: 1.55; color: var(--muted-foreground); }
@@ -130,7 +140,7 @@ body {
   padding: 13px 26px;
   font-size: 15px; font-weight: 700;
   color: var(--primary-foreground); background: var(--primary);
-  border: 0; border-radius: 999px;
+  border: 0; border-radius: var(--hrds-radius-circle);
   cursor: pointer;
   opacity: 0.4; pointer-events: none;
   transition: background 0.18s ease, opacity 0.18s ease;
@@ -142,65 +152,74 @@ body {
 /* =====================================================================
    STEP 2 — Dashboard shell
    ===================================================================== */
-/* ---- Dark HRW global header ---- */
+/* ---- Dark HRW global header — HRDS .dark surface (mirrors chakra-in-hrw-v2) ---- */
 .hrw-header {
   position: sticky; top: 0; z-index: 100;
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 24px;
-  height: 60px;
-  padding: 0 24px;
-  background: #0b0b0e;
-  color: #fff;
+  background: var(--background);
+  color: var(--foreground);
 }
-.hrw-header__left { display: flex; align-items: center; gap: 30px; min-width: 0; }
-.hrw-header__logo { height: 19px; width: auto; flex: none; }
+.hrw-header__inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px;
+  padding: 0 clamp(20px, 4vw, 48px);
+}
+.hrw-header__left { display: flex; align-items: center; min-width: 0; }
+.hrw-header__logo { display: inline-flex; }
+.hrw-header__logo img { width: 98px; height: 14px; }
 
-.hrw-nav { display: flex; align-items: center; gap: 26px; }
-.hrw-nav__link {
-  display: inline-flex; align-items: center; gap: 7px;
-  font-size: 14px; font-weight: 500;
-  color: rgba(255, 255, 255, 0.62);
-  text-decoration: none;
-  white-space: nowrap;
+.hrw-nav { display: flex; align-items: stretch; height: 64px; margin-left: 8px; }
+.hrw-nav__link, .hrw-nav__more {
+  display: inline-flex; align-items: center; gap: 4px;
+  height: 64px; padding: 0 20px;
+  border: 0; border-bottom: 4px solid transparent;
+  background: none;
+  font-family: var(--font-ds);
+  font-size: var(--hrds-text-subtitle-md);
+  line-height: 1.6;
+  color: var(--muted-foreground);
+  text-decoration: none; white-space: nowrap; cursor: pointer;
   transition: color 0.15s ease;
 }
-.hrw-nav__link:hover { color: #fff; }
-.hrw-nav__link.is-active { color: #fff; font-weight: 600; }
-.hrw-nav__more svg { width: 15px; height: 15px; opacity: 0.8; }
-.hrw-badge {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.03em;
-  padding: 2px 8px; border-radius: 999px;
-  color: #d6fbff;
-  background: linear-gradient(120deg, #004b4b, #01b8b8);
+.hrw-nav__link:hover, .hrw-nav__more:hover, .hrw-nav__link.is-active { color: var(--foreground); }
+.hrw-nav__badge {
+  display: inline-flex; align-items: center;
+  padding: 3px 8px;
+  font-size: var(--hrds-text-body-sm); font-weight: 500; line-height: 1.33;
+  color: var(--neutral-foreground);
+  background: linear-gradient(90deg, var(--hrw-badge-from) 0%, var(--hrw-badge-to) 100%);
+  border-radius: var(--hrds-radius-circle);
 }
+.hrw-nav__more-icon { width: 14px; height: 14px; }
 
-.hrw-header__right { display: flex; align-items: center; gap: 16px; }
+.hrw-header__right { display: flex; align-items: center; gap: 24px; flex-shrink: 0; }
 .hrw-search {
-  display: inline-flex; align-items: center; gap: 9px;
-  padding: 9px 16px;
-  font-size: 13.5px; font-weight: 600;
-  color: #fff;
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.24);
-  border-radius: 999px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  height: 40px; padding: 0 20px;
+  font-family: var(--font-ds);
+  font-size: var(--hrds-text-subtitle-md); font-weight: 500;
+  color: var(--foreground);
+  background: none;
+  border: 1px solid var(--outline-border);
+  border-radius: var(--radius);
   cursor: pointer;
-  transition: border-color 0.15s ease, background 0.15s ease;
+  transition: border-color 0.15s ease;
 }
-.hrw-search:hover { border-color: rgba(255, 255, 255, 0.5); background: rgba(255, 255, 255, 0.05); }
-.hrw-search svg { width: 16px; height: 16px; }
-.hrw-divider { width: 1px; height: 26px; background: rgba(255, 255, 255, 0.18); }
+.hrw-search:hover { border-color: var(--outline-border-hover); }
+.hrw-search__icon { width: 20px; height: 20px; }
+.hrw-header__divider { width: 1px; height: 32px; background: var(--border); }
 .hrw-avatar {
-  display: inline-flex; align-items: center; gap: 7px;
-  background: none; border: 0; cursor: pointer;
-  color: rgba(255, 255, 255, 0.72);
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 0; border: 0; background: none; cursor: pointer;
 }
-.hrw-avatar__chip {
-  width: 30px; height: 30px; border-radius: 50%;
-  display: grid; place-items: center;
-  font-size: 11px; font-weight: 700; color: #fff;
-  background: rgba(255, 255, 255, 0.14);
+.hrw-avatar__badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px;
+  font-size: var(--hrds-text-subtitle-md);
+  color: var(--foreground);
+  background: var(--secondary);
+  border-radius: var(--hrds-radius-xl);
 }
-.hrw-avatar svg { width: 15px; height: 15px; }
+.hrw-avatar__chevron { width: 14px; height: 14px; }
 
 /* ---- Main column ---- */
 .main { display: flex; flex-direction: column; min-width: 0; }
@@ -212,7 +231,7 @@ body {
   padding: 13px 18px;
   background: var(--purple-alt);
   border: 1px solid color-mix(in srgb, var(--purple) 22%, transparent);
-  border-radius: 12px;
+  border-radius: var(--hrds-radius-lg);
 }
 .trial__text { font-size: 14px; color: var(--foreground); }
 .trial__text b { font-weight: 700; }
@@ -222,7 +241,7 @@ body {
   text-decoration: underline; text-underline-offset: 2px; white-space: nowrap;
 }
 .trial__cta {
-  padding: 8px 15px; border-radius: 999px;
+  padding: 8px 15px; border-radius: var(--hrds-radius-circle);
   font-size: 13px; font-weight: 700; white-space: nowrap;
   color: var(--secondary-foreground); background: var(--secondary);
   border: 0; cursor: pointer;
@@ -236,7 +255,7 @@ body {
   padding: 44px clamp(24px, 6vw, 96px) 72px;
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 18px;
+  border-radius: var(--hrds-radius-xl);
 }
 .canvas__inner { max-width: 1120px; margin: 0 auto; }
 
@@ -245,7 +264,7 @@ body {
 /* Prompt composer with gradient ring */
 .composer {
   padding: 1.5px;
-  border-radius: 18px;
+  border-radius: var(--hrds-radius-xl);
   background: linear-gradient(95deg, #ff7a59 0%, #d24fb0 45%, #7a5cff 72%, #3355ff 100%);
   box-shadow: 0 20px 50px -34px rgba(90, 60, 200, 0.5);
 }
@@ -265,7 +284,7 @@ body {
   color: var(--foreground);
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 999px;
+  border-radius: var(--hrds-radius-circle);
   cursor: pointer;
   display: inline-flex; align-items: center; gap: 7px;
   transition: border-color 0.15s ease, background 0.15s ease;
@@ -287,7 +306,7 @@ body {
 .setup {
   margin-top: 34px;
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: var(--hrds-radius-xl);
   overflow: hidden;
 }
 .setup__head {
@@ -317,7 +336,7 @@ body {
 .task__desc { margin: 4px 0 0; font-size: 13.5px; line-height: 1.5; color: var(--muted-foreground); }
 .task__badge {
   font-size: 11px; font-weight: 700; letter-spacing: 0.02em;
-  padding: 2px 8px; border-radius: 999px;
+  padding: 2px 8px; border-radius: var(--hrds-radius-circle);
 }
 .task__badge--upnext { color: var(--info-foreground); background: var(--info-alt); }
 .task__badge--chakra { color: #0a6a8c; background: color-mix(in srgb, var(--cyan) 16%, #fff); }
@@ -327,7 +346,7 @@ body {
   flex: none;
   padding: 9px 16px;
   font-size: 13.5px; font-weight: 700;
-  border-radius: 999px;
+  border-radius: var(--hrds-radius-circle);
   cursor: pointer;
   transition: background 0.15s ease, border-color 0.15s ease;
 }
@@ -341,7 +360,7 @@ body {
   position: fixed; bottom: 16px; right: 18px;
   font-size: 12px; color: var(--muted-foreground);
   background: var(--card); border: 1px solid var(--border);
-  border-radius: 999px; padding: 7px 13px; cursor: pointer;
+  border-radius: var(--hrds-radius-circle); padding: 7px 13px; cursor: pointer;
 }
 .restart:hover { border-color: var(--outline-border-hover); }
 
