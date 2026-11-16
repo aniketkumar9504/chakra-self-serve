@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HackerRank — Set up your trial</title>
+
+  <link rel="stylesheet" href="styles/hrds/tokens.css" />
+  <link rel="stylesheet" href="styles/hrds/theme.css" />
+  <link rel="stylesheet" href="styles/hrds/fonts.css" />
+  <link rel="stylesheet" href="styles/trial-onboarding.css?v=3" />
+</head>
+<body>
+
+  <!-- ============================ STEP 1 — Product selection ============================ -->
+  <section class="screen select is-active" id="screen-select">
+    <img class="select__logo" src="assets/logo-dark.svg" alt="HackerRank" />
+    <p class="select__eyebrow">Set up your trial</p>
+    <h1 class="select__title serif">What do you want to try first?</h1>
+    <p class="select__sub">Pick the product you care about most and we'll tailor your trial — the home screen, setup steps, and suggestions — around it.</p>
+
+    <div class="select__grid" role="radiogroup" aria-label="Choose a product">
+      <button class="pcard" role="radio" aria-checked="false" data-product="chakra" type="button">
+        <span class="pcard__check"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"/></svg></span>
+        <span class="pcard__icon pcard__icon--chakra"><img src="assets/products/chakra.svg" alt="" /></span>
+        <span class="pcard__name">Chakra</span>
+        <span class="pcard__tag">AI screening</span>
+        <span class="pcard__desc">AI interviews that screen candidates at scale — paste a role, share a link, and let AI run and score the first round.</span>
+      </button>
+
+      <button class="pcard" role="radio" aria-checked="false" data-product="interviews" type="button">
+        <span class="pcard__check"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"/></svg></span>
+        <span class="pcard__icon pcard__icon--interviews"><img src="assets/products/interview.svg" alt="" /></span>
+        <span class="pcard__name">Interviews</span>
+        <span class="pcard__tag">Live coding</span>
+        <span class="pcard__desc">Live pair-programming interviews in a shared development environment, with a 3,000+ question library.</span>
+      </button>
+
+      <button class="pcard" role="radio" aria-checked="false" data-product="both" type="button">
+        <span class="pcard__check"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"/></svg></span>
+        <span class="pcard__icon pcard__icon--both"><span class="pcard__dual"><img src="assets/products/chakra.svg" alt="" /><img src="assets/products/interview.svg" alt="" /></span></span>
+        <span class="pcard__name">Both</span>
+        <span class="pcard__tag">Full funnel</span>
+        <span class="pcard__desc">Screen at scale with Chakra, then go deep with shortlisted candidates in live Interviews — one connected flow.</span>
+      </button>
+    </div>
+
+    <button class="select__continue" id="continue" type="button">
+      Continue
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h11M11 5l5 5-5 5"/></svg>
+    </button>
+  </section>
+
+  <!-- ============================ STEP 2 — Tailored dashboard ============================ -->
+  <section class="screen" id="screen-dashboard">
+    <div class="app">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <img class="sidebar__logo" src="assets/chakra-mark.svg" alt="HackerRank" />
+        <nav class="sidebar__group" id="nav-top"></nav>
+        <div class="sidebar__spacer"></div>
+        <nav class="sidebar__group" id="nav-bottom"></nav>
+      </aside>
+
+      <!-- Main -->
+      <div class="main">
+        <div class="trial">
+          <span class="trial__text" id="trial-text"></span>
+          <span class="trial__spacer"></span>
+          <a class="trial__link" href="#">Talk to a product specialist</a>
+          <button class="trial__cta" type="button">Upgrade now</button>
+        </div>
+
+        <div class="canvas">
+          <div class="canvas__inner">
+            <h1 class="hero-title serif">Where would you like to get started?</h1>
+
+            <div class="composer">
+              <div class="composer__inner">
+                <div class="composer__field" id="composer-field">Ask HackerRank to set things up for you…</div>
+                <div class="composer__row" id="composer-chips"></div>
+              </div>
+            </div>
+
+            <div class="setup">
+              <div class="setup__head">
+                <h2 class="setup__title serif">Get set up</h2>
+                <span class="setup__count" id="setup-count"></span>
+              </div>
+              <div id="setup-list"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="restart" id="restart" type="button">↺ Change product</button>
+  </section>
+
+  <script>
+    (function () {
+      // ---- Inline icon set (stroke icons) ----
+      var I = {
+        home: '<path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/>',
+        spark: '<path d="M12 3v5M12 16v5M3 12h5M16 12h5M6 6l3 3M15 15l3 3M18 6l-3 3M9 15l-3 3"/>',
+        users: '<circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5"/><path d="M16 5.5a3 3 0 010 5.8M21 20c0-2.5-1.3-4.2-3.5-4.8"/>',
+        shield: '<path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/>',
+        plug: '<path d="M7 7l4 4M3 21l5-5M14 4l2 2M18 8l2 2"/><path d="M13 7l4 4a3 3 0 010 4l-1 1-8-8 1-1a3 3 0 014 0z"/>',
+        team: '<circle cx="8" cy="8" r="3"/><circle cx="17" cy="9" r="2.3"/><path d="M2 20c0-3.3 2.7-5 6-5s6 1.7 6 5"/><path d="M15 15c2.8 0 5 1.4 5 4"/>',
+        list: '<path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/>',
+        book: '<path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2z"/><path d="M19 3v18"/>',
+        chart: '<path d="M4 20V4M4 20h16M8 16v-4M12 16V8M16 16v-6"/>',
+        gear: '<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/>',
+        search: '<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>',
+        invite: '<circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5"/><path d="M18 8v6M15 11h6"/>',
+        profile: '<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6"/>',
+        code: '<path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13 5l-2 14"/>',
+        calendar: '<rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 9h16M8 3v4M16 3v4"/>'
+      };
+      function svg(key) { return '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' + (I[key] || '') + '</svg>'; }
+      var CHAKRA_IMG = 'assets/products/chakra.svg';
+      var INT_IMG = 'assets/products/interview.svg';
+
+      // ---- Tailored configuration per product selection ----
+      var CONFIG = {
+        chakra: {
+          trial: 'Chakra',
+          navTop: [
+            { label: 'Home', icon: svg('home'), active: true },
+            { label: 'Chakra', img: CHAKRA_IMG },
+            { label: 'Candidates', icon: svg('users') },
+            { label: 'Reports', icon: svg('chart') },
+            { label: 'Question library', icon: svg('book') }
+          ],
+          chips: ['Create a screening interview', 'Paste a job description', 'Invite candidates'],
+          tasks: [
+            { icon: 'spark', title: 'Create your first AI interview', upnext: true, desc: 'Paste a job description and Chakra builds a tailored screening interview in minutes.', cta: 'Create interview', dark: true },
+            { icon: 'users', title: 'Invite candidates at scale', desc: 'Share one link or bulk-upload candidates to screen hundreds at once.', cta: 'Invite candidates' },
+            { icon: 'shield', title: 'Review AI-flagged signals', desc: 'See transcripts, scores, and suspicious-activity flags on every attempt.', cta: 'View a sample' },
+            { icon: 'plug', title: 'Connect your ATS', desc: 'Push Chakra results into Greenhouse, Lever, and more — automatically.', cta: 'Connect ATS' },
+            { icon: 'team', title: 'Invite your team', desc: 'Bring recruiters and hiring managers in to review candidates together.', cta: 'Invite teammates' }
+          ]
+        },
+        interviews: {
+          trial: 'Interviews',
+          navTop: [
+            { label: 'Home', icon: svg('home'), active: true },
+            { label: 'Interviews', img: INT_IMG },
+            { label: 'Questions', icon: svg('code') },
+            { label: 'Candidates', icon: svg('users') },
+            { label: 'Reports', icon: svg('chart') }
+          ],
+          chips: ['Start a live interview', 'Browse the question library', 'Invite interviewers'],
+          tasks: [
+            { icon: 'code', title: 'Start a live interview', upnext: true, desc: 'Spin up a shared coding environment and interview a candidate in real time.', cta: 'Start interview', dark: true },
+            { icon: 'book', title: 'Pick questions from the library', desc: 'Choose from 3,000+ role-based questions, or add your own.', cta: 'Browse library' },
+            { icon: 'team', title: 'Invite your interviewers', desc: 'Add engineers and set their availability so scheduling is effortless.', cta: 'Invite interviewers' },
+            { icon: 'gear', title: 'Customize your environment', desc: 'Set languages, frameworks, and the ADE to match your real stack.', cta: 'Customize' },
+            { icon: 'calendar', title: 'Connect your calendar & ATS', desc: 'Schedule interviews and sync outcomes without leaving HackerRank.', cta: 'Connect' }
+          ]
+        },
+        both: {
+          trial: 'Chakra + Interviews',
+          navTop: [
+            { label: 'Home', icon: svg('home'), active: true },
+            { label: 'Chakra', img: CHAKRA_IMG },
+            { label: 'Interviews', img: INT_IMG },
+            { label: 'Candidates', icon: svg('users') },
+            { label: 'Reports', icon: svg('chart') }
+          ],
+          chips: ['Create a screening interview', 'Start a live interview', 'Invite my team'],
+          tasks: [
+            { icon: 'spark', title: 'Create your first AI screening interview', upnext: true, badge: 'chakra', desc: 'Paste a JD and let Chakra screen candidates at scale.', cta: 'Create interview', dark: true },
+            { icon: 'code', title: 'Start a live pair-programming interview', badge: 'interviews', desc: 'Interview your shortlisted candidates in a shared IDE.', cta: 'Start interview' },
+            { icon: 'book', title: 'Pick questions from the library', badge: 'interviews', desc: 'Choose from 3,000+ questions for your live rounds.', cta: 'Browse library' },
+            { icon: 'users', title: 'Invite candidates to screen', badge: 'chakra', desc: 'Share a link or bulk-upload to screen hundreds at once.', cta: 'Invite candidates' },
+            { icon: 'team', title: 'Invite your team', desc: 'Bring recruiters, hiring managers, and interviewers together.', cta: 'Invite teammates' },
+            { icon: 'plug', title: 'Connect your ATS', desc: 'Sync results and interview outcomes into your hiring workflow.', cta: 'Connect ATS' }
+          ]
+        }
+      };
+
+      var NAV_BOTTOM = [
+        { label: 'Search', icon: svg('search'), muted: true },
+        { label: 'Invite teammates', icon: svg('invite'), muted: true },
+        { label: 'Settings', icon: svg('gear'), muted: true },
+        { label: 'Profile', icon: svg('profile'), muted: true }
+      ];
+
+      // ---- Render helpers ----
+      function navHTML(item) {
+        var inner = (item.img ? '<img src="' + item.img + '" alt="" />' : item.icon) + '<span>' + item.label + '</span>';
+        return '<button class="navitem' + (item.active ? ' is-active' : '') + (item.muted ? ' navitem--muted' : '') + '" type="button">' + inner + '</button>';
+      }
+      function chipHTML(label) {
+        return '<button class="chip" type="button">' + label + '</button>';
+      }
+      function taskHTML(t) {
+        var badges = '';
+        if (t.upnext) badges += '<span class="task__badge task__badge--upnext">Up next</span>';
+        if (t.badge) badges += '<span class="task__badge task__badge--' + t.badge + '">' + (t.badge === 'chakra' ? 'Chakra' : 'Interviews') + '</span>';
+        return '' +
+          '<div class="task">' +
+            '<span class="task__icon">' + svg(t.icon) + '</span>' +
+            '<div class="task__body">' +
+              '<p class="task__title">' + t.title + badges + '</p>' +
+              '<p class="task__desc">' + t.desc + '</p>' +
+            '</div>' +
+            '<button class="task__cta ' + (t.dark ? 'task__cta--dark' : 'task__cta--outline') + '" type="button">' + t.cta + '</button>' +
+          '</div>';
+      }
+
+      function renderDashboard(key) {
+        var cfg = CONFIG[key];
+        document.getElementById('nav-top').innerHTML = cfg.navTop.map(navHTML).join('');
+        document.getElementById('nav-bottom').innerHTML = NAV_BOTTOM.map(navHTML).join('');
+        document.getElementById('trial-text').innerHTML =
+          'Your <b>' + cfg.trial + '</b> trial ends in <b>14 days</b>. Upgrade any time for full access.';
+        document.getElementById('composer-chips').innerHTML =
+          cfg.chips.map(chipHTML).join('') +
+          '<button class="composer__send" type="button" aria-label="Send">' +
+            '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 16V5M5 10l5-5 5 5"/></svg>' +
+          '</button>';
+        document.getElementById('setup-count').textContent = '0 of ' + cfg.tasks.length + ' done';
+        document.getElementById('setup-list').innerHTML = cfg.tasks.map(taskHTML).join('');
+      }
+
+      // ---- Selection interactions ----
+      var selected = null;
+      var cards = document.querySelectorAll('.pcard');
+      var continueBtn = document.getElementById('continue');
+      cards.forEach(function (card) {
+        card.addEventListener('click', function () {
+          cards.forEach(function (c) { c.classList.remove('is-selected'); c.setAttribute('aria-checked', 'false'); });
+          card.classList.add('is-selected');
+          card.setAttribute('aria-checked', 'true');
+          selected = card.getAttribute('data-product');
+          continueBtn.classList.add('is-ready');
+        });
+      });
+
+      function goToDashboard() {
+        if (!selected) return;
+        renderDashboard(selected);
+        document.getElementById('screen-select').classList.remove('is-active');
+        document.getElementById('screen-dashboard').classList.add('is-active');
+        window.scrollTo({ top: 0 });
+      }
+      continueBtn.addEventListener('click', goToDashboard);
+
+      document.getElementById('restart').addEventListener('click', function () {
+        document.getElementById('screen-dashboard').classList.remove('is-active');
+        document.getElementById('screen-select').classList.add('is-active');
+      });
+    })();
+  </script>
+</body>
+</html>
