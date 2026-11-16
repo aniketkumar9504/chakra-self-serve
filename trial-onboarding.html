@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="styles/hrds/tokens.css" />
   <link rel="stylesheet" href="styles/hrds/theme.css" />
   <link rel="stylesheet" href="styles/hrds/fonts.css" />
-  <link rel="stylesheet" href="styles/trial-onboarding.css?v=3" />
+  <link rel="stylesheet" href="styles/trial-onboarding.css?v=5" />
 </head>
 <body>
 
@@ -53,17 +53,36 @@
 
   <!-- ============================ STEP 2 — Tailored dashboard ============================ -->
   <section class="screen" id="screen-dashboard">
-    <div class="app">
-      <!-- Sidebar -->
-      <aside class="sidebar">
-        <img class="sidebar__logo" src="assets/chakra-mark.svg" alt="HackerRank" />
-        <nav class="sidebar__group" id="nav-top"></nav>
-        <div class="sidebar__spacer"></div>
-        <nav class="sidebar__group" id="nav-bottom"></nav>
-      </aside>
+    <!-- Dark HRW global header -->
+    <header class="hrw-header">
+      <div class="hrw-header__left">
+        <img class="hrw-header__logo" src="assets/hrw/logo-white.svg" alt="HackerRank" />
+        <nav class="hrw-nav">
+          <a class="hrw-nav__link" href="#" data-nav="chakra">Chakra <span class="hrw-badge">New</span></a>
+          <a class="hrw-nav__link" href="#">Tests</a>
+          <a class="hrw-nav__link" href="#" data-nav="interviews">Interviews</a>
+          <a class="hrw-nav__link" href="#">Library</a>
+          <a class="hrw-nav__link" href="#">Insights</a>
+          <a class="hrw-nav__link hrw-nav__more" href="#">More
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l5 5 5-5"/></svg>
+          </a>
+        </nav>
+      </div>
+      <div class="hrw-header__right">
+        <button class="hrw-search" type="button">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="9" r="6"/><path d="M17 17l-3.2-3.2"/></svg>
+          Search Candidates
+        </button>
+        <span class="hrw-divider"></span>
+        <button class="hrw-avatar" type="button">
+          <span class="hrw-avatar__chip">DD</span>
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l5 5 5-5"/></svg>
+        </button>
+      </div>
+    </header>
 
-      <!-- Main -->
-      <div class="main">
+    <!-- Main -->
+    <div class="main">
         <div class="trial">
           <span class="trial__text" id="trial-text"></span>
           <span class="trial__spacer"></span>
@@ -91,7 +110,6 @@
             </div>
           </div>
         </div>
-      </div>
     </div>
     <button class="restart" id="restart" type="button">↺ Change product</button>
   </section>
@@ -211,8 +229,11 @@
 
       function renderDashboard(key) {
         var cfg = CONFIG[key];
-        document.getElementById('nav-top').innerHTML = cfg.navTop.map(navHTML).join('');
-        document.getElementById('nav-bottom').innerHTML = NAV_BOTTOM.map(navHTML).join('');
+        // Highlight the global-nav item for the selected product (Chakra for "both").
+        var activeNav = key === 'interviews' ? 'interviews' : 'chakra';
+        document.querySelectorAll('.hrw-nav__link').forEach(function (a) {
+          a.classList.toggle('is-active', a.getAttribute('data-nav') === activeNav);
+        });
         document.getElementById('trial-text').innerHTML =
           'Your <b>' + cfg.trial + '</b> trial ends in <b>14 days</b>. Upgrade any time for full access.';
         document.getElementById('composer-chips').innerHTML =
