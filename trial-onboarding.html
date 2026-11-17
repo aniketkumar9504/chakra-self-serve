@@ -143,7 +143,6 @@
           </div>
         </div>
     </div>
-    <button class="restart" id="restart" type="button">↺ Change product</button>
   </section>
 
   <script>
@@ -292,11 +291,6 @@
       // Skip → fall back to the combined "both" setup.
       document.getElementById('sel-skip').addEventListener('click', function () {
         goToDashboard('both');
-      });
-
-      document.getElementById('restart').addEventListener('click', function () {
-        document.getElementById('screen-dashboard').classList.remove('is-active');
-        document.getElementById('screen-select').classList.add('is-active');
       });
     })();
   </script>
