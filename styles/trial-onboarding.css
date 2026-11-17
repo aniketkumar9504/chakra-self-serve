@@ -80,13 +80,13 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--hrds-radius-xl);
   padding: 44px 44px 32px;
-  text-align: center;
+  text-align: left;
   box-shadow: 0 24px 60px -44px rgba(20, 20, 25, 0.4);
 }
 .sel-card__title { margin: 0; font-size: 34px; line-height: 1.12; }
 .sel-card__sub {
-  margin: 12px auto 28px;
-  max-width: 42ch;
+  margin: 12px 0 28px;
+  max-width: 44ch;
   font-size: 15px; line-height: 1.55;
   color: var(--muted-foreground);
 }
@@ -114,20 +114,34 @@ body {
   border-radius: var(--hrds-radius-lg);
 }
 .sel-option__icon img { width: 24px; height: 24px; }
-.sel-option__icon--chakra { background: color-mix(in srgb, var(--cyan) 14%, #fff); }
-.sel-option__icon--interviews { background: color-mix(in srgb, var(--success) 16%, #fff); }
-.sel-option__icon--both { background: linear-gradient(135deg, color-mix(in srgb, var(--cyan) 16%, #fff), color-mix(in srgb, var(--success) 18%, #fff)); }
+/* Neutral light-grey tile behind every product logo. */
+.sel-option__icon--chakra,
+.sel-option__icon--interviews,
+.sel-option__icon--both { background: var(--accent); }
 .sel-option__icon--both img { width: 19px; height: 19px; }
 .sel-option__dual { display: inline-flex; }
 .sel-option__dual img:last-child { margin-left: -7px; }
 
-.sel-option__text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.sel-option__text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; text-align: left; }
 .sel-option__name { font-size: 15.5px; font-weight: 700; color: var(--foreground); }
 .sel-option__desc { font-size: 13px; color: var(--muted-foreground); }
 .sel-option__arrow { width: 18px; height: 18px; flex: none; color: var(--muted-foreground); transition: transform 0.16s ease, color 0.16s ease; }
 .sel-option:hover .sel-option__arrow { color: var(--foreground); transform: translateX(3px); }
 
-.sel-card__foot { margin: 24px 0 0; font-size: 13px; color: var(--muted-foreground); }
+.sel-skip {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 18px; padding: 4px 2px;
+  font-family: var(--font-ds);
+  font-size: var(--hrds-text-subtitle-md); font-weight: 600;
+  color: var(--muted-foreground);
+  background: none; border: 0; cursor: pointer;
+  transition: color 0.15s ease;
+}
+.sel-skip:hover { color: var(--foreground); }
+.sel-skip svg { width: 15px; height: 15px; transition: transform 0.15s ease; }
+.sel-skip:hover svg { transform: translateX(3px); }
+
+.sel-card__foot { margin: 16px 0 0; font-size: 13px; color: var(--muted-foreground); }
 
 /* Right — customer testimonial card */
 .sel-quote {

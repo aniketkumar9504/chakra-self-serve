@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="styles/hrds/tokens.css" />
   <link rel="stylesheet" href="styles/hrds/theme.css" />
   <link rel="stylesheet" href="styles/hrds/fonts.css" />
-  <link rel="stylesheet" href="styles/trial-onboarding.css?v=11" />
+  <link rel="stylesheet" href="styles/trial-onboarding.css?v=13" />
 </head>
 <body>
 
@@ -54,6 +54,7 @@
           </button>
         </div>
 
+        <button class="sel-skip" id="sel-skip" type="button">Not sure yet — set up both <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h11M11 5l5 5-5 5"/></svg></button>
         <p class="sel-card__foot">You can switch anytime from your dashboard.</p>
       </div>
 
@@ -287,6 +288,10 @@
         opt.addEventListener('click', function () {
           goToDashboard(opt.getAttribute('data-product'));
         });
+      });
+      // Skip → fall back to the combined "both" setup.
+      document.getElementById('sel-skip').addEventListener('click', function () {
+        goToDashboard('both');
       });
 
       document.getElementById('restart').addEventListener('click', function () {
