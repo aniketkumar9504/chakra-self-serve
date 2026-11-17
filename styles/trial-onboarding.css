@@ -128,18 +128,12 @@ body {
 .sel-option__arrow { width: 18px; height: 18px; flex: none; color: var(--muted-foreground); transition: transform 0.16s ease, color 0.16s ease; }
 .sel-option:hover .sel-option__arrow { color: var(--foreground); transform: translateX(3px); }
 
-.sel-skip {
-  display: inline-flex; align-items: center; gap: 6px;
-  margin-top: 18px; padding: 4px 2px;
-  font-family: var(--font-ds);
-  font-size: var(--hrds-text-subtitle-md); font-weight: 600;
-  color: var(--muted-foreground);
-  background: none; border: 0; cursor: pointer;
-  transition: color 0.15s ease;
+/* Skip is its own option, set apart from the three products and quieter. */
+.sel-option--skip {
+  margin-top: 6px;
+  border-style: dashed;
 }
-.sel-skip:hover { color: var(--foreground); }
-.sel-skip svg { width: 15px; height: 15px; transition: transform 0.15s ease; }
-.sel-skip:hover svg { transform: translateX(3px); }
+.sel-option--skip .sel-option__name { color: var(--muted-foreground); }
 
 .sel-card__foot { margin: 16px 0 0; font-size: 13px; color: var(--muted-foreground); }
 
