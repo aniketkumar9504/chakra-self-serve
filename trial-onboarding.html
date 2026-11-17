@@ -8,47 +8,70 @@
   <link rel="stylesheet" href="styles/hrds/tokens.css" />
   <link rel="stylesheet" href="styles/hrds/theme.css" />
   <link rel="stylesheet" href="styles/hrds/fonts.css" />
-  <link rel="stylesheet" href="styles/trial-onboarding.css?v=9" />
+  <link rel="stylesheet" href="styles/trial-onboarding.css?v=10" />
 </head>
 <body>
 
   <!-- ============================ STEP 1 — Product selection ============================ -->
   <section class="screen select is-active" id="screen-select">
-    <img class="select__logo" src="assets/logo-dark.svg" alt="HackerRank" />
-    <p class="select__eyebrow">Set up your trial</p>
-    <h1 class="select__title serif">What do you want to try first?</h1>
-    <p class="select__sub">Pick the product you care about most and we'll tailor your trial — the home screen, setup steps, and suggestions — around it.</p>
+    <header class="sel-bar">
+      <img class="sel-bar__logo" src="assets/logo-dark.svg" alt="HackerRank" />
+      <button class="sel-bar__signout" type="button">Sign out</button>
+    </header>
 
-    <div class="select__grid" role="radiogroup" aria-label="Choose a product">
-      <button class="pcard" role="radio" aria-checked="false" data-product="chakra" type="button">
-        <span class="pcard__check"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"/></svg></span>
-        <span class="pcard__icon pcard__icon--chakra"><img src="assets/products/chakra.svg" alt="" /></span>
-        <span class="pcard__name">Chakra</span>
-        <span class="pcard__tag">AI screening</span>
-        <span class="pcard__desc">AI interviews that screen candidates at scale — paste a role, share a link, and let AI run and score the first round.</span>
-      </button>
+    <div class="sel-body">
+      <!-- Left: selection card -->
+      <div class="sel-card">
+        <h1 class="sel-card__title serif">What do you want to try first?</h1>
+        <p class="sel-card__sub">Pick a product and we'll tailor your trial — the home, setup steps, and suggestions — around it.</p>
 
-      <button class="pcard" role="radio" aria-checked="false" data-product="interviews" type="button">
-        <span class="pcard__check"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"/></svg></span>
-        <span class="pcard__icon pcard__icon--interviews"><img src="assets/products/interview.svg" alt="" /></span>
-        <span class="pcard__name">Interviews</span>
-        <span class="pcard__tag">Live coding</span>
-        <span class="pcard__desc">Live pair-programming interviews in a shared development environment, with a 3,000+ question library.</span>
-      </button>
+        <div class="sel-options" role="list">
+          <button class="sel-option" data-product="chakra" type="button">
+            <span class="sel-option__icon sel-option__icon--chakra"><img src="assets/products/chakra.svg" alt="" /></span>
+            <span class="sel-option__text">
+              <span class="sel-option__name">Chakra</span>
+              <span class="sel-option__desc">AI interviews that screen candidates at scale</span>
+            </span>
+            <svg class="sel-option__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h11M11 5l5 5-5 5"/></svg>
+          </button>
 
-      <button class="pcard" role="radio" aria-checked="false" data-product="both" type="button">
-        <span class="pcard__check"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"/></svg></span>
-        <span class="pcard__icon pcard__icon--both"><span class="pcard__dual"><img src="assets/products/chakra.svg" alt="" /><img src="assets/products/interview.svg" alt="" /></span></span>
-        <span class="pcard__name">Both</span>
-        <span class="pcard__tag">Full funnel</span>
-        <span class="pcard__desc">Screen at scale with Chakra, then go deep with shortlisted candidates in live Interviews — one connected flow.</span>
-      </button>
+          <button class="sel-option" data-product="interviews" type="button">
+            <span class="sel-option__icon sel-option__icon--interviews"><img src="assets/products/interview.svg" alt="" /></span>
+            <span class="sel-option__text">
+              <span class="sel-option__name">Interviews</span>
+              <span class="sel-option__desc">Live pair-programming interviews in a shared IDE</span>
+            </span>
+            <svg class="sel-option__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h11M11 5l5 5-5 5"/></svg>
+          </button>
+
+          <button class="sel-option" data-product="both" type="button">
+            <span class="sel-option__icon sel-option__icon--both"><span class="sel-option__dual"><img src="assets/products/chakra.svg" alt="" /><img src="assets/products/interview.svg" alt="" /></span></span>
+            <span class="sel-option__text">
+              <span class="sel-option__name">Both</span>
+              <span class="sel-option__desc">Screen at scale, then go deep in live interviews</span>
+            </span>
+            <svg class="sel-option__arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h11M11 5l5 5-5 5"/></svg>
+          </button>
+        </div>
+
+        <p class="sel-card__foot">You can switch anytime from your dashboard.</p>
+      </div>
+
+      <!-- Right: customer testimonial -->
+      <aside class="sel-quote" aria-hidden="true">
+        <div class="sel-quote__top">
+          <svg class="sel-quote__mark" viewBox="0 0 48 48" fill="currentColor"><path d="M20 34H8V22c0-6 4-10 10-10v5c-3 0-5 2-5 5v1h7v11zm20 0H28V22c0-6 4-10 10-10v5c-3 0-5 2-5 5v1h7v11z"/></svg>
+          <span class="sel-quote__tag">Northwind</span>
+        </div>
+        <div class="sel-quote__panel">
+          <p class="sel-quote__text">"We cut screening time in half and our engineers actually enjoy running interviews now. Chakra and Interviews feel like one connected workflow."</p>
+          <div class="sel-quote__by">
+            <span class="sel-quote__name">Priya Raman</span>
+            <span class="sel-quote__role">Head of Talent, Northwind</span>
+          </div>
+        </div>
+      </aside>
     </div>
-
-    <button class="select__continue" id="continue" type="button">
-      Continue
-      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h11M11 5l5 5-5 5"/></svg>
-    </button>
   </section>
 
   <!-- ============================ STEP 2 — Tailored dashboard ============================ -->
@@ -253,28 +276,18 @@
         document.getElementById('setup-list').innerHTML = cfg.tasks.map(taskHTML).join('');
       }
 
-      // ---- Selection interactions ----
-      var selected = null;
-      var cards = document.querySelectorAll('.pcard');
-      var continueBtn = document.getElementById('continue');
-      cards.forEach(function (card) {
-        card.addEventListener('click', function () {
-          cards.forEach(function (c) { c.classList.remove('is-selected'); c.setAttribute('aria-checked', 'false'); });
-          card.classList.add('is-selected');
-          card.setAttribute('aria-checked', 'true');
-          selected = card.getAttribute('data-product');
-          continueBtn.classList.add('is-ready');
-        });
-      });
-
-      function goToDashboard() {
-        if (!selected) return;
-        renderDashboard(selected);
+      // ---- Selection interactions: picking an option goes straight in ----
+      function goToDashboard(key) {
+        renderDashboard(key);
         document.getElementById('screen-select').classList.remove('is-active');
         document.getElementById('screen-dashboard').classList.add('is-active');
         window.scrollTo({ top: 0 });
       }
-      continueBtn.addEventListener('click', goToDashboard);
+      document.querySelectorAll('.sel-option').forEach(function (opt) {
+        opt.addEventListener('click', function () {
+          goToDashboard(opt.getAttribute('data-product'));
+        });
+      });
 
       document.getElementById('restart').addEventListener('click', function () {
         document.getElementById('screen-dashboard').classList.remove('is-active');
