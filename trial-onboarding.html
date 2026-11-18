@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="styles/hrds/tokens.css" />
   <link rel="stylesheet" href="styles/hrds/theme.css" />
   <link rel="stylesheet" href="styles/hrds/fonts.css" />
-  <link rel="stylesheet" href="styles/trial-onboarding.css?v=27" />
+  <link rel="stylesheet" href="styles/trial-onboarding.css?v=28" />
 </head>
 <body>
 
@@ -126,7 +126,10 @@
               </div>
             </div>
 
-            <!-- Product intros — only shown when the user hasn't narrowed to one product (Both) -->
+            <!-- Per-product sections (Both path): Chakra first, then Interviews -->
+            <div class="product-sections" id="product-sections"></div>
+
+            <!-- Product intros — legacy (kept hidden; superseded by product-sections) -->
             <div class="intro-cards" id="intro-cards">
               <div class="intro-card">
                 <div class="intro-card__head">
@@ -263,7 +266,19 @@
         },
         both: {
           trial: 'Chakra + Interviews',
-          heroTitle: 'Let\'s create your first role',
+          heroTitle: 'Let\'s get you set up',
+          sections: [
+            { product: 'chakra', label: 'Start with Chakra', note: 'The fastest way to your first attempt.', items: [
+              { title: 'Set up a role on Chakra', desc: 'Paste a JD to generate an AI screening interview.', cta: 'Set up a role' },
+              { title: 'Try it as a candidate', desc: 'Take the interview yourself to see the experience.', cta: 'Try it now' },
+              { title: 'See a sample report', desc: 'Preview AI scores, transcripts, and integrity flags.', cta: 'View sample' }
+            ] },
+            { product: 'interviews', label: 'Then explore Interviews', note: 'Deep-dive live rounds in a shared ADE.', items: [
+              { title: 'Browse the question library', desc: '3,000+ role-based questions, or add your own.', cta: 'Browse' },
+              { title: 'Start a live interview', desc: 'Spin up a shared ADE and interview in real time.', cta: 'Start' },
+              { title: 'See a sample report', desc: 'Preview playback, notes, and scoring.', cta: 'View sample' }
+            ] }
+          ],
           plan: [
             { title: 'Try your Chakra as a candidate', desc: 'Once you\'ve created it above, take the interview yourself to see exactly what candidates experience.', cta: 'Try it now' },
             { title: 'Invite candidates to take it' },
@@ -353,6 +368,29 @@
           '</div>';
       }
 
+      // Per-product sections (Both path): each a labelled header + 3 actions.
+      function sectionsHTML(sections) {
+        var img = { chakra: CHAKRA_IMG, interviews: INT_IMG };
+        return sections.map(function (s) {
+          return '' +
+            '<div class="psection">' +
+              '<div class="psection__head">' +
+                '<span class="psection__icon"><img src="' + img[s.product] + '" alt="" aria-hidden="true" /></span>' +
+                '<div><p class="psection__label">' + s.label + '</p><p class="psection__note">' + s.note + '</p></div>' +
+              '</div>' +
+              '<div class="psection__grid">' +
+                s.items.map(function (it) {
+                  return '<div class="psitem">' +
+                    '<p class="psitem__title">' + it.title + '</p>' +
+                    '<p class="psitem__desc">' + it.desc + '</p>' +
+                    '<button class="psitem__cta" type="button">' + it.cta + '</button>' +
+                  '</div>';
+                }).join('') +
+              '</div>' +
+            '</div>';
+        }).join('');
+      }
+
       // Secondary "other things you can do" actions.
       function actionsHTML(items) {
         return '<h2 class="actions__title serif">Other things you can set up</h2>' +
@@ -398,9 +436,16 @@
           '</span>' +
           ' <span class="trial__sub">· ends in 14 days</span>';
         document.getElementById('hero-title').textContent = cfg.heroTitle;
-        // Intro cards only when the need isn't already narrowed to one product.
-        document.getElementById('intro-cards').style.display = (key === 'both') ? '' : 'none';
-        document.getElementById('plan').innerHTML = planHTML(cfg.plan);
+
+        var isBoth = (key === 'both');
+        // Both: lead with per-product sections (no single create box / plan).
+        // Single product: the create box + a focused setup plan.
+        document.getElementById('intro-cards').style.display = 'none';
+        document.querySelector('.composer-dock').style.display = isBoth ? 'none' : '';
+        document.getElementById('plan').style.display = isBoth ? 'none' : '';
+        document.getElementById('product-sections').style.display = isBoth ? '' : 'none';
+        document.getElementById('product-sections').innerHTML = isBoth ? sectionsHTML(cfg.sections) : '';
+        if (!isBoth) document.getElementById('plan').innerHTML = planHTML(cfg.plan);
         document.getElementById('actions').innerHTML = actionsHTML(cfg.actions);
         document.getElementById('faq').innerHTML = faqHTML(cfg.faq);
       }
