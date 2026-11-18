@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="styles/hrds/tokens.css" />
   <link rel="stylesheet" href="styles/hrds/theme.css" />
   <link rel="stylesheet" href="styles/hrds/fonts.css" />
-  <link rel="stylesheet" href="styles/trial-onboarding.css?v=36" />
+  <link rel="stylesheet" href="styles/trial-onboarding.css?v=37" />
 </head>
 <body>
 
@@ -297,7 +297,7 @@
             '<div class="psection__tasks" style="--task-count: ' + product.tasks.length + '">' + product.tasks.map(function (task, index) {
               var tag = task.href ? 'a' : 'button';
               var attributes = task.href ? 'href="' + task.href + '"' : 'type="button" data-product="' + product.key + '" data-task="' + index + '"';
-              return '<' + tag + ' class="product-task' + (task.primary ? ' product-task--primary' : '') + '" ' + attributes + ' aria-label="' + task.title + ' — ' + product.name + '">' +
+              return '<' + tag + ' class="product-task" ' + attributes + ' aria-label="' + task.title + ' — ' + product.name + '">' +
                 '<span class="product-task__body"><span class="product-task__title">' + task.title + '</span>' +
                 '<span class="product-task__desc">' + task.description + '</span></span>' +
                 '<span class="product-task__arrow">' + arrow + '</span>' +
@@ -309,14 +309,14 @@
 
       function sharedActionsHTML() {
         return '<h2 class="shared-actions__title" id="shared-actions-title">Other things you can set up</h2>' +
-          '<div class="shared-actions__grid">' + SHARED_ACTIONS.map(function (action, index) {
-            return '<article class="shared-action">' +
+          '<ul class="shared-actions__list" role="list">' + SHARED_ACTIONS.map(function (action, index) {
+            return '<li class="shared-action">' +
               '<span class="shared-action__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + action.icon + '</svg></span>' +
-              '<h3 class="shared-action__title">' + action.title + '</h3>' +
-              '<p class="shared-action__description">' + action.description + '</p>' +
+              '<div class="shared-action__body"><h3 class="shared-action__title">' + action.title + '</h3>' +
+                '<p class="shared-action__description">' + action.description + '</p></div>' +
               '<button class="shared-action__button" type="button" data-shared-action="' + index + '">' + action.action + '</button>' +
-            '</article>';
-          }).join('') + '</div>';
+            '</li>';
+          }).join('') + '</ul>';
       }
 
       function faqHTML(items) {

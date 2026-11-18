@@ -305,7 +305,7 @@ body {
 }
 .canvas__inner { max-width: 1120px; margin: 0 auto; }
 
-/* Task-first product sections. Each product owns its three actions. */
+/* Task-first product sections. Each product owns its actions. */
 .hero-title { margin: 6px 0 12px; font-size: clamp(30px, 3.2vw, 40px); line-height: 1.2; text-align: center; }
 .hero-title:focus { outline: none; }
 .product-option { min-width: 0; }
@@ -328,10 +328,8 @@ body {
 .product-task__desc { font-size: 13px; line-height: 1.5; color: var(--muted-foreground); }
 .product-task__arrow { display: grid; place-items: center; flex: none; width: 32px; height: 32px; border: 1px solid var(--outline-border); border-radius: var(--hrds-radius-circle); transition: background 0.15s ease, border-color 0.15s ease; }
 .product-task__arrow svg { width: 17px; height: 17px; }
-.product-task--primary .product-task__arrow { color: var(--secondary-foreground); background: var(--secondary); border-color: var(--secondary); }
 .product-task:hover .product-task__title { text-decoration: underline; text-underline-offset: 3px; }
 .product-task:hover .product-task__arrow { border-color: var(--foreground); background: var(--accent); }
-.product-task--primary:hover .product-task__arrow { background: var(--secondary-hover); }
 
 /* A single product uses one compact row of tasks on desktop. */
 .products[data-count="1"] .psection { padding-bottom: 22px; }
@@ -344,7 +342,8 @@ body {
 /* Lead with setup for the selected product; Both starts with Chakra. */
 .assistant { position: relative; margin: 0 auto 48px; max-width: 820px; text-align: center; }
 .assistant__intro { margin: 0 0 24px; font-size: 15px; line-height: 1.6; color: var(--muted-foreground); }
-.composer { position: relative; padding: 1.5px; border-radius: var(--hrds-radius-xl); background: linear-gradient(100deg, #8ae9ff 0%, #9c99ff 55%, #d2f5b9 100%); box-shadow: 0 8px 26px -16px #9c99ff; }
+.composer { position: relative; isolation: isolate; padding: 1.5px; border-radius: var(--hrds-radius-xl); background: linear-gradient(100deg, #8ae9ff 0%, #9c99ff 55%, #d2f5b9 100%); box-shadow: 0 16px 44px -20px rgba(156, 153, 255, 0.5); }
+.composer::before { content: ""; position: absolute; z-index: -1; inset: -14px -20px; border-radius: inherit; background: linear-gradient(105deg, rgba(138, 233, 255, 0.55) 0%, rgba(156, 153, 255, 0.48) 52%, rgba(210, 245, 185, 0.5) 100%); filter: blur(24px); pointer-events: none; }
 .composer__inner { padding: 18px; background: var(--card); border-radius: inherit; text-align: left; }
 .composer__field { display: block; width: 100%; min-height: 58px; max-height: 240px; margin: 0 0 12px; padding: 0; resize: vertical; border: 0; background: transparent; color: var(--foreground); font-size: 14px; line-height: 1.6; }
 .composer__field::placeholder { color: var(--muted-foreground); opacity: 1; }
@@ -365,13 +364,15 @@ body {
 .shared-actions { margin-top: 40px; }
 .canvas__inner:has(.products[data-count="1"]) .shared-actions { max-width: 820px; margin-inline: auto; }
 .shared-actions__title { margin: 0 0 20px; font-size: 18px; font-weight: 700; }
-.shared-actions__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
-.shared-action { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 22px; border: 1px solid var(--border); border-radius: var(--hrds-radius-xl); }
-.shared-action__icon { display: grid; place-items: center; width: 40px; height: 40px; margin-bottom: 4px; border-radius: var(--hrds-radius-lg); background: var(--accent); }
-.shared-action__icon svg { width: 22px; height: 22px; }
+.shared-actions__list { margin: 0; padding: 0; list-style: none; border: 1px solid var(--border); border-radius: var(--hrds-radius-xl); background: var(--card); }
+.shared-action { display: flex; align-items: center; gap: 16px; padding: 18px 20px; border-bottom: 1px solid var(--border); }
+.shared-action:last-child { border-bottom: 0; }
+.shared-action__icon { flex: none; display: grid; place-items: center; width: 36px; height: 36px; border-radius: var(--hrds-radius-lg); background: var(--accent); }
+.shared-action__icon svg { width: 20px; height: 20px; }
+.shared-action__body { flex: 1; min-width: 0; }
 .shared-action__title { margin: 0; font-size: 15px; font-weight: 700; line-height: 1.4; }
-.shared-action__description { flex: 1; margin: 0; font-size: 13px; line-height: 1.6; color: var(--muted-foreground); }
-.shared-action__button { margin-top: 8px; padding: 8px 16px; font-size: 13px; font-weight: 700; color: var(--foreground); background: var(--card); border: 1px solid var(--outline-border); border-radius: var(--hrds-radius-circle); cursor: pointer; }
+.shared-action__description { margin: 4px 0 0; font-size: 13px; line-height: 1.6; color: var(--muted-foreground); }
+.shared-action__button { flex: none; padding: 8px 16px; font-size: 13px; font-weight: 700; color: var(--foreground); background: var(--card); border: 1px solid var(--outline-border); border-radius: var(--hrds-radius-circle); cursor: pointer; }
 .shared-action__button:hover { border-color: var(--foreground); background: var(--accent); }
 
 /* Introduce live Interviews after the Chakra workspace actions. */
@@ -416,7 +417,9 @@ button:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px soli
 }
 @media (max-width: 700px) {
   .product-sections { grid-template-columns: minmax(0, 1fr); gap: 20px; }
-  .shared-actions__grid { grid-template-columns: minmax(0, 1fr); }
+  .shared-action { display: grid; grid-template-columns: 32px minmax(0, 1fr); align-items: start; gap: 8px 12px; padding: 16px; }
+  .shared-action__icon { width: 32px; height: 32px; }
+  .shared-action__button { grid-column: 2; justify-self: start; }
   .canvas { margin: 12px; padding: 28px 20px 40px; }
   .hero-title { margin-bottom: 12px; }
   .psection { padding: 20px 18px 4px; }
