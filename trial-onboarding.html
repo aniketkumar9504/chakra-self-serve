@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="styles/hrds/tokens.css" />
   <link rel="stylesheet" href="styles/hrds/theme.css" />
   <link rel="stylesheet" href="styles/hrds/fonts.css" />
-  <link rel="stylesheet" href="styles/trial-onboarding.css?v=32" />
+  <link rel="stylesheet" href="styles/trial-onboarding.css?v=33" />
 </head>
 <body>
 
@@ -130,6 +130,19 @@
             </section>
 
             <section class="shared-actions" id="shared-actions" aria-labelledby="shared-actions-title"></section>
+
+            <aside class="discover-product" id="discover-interviews" aria-labelledby="discover-interviews-title" hidden>
+              <span class="discover-product__icon"><img src="assets/products/interview.svg" alt="" /></span>
+              <div class="discover-product__body">
+                <p class="discover-product__eyebrow">Also available on HackerRank</p>
+                <h2 class="discover-product__title" id="discover-interviews-title">Meet Interviews</h2>
+                <p class="discover-product__description">Go deeper with live pair-programming interviews in a shared coding workspace.</p>
+              </div>
+              <div class="discover-product__actions">
+                <button class="discover-product__try" id="try-interviews" type="button">Try Interviews</button>
+                <a class="discover-product__demo" href="book-demo.html?product=interview">Book a demo</a>
+              </div>
+            </aside>
 
             <section class="faq" id="faq" aria-labelledby="faq-title"></section>
           </div>
@@ -267,9 +280,9 @@
           return '<section class="psection" aria-labelledby="title-' + product.key + '">' +
             '<div class="psection__head">' +
               '<span class="psection__icon"><img src="' + product.image + '" alt="" /></span>' +
-              '<h2 class="psection__label" id="title-' + product.key + '">' + product.name + '</h2>' +
+              '<div class="psection__identity"><h2 class="psection__label" id="title-' + product.key + '">' + product.name + '</h2>' +
+                '<p class="psection__note">' + product.description + '</p></div>' +
             '</div>' +
-            '<p class="psection__note">' + product.description + '</p>' +
             '<div class="psection__tasks">' + product.tasks.map(function (task, index) {
               var tag = task.href ? 'a' : 'button';
               var attributes = task.href ? 'href="' + task.href + '"' : 'type="button" data-product="' + product.key + '" data-task="' + index + '"';
@@ -356,6 +369,7 @@
         document.getElementById('products').dataset.count = products.length;
         sections.innerHTML = sectionsHTML(products);
         document.getElementById('shared-actions').innerHTML = sharedActionsHTML();
+        document.getElementById('discover-interviews').hidden = key !== 'chakra';
         document.getElementById('faq').innerHTML = faqHTML(cfg.faq);
       }
 
@@ -381,6 +395,9 @@
         }
         var product = PRODUCTS.find(function (item) { return item.key === button.dataset.product; });
         openAssistant(product.tasks[Number(button.dataset.task)].prompt);
+      });
+      document.getElementById('try-interviews').addEventListener('click', function () {
+        openAssistant('I would like to explore HackerRank Interviews. Help me try a live pair-programming interview.');
       });
       document.getElementById('shared-actions').addEventListener('click', function (event) {
         var button = event.target.closest('button[data-shared-action]');
