@@ -1,8 +1,8 @@
 /* ============================================================================
-   Trial onboarding flow - product selection → tailored "get started" dashboard
+   Trial dashboard - Chakra and Interviews
    ----------------------------------------------------------------------------
-   Step 1 asks which product the trial is for (Chakra / Interviews / Both) and
-   Step 2 presents product tasks, an on-demand assistant, and tailored FAQs. All colour/type/radius values come from
+   Opens directly with both products, an on-demand assistant, and FAQs.
+   All colour/type/radius values come from
    the hr-design (HRDS) tokens in styles/hrds/*; the dark HRW header mirrors
    chakra-in-hrw-v2 by scoping HRDS `.dark` tokens. The only literals are
    documented brand accents with no HRDS equivalent (the teal "New" badge and
@@ -32,122 +32,6 @@ body {
 
 .serif { font-family: var(--font-heading); font-weight: 400; letter-spacing: -0.01em; }
 
-/* Screens: only one visible at a time. */
-.screen { display: none; }
-.select.is-active { display: flex; }
-#screen-dashboard.is-active { display: block; }
-
-/* =====================================================================
-   STEP 1 - Product selection
-   ===================================================================== */
-.select {
-  min-height: 100vh;
-  flex-direction: column;
-  background: var(--background);
-}
-
-/* Minimal top bar: logo left, Sign out right, thin rule under. */
-.sel-bar {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 20px 28px;
-  border-bottom: 1px solid var(--border);
-}
-.sel-bar__logo { height: 20px; }
-.sel-bar__signout {
-  padding: 8px 16px;
-  font-family: var(--font-ds);
-  font-size: var(--hrds-text-subtitle-md); font-weight: 500;
-  color: var(--foreground);
-  background: none;
-  border: 1px solid var(--outline-border);
-  border-radius: var(--radius);
-  cursor: pointer;
-}
-.sel-bar__signout:hover { border-color: var(--outline-border-hover); }
-
-/* Two-column body, centered on a soft canvas. */
-.sel-body {
-  flex: 1;
-  display: grid;
-  grid-template-columns: minmax(0, 600px);
-  gap: 56px;
-  align-items: center;
-  justify-content: center;
-  padding: 56px 32px;
-  background: var(--muted);
-}
-
-/* Left - selection card */
-.sel-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--hrds-radius-xl);
-  padding: 44px 44px 32px;
-  text-align: left;
-  box-shadow: 0 24px 60px -44px rgba(20, 20, 25, 0.4);
-}
-.sel-card__title { margin: 0; font-size: 34px; line-height: 1.12; }
-.sel-card__sub {
-  margin: 12px 0 28px;
-  max-width: 44ch;
-  font-size: 15px; line-height: 1.55;
-  color: var(--muted-foreground);
-}
-
-.sel-options { display: flex; flex-direction: column; gap: 12px; text-align: left; }
-.sel-option {
-  display: flex; align-items: center; gap: 14px;
-  width: 100%;
-  padding: 14px 16px;
-  background: var(--card);
-  border: 1px solid var(--outline-border);
-  border-radius: var(--radius);
-  cursor: pointer;
-  transition: border-color 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
-}
-.sel-option:hover {
-  border-color: var(--foreground);
-  box-shadow: 0 10px 28px -20px rgba(20, 20, 25, 0.5);
-  transform: translateY(-1px);
-}
-.sel-option__icon {
-  flex: none;
-  width: 42px; height: 42px;
-  display: grid; place-items: center;
-  border-radius: var(--hrds-radius-lg);
-}
-.sel-option__icon img { width: 24px; height: 24px; }
-/* Neutral light-grey tile behind every product logo. */
-.sel-option__icon--chakra,
-.sel-option__icon--interviews,
-.sel-option__icon--both { background: var(--accent); }
-.sel-option__icon--both img { width: 19px; height: 19px; }
-.sel-option__dual { display: inline-flex; }
-.sel-option__dual img:last-child { margin-left: -7px; }
-
-.sel-option__text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; text-align: left; }
-.sel-option__name { font-size: 15.5px; font-weight: 700; color: var(--foreground); }
-.sel-option__desc { font-size: 13px; color: var(--muted-foreground); }
-.sel-option__arrow { width: 18px; height: 18px; flex: none; color: var(--muted-foreground); transition: transform 0.16s ease, color 0.16s ease; }
-.sel-option:hover .sel-option__arrow { color: var(--foreground); transform: translateX(3px); }
-
-/* Skip: a clean, small, quiet button under the options. */
-.sel-skip-btn {
-  margin-top: 18px;
-  padding: 7px 14px;
-  font-size: var(--hrds-text-subtitle-md); font-weight: 600;
-  color: var(--muted-foreground);
-  background: none;
-  border: 1px solid var(--outline-border);
-  border-radius: var(--hrds-radius-circle);
-  cursor: pointer;
-  transition: color 0.15s ease, border-color 0.15s ease;
-}
-.sel-skip-btn:hover { color: var(--foreground); border-color: var(--outline-border-hover); }
-
-/* =====================================================================
-   STEP 2 - Dashboard shell
-   ===================================================================== */
 /* ---- Dark HRW global header - HRDS .dark surface (mirrors chakra-in-hrw-v2) ---- */
 .hrw-header {
   position: sticky; top: 0; z-index: 100;
@@ -438,11 +322,6 @@ button:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px soli
   .composer__prompts { gap: 6px; }
   .composer__prompt { font-size: 12px; padding: 5px 9px; }
   .faq { margin-top: 34px; }
-  .sel-body { padding: 32px 16px; }
-  .sel-card { padding: 28px 22px; }
-  .sel-card__title { font-size: 30px; }
-  .sel-option { padding: 14px 12px; gap: 10px; }
-  .sel-option__name { font-size: 14px; }
 }
 @media (max-width: 420px) {
   .hrw-header__inner { padding-inline: 16px; }
