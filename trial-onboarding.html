@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="styles/hrds/tokens.css" />
   <link rel="stylesheet" href="styles/hrds/theme.css" />
   <link rel="stylesheet" href="styles/hrds/fonts.css" />
-  <link rel="stylesheet" href="styles/trial-onboarding.css?v=28" />
+  <link rel="stylesheet" href="styles/trial-onboarding.css?v=29" />
 </head>
 <body>
 
@@ -108,60 +108,25 @@
 
         <div class="canvas">
           <div class="canvas__inner">
-            <h1 class="hero-title serif" id="hero-title">Let's create your first role</h1>
+            <h1 class="hero-title serif" id="hero-title" tabindex="-1">How would you like to get started?</h1>
 
-            <!-- Create box: the primary "create an attempt" action -->
-            <div class="composer-dock">
-              <div class="composer">
-                <div class="composer__inner">
-                  <img class="composer__mark" src="assets/products/chakra.svg" alt="" aria-hidden="true" />
-                  <span class="composer__field" id="composer-field">Paste a job description, or type / to choose what to create…</span>
-                  <button class="composer__icon composer__mic" type="button" aria-label="Voice input">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg>
-                  </button>
-                  <button class="composer__icon composer__send" type="button" aria-label="Send">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l15-7-7 15-2.8-5.2L5 12z"/></svg>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Per-product sections (Both path): Chakra first, then Interviews -->
             <div class="product-sections" id="product-sections"></div>
 
-            <!-- Product intros — legacy (kept hidden; superseded by product-sections) -->
-            <div class="intro-cards" id="intro-cards">
-              <div class="intro-card">
-                <div class="intro-card__head">
-                  <span class="intro-card__icon"><img src="assets/products/chakra.svg" alt="" aria-hidden="true" /></span>
-                  <div class="intro-card__text">
-                    <p class="intro-card__name">Chakra</p>
-                    <p class="intro-card__desc">An AI interviewer that screens candidates at scale.</p>
-                  </div>
+            <section class="assistant" aria-labelledby="assistant-title">
+              <h2 class="assistant__title" id="assistant-title">Ask HackerRank to set things up for you</h2>
+              <form class="composer" id="assistant-form">
+                <div class="composer__inner">
+                  <img class="composer__mark" src="assets/products/chakra.svg" alt="" aria-hidden="true" />
+                  <input class="composer__field" id="composer-field" type="text" aria-label="Ask HackerRank to set things up for you" placeholder="Create a role, invite teammates, or connect your ATS…" required />
+                  <button class="composer__send" type="submit" aria-label="Send to HackerRank assistant">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                  </button>
                 </div>
-                <div class="intro-card__actions">
-                  <button class="intro-card__cta" type="button">Try now <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h11M11 5l5 5-5 5"/></svg></button>
-                  <button class="intro-card__link" type="button">Talk to a product specialist</button>
-                </div>
-              </div>
-              <div class="intro-card">
-                <div class="intro-card__head">
-                  <span class="intro-card__icon"><img src="assets/products/interview.svg" alt="" aria-hidden="true" /></span>
-                  <div class="intro-card__text">
-                    <p class="intro-card__name">Interviews</p>
-                    <p class="intro-card__desc">Live, collaborative coding interviews in a shared ADE.</p>
-                  </div>
-                </div>
-                <div class="intro-card__actions">
-                  <button class="intro-card__cta" type="button">Try now <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h11M11 5l5 5-5 5"/></svg></button>
-                  <button class="intro-card__link" type="button">Talk to a product specialist</button>
-                </div>
-              </div>
-            </div>
+              </form>
+              <p class="assistant__status" id="assistant-status" role="status"></p>
+            </section>
 
-            <section class="plan" id="plan"></section>
-            <section class="actions" id="actions"></section>
-            <section class="faq" id="faq"></section>
+            <section class="faq" id="faq" aria-labelledby="faq-title"></section>
           </div>
         </div>
     </div>
@@ -169,317 +134,197 @@
 
   <script>
     (function () {
-      // ---- Inline icon set (stroke icons) ----
-      var I = {
-        home: '<path d="M3 10.5L12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/>',
-        spark: '<path d="M12 3v5M12 16v5M3 12h5M16 12h5M6 6l3 3M15 15l3 3M18 6l-3 3M9 15l-3 3"/>',
-        play: '<circle cx="12" cy="12" r="9"/><path d="M10 8.5l5 3.5-5 3.5z"/>',
-        users: '<circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5"/><path d="M16 5.5a3 3 0 010 5.8M21 20c0-2.5-1.3-4.2-3.5-4.8"/>',
-        shield: '<path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/>',
-        plug: '<path d="M7 7l4 4M3 21l5-5M14 4l2 2M18 8l2 2"/><path d="M13 7l4 4a3 3 0 010 4l-1 1-8-8 1-1a3 3 0 014 0z"/>',
-        team: '<circle cx="8" cy="8" r="3"/><circle cx="17" cy="9" r="2.3"/><path d="M2 20c0-3.3 2.7-5 6-5s6 1.7 6 5"/><path d="M15 15c2.8 0 5 1.4 5 4"/>',
-        list: '<path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/>',
-        book: '<path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2z"/><path d="M19 3v18"/>',
-        chart: '<path d="M4 20V4M4 20h16M8 16v-4M12 16V8M16 16v-6"/>',
-        gear: '<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/>',
-        search: '<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>',
-        invite: '<circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5"/><path d="M18 8v6M15 11h6"/>',
-        profile: '<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.5 3-6 7-6s7 2.5 7 6"/>',
-        code: '<path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13 5l-2 14"/>',
-        calendar: '<rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 9h16M8 3v4M16 3v4"/>'
-      };
-      function svg(key) { return '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' + (I[key] || '') + '</svg>'; }
-      var CHAKRA_IMG = 'assets/products/chakra.svg';
-      var INT_IMG = 'assets/products/interview.svg';
-
-      // ---- Tailored configuration per product selection ----
       var CONFIG = {
-        chakra: {
-          trial: 'Chakra',
-          heroTitle: 'Let\'s create your first role',
-          plan: [
-            { title: 'Try your Chakra as a candidate', desc: 'Once you\'ve created it above, take the interview yourself to see exactly what candidates experience.', cta: 'Try it now' },
-            { title: 'Invite candidates to take it' },
-            { title: 'Review your first reports' }
-          ],
-          actions: [
-            { icon: 'team', title: 'Invite your teammates', desc: 'Bring recruiters and hiring managers in to collaborate.', cta: 'Invite' },
-            { icon: 'plug', title: 'Connect your ATS', desc: 'Sync Chakra results into Greenhouse, Lever, and more.', cta: 'Connect' },
-            { icon: 'book', title: 'Learn what Chakra can do', desc: 'A quick tour of AI interviewing, scoring, and integrity.', cta: 'Watch demo' }
-          ],
-          faq: [
-            { q: 'What is an attempt?', a: 'An attempt is counted each time a candidate completes one of your Chakra interviews. Unused invites don\'t count against your quota.' },
-            { q: 'How does Chakra ensure integrity in attempts?', a: 'Chakra monitors each session for suspicious activity — tab switching, pasted answers, and AI-assistance patterns — and flags anything unusual right in the report so you can review with confidence.' },
-            { q: 'Do candidates need a HackerRank account?', a: 'No. Candidates join with a single link, with no sign-up required.' },
-            { q: 'What happens when my trial ends?', a: 'Your data stays safe. Upgrade any time to keep creating interviews and reviewing reports.' }
-          ],
-          attemptsLeft: 18, attemptsTotal: 25,
-          attemptHint: 'An attempt is used each time a candidate completes one of your Chakra interviews. Unused invites don\'t count.',
-          navTop: [
-            { label: 'Home', icon: svg('home'), active: true },
-            { label: 'Chakra', img: CHAKRA_IMG },
-            { label: 'Candidates', icon: svg('users') },
-            { label: 'Reports', icon: svg('chart') },
-            { label: 'Question library', icon: svg('book') }
-          ],
-          chips: ['Create a Chakra for me', 'How do I integrate my ATS?', 'Can I try it as a candidate?'],
+  "chakra": {
+    "trial": "Chakra",
+    "faq": [
+      {
+        "q": "What is an attempt?",
+        "a": "An attempt is counted each time a candidate completes one of your Chakra interviews. Unused invites don't count against your quota."
+      },
+      {
+        "q": "How does Chakra ensure integrity in attempts?",
+        "a": "Chakra monitors each session for suspicious activity — tab switching, pasted answers, and AI-assistance patterns — and flags anything unusual right in the report so you can review with confidence."
+      },
+      {
+        "q": "Do candidates need a HackerRank account?",
+        "a": "No. Candidates join with a single link, with no sign-up required."
+      },
+      {
+        "q": "What happens when my trial ends?",
+        "a": "Your data stays safe. Upgrade any time to keep creating interviews and reviewing reports."
+      }
+    ],
+    "attemptsLeft": 18,
+    "attemptsTotal": 25,
+    "attemptHint": "An attempt is used each time a candidate completes one of your Chakra interviews. Unused invites don't count."
+  },
+  "interviews": {
+    "trial": "Interviews",
+    "faq": [
+      {
+        "q": "What is an attempt?",
+        "a": "An attempt is counted each time you run a live interview with a candidate."
+      },
+      {
+        "q": "How does the shared ADE work?",
+        "a": "You and the candidate code together in real time in a full IDE, with playback and notes saved to the report afterwards."
+      },
+      {
+        "q": "Do candidates need a HackerRank account?",
+        "a": "No. Candidates join with a single link, with no sign-up required."
+      },
+      {
+        "q": "What happens when my trial ends?",
+        "a": "Your data stays safe. Upgrade any time to keep running interviews and reviewing reports."
+      }
+    ],
+    "attemptsLeft": 8,
+    "attemptsTotal": 10,
+    "attemptHint": "An attempt is used each time you run a live interview with a candidate."
+  },
+  "both": {
+    "trial": "Chakra + Interviews",
+    "faq": [
+      {
+        "q": "What is an attempt?",
+        "a": "An attempt is counted each time a candidate completes a Chakra interview or you run a live interview. Unused invites don't count against your quota."
+      },
+      {
+        "q": "How does Chakra ensure integrity in attempts?",
+        "a": "Chakra monitors each session for suspicious activity — tab switching, pasted answers, and AI-assistance patterns — and flags anything unusual right in the report."
+      },
+      {
+        "q": "Do candidates need a HackerRank account?",
+        "a": "No. Candidates join with a single link, with no sign-up required."
+      },
+      {
+        "q": "What happens when my trial ends?",
+        "a": "Your data stays safe. Upgrade any time to keep creating interviews and reviewing reports."
+      }
+    ],
+    "attemptsLeft": 26,
+    "attemptsTotal": 35,
+    "attemptHint": "An attempt is used each time a candidate completes a Chakra interview or you run a live interview."
+  }
+};
+      var PRODUCTS = [
+        {
+          key: 'chakra', name: 'Chakra', image: 'assets/products/chakra.svg',
+          description: 'An AI interviewer that screens candidates at scale.',
           tasks: [
-            { icon: 'play', title: 'Try Chakra as a candidate', upnext: true, desc: 'Take the AI interview yourself to see exactly what your candidates experience.', cta: 'Try it now', dark: true },
-            { icon: 'book', title: 'Learn what Chakra can do', desc: 'A quick tour of AI interviewing, scoring, and suspicious-activity flags.', cta: 'Watch demo' },
-            { icon: 'team', title: 'Invite your teammates', desc: 'Bring recruiters and hiring managers in to review candidates together.', cta: 'Invite teammates' }
+            { title: 'Set up a role', description: 'Paste a job description to create an AI interview.', prompt: 'Help me set up a role on Chakra using my job description.', primary: true },
+            { title: 'Try as a candidate', description: 'Experience an AI interview from the candidate’s seat.', prompt: 'I want to try Chakra as a candidate. Help me get started.' },
+            { title: 'Book a demo', description: 'Explore Chakra with a product specialist.', href: 'book-demo.html?product=chakra' }
           ]
         },
-        interviews: {
-          trial: 'Interviews',
-          heroTitle: 'Let\'s set up your first interview',
-          plan: [
-            { title: 'Join your interview as a candidate', desc: 'Once it\'s set up above, sit in the shared ADE to see the interview from the candidate side.', cta: 'Try it now' },
-            { title: 'Invite your interviewers' },
-            { title: 'Review your first reports' }
-          ],
-          actions: [
-            { icon: 'team', title: 'Invite your teammates', desc: 'Add interviewers and set their availability.', cta: 'Invite' },
-            { icon: 'book', title: 'Explore the question library', desc: 'Browse 3,000+ role-based questions, or add your own.', cta: 'Explore' },
-            { icon: 'plug', title: 'Connect your calendar & ATS', desc: 'Schedule interviews and sync outcomes automatically.', cta: 'Connect' }
-          ],
-          faq: [
-            { q: 'What is an attempt?', a: 'An attempt is counted each time you run a live interview with a candidate.' },
-            { q: 'How does the shared ADE work?', a: 'You and the candidate code together in real time in a full IDE, with playback and notes saved to the report afterwards.' },
-            { q: 'Do candidates need a HackerRank account?', a: 'No. Candidates join with a single link, with no sign-up required.' },
-            { q: 'What happens when my trial ends?', a: 'Your data stays safe. Upgrade any time to keep running interviews and reviewing reports.' }
-          ],
-          attemptsLeft: 8, attemptsTotal: 10,
-          attemptHint: 'An attempt is used each time you run a live interview with a candidate.',
-          navTop: [
-            { label: 'Home', icon: svg('home'), active: true },
-            { label: 'Interviews', img: INT_IMG },
-            { label: 'Questions', icon: svg('code') },
-            { label: 'Candidates', icon: svg('users') },
-            { label: 'Reports', icon: svg('chart') }
-          ],
-          chips: ['Set up a live interview', 'How do I invite interviewers?', 'Show me the question library'],
+        {
+          key: 'interviews', name: 'Interviews', image: 'assets/products/interview.svg',
+          description: 'Live pair-programming interviews in a shared workspace.',
           tasks: [
-            { icon: 'play', title: 'Try Interviews as a candidate', upnext: true, desc: 'Sit in a live interview yourself to see the shared ADE from the candidate\'s side.', cta: 'Try it now', dark: true },
-            { icon: 'book', title: 'Learn what Interviews can do', desc: 'A quick tour of the shared ADE, real-time collaboration, and playback.', cta: 'Watch demo' },
-            { icon: 'team', title: 'Invite your teammates', desc: 'Add interviewers and set their availability so scheduling is effortless.', cta: 'Invite teammates' }
-          ]
-        },
-        both: {
-          trial: 'Chakra + Interviews',
-          heroTitle: 'Let\'s get you set up',
-          sections: [
-            { product: 'chakra', label: 'Start with Chakra', note: 'The fastest way to your first attempt.', items: [
-              { title: 'Set up a role on Chakra', desc: 'Paste a JD to generate an AI screening interview.', cta: 'Set up a role' },
-              { title: 'Try it as a candidate', desc: 'Take the interview yourself to see the experience.', cta: 'Try it now' },
-              { title: 'See a sample report', desc: 'Preview AI scores, transcripts, and integrity flags.', cta: 'View sample' }
-            ] },
-            { product: 'interviews', label: 'Then explore Interviews', note: 'Deep-dive live rounds in a shared ADE.', items: [
-              { title: 'Browse the question library', desc: '3,000+ role-based questions, or add your own.', cta: 'Browse' },
-              { title: 'Start a live interview', desc: 'Spin up a shared ADE and interview in real time.', cta: 'Start' },
-              { title: 'See a sample report', desc: 'Preview playback, notes, and scoring.', cta: 'View sample' }
-            ] }
-          ],
-          plan: [
-            { title: 'Try your Chakra as a candidate', desc: 'Once you\'ve created it above, take the interview yourself to see exactly what candidates experience.', cta: 'Try it now' },
-            { title: 'Invite candidates to take it' },
-            { title: 'Review your first reports' }
-          ],
-          actions: [
-            { icon: 'team', title: 'Invite your teammates', desc: 'Bring recruiters, hiring managers, and interviewers in.', cta: 'Invite' },
-            { icon: 'plug', title: 'Connect your ATS', desc: 'Sync results and interview outcomes into your workflow.', cta: 'Connect' },
-            { icon: 'book', title: 'Learn what HackerRank can do', desc: 'A quick tour of Chakra screening and live Interviews.', cta: 'Watch demo' }
-          ],
-          faq: [
-            { q: 'What is an attempt?', a: 'An attempt is counted each time a candidate completes a Chakra interview or you run a live interview. Unused invites don\'t count against your quota.' },
-            { q: 'How does Chakra ensure integrity in attempts?', a: 'Chakra monitors each session for suspicious activity — tab switching, pasted answers, and AI-assistance patterns — and flags anything unusual right in the report.' },
-            { q: 'Do candidates need a HackerRank account?', a: 'No. Candidates join with a single link, with no sign-up required.' },
-            { q: 'What happens when my trial ends?', a: 'Your data stays safe. Upgrade any time to keep creating interviews and reviewing reports.' }
-          ],
-          attemptsLeft: 26, attemptsTotal: 35,
-          attemptHint: 'An attempt is used each time a candidate completes a Chakra interview or you run a live interview.',
-          navTop: [
-            { label: 'Home', icon: svg('home'), active: true },
-            { label: 'Chakra', img: CHAKRA_IMG },
-            { label: 'Interviews', img: INT_IMG },
-            { label: 'Candidates', icon: svg('users') },
-            { label: 'Reports', icon: svg('chart') }
-          ],
-          chips: ['Create a Chakra for me', 'Set up a live interview', 'How do I invite my team?'],
-          tasks: [
-            { icon: 'play', title: 'Try Chakra as a candidate', upnext: true, badge: 'chakra', desc: 'Take the AI interview yourself to see what your candidates experience.', cta: 'Try it now', dark: true },
-            { icon: 'code', title: 'Try a live interview', badge: 'interviews', desc: 'Sit in a shared-ADE interview to see it from the candidate\'s side.', cta: 'Try it now' },
-            { icon: 'team', title: 'Invite your teammates', desc: 'Bring recruiters, hiring managers, and interviewers in together.', cta: 'Invite teammates' }
+            { title: 'Set up an interview', description: 'Choose questions and create a live coding session.', prompt: 'Help me set up my first live pair-programming interview.', primary: true },
+            { title: 'Try as a candidate', description: 'Explore the live coding environment for yourself.', prompt: 'I want to try Interviews as a candidate. Help me explore the live coding environment.' },
+            { title: 'Book a demo', description: 'Explore Interviews with a product specialist.', href: 'book-demo.html?product=interview' }
           ]
         }
-      };
-
-      var NAV_BOTTOM = [
-        { label: 'Search', icon: svg('search'), muted: true },
-        { label: 'Invite teammates', icon: svg('invite'), muted: true },
-        { label: 'Settings', icon: svg('gear'), muted: true },
-        { label: 'Profile', icon: svg('profile'), muted: true }
       ];
+      var arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 
-      // ---- Render helpers ----
-      function navHTML(item) {
-        var inner = (item.img ? '<img src="' + item.img + '" alt="" />' : item.icon) + '<span>' + item.label + '</span>';
-        return '<button class="navitem' + (item.active ? ' is-active' : '') + (item.muted ? ' navitem--muted' : '') + '" type="button">' + inner + '</button>';
-      }
-      function chipHTML(label) {
-        return '<button class="chip" type="button">' + label + '</button>';
-      }
-      function taskHTML(t) {
-        var badges = '';
-        if (t.upnext) badges += '<span class="task__badge task__badge--upnext">Up next</span>';
-        if (t.badge) badges += '<span class="task__badge task__badge--' + t.badge + '">' + (t.badge === 'chakra' ? 'Chakra' : 'Interviews') + '</span>';
-        return '' +
-          '<div class="task">' +
-            '<span class="task__icon">' + svg(t.icon) + '</span>' +
-            '<div class="task__body">' +
-              '<p class="task__title">' + t.title + badges + '</p>' +
-              '<p class="task__desc">' + t.desc + '</p>' +
+      function sectionsHTML() {
+        return PRODUCTS.map(function (product) {
+          return '<section class="psection" aria-labelledby="title-' + product.key + '">' +
+            '<div class="psection__head">' +
+              '<span class="psection__icon"><img src="' + product.image + '" alt="" /></span>' +
+              '<h2 class="psection__label" id="title-' + product.key + '">' + product.name + '</h2>' +
             '</div>' +
-            '<button class="task__cta ' + (t.dark ? 'task__cta--dark' : 'task__cta--outline') + '" type="button">' + t.cta + '</button>' +
-          '</div>';
-      }
-
-      // Guided, sequential setup plan: the first step is active (with a CTA),
-      // later steps preview as muted "Then:" rows.
-      function planHTML(steps) {
-        var active = steps[0];
-        var then = steps.slice(1).map(function (s) {
-          return '<div class="plan__then">Then: ' + s.title + '</div>';
-        }).join('');
-        return '' +
-          '<div class="plan__head">' +
-            '<h2 class="plan__title serif">Your personalized setup plan</h2>' +
-            '<a class="plan__change" href="#">View or change plan</a>' +
-          '</div>' +
-          '<div class="plan__card">' +
-            '<div class="plan__active">' +
-              '<div class="plan__active-body">' +
-                '<p class="plan__active-title">Next: ' + active.title +
-                  ' <span class="plan__pill">Step 1 of ' + steps.length + '</span></p>' +
-                '<p class="plan__active-desc">' + active.desc + '</p>' +
-              '</div>' +
-              '<button class="plan__cta" type="button">' + active.cta + '</button>' +
-            '</div>' +
-            then +
-          '</div>';
-      }
-
-      // Per-product sections (Both path): each a labelled header + 3 actions.
-      function sectionsHTML(sections) {
-        var img = { chakra: CHAKRA_IMG, interviews: INT_IMG };
-        return sections.map(function (s) {
-          return '' +
-            '<div class="psection">' +
-              '<div class="psection__head">' +
-                '<span class="psection__icon"><img src="' + img[s.product] + '" alt="" aria-hidden="true" /></span>' +
-                '<div><p class="psection__label">' + s.label + '</p><p class="psection__note">' + s.note + '</p></div>' +
-              '</div>' +
-              '<div class="psection__grid">' +
-                s.items.map(function (it) {
-                  return '<div class="psitem">' +
-                    '<p class="psitem__title">' + it.title + '</p>' +
-                    '<p class="psitem__desc">' + it.desc + '</p>' +
-                    '<button class="psitem__cta" type="button">' + it.cta + '</button>' +
-                  '</div>';
-                }).join('') +
-              '</div>' +
-            '</div>';
+            '<p class="psection__note">' + product.description + '</p>' +
+            '<div class="psection__tasks">' + product.tasks.map(function (task, index) {
+              var tag = task.href ? 'a' : 'button';
+              var attributes = task.href ? 'href="' + task.href + '"' : 'type="button" data-product="' + product.key + '" data-task="' + index + '"';
+              return '<' + tag + ' class="product-task' + (task.primary ? ' product-task--primary' : '') + '" ' + attributes + ' aria-label="' + task.title + ' — ' + product.name + '">' +
+                '<span class="product-task__body"><span class="product-task__title">' + task.title + '</span>' +
+                '<span class="product-task__desc">' + task.description + '</span></span>' +
+                '<span class="product-task__arrow">' + arrow + '</span>' +
+              '</' + tag + '>';
+            }).join('') + '</div>' +
+          '</section>';
         }).join('');
       }
 
-      // Secondary "other things you can do" actions.
-      function actionsHTML(items) {
-        return '<h2 class="actions__title serif">Other things you can set up</h2>' +
-          '<div class="actions__grid">' +
-            items.map(function (a) {
-              return '' +
-                '<div class="action-card">' +
-                  '<span class="action-card__icon">' + svg(a.icon) + '</span>' +
-                  '<p class="action-card__title">' + a.title + '</p>' +
-                  '<p class="action-card__desc">' + a.desc + '</p>' +
-                  '<button class="action-card__cta" type="button">' + a.cta + '</button>' +
-                '</div>';
-            }).join('') +
-          '</div>';
-      }
-
-      // FAQ accordion (native <details>).
       function faqHTML(items) {
-        return '<h2 class="faq__title serif">Common questions</h2>' +
-          items.map(function (f) {
-            return '' +
-              '<details class="faq__item">' +
-                '<summary class="faq__q">' + f.q +
-                  '<svg class="faq__chev" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l5 5 5-5"/></svg>' +
-                '</summary>' +
-                '<p class="faq__a">' + f.a + '</p>' +
-              '</details>';
-          }).join('');
+        return '<h2 class="faq__title" id="faq-title">Frequently asked questions</h2>' + items.map(function (item) {
+          return '<details class="faq__item"><summary class="faq__q">' + item.q +
+            '<svg class="faq__chev" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8l5 5 5-5"/></svg></summary>' +
+            '<p class="faq__a">' + item.a + '</p></details>';
+        }).join('');
+      }
+
+      // Load Messenger only in response to a task click or a submitted message.
+      // No widget, proactive message, or conversation can open on page entry.
+      function openAssistant(message) {
+        var status = document.getElementById('assistant-status');
+        if (typeof window.Intercom === 'function') {
+          window.Intercom('showNewMessage', message);
+          return;
+        }
+        status.textContent = 'Opening the HackerRank assistant…';
+        var intercom = function () { intercom.q.push(arguments); };
+        intercom.q = [];
+        window.Intercom = intercom;
+        window.intercomSettings = { api_base: 'https://api-iam.intercom.io', app_id: 'tre9hhxg' };
+        intercom('boot', window.intercomSettings);
+        intercom('showNewMessage', message);
+        var script = document.createElement('script');
+        script.src = 'https://widget.intercom.io/widget/tre9hhxg';
+        script.async = true;
+        script.onload = function () { status.textContent = ''; };
+        script.onerror = function () {
+          delete window.Intercom;
+          script.remove();
+          status.textContent = 'The assistant couldn’t load. Please try again.';
+        };
+        document.head.appendChild(script);
       }
 
       function renderDashboard(key) {
         var cfg = CONFIG[key];
-        // Highlight the global-nav item for the selected product (Chakra for "both").
-        var activeNav = key === 'interviews' ? 'interviews' : 'chakra';
-        document.querySelectorAll('.hrw-nav__link').forEach(function (a) {
-          a.classList.toggle('is-active', a.getAttribute('data-nav') === activeNav);
+        document.querySelectorAll('.hrw-nav__link').forEach(function (link) {
+          link.classList.toggle('is-active', link.getAttribute('data-nav') === (key === 'interviews' ? 'interviews' : 'chakra'));
         });
         document.getElementById('trial-text').innerHTML =
           'Your <b>' + cfg.trial + '</b> trial has <b>' + cfg.attemptsLeft + ' of ' + cfg.attemptsTotal + ' attempts</b> left' +
           '<span class="trial__help" tabindex="0" role="note" aria-label="' + cfg.attemptHint + '">' +
-            '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5"/><circle cx="10" cy="6.4" r="0.1"/></svg>' +
-            '<span class="trial__tip">' + cfg.attemptHint + '</span>' +
-          '</span>' +
+            '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5"/><circle cx="10" cy="6.4" r="0.1"/></svg>' +
+            '<span class="trial__tip">' + cfg.attemptHint + '</span></span>' +
           ' <span class="trial__sub">· ends in 14 days</span>';
-        document.getElementById('hero-title').textContent = cfg.heroTitle;
-
-        var isBoth = (key === 'both');
-        // Both: lead with per-product sections (no single create box / plan).
-        // Single product: the create box + a focused setup plan.
-        document.getElementById('intro-cards').style.display = 'none';
-        document.querySelector('.composer-dock').style.display = isBoth ? 'none' : '';
-        document.getElementById('plan').style.display = isBoth ? 'none' : '';
-        document.getElementById('product-sections').style.display = isBoth ? '' : 'none';
-        document.getElementById('product-sections').innerHTML = isBoth ? sectionsHTML(cfg.sections) : '';
-        if (!isBoth) document.getElementById('plan').innerHTML = planHTML(cfg.plan);
-        document.getElementById('actions').innerHTML = actionsHTML(cfg.actions);
+        document.getElementById('product-sections').innerHTML = sectionsHTML();
         document.getElementById('faq').innerHTML = faqHTML(cfg.faq);
       }
 
-      // ---- Selection interactions: picking an option goes straight in ----
+      document.querySelectorAll('.sel-option').forEach(function (option) {
+        option.addEventListener('click', function () { goToDashboard(option.getAttribute('data-product')); });
+      });
+      document.getElementById('sel-skip').addEventListener('click', function () { goToDashboard('both'); });
       function goToDashboard(key) {
         renderDashboard(key);
         document.getElementById('screen-select').classList.remove('is-active');
         document.getElementById('screen-dashboard').classList.add('is-active');
+        document.getElementById('hero-title').focus({ preventScroll: true });
         window.scrollTo({ top: 0 });
-        // Open Hash once they land on the dashboard (not on the selection step).
-        setTimeout(function () { if (window.Intercom) window.Intercom('showNewMessage'); }, 600);
       }
-      document.querySelectorAll('.sel-option').forEach(function (opt) {
-        opt.addEventListener('click', function () {
-          goToDashboard(opt.getAttribute('data-product'));
-        });
+      document.getElementById('product-sections').addEventListener('click', function (event) {
+        var button = event.target.closest('button[data-task]');
+        if (!button) return;
+        var product = PRODUCTS.find(function (item) { return item.key === button.dataset.product; });
+        openAssistant(product.tasks[Number(button.dataset.task)].prompt);
       });
-      // Skip falls back to the combined "both" setup.
-      document.getElementById('sel-skip').addEventListener('click', function () {
-        goToDashboard('both');
+      document.getElementById('assistant-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        var field = document.getElementById('composer-field');
+        var message = field.value.trim();
+        if (message) openAssistant(message);
       });
     })();
-  </script>
-
-  <!-- Intercom Messenger (workspace tre9hhxg, anonymous visitor mode) -->
-  <script>
-    window.intercomSettings = {
-      api_base: "https://api-iam.intercom.io",
-      app_id: "tre9hhxg"
-    };
-  </script>
-  <script>
-    (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',w.intercomSettings);}else{var d=document;var i=function(){i.c(arguments);};i.q=[];i.c=function(args){i.q.push(args);};w.Intercom=i;var l=function(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/tre9hhxg';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};if(document.readyState==='complete'){l();}else if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();
   </script>
 </body>
 </html>
