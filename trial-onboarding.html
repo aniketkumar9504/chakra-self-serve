@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="styles/hrds/tokens.css" />
   <link rel="stylesheet" href="styles/hrds/theme.css" />
   <link rel="stylesheet" href="styles/hrds/fonts.css" />
-  <link rel="stylesheet" href="styles/trial-onboarding.css?v=33" />
+  <link rel="stylesheet" href="styles/trial-onboarding.css?v=34" />
 </head>
 <body>
 
@@ -110,15 +110,16 @@
           <div class="canvas__inner">
             <section class="assistant" aria-labelledby="hero-title">
               <h1 class="hero-title serif" id="hero-title" tabindex="-1">How would you like to get started</h1>
-              <p class="assistant__intro" id="assistant-description">Create a Chakra, invite teammates, or connect your ATS.</p>
+              <p class="assistant__intro" id="assistant-description">Ask questions, get clarity, or let HackerRank help with setup.</p>
               <form class="composer" id="assistant-form">
                 <div class="composer__inner">
-                  <img class="composer__mark" src="assets/products/chakra.svg" alt="" aria-hidden="true" />
-                  <input class="composer__field" id="composer-field" type="text" aria-label="Ask HackerRank to set things up for you" aria-describedby="assistant-description" placeholder="Ask HackerRank to set things up for you" title="Ask HackerRank to set things up for you" required />
-                  <button class="composer__send" type="submit" aria-label="Send to HackerRank assistant">
-                    <span>Get started</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-                  </button>
+                  <textarea class="composer__field" id="composer-field" rows="2" aria-label="Ask HackerRank to set things up for you" aria-describedby="assistant-description" placeholder="Ask HackerRank to set things up for you" title="Ask HackerRank to set things up for you" required></textarea>
+                  <div class="composer__footer">
+                    <div class="composer__prompts" id="composer-prompts" role="group" aria-label="Ideas for your HackerRank copilot"></div>
+                    <button class="composer__send" type="submit" aria-label="Send message to HackerRank copilot" title="Send message" disabled>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                    </button>
+                  </div>
                 </div>
               </form>
               <p class="assistant__status" id="assistant-status" role="status"></p>
@@ -230,9 +231,13 @@
         {
           key: 'chakra', name: 'Chakra', image: 'assets/products/chakra.svg',
           setup: {
-            description: 'Create a Chakra, invite teammates, or connect your ATS.',
-            request: 'Help me with my HackerRank workspace for Chakra AI screening. Here is what I would like to do:'
+            request: 'Help me with my HackerRank workspace for Chakra AI screening. Here is my question or request:'
           },
+          suggestions: [
+            { label: 'Set up a Chakra', message: 'Help me set up a Chakra for a role I am hiring for.' },
+            { label: 'Connect my ATS', message: 'How do I connect my ATS to HackerRank?' },
+            { label: 'How do attempts work?', message: 'What counts as an attempt in my Chakra trial?' }
+          ],
           description: 'An AI interviewer that screens candidates at scale.',
           tasks: [
             { title: 'Set up a role', description: 'Paste a job description to create an AI interview.', prompt: 'Help me set up a role on Chakra using my job description.', primary: true },
@@ -243,9 +248,13 @@
         {
           key: 'interviews', name: 'Interviews', image: 'assets/products/interview.svg',
           setup: {
-            description: 'Set up a live interview, invite teammates, or connect your ATS.',
-            request: 'Help me with my HackerRank workspace for live pair-programming interviews. Here is what I would like to do:'
+            request: 'Help me with my HackerRank workspace for live pair-programming interviews. Here is my question or request:'
           },
+          suggestions: [
+            { label: 'Set up an interview', message: 'Help me set up a live pair-programming interview.' },
+            { label: 'Connect my ATS', message: 'How do I connect my ATS to HackerRank?' },
+            { label: 'How do live interviews work?', message: 'How do live interviews work in HackerRank?' }
+          ],
           description: 'Live pair-programming interviews in a shared workspace.',
           tasks: [
             { title: 'Set up an interview', description: 'Choose questions and create a live coding session.', prompt: 'Help me set up my first live pair-programming interview.', primary: true },
@@ -273,6 +282,7 @@
       ];
       var leadProduct;
       var assistantRequest;
+      var assistantSuggestions;
       var arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 
       function sectionsHTML(products) {
@@ -348,13 +358,16 @@
         var products = PRODUCTS.filter(function (product) { return key === 'both' || product.key === key; });
         leadProduct = products[0];
         var setup = leadProduct.setup;
-        document.getElementById('assistant-description').textContent = key === 'both'
-          ? 'Create a Chakra, set up a live interview, or get your workspace ready.' : setup.description;
         assistantRequest = key === 'both'
-          ? 'Help me with my HackerRank workspace for Chakra screening and live Interviews. Here is what I would like to do:' : setup.request;
-        document.querySelector('.composer__mark').src = leadProduct.image;
+          ? 'Help me with my HackerRank workspace for Chakra screening and live Interviews. Here is my question or request:' : setup.request;
+        assistantSuggestions = key === 'both'
+          ? [PRODUCTS[0].suggestions[0], PRODUCTS[1].suggestions[0], PRODUCTS[0].suggestions[1]] : leadProduct.suggestions;
+        document.getElementById('composer-prompts').innerHTML = assistantSuggestions.map(function (suggestion, index) {
+          return '<button class="composer__prompt" type="button" data-suggestion="' + index + '">' + suggestion.label + '</button>';
+        }).join('');
         var field = document.getElementById('composer-field');
         field.value = '';
+        updateComposer();
         document.querySelector('.trial__link').href = leadProduct.tasks[2].href;
         document.querySelectorAll('.hrw-nav__link').forEach(function (link) {
           link.classList.toggle('is-active', link.getAttribute('data-nav') === (key === 'interviews' ? 'interviews' : 'chakra'));
@@ -390,6 +403,7 @@
         if (button.dataset.product === leadProduct.key && button.dataset.task === '0') {
           var field = document.getElementById('composer-field');
           field.value = leadProduct.tasks[0].prompt;
+          updateComposer();
           field.focus();
           return;
         }
@@ -402,6 +416,24 @@
       document.getElementById('shared-actions').addEventListener('click', function (event) {
         var button = event.target.closest('button[data-shared-action]');
         if (button) openAssistant(SHARED_ACTIONS[Number(button.dataset.sharedAction)].prompt);
+      });
+      function updateComposer() {
+        document.querySelector('.composer__send').disabled = !document.getElementById('composer-field').value.trim();
+      }
+      document.getElementById('composer-prompts').addEventListener('click', function (event) {
+        var button = event.target.closest('button[data-suggestion]');
+        if (!button) return;
+        var field = document.getElementById('composer-field');
+        field.value = assistantSuggestions[Number(button.dataset.suggestion)].message;
+        updateComposer();
+        field.focus();
+      });
+      document.getElementById('composer-field').addEventListener('input', updateComposer);
+      document.getElementById('composer-field').addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' && !event.shiftKey && !event.isComposing) {
+          event.preventDefault();
+          if (event.currentTarget.value.trim()) document.getElementById('assistant-form').requestSubmit();
+        }
       });
       document.getElementById('assistant-form').addEventListener('submit', function (event) {
         event.preventDefault();
