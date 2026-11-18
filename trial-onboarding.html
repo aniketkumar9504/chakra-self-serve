@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="styles/hrds/tokens.css" />
   <link rel="stylesheet" href="styles/hrds/theme.css" />
   <link rel="stylesheet" href="styles/hrds/fonts.css" />
-  <link rel="stylesheet" href="styles/trial-onboarding.css?v=24" />
+  <link rel="stylesheet" href="styles/trial-onboarding.css?v=25" />
 </head>
 <body>
 
@@ -108,10 +108,26 @@
 
         <div class="canvas">
           <div class="canvas__inner">
-            <h1 class="hero-title serif">Let's set up a role for you</h1>
+            <h1 class="hero-title serif" id="hero-title">Let's create your first role</h1>
 
-            <!-- Product intros, each with two actions -->
-            <div class="intro-cards">
+            <!-- Create box: the primary "create an attempt" action -->
+            <div class="composer-dock">
+              <div class="composer">
+                <div class="composer__inner">
+                  <img class="composer__mark" src="assets/products/chakra.svg" alt="" aria-hidden="true" />
+                  <span class="composer__field" id="composer-field">Paste a job description, or type / to choose what to create…</span>
+                  <button class="composer__icon composer__mic" type="button" aria-label="Voice input">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg>
+                  </button>
+                  <button class="composer__icon composer__send" type="button" aria-label="Send">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l15-7-7 15-2.8-5.2L5 12z"/></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product intros — only shown when the user hasn't narrowed to one product (Both) -->
+            <div class="intro-cards" id="intro-cards">
               <div class="intro-card">
                 <div class="intro-card__head">
                   <span class="intro-card__icon"><img src="assets/products/chakra.svg" alt="" aria-hidden="true" /></span>
@@ -149,22 +165,6 @@
             </div>
           </div>
         </div>
-
-        <!-- Sticky create input docked at the bottom (pill treatment) -->
-        <div class="composer-dock">
-          <div class="composer">
-            <div class="composer__inner">
-              <img class="composer__mark" src="assets/products/chakra.svg" alt="" aria-hidden="true" />
-              <span class="composer__field" id="composer-field">Paste a job description, or type / to choose what to create…</span>
-              <button class="composer__icon composer__mic" type="button" aria-label="Voice input">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg>
-              </button>
-              <button class="composer__icon composer__send" type="button" aria-label="Send">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l15-7-7 15-2.8-5.2L5 12z"/></svg>
-              </button>
-            </div>
-          </div>
-        </div>
     </div>
   </section>
 
@@ -197,6 +197,7 @@
       var CONFIG = {
         chakra: {
           trial: 'Chakra',
+          heroTitle: 'Let\'s create your first role',
           attemptsLeft: 18, attemptsTotal: 25,
           attemptHint: 'An attempt is used each time a candidate completes one of your Chakra interviews. Unused invites don\'t count.',
           navTop: [
@@ -215,6 +216,7 @@
         },
         interviews: {
           trial: 'Interviews',
+          heroTitle: 'Let\'s set up your first interview',
           attemptsLeft: 8, attemptsTotal: 10,
           attemptHint: 'An attempt is used each time you run a live interview with a candidate.',
           navTop: [
@@ -233,6 +235,7 @@
         },
         both: {
           trial: 'Chakra + Interviews',
+          heroTitle: 'Let\'s create your first role',
           attemptsLeft: 26, attemptsTotal: 35,
           attemptHint: 'An attempt is used each time a candidate completes a Chakra interview or you run a live interview.',
           navTop: [
@@ -295,6 +298,9 @@
             '<span class="trial__tip">' + cfg.attemptHint + '</span>' +
           '</span>' +
           ' <span class="trial__sub">· ends in 14 days</span>';
+        document.getElementById('hero-title').textContent = cfg.heroTitle;
+        // Intro cards only when the need isn't already narrowed to one product.
+        document.getElementById('intro-cards').style.display = (key === 'both') ? '' : 'none';
         document.getElementById('setup-count').textContent = '0 of ' + cfg.tasks.length + ' done';
         document.getElementById('setup-list').innerHTML = cfg.tasks.map(taskHTML).join('');
       }
