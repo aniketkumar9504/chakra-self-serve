@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="styles/hrds/tokens.css" />
   <link rel="stylesheet" href="styles/hrds/theme.css" />
   <link rel="stylesheet" href="styles/hrds/fonts.css" />
-  <link rel="stylesheet" href="styles/trial-onboarding.css?v=26" />
+  <link rel="stylesheet" href="styles/trial-onboarding.css?v=27" />
 </head>
 <body>
 
@@ -157,6 +157,8 @@
             </div>
 
             <section class="plan" id="plan"></section>
+            <section class="actions" id="actions"></section>
+            <section class="faq" id="faq"></section>
           </div>
         </div>
     </div>
@@ -193,9 +195,20 @@
           trial: 'Chakra',
           heroTitle: 'Let\'s create your first role',
           plan: [
-            { title: 'Create your first Chakra', desc: 'Paste a job description to generate it, or use an existing one.', cta: 'Create a Chakra' },
-            { title: 'Try it yourself, or invite someone to take it' },
-            { title: 'View your reports' }
+            { title: 'Try your Chakra as a candidate', desc: 'Once you\'ve created it above, take the interview yourself to see exactly what candidates experience.', cta: 'Try it now' },
+            { title: 'Invite candidates to take it' },
+            { title: 'Review your first reports' }
+          ],
+          actions: [
+            { icon: 'team', title: 'Invite your teammates', desc: 'Bring recruiters and hiring managers in to collaborate.', cta: 'Invite' },
+            { icon: 'plug', title: 'Connect your ATS', desc: 'Sync Chakra results into Greenhouse, Lever, and more.', cta: 'Connect' },
+            { icon: 'book', title: 'Learn what Chakra can do', desc: 'A quick tour of AI interviewing, scoring, and integrity.', cta: 'Watch demo' }
+          ],
+          faq: [
+            { q: 'What is an attempt?', a: 'An attempt is counted each time a candidate completes one of your Chakra interviews. Unused invites don\'t count against your quota.' },
+            { q: 'How does Chakra ensure integrity in attempts?', a: 'Chakra monitors each session for suspicious activity — tab switching, pasted answers, and AI-assistance patterns — and flags anything unusual right in the report so you can review with confidence.' },
+            { q: 'Do candidates need a HackerRank account?', a: 'No. Candidates join with a single link, with no sign-up required.' },
+            { q: 'What happens when my trial ends?', a: 'Your data stays safe. Upgrade any time to keep creating interviews and reviewing reports.' }
           ],
           attemptsLeft: 18, attemptsTotal: 25,
           attemptHint: 'An attempt is used each time a candidate completes one of your Chakra interviews. Unused invites don\'t count.',
@@ -217,9 +230,20 @@
           trial: 'Interviews',
           heroTitle: 'Let\'s set up your first interview',
           plan: [
-            { title: 'Set up your first interview', desc: 'Pick a role and questions, or paste a JD to generate them.', cta: 'Set up an interview' },
-            { title: 'Try it yourself, or invite an interviewer' },
-            { title: 'View your reports' }
+            { title: 'Join your interview as a candidate', desc: 'Once it\'s set up above, sit in the shared ADE to see the interview from the candidate side.', cta: 'Try it now' },
+            { title: 'Invite your interviewers' },
+            { title: 'Review your first reports' }
+          ],
+          actions: [
+            { icon: 'team', title: 'Invite your teammates', desc: 'Add interviewers and set their availability.', cta: 'Invite' },
+            { icon: 'book', title: 'Explore the question library', desc: 'Browse 3,000+ role-based questions, or add your own.', cta: 'Explore' },
+            { icon: 'plug', title: 'Connect your calendar & ATS', desc: 'Schedule interviews and sync outcomes automatically.', cta: 'Connect' }
+          ],
+          faq: [
+            { q: 'What is an attempt?', a: 'An attempt is counted each time you run a live interview with a candidate.' },
+            { q: 'How does the shared ADE work?', a: 'You and the candidate code together in real time in a full IDE, with playback and notes saved to the report afterwards.' },
+            { q: 'Do candidates need a HackerRank account?', a: 'No. Candidates join with a single link, with no sign-up required.' },
+            { q: 'What happens when my trial ends?', a: 'Your data stays safe. Upgrade any time to keep running interviews and reviewing reports.' }
           ],
           attemptsLeft: 8, attemptsTotal: 10,
           attemptHint: 'An attempt is used each time you run a live interview with a candidate.',
@@ -241,9 +265,20 @@
           trial: 'Chakra + Interviews',
           heroTitle: 'Let\'s create your first role',
           plan: [
-            { title: 'Create your first Chakra', desc: 'Paste a job description to generate it, or use an existing one.', cta: 'Create a Chakra' },
-            { title: 'Try it yourself, or invite someone to take it' },
-            { title: 'View your reports' }
+            { title: 'Try your Chakra as a candidate', desc: 'Once you\'ve created it above, take the interview yourself to see exactly what candidates experience.', cta: 'Try it now' },
+            { title: 'Invite candidates to take it' },
+            { title: 'Review your first reports' }
+          ],
+          actions: [
+            { icon: 'team', title: 'Invite your teammates', desc: 'Bring recruiters, hiring managers, and interviewers in.', cta: 'Invite' },
+            { icon: 'plug', title: 'Connect your ATS', desc: 'Sync results and interview outcomes into your workflow.', cta: 'Connect' },
+            { icon: 'book', title: 'Learn what HackerRank can do', desc: 'A quick tour of Chakra screening and live Interviews.', cta: 'Watch demo' }
+          ],
+          faq: [
+            { q: 'What is an attempt?', a: 'An attempt is counted each time a candidate completes a Chakra interview or you run a live interview. Unused invites don\'t count against your quota.' },
+            { q: 'How does Chakra ensure integrity in attempts?', a: 'Chakra monitors each session for suspicious activity — tab switching, pasted answers, and AI-assistance patterns — and flags anything unusual right in the report.' },
+            { q: 'Do candidates need a HackerRank account?', a: 'No. Candidates join with a single link, with no sign-up required.' },
+            { q: 'What happens when my trial ends?', a: 'Your data stays safe. Upgrade any time to keep creating interviews and reviewing reports.' }
           ],
           attemptsLeft: 26, attemptsTotal: 35,
           attemptHint: 'An attempt is used each time a candidate completes a Chakra interview or you run a live interview.',
@@ -318,6 +353,36 @@
           '</div>';
       }
 
+      // Secondary "other things you can do" actions.
+      function actionsHTML(items) {
+        return '<h2 class="actions__title serif">Other things you can set up</h2>' +
+          '<div class="actions__grid">' +
+            items.map(function (a) {
+              return '' +
+                '<div class="action-card">' +
+                  '<span class="action-card__icon">' + svg(a.icon) + '</span>' +
+                  '<p class="action-card__title">' + a.title + '</p>' +
+                  '<p class="action-card__desc">' + a.desc + '</p>' +
+                  '<button class="action-card__cta" type="button">' + a.cta + '</button>' +
+                '</div>';
+            }).join('') +
+          '</div>';
+      }
+
+      // FAQ accordion (native <details>).
+      function faqHTML(items) {
+        return '<h2 class="faq__title serif">Common questions</h2>' +
+          items.map(function (f) {
+            return '' +
+              '<details class="faq__item">' +
+                '<summary class="faq__q">' + f.q +
+                  '<svg class="faq__chev" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l5 5 5-5"/></svg>' +
+                '</summary>' +
+                '<p class="faq__a">' + f.a + '</p>' +
+              '</details>';
+          }).join('');
+      }
+
       function renderDashboard(key) {
         var cfg = CONFIG[key];
         // Highlight the global-nav item for the selected product (Chakra for "both").
@@ -336,6 +401,8 @@
         // Intro cards only when the need isn't already narrowed to one product.
         document.getElementById('intro-cards').style.display = (key === 'both') ? '' : 'none';
         document.getElementById('plan').innerHTML = planHTML(cfg.plan);
+        document.getElementById('actions').innerHTML = actionsHTML(cfg.actions);
+        document.getElementById('faq').innerHTML = faqHTML(cfg.faq);
       }
 
       // ---- Selection interactions: picking an option goes straight in ----
