@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="styles/hrds/tokens.css" />
   <link rel="stylesheet" href="styles/hrds/theme.css" />
   <link rel="stylesheet" href="styles/hrds/fonts.css" />
-  <link rel="stylesheet" href="styles/trial-onboarding.css?v=23" />
+  <link rel="stylesheet" href="styles/trial-onboarding.css?v=24" />
 </head>
 <body>
 
@@ -150,19 +150,18 @@
           </div>
         </div>
 
-        <!-- Sticky create input docked at the bottom -->
+        <!-- Sticky create input docked at the bottom (pill treatment) -->
         <div class="composer-dock">
           <div class="composer">
             <div class="composer__inner">
-              <div class="composer__field" id="composer-field">Paste a job description, or type / to choose what to create…</div>
-              <div class="composer__bar">
-                <button class="composer__plus" type="button" aria-label="Add attachment">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4v12M4 10h12"/></svg>
-                </button>
-                <button class="composer__send" type="button" aria-label="Send">
-                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 16V5M5 10l5-5 5 5"/></svg>
-                </button>
-              </div>
+              <img class="composer__mark" src="assets/products/chakra.svg" alt="" aria-hidden="true" />
+              <span class="composer__field" id="composer-field">Paste a job description, or type / to choose what to create…</span>
+              <button class="composer__icon composer__mic" type="button" aria-label="Voice input">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg>
+              </button>
+              <button class="composer__icon composer__send" type="button" aria-label="Send">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l15-7-7 15-2.8-5.2L5 12z"/></svg>
+              </button>
             </div>
           </div>
         </div>
