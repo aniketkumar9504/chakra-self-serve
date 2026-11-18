@@ -290,7 +290,8 @@ body {
 .composer {
   padding: 1.5px;
   border-radius: var(--hrds-radius-xl);
-  background: linear-gradient(95deg, #ff7a59 0%, #d24fb0 45%, #7a5cff 72%, #3355ff 100%);
+  /* HackerRank brand gradient border: cyan -> lavender -> lime. */
+  background: linear-gradient(95deg, var(--cyan) 0%, #6aa7ff 35%, #9c99ff 65%, var(--primary) 100%);
   box-shadow: 0 20px 50px -34px rgba(90, 60, 200, 0.5);
 }
 .composer__inner {
