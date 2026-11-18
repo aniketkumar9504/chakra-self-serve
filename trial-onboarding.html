@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="styles/hrds/tokens.css" />
   <link rel="stylesheet" href="styles/hrds/theme.css" />
   <link rel="stylesheet" href="styles/hrds/fonts.css" />
-  <link rel="stylesheet" href="styles/trial-onboarding.css?v=30" />
+  <link rel="stylesheet" href="styles/trial-onboarding.css?v=31" />
 </head>
 <body>
 
@@ -124,8 +124,10 @@
               <p class="assistant__status" id="assistant-status" role="status"></p>
             </section>
 
-            <h2 class="products-title">More ways to get started</h2>
-            <div class="product-sections" id="product-sections"></div>
+            <section class="products" id="products" aria-labelledby="products-title">
+              <h2 class="products-title" id="products-title">More ways to get started</h2>
+              <div class="product-sections" id="product-sections"></div>
+            </section>
 
             <section class="faq" id="faq" aria-labelledby="faq-title"></section>
           </div>
@@ -212,6 +214,14 @@
       var PRODUCTS = [
         {
           key: 'chakra', name: 'Chakra', image: 'assets/products/chakra.svg',
+          setup: {
+            title: 'Create your first role with Chakra',
+            description: 'Paste a job description to set up an AI screening interview for your role.',
+            placeholder: 'Paste your job description here…',
+            label: 'Job description for your first Chakra',
+            action: 'Create a Chakra',
+            request: 'Help me create a Chakra AI screening interview for this role:'
+          },
           description: 'An AI interviewer that screens candidates at scale.',
           tasks: [
             { title: 'Set up a role', description: 'Paste a job description to create an AI interview.', prompt: 'Help me set up a role on Chakra using my job description.', primary: true },
@@ -221,6 +231,14 @@
         },
         {
           key: 'interviews', name: 'Interviews', image: 'assets/products/interview.svg',
+          setup: {
+            title: 'Set up your first live interview',
+            description: 'Tell us the role and skills you want to assess. We’ll help you set up a live coding interview.',
+            placeholder: 'Enter a role and the skills to assess…',
+            label: 'Role and skills for your first live interview',
+            action: 'Set up an interview',
+            request: 'Help me set up a live pair-programming interview for this role and these skills:'
+          },
           description: 'Live pair-programming interviews in a shared workspace.',
           tasks: [
             { title: 'Set up an interview', description: 'Choose questions and create a live coding session.', prompt: 'Help me set up my first live pair-programming interview.', primary: true },
@@ -229,10 +247,11 @@
           ]
         }
       ];
+      var leadProduct;
       var arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 
-      function sectionsHTML() {
-        return PRODUCTS.map(function (product) {
+      function sectionsHTML(products) {
+        return products.map(function (product) {
           return '<section class="psection" aria-labelledby="title-' + product.key + '">' +
             '<div class="psection__head">' +
               '<span class="psection__icon"><img src="' + product.image + '" alt="" /></span>' +
@@ -289,6 +308,19 @@
 
       function renderDashboard(key) {
         var cfg = CONFIG[key];
+        var products = PRODUCTS.filter(function (product) { return key === 'both' || product.key === key; });
+        leadProduct = products[0];
+        var setup = leadProduct.setup;
+        document.getElementById('hero-title').textContent = setup.title;
+        document.getElementById('assistant-description').textContent = setup.description;
+        document.querySelector('.composer__mark').src = leadProduct.image;
+        var field = document.getElementById('composer-field');
+        field.value = '';
+        field.placeholder = setup.placeholder;
+        field.setAttribute('aria-label', setup.label);
+        document.querySelector('.composer__send span').textContent = setup.action;
+        document.querySelector('.composer__send').setAttribute('aria-label', setup.action + ' with HackerRank assistant');
+        document.querySelector('.trial__link').href = leadProduct.tasks[2].href;
         document.querySelectorAll('.hrw-nav__link').forEach(function (link) {
           link.classList.toggle('is-active', link.getAttribute('data-nav') === (key === 'interviews' ? 'interviews' : 'chakra'));
         });
@@ -298,7 +330,9 @@
             '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5"/><circle cx="10" cy="6.4" r="0.1"/></svg>' +
             '<span class="trial__tip">' + cfg.attemptHint + '</span></span>' +
           ' <span class="trial__sub">· ends in 14 days</span>';
-        document.getElementById('product-sections').innerHTML = sectionsHTML();
+        var sections = document.getElementById('product-sections');
+        document.getElementById('products').dataset.count = products.length;
+        sections.innerHTML = sectionsHTML(products);
         document.getElementById('faq').innerHTML = faqHTML(cfg.faq);
       }
 
@@ -316,7 +350,7 @@
       document.getElementById('product-sections').addEventListener('click', function (event) {
         var button = event.target.closest('button[data-task]');
         if (!button) return;
-        if (button.dataset.product === 'chakra' && button.dataset.task === '0') {
+        if (button.dataset.product === leadProduct.key && button.dataset.task === '0') {
           document.getElementById('composer-field').focus();
           return;
         }
@@ -327,7 +361,7 @@
         event.preventDefault();
         var field = document.getElementById('composer-field');
         var message = field.value.trim();
-        if (message) openAssistant(message);
+        if (message) openAssistant(leadProduct.setup.request + '\n\n' + message);
       });
     })();
   </script>
