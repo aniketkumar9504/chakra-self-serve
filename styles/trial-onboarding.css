@@ -132,14 +132,19 @@ body {
 .sel-option__arrow { width: 18px; height: 18px; flex: none; color: var(--muted-foreground); transition: transform 0.16s ease, color 0.16s ease; }
 .sel-option:hover .sel-option__arrow { color: var(--foreground); transform: translateX(3px); }
 
-/* Skip is its own option, set apart from the three products and quieter. */
-.sel-option--skip {
-  margin-top: 6px;
-  border-style: dashed;
+/* Skip: a clean, small, quiet button under the options. */
+.sel-skip-btn {
+  margin-top: 18px;
+  padding: 7px 14px;
+  font-size: var(--hrds-text-subtitle-md); font-weight: 600;
+  color: var(--muted-foreground);
+  background: none;
+  border: 1px solid var(--outline-border);
+  border-radius: var(--hrds-radius-circle);
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
 }
-.sel-option--skip .sel-option__name { color: var(--muted-foreground); }
-
-.sel-card__foot { margin: 16px 0 0; font-size: 13px; color: var(--muted-foreground); }
+.sel-skip-btn:hover { color: var(--foreground); border-color: var(--outline-border-hover); }
 
 /* Right - customer testimonial card */
 .sel-quote {
@@ -331,7 +336,36 @@ body {
 }
 .canvas__inner { max-width: 1120px; margin: 0 auto; }
 
+/* Two product-intro cards at the top of the dashboard. */
+.intro-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.intro-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--hrds-radius-xl);
+}
+.intro-card__icon {
+  flex: none;
+  width: 40px; height: 40px;
+  display: grid; place-items: center;
+  background: var(--accent);
+  border-radius: var(--hrds-radius-lg);
+}
+.intro-card__icon img { width: 22px; height: 22px; }
+.intro-card__name { margin: 1px 0 0; font-size: 15px; font-weight: 700; color: var(--foreground); }
+.intro-card__desc { margin: 4px 0 0; font-size: 13.5px; line-height: 1.5; color: var(--muted-foreground); }
+
 .hero-title { margin: 8px 0 30px; font-size: 40px; line-height: 1.1; text-align: center; }
+
+@media (max-width: 700px) { .intro-cards { grid-template-columns: 1fr; } }
 
 /* Prompt composer with gradient ring */
 .composer {
