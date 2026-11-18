@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="styles/hrds/tokens.css" />
   <link rel="stylesheet" href="styles/hrds/theme.css" />
   <link rel="stylesheet" href="styles/hrds/fonts.css" />
-  <link rel="stylesheet" href="styles/trial-onboarding.css?v=25" />
+  <link rel="stylesheet" href="styles/trial-onboarding.css?v=26" />
 </head>
 <body>
 
@@ -156,13 +156,7 @@
               </div>
             </div>
 
-            <div class="setup">
-              <div class="setup__head">
-                <h2 class="setup__title serif">Finish setting up your workspace</h2>
-                <span class="setup__count" id="setup-count"></span>
-              </div>
-              <div id="setup-list"></div>
-            </div>
+            <section class="plan" id="plan"></section>
           </div>
         </div>
     </div>
@@ -198,6 +192,11 @@
         chakra: {
           trial: 'Chakra',
           heroTitle: 'Let\'s create your first role',
+          plan: [
+            { title: 'Create your first Chakra', desc: 'Paste a job description to generate it, or use an existing one.', cta: 'Create a Chakra' },
+            { title: 'Try it yourself, or invite someone to take it' },
+            { title: 'View your reports' }
+          ],
           attemptsLeft: 18, attemptsTotal: 25,
           attemptHint: 'An attempt is used each time a candidate completes one of your Chakra interviews. Unused invites don\'t count.',
           navTop: [
@@ -217,6 +216,11 @@
         interviews: {
           trial: 'Interviews',
           heroTitle: 'Let\'s set up your first interview',
+          plan: [
+            { title: 'Set up your first interview', desc: 'Pick a role and questions, or paste a JD to generate them.', cta: 'Set up an interview' },
+            { title: 'Try it yourself, or invite an interviewer' },
+            { title: 'View your reports' }
+          ],
           attemptsLeft: 8, attemptsTotal: 10,
           attemptHint: 'An attempt is used each time you run a live interview with a candidate.',
           navTop: [
@@ -236,6 +240,11 @@
         both: {
           trial: 'Chakra + Interviews',
           heroTitle: 'Let\'s create your first role',
+          plan: [
+            { title: 'Create your first Chakra', desc: 'Paste a job description to generate it, or use an existing one.', cta: 'Create a Chakra' },
+            { title: 'Try it yourself, or invite someone to take it' },
+            { title: 'View your reports' }
+          ],
           attemptsLeft: 26, attemptsTotal: 35,
           attemptHint: 'An attempt is used each time a candidate completes a Chakra interview or you run a live interview.',
           navTop: [
@@ -284,6 +293,31 @@
           '</div>';
       }
 
+      // Guided, sequential setup plan: the first step is active (with a CTA),
+      // later steps preview as muted "Then:" rows.
+      function planHTML(steps) {
+        var active = steps[0];
+        var then = steps.slice(1).map(function (s) {
+          return '<div class="plan__then">Then: ' + s.title + '</div>';
+        }).join('');
+        return '' +
+          '<div class="plan__head">' +
+            '<h2 class="plan__title serif">Your personalized setup plan</h2>' +
+            '<a class="plan__change" href="#">View or change plan</a>' +
+          '</div>' +
+          '<div class="plan__card">' +
+            '<div class="plan__active">' +
+              '<div class="plan__active-body">' +
+                '<p class="plan__active-title">Next: ' + active.title +
+                  ' <span class="plan__pill">Step 1 of ' + steps.length + '</span></p>' +
+                '<p class="plan__active-desc">' + active.desc + '</p>' +
+              '</div>' +
+              '<button class="plan__cta" type="button">' + active.cta + '</button>' +
+            '</div>' +
+            then +
+          '</div>';
+      }
+
       function renderDashboard(key) {
         var cfg = CONFIG[key];
         // Highlight the global-nav item for the selected product (Chakra for "both").
@@ -301,8 +335,7 @@
         document.getElementById('hero-title').textContent = cfg.heroTitle;
         // Intro cards only when the need isn't already narrowed to one product.
         document.getElementById('intro-cards').style.display = (key === 'both') ? '' : 'none';
-        document.getElementById('setup-count').textContent = '0 of ' + cfg.tasks.length + ' done';
-        document.getElementById('setup-list').innerHTML = cfg.tasks.map(taskHTML).join('');
+        document.getElementById('plan').innerHTML = planHTML(cfg.plan);
       }
 
       // ---- Selection interactions: picking an option goes straight in ----
