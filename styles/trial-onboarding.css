@@ -109,15 +109,8 @@ body {
   display: flex; align-items: center; gap: 18px;
   margin: 14px 18px 0;
   padding: 13px 18px;
-  /* HackerRank brand gradient - mint → lavender → cyan (the bg-gradient.svg
-     palette: #EFFFE5 / #9C99FF / #8AE9FF), softened toward white so the dark
-     text stays readable across the strip. */
-  background:
-    linear-gradient(90deg,
-      color-mix(in srgb, #EFFFE5 78%, #fff) 0%,
-      color-mix(in srgb, #9C99FF 30%, #fff) 50%,
-      color-mix(in srgb, #8AE9FF 45%, #fff) 100%);
-  border: 1px solid color-mix(in srgb, #9C99FF 26%, transparent);
+  background: var(--muted);
+  border: 1px solid var(--border);
   border-radius: var(--hrds-radius-lg);
 }
 .trial__text { font-size: 14px; color: var(--foreground); }
