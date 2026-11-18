@@ -70,7 +70,7 @@ body {
 .sel-body {
   flex: 1;
   display: grid;
-  grid-template-columns: minmax(0, 520px);
+  grid-template-columns: minmax(0, 600px);
   gap: 56px;
   align-items: center;
   justify-content: center;
