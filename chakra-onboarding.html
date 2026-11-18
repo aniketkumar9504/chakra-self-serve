@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chakra: Your hiring workspace</title>
+
+  <link rel="stylesheet" href="styles/hrds/tokens.css" />
+  <link rel="stylesheet" href="styles/hrds/theme.css" />
+  <link rel="stylesheet" href="styles/hrds/fonts.css" />
+  <link rel="stylesheet" href="styles/trial-onboarding.css?v=38" />
+  <link rel="stylesheet" href="styles/chakra-onboarding.css?v=1" />
+</head>
+<body>
+
+  <div class="chakra-shell" id="screen-dashboard">
+    <button class="mobile-menu" id="mobile-menu" type="button" aria-label="Open navigation" aria-controls="chakra-sidebar" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+    <button class="sidebar-backdrop" id="sidebar-backdrop" type="button" aria-label="Close navigation" tabindex="-1" hidden></button>
+    <aside class="chakra-sidebar" id="chakra-sidebar" aria-label="Chakra navigation">
+      <div class="sidebar-brand-row">
+        <a class="chakra-brand" href="chakra-onboarding.html" aria-label="Chakra home">
+          <img src="assets/products/chakra.svg" alt="" width="32" height="32" />
+          <span>Chakra</span>
+        </a>
+        <button class="sidebar-toggle" id="sidebar-toggle" type="button" aria-label="Collapse sidebar" aria-controls="chakra-sidebar" aria-expanded="true" title="Collapse sidebar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M8 4v16"/></svg>
+        </button>
+      </div>
+      <button class="sidebar-new-chat" id="new-chat" type="button" title="New chat" aria-label="New chat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        <span class="sidebar-label">New chat</span>
+      </button>
+      <nav class="sidebar-nav" aria-label="Chakra workspace">
+        <button class="sidebar-nav__item" id="my-interviewers" type="button" title="My interviewers" aria-label="My interviewers">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M4 8h16M10 12l-3 2.5 3 2.5M14 12l3 2.5-3 2.5"/></svg>
+          <span class="sidebar-label">My interviewers</span>
+        </button>
+        <button class="sidebar-nav__item" id="my-library" type="button" title="My library" aria-label="My library">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4a2 2 0 012-2h11v16H7a2 2 0 000 4h13V6M5 4v16M7 18h11"/></svg>
+          <span class="sidebar-label">My library</span>
+        </button>
+        <button class="sidebar-nav__item" type="button" title="No account is signed in to this preview" aria-label="Logout, unavailable in this preview" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 7V5a3 3 0 013-3h5a3 3 0 013 3v14a3 3 0 01-3 3h-5a3 3 0 01-3-3v-2M3 12h12M6 8l-4 4 4 4"/></svg>
+          <span class="sidebar-label">Logout</span>
+        </button>
+      </nav>
+      <button class="sidebar-feedback" id="give-feedback" type="button" title="Give feedback" aria-label="Give feedback">
+        <span class="sidebar-feedback__heading">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 8.5a2.5 2.5 0 015 .5c0 2-2.5 2-2.5 4M12 16.5h.01"/></svg>
+          <span class="sidebar-label">Give feedback</span>
+        </span>
+        <span class="sidebar-feedback__description">We're here to help. Share your feedback anytime.</span>
+      </button>
+    </aside>
+
+    <!-- Main -->
+    <main class="main" id="chakra-main">
+        <div class="trial">
+          <span class="trial__text" id="trial-text"></span>
+          <span class="trial__spacer"></span>
+          <a class="trial__link" href="#">Talk to a product specialist</a>
+          <button class="trial__cta" type="button">Upgrade now</button>
+        </div>
+
+        <div class="canvas">
+          <div class="canvas__inner">
+            <section class="assistant" aria-labelledby="hero-title">
+              <h1 class="hero-title serif" id="hero-title" tabindex="-1">How would you like to get started?</h1>
+              <p class="assistant__intro" id="assistant-description">Ask questions, get clarity, or let Chakra help with setup.</p>
+              <form class="composer" id="assistant-form">
+                <div class="composer__inner">
+                  <textarea class="composer__field" id="composer-field" rows="2" aria-label="Ask Chakra to set things up for you" aria-describedby="assistant-description" placeholder="Ask Chakra to set things up for you..." title="Ask Chakra to set things up for you" required></textarea>
+                  <div class="composer__footer">
+                    <div class="composer__prompts" id="composer-prompts" role="group" aria-label="Ideas for your Chakra copilot"></div>
+                    <button class="composer__send" type="submit" aria-label="Send message to Chakra copilot" title="Send message" disabled>
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                    </button>
+                  </div>
+                </div>
+              </form>
+              <p class="assistant__status" id="assistant-status" role="status"></p>
+            </section>
+
+            <section class="products" id="products" aria-label="Explore hiring products">
+              <div class="product-sections" id="product-sections"></div>
+            </section>
+
+            <section class="shared-actions" id="shared-actions" aria-labelledby="shared-actions-title"></section>
+
+            <section class="faq" id="faq" aria-labelledby="faq-title"></section>
+          </div>
+        </div>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      var CONFIG = {
+  "chakra": {
+    "trial": "Chakra",
+    "faq": [
+      {
+        "q": "What is an attempt?",
+        "a": "An attempt is counted each time a candidate completes one of your Chakra interviews. Unused invites don't count against your quota."
+      },
+      {
+        "q": "How does Chakra ensure integrity in attempts?",
+        "a": "Chakra monitors each session for suspicious activity — tab switching, pasted answers, and AI-assistance patterns — and flags anything unusual right in the report so you can review with confidence."
+      },
+      {
+        "q": "Do candidates need a HackerRank account?",
+        "a": "No. Candidates join with a single link, with no sign-up required."
+      },
+      {
+        "q": "What happens when my trial ends?",
+        "a": "Your data stays safe. Upgrade any time to keep creating interviews and reviewing reports."
+      }
+    ],
+    "attemptsLeft": 18,
+    "attemptsTotal": 25,
+    "attemptHint": "An attempt is used each time a candidate completes one of your Chakra interviews. Unused invites don't count."
+  }
+};
+      var PRODUCTS = [
+  {
+    "key": "chakra",
+    "name": "Chakra",
+    "heading": "Start screening candidates",
+    "demoHref": "book-demo.html?product=chakra",
+    "image": "assets/products/chakra.svg",
+    "setup": {
+      "request": "Help me with my Chakra AI screening workspace. Here is my question or request:"
+    },
+    "suggestions": [
+      {
+        "label": "Set up a Chakra",
+        "message": "Help me set up a Chakra for a role I am hiring for."
+      },
+      {
+        "label": "Connect my ATS",
+        "message": "How do I connect my ATS to HackerRank?"
+      },
+      {
+        "label": "How do attempts work?",
+        "message": "What counts as an attempt in my Chakra trial?"
+      }
+    ],
+    "description": "An AI interviewer that screens candidates at scale.",
+    "tasks": [
+      {
+        "title": "Set up a role",
+        "description": "Paste a job description to create an AI interview.",
+        "prompt": "Help me set up a role on Chakra using my job description.",
+        "primary": true
+      },
+      {
+        "title": "Try as a candidate",
+        "description": "Experience an AI interview from the candidate’s seat.",
+        "prompt": "I want to try Chakra as a candidate. Help me get started."
+      }
+    ]
+  }
+];
+      var SHARED_ACTIONS = [
+        {
+          title: 'Invite your teammates', description: 'Bring recruiters and hiring managers together.', action: 'Invite',
+          icon: '<circle cx="8" cy="8" r="3"/><circle cx="17" cy="9" r="2.3"/><path d="M2 20c0-3.3 2.7-5 6-5s6 1.7 6 5M15 15c2.8 0 5 1.4 5 4"/>',
+          prompt: 'Help me invite teammates to our HackerRank workspace.'
+        },
+        {
+          title: 'Connect your ATS', description: 'Sync Chakra results into your hiring workflow.', action: 'Connect',
+          icon: '<path d="M7 7l4 4M3 21l5-5M14 4l2 2M18 8l2 2M13 7l4 4a3 3 0 010 4l-1 1-8-8 1-1a3 3 0 014 0z"/>',
+          prompt: 'Help me connect our ATS to HackerRank.'
+        },
+        {
+          title: 'Learn what Chakra can do', description: 'Explore AI interviews, reports, and integrity checks.', action: 'Watch demo',
+          icon: '<path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2zM19 3v18"/>',
+          prompt: 'Give me a tour of Chakra AI interviewing, candidate reports, and integrity checks.'
+        }
+      ];
+      var leadProduct;
+      var assistantRequest;
+      var assistantSuggestions;
+      var arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+
+      function sectionsHTML(products) {
+        return products.map(function (product) {
+          return '<div class="product-option"><h2 class="product-option__heading">' + product.heading + '</h2>' +
+            '<section class="psection" aria-labelledby="title-' + product.key + '">' +
+            '<div class="psection__head">' +
+              '<span class="psection__icon"><img src="' + product.image + '" alt="" /></span>' +
+              '<div class="psection__identity"><h3 class="psection__label" id="title-' + product.key + '">' + product.name + '</h3>' +
+                '<p class="psection__note">' + product.description + '</p></div>' +
+            '</div>' +
+            '<div class="psection__tasks" style="--task-count: ' + product.tasks.length + '">' + product.tasks.map(function (task, index) {
+              var tag = task.href ? 'a' : 'button';
+              var attributes = task.href ? 'href="' + task.href + '"' : 'type="button" data-product="' + product.key + '" data-task="' + index + '"';
+              return '<' + tag + ' class="product-task" ' + attributes + ' aria-label="' + task.title + ' — ' + product.name + '">' +
+                '<span class="product-task__body"><span class="product-task__title">' + task.title + '</span>' +
+                '<span class="product-task__desc">' + task.description + '</span></span>' +
+                '<span class="product-task__arrow">' + arrow + '</span>' +
+              '</' + tag + '>';
+            }).join('') + '</div>' +
+          '</section></div>';
+        }).join('');
+      }
+
+      function sharedActionsHTML() {
+        return '<h2 class="shared-actions__title" id="shared-actions-title">Other things you can set up</h2>' +
+          '<ul class="shared-actions__list" role="list">' + SHARED_ACTIONS.map(function (action, index) {
+            return '<li class="shared-action">' +
+              '<span class="shared-action__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + action.icon + '</svg></span>' +
+              '<div class="shared-action__body"><h3 class="shared-action__title">' + action.title + '</h3>' +
+                '<p class="shared-action__description">' + action.description + '</p></div>' +
+              '<button class="shared-action__button" type="button" data-shared-action="' + index + '">' + action.action + '</button>' +
+            '</li>';
+          }).join('') + '</ul>';
+      }
+
+      function faqHTML(items) {
+        return '<h2 class="faq__title" id="faq-title">Frequently asked questions</h2>' + items.map(function (item) {
+          return '<details class="faq__item"><summary class="faq__q">' + item.q +
+            '<svg class="faq__chev" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8l5 5 5-5"/></svg></summary>' +
+            '<p class="faq__a">' + item.a + '</p></details>';
+        }).join('');
+      }
+
+      // Load Messenger only in response to a task click or a submitted message.
+      // No widget, proactive message, or conversation can open on page entry.
+      function openAssistant(message) {
+        var status = document.getElementById('assistant-status');
+        if (typeof window.Intercom === 'function') {
+          window.Intercom('showNewMessage', message);
+          return;
+        }
+        status.textContent = 'Opening the Chakra assistant…';
+        var intercom = function () { intercom.q.push(arguments); };
+        intercom.q = [];
+        window.Intercom = intercom;
+        window.intercomSettings = { api_base: 'https://api-iam.intercom.io', app_id: 'tre9hhxg' };
+        intercom('boot', window.intercomSettings);
+        intercom('showNewMessage', message);
+        var script = document.createElement('script');
+        script.src = 'https://widget.intercom.io/widget/tre9hhxg';
+        script.async = true;
+        script.onload = function () { status.textContent = ''; };
+        script.onerror = function () {
+          delete window.Intercom;
+          script.remove();
+          status.textContent = 'The assistant couldn’t load. Please try again.';
+        };
+        document.head.appendChild(script);
+      }
+
+      function renderDashboard() {
+        var cfg = CONFIG.chakra;
+        var products = PRODUCTS;
+        leadProduct = products[0];
+        var setup = leadProduct.setup;
+        assistantRequest = setup.request;
+        assistantSuggestions = leadProduct.suggestions;
+        document.getElementById('composer-prompts').innerHTML = assistantSuggestions.map(function (suggestion, index) {
+          return '<button class="composer__prompt" type="button" data-suggestion="' + index + '">' + suggestion.label + '</button>';
+        }).join('');
+        var field = document.getElementById('composer-field');
+        field.value = '';
+        updateComposer();
+        document.querySelector('.trial__link').href = leadProduct.demoHref;
+        document.getElementById('trial-text').innerHTML =
+          'Your <b>' + cfg.trial + '</b> trial has <b>' + cfg.attemptsLeft + ' of ' + cfg.attemptsTotal + ' attempts</b> left' +
+          '<span class="trial__help" tabindex="0" role="note" aria-label="' + cfg.attemptHint + '">' +
+            '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5"/><circle cx="10" cy="6.4" r="0.1"/></svg>' +
+            '<span class="trial__tip">' + cfg.attemptHint + '</span></span>' +
+          ' <span class="trial__sub">· ends in 14 days</span>';
+        var sections = document.getElementById('product-sections');
+        document.getElementById('products').dataset.count = products.length;
+        sections.innerHTML = sectionsHTML(products);
+        document.getElementById('shared-actions').innerHTML = sharedActionsHTML();
+        document.getElementById('faq').innerHTML = faqHTML(cfg.faq);
+      }
+
+      document.getElementById('product-sections').addEventListener('click', function (event) {
+        var button = event.target.closest('button[data-task]');
+        if (!button) return;
+        if (button.dataset.product === leadProduct.key && leadProduct.tasks[Number(button.dataset.task)].primary) {
+          var field = document.getElementById('composer-field');
+          field.value = leadProduct.tasks[0].prompt;
+          updateComposer();
+          field.focus();
+          return;
+        }
+        var product = PRODUCTS.find(function (item) { return item.key === button.dataset.product; });
+        openAssistant(product.tasks[Number(button.dataset.task)].prompt);
+      });
+      document.getElementById('shared-actions').addEventListener('click', function (event) {
+        var button = event.target.closest('button[data-shared-action]');
+        if (button) openAssistant(SHARED_ACTIONS[Number(button.dataset.sharedAction)].prompt);
+      });
+      function updateComposer() {
+        document.querySelector('.composer__send').disabled = !document.getElementById('composer-field').value.trim();
+      }
+      document.getElementById('composer-prompts').addEventListener('click', function (event) {
+        var button = event.target.closest('button[data-suggestion]');
+        if (!button) return;
+        var field = document.getElementById('composer-field');
+        field.value = assistantSuggestions[Number(button.dataset.suggestion)].message;
+        updateComposer();
+        field.focus();
+      });
+      document.getElementById('composer-field').addEventListener('input', updateComposer);
+      document.getElementById('composer-field').addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' && !event.shiftKey && !event.isComposing) {
+          event.preventDefault();
+          if (event.currentTarget.value.trim()) document.getElementById('assistant-form').requestSubmit();
+        }
+      });
+      document.getElementById('assistant-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        var field = document.getElementById('composer-field');
+        var message = field.value.trim();
+        if (message) openAssistant(assistantRequest + '\n\n' + message);
+      });
+
+      renderDashboard();
+
+      var shell = document.getElementById('screen-dashboard');
+      var sidebar = document.getElementById('chakra-sidebar');
+      var menuButton = document.getElementById('mobile-menu');
+      var sidebarToggle = document.getElementById('sidebar-toggle');
+      var backdrop = document.getElementById('sidebar-backdrop');
+      var main = document.getElementById('chakra-main');
+      var mobile = window.matchMedia('(max-width: 760px)');
+      function closeMenu() {
+        shell.classList.remove('is-menu-open');
+        backdrop.hidden = true;
+        main.inert = false;
+        sidebar.inert = mobile.matches;
+        menuButton.setAttribute('aria-expanded', 'false');
+      }
+      function updateSidebar() {
+        closeMenu();
+        var collapsed = shell.classList.contains('is-collapsed');
+        sidebarToggle.setAttribute('aria-expanded', String(mobile.matches || !collapsed));
+        sidebarToggle.setAttribute('aria-label', mobile.matches ? 'Close navigation' : collapsed ? 'Expand sidebar' : 'Collapse sidebar');
+        sidebarToggle.title = sidebarToggle.getAttribute('aria-label');
+      }
+      mobile.addEventListener('change', updateSidebar);
+      updateSidebar();
+      menuButton.addEventListener('click', function () {
+        shell.classList.add('is-menu-open');
+        sidebar.inert = false;
+        main.inert = true;
+        backdrop.hidden = false;
+        menuButton.setAttribute('aria-expanded', 'true');
+        sidebarToggle.focus();
+      });
+      sidebarToggle.addEventListener('click', function () {
+        if (mobile.matches) { closeMenu(); menuButton.focus(); }
+        else { shell.classList.toggle('is-collapsed'); updateSidebar(); }
+      });
+      backdrop.addEventListener('click', function () { closeMenu(); menuButton.focus(); });
+      document.addEventListener('keydown', function (event) {
+        if (!shell.classList.contains('is-menu-open')) return;
+        if (event.key === 'Escape') { closeMenu(); menuButton.focus(); }
+        if (event.key === 'Tab') {
+          var focusable = sidebar.querySelectorAll('a[href], button:not([disabled])');
+          var first = focusable[0], last = focusable[focusable.length - 1];
+          if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+          else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+        }
+      });
+      function draftMessage(message) {
+        closeMenu();
+        var field = document.getElementById('composer-field');
+        field.value = message;
+        document.getElementById('assistant-status').textContent = '';
+        updateComposer();
+        field.focus();
+      }
+      document.getElementById('new-chat').addEventListener('click', function () { draftMessage(''); });
+      document.getElementById('my-interviewers').addEventListener('click', function () {
+        draftMessage('Help me view and manage my Chakra AI interviewers, or create one for a new role.');
+      });
+      document.getElementById('my-library').addEventListener('click', function () {
+        draftMessage('Help me explore my Chakra question library and interview templates.');
+      });
+      document.getElementById('give-feedback').addEventListener('click', function () {
+        draftMessage('I would like to share feedback about Chakra: ');
+      });
+    })();
+  </script>
+</body>
+</html>

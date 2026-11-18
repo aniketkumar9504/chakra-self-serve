@@ -1,0 +1,67 @@
+/* Chakra-only shell. The dashboard contents share the established HRDS styles. */
+.chakra-shell { display: grid; grid-template-columns: 272px minmax(0, 1fr); min-height: 100vh; }
+.chakra-sidebar { position: sticky; top: 0; display: flex; flex-direction: column; gap: 0; height: 100dvh; min-height: 560px; padding: 26px 20px 20px; border-right: 1px solid var(--border); background: var(--card); z-index: 110; }
+.sidebar-brand-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.chakra-brand { display: flex; align-items: center; gap: 8px; color: var(--foreground); text-decoration: none; }
+.chakra-brand img { flex: none; width: 32px; height: 32px; }
+.chakra-brand span { font-family: var(--font-heading); font-size: 32px; line-height: 1; letter-spacing: -0.8px; }
+.sidebar-toggle { flex: none; display: grid; place-items: center; width: 30px; height: 32px; padding: 4px; border: 0; border-radius: var(--hrds-radius-lg); color: var(--foreground); background: none; cursor: pointer; }
+.sidebar-toggle svg { width: 20px; height: 20px; }
+.sidebar-toggle:hover { background: var(--accent); }
+.sidebar-new-chat { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; margin-top: 26px; padding: 10px 16px; border: 0; border-radius: var(--hrds-radius-xl); color: var(--secondary-foreground); background: var(--secondary); font-size: 15px; font-weight: 700; cursor: pointer; }
+.sidebar-new-chat:hover { background: var(--secondary-hover); }
+.sidebar-new-chat svg, .sidebar-nav__item svg { flex: none; width: 20px; height: 20px; }
+.sidebar-nav { display: flex; flex-direction: column; gap: 6px; margin-top: 18px; }
+.sidebar-nav__item { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 44px; padding: 10px 12px; border: 0; border-radius: var(--hrds-radius-lg); color: var(--foreground); background: transparent; font-size: 15px; text-align: left; cursor: pointer; }
+.sidebar-nav__item:hover:enabled { background: var(--accent); }
+.sidebar-nav__item:disabled { opacity: 0.55; cursor: default; }
+.sidebar-feedback { display: flex; flex-direction: column; gap: 10px; margin-top: auto; padding: 16px; border: 1px solid var(--outline-border); border-radius: var(--hrds-radius-xl); color: var(--foreground); background: var(--card); text-align: left; cursor: pointer; }
+.sidebar-feedback:hover { border-color: var(--outline-border-hover); }
+.sidebar-feedback__heading { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; }
+.sidebar-feedback__heading svg { flex: none; width: 19px; height: 19px; color: var(--muted-foreground); }
+.sidebar-feedback__description { font-size: 13px; line-height: 1.6; color: var(--muted-foreground); }
+.chakra-shell > .main { min-width: 0; background: var(--background); }
+.chakra-shell .trial { flex-wrap: wrap; gap: 12px; margin: 20px 24px 0; }
+.chakra-shell .canvas { margin: 18px 24px 24px; padding: 42px clamp(24px, 3.5vw, 56px) 56px; }
+.chakra-shell .hero-title { font-size: clamp(30px, 3vw, 38px); }
+.chakra-shell .trial__spacer { display: block; }
+.chakra-shell .trial__text { width: auto; }
+.mobile-menu, .sidebar-backdrop { display: none; }
+
+/* A compact rail preserves access to every sidebar action. */
+.chakra-shell.is-collapsed { grid-template-columns: 80px minmax(0, 1fr); }
+.is-collapsed .chakra-sidebar { padding-inline: 16px; align-items: center; }
+.is-collapsed .chakra-brand, .is-collapsed .sidebar-label, .is-collapsed .sidebar-feedback__description { display: none; }
+.is-collapsed .sidebar-brand-row { justify-content: center; }
+.is-collapsed .sidebar-new-chat { width: 44px; padding: 10px; }
+.is-collapsed .sidebar-nav__item { justify-content: center; padding: 12px; }
+.is-collapsed .sidebar-feedback { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; }
+
+@media (max-width: 1100px) {
+  .chakra-shell .trial__text { width: 100%; }
+  .chakra-shell .trial__spacer { display: none; }
+  .chakra-shell .products[data-count="1"] .psection__tasks { grid-template-columns: minmax(0, 1fr); }
+  .chakra-shell .products[data-count="1"] .product-task { align-items: center; padding: 16px 0; border-right: 0; border-bottom: 1px solid var(--border); }
+  .chakra-shell .products[data-count="1"] .product-task:last-child { border-bottom: 0; }
+  .chakra-shell .products[data-count="1"] .psection { padding-bottom: 4px; }
+}
+@media (max-width: 760px) {
+  .chakra-shell, .chakra-shell.is-collapsed { display: block; }
+  .chakra-shell > .main { padding-top: 56px; }
+  .mobile-menu { position: absolute; top: 12px; left: 16px; display: grid; place-items: center; width: 36px; height: 36px; padding: 7px; color: var(--foreground); border: 1px solid var(--border); border-radius: var(--hrds-radius-lg); background: var(--card); cursor: pointer; }
+  .mobile-menu svg { width: 22px; height: 22px; }
+  .chakra-sidebar { position: fixed; inset: 0 auto 0 0; width: min(280px, 86vw); height: 100dvh; min-height: 0; transform: translateX(-100%); visibility: hidden; }
+  .is-menu-open .chakra-sidebar { transform: translateX(0); visibility: visible; }
+  .sidebar-backdrop:not([hidden]) { position: fixed; inset: 0; display: block; z-index: 105; border: 0; background: rgba(20, 20, 25, 0.28); }
+  .is-collapsed .chakra-sidebar { padding: 26px 20px 20px; align-items: stretch; }
+  .is-collapsed .chakra-brand, .is-collapsed .sidebar-label, .is-collapsed .sidebar-feedback__description { display: initial; }
+  .is-collapsed .chakra-brand { display: flex; }
+  .is-collapsed .sidebar-brand-row { justify-content: space-between; }
+  .is-collapsed .sidebar-new-chat { width: auto; padding: 10px 16px; }
+  .is-collapsed .sidebar-nav__item { justify-content: flex-start; padding: 10px 12px; }
+  .is-collapsed .sidebar-feedback { display: flex; width: auto; height: auto; padding: 16px; }
+  .chakra-shell .trial { margin: 8px 12px 0; padding: 13px 14px; gap: 12px; }
+  .chakra-shell .trial__link { font-size: 12px; }
+  .chakra-shell .trial__cta { padding: 8px 12px; font-size: 12px; }
+  .chakra-shell .canvas { margin: 12px; padding: 28px 16px 40px; }
+}
