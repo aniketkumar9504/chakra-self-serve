@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="styles/hrds/tokens.css" />
   <link rel="stylesheet" href="styles/hrds/theme.css" />
   <link rel="stylesheet" href="styles/hrds/fonts.css" />
-  <link rel="stylesheet" href="styles/trial-onboarding.css?v=19" />
+  <link rel="stylesheet" href="styles/trial-onboarding.css?v=20" />
 </head>
 <body>
 
@@ -165,6 +165,8 @@
       var CONFIG = {
         chakra: {
           trial: 'Chakra',
+          attemptsLeft: 18, attemptsTotal: 25,
+          attemptHint: 'An attempt is used each time a candidate completes one of your Chakra interviews. Unused invites don\'t count.',
           navTop: [
             { label: 'Home', icon: svg('home'), active: true },
             { label: 'Chakra', img: CHAKRA_IMG },
@@ -183,6 +185,8 @@
         },
         interviews: {
           trial: 'Interviews',
+          attemptsLeft: 8, attemptsTotal: 10,
+          attemptHint: 'An attempt is used each time you run a live interview with a candidate.',
           navTop: [
             { label: 'Home', icon: svg('home'), active: true },
             { label: 'Interviews', img: INT_IMG },
@@ -201,6 +205,8 @@
         },
         both: {
           trial: 'Chakra + Interviews',
+          attemptsLeft: 26, attemptsTotal: 35,
+          attemptHint: 'An attempt is used each time a candidate completes a Chakra interview or you run a live interview.',
           navTop: [
             { label: 'Home', icon: svg('home'), active: true },
             { label: 'Chakra', img: CHAKRA_IMG },
@@ -258,7 +264,12 @@
           a.classList.toggle('is-active', a.getAttribute('data-nav') === activeNav);
         });
         document.getElementById('trial-text').innerHTML =
-          'Your <b>' + cfg.trial + '</b> trial ends in <b>14 days</b>. Upgrade any time for full access.';
+          'Your <b>' + cfg.trial + '</b> trial has <b>' + cfg.attemptsLeft + ' of ' + cfg.attemptsTotal + ' attempts</b> left' +
+          '<span class="trial__help" tabindex="0" role="note" aria-label="' + cfg.attemptHint + '">' +
+            '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7.5"/><path d="M10 9v4.5"/><circle cx="10" cy="6.4" r="0.1"/></svg>' +
+            '<span class="trial__tip">' + cfg.attemptHint + '</span>' +
+          '</span>' +
+          ' <span class="trial__sub">· ends in 14 days</span>';
         document.getElementById('composer-chips').innerHTML =
           cfg.chips.map(chipHTML).join('') +
           '<button class="composer__send" type="button" aria-label="Send">' +

@@ -264,7 +264,50 @@ body {
 }
 .trial__text { font-size: 14px; color: var(--foreground); }
 .trial__text b { font-weight: 700; }
+.trial__sub { color: var(--muted-foreground); }
 .trial__spacer { flex: 1; }
+
+/* "What's an attempt?" help affordance + hover/focus tooltip. */
+.trial__help {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+  margin-left: 5px;
+  color: var(--muted-foreground);
+  cursor: help;
+  outline: none;
+}
+.trial__help:hover, .trial__help:focus-visible { color: var(--foreground); }
+.trial__help svg { width: 15px; height: 15px; }
+.trial__tip {
+  position: absolute;
+  top: calc(100% + 9px);
+  left: 50%;
+  transform: translateX(-30px);
+  z-index: 20;
+  width: 260px;
+  padding: 10px 12px;
+  font-size: var(--hrds-text-body-sm);
+  line-height: 1.45;
+  font-weight: 500;
+  color: #fff;
+  background: #141419;
+  border-radius: var(--hrds-radius-lg);
+  box-shadow: 0 14px 34px -18px rgba(20, 20, 25, 0.6);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.14s ease, visibility 0.14s ease;
+}
+.trial__tip::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 28px;
+  border: 6px solid transparent;
+  border-bottom-color: #141419;
+}
+.trial__help:hover .trial__tip,
+.trial__help:focus-visible .trial__tip { opacity: 1; visibility: visible; }
 .trial__link {
   font-size: 14px; font-weight: 600; color: var(--foreground);
   text-decoration: underline; text-underline-offset: 2px; white-space: nowrap;
