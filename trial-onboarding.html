@@ -252,15 +252,14 @@
             request: 'Help me with my HackerRank workspace for live pair-programming interviews. Here is my question or request:'
           },
           suggestions: [
-            { label: 'Set up an interview', message: 'Help me set up a live pair-programming interview.' },
+            { label: 'Try a live interview', message: 'Help me try a live HackerRank interview in the shared coding workspace.' },
             { label: 'Connect my ATS', message: 'How do I connect my ATS to HackerRank?' },
             { label: 'How do live interviews work?', message: 'How do live interviews work in HackerRank?' }
           ],
           description: 'Live pair-programming interviews in a shared workspace.',
           tasks: [
-            { title: 'Set up an interview', description: 'Choose questions and create a live coding session.', prompt: 'Help me set up my first live pair-programming interview.', primary: true },
-            { title: 'Explore the question library', description: 'Find questions for your next technical interview.', prompt: 'Help me explore the HackerRank question library for live technical interviews.' },
-            { title: 'Try a live interview', description: 'Explore a live coding session in the shared workspace.', prompt: 'Help me try a live HackerRank interview in the shared coding workspace.' }
+            { id: 'library', title: 'Explore the question library', description: 'Find questions for your next technical interview.', prompt: 'Help me explore the HackerRank question library for live technical interviews.' },
+            { id: 'try-live', title: 'Try a live interview', description: 'Explore a live coding session in the shared workspace.', prompt: 'Help me try a live HackerRank interview in the shared coding workspace.' }
           ]
         }
       ];
@@ -402,7 +401,7 @@
       document.getElementById('product-sections').addEventListener('click', function (event) {
         var button = event.target.closest('button[data-task]');
         if (!button) return;
-        if (button.dataset.product === leadProduct.key && button.dataset.task === '0') {
+        if (button.dataset.product === leadProduct.key && leadProduct.tasks[Number(button.dataset.task)].primary) {
           var field = document.getElementById('composer-field');
           field.value = leadProduct.tasks[0].prompt;
           updateComposer();
@@ -413,10 +412,10 @@
         openAssistant(product.tasks[Number(button.dataset.task)].prompt);
       });
       document.getElementById('try-interviews').addEventListener('click', function () {
-        openAssistant(PRODUCTS[1].tasks[2].prompt);
+        openAssistant(PRODUCTS[1].tasks.find(function (task) { return task.id === 'try-live'; }).prompt);
       });
       document.getElementById('explore-interview-library').addEventListener('click', function () {
-        openAssistant(PRODUCTS[1].tasks[1].prompt);
+        openAssistant(PRODUCTS[1].tasks.find(function (task) { return task.id === 'library'; }).prompt);
       });
       document.getElementById('shared-actions').addEventListener('click', function (event) {
         var button = event.target.closest('button[data-shared-action]');
