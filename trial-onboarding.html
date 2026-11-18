@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="styles/hrds/tokens.css" />
   <link rel="stylesheet" href="styles/hrds/theme.css" />
   <link rel="stylesheet" href="styles/hrds/fonts.css" />
-  <link rel="stylesheet" href="styles/trial-onboarding.css?v=34" />
+  <link rel="stylesheet" href="styles/trial-onboarding.css?v=35" />
 </head>
 <body>
 
@@ -109,11 +109,11 @@
         <div class="canvas">
           <div class="canvas__inner">
             <section class="assistant" aria-labelledby="hero-title">
-              <h1 class="hero-title serif" id="hero-title" tabindex="-1">How would you like to get started</h1>
+              <h1 class="hero-title serif" id="hero-title" tabindex="-1">How would you like to get started?</h1>
               <p class="assistant__intro" id="assistant-description">Ask questions, get clarity, or let HackerRank help with setup.</p>
               <form class="composer" id="assistant-form">
                 <div class="composer__inner">
-                  <textarea class="composer__field" id="composer-field" rows="2" aria-label="Ask HackerRank to set things up for you" aria-describedby="assistant-description" placeholder="Ask HackerRank to set things up for you" title="Ask HackerRank to set things up for you" required></textarea>
+                  <textarea class="composer__field" id="composer-field" rows="2" aria-label="Ask HackerRank to set things up for you" aria-describedby="assistant-description" placeholder="Ask HackerRank to set things up for you..." title="Ask HackerRank to set things up for you" required></textarea>
                   <div class="composer__footer">
                     <div class="composer__prompts" id="composer-prompts" role="group" aria-label="Ideas for your HackerRank copilot"></div>
                     <button class="composer__send" type="submit" aria-label="Send message to HackerRank copilot" title="Send message" disabled>
@@ -125,25 +125,27 @@
               <p class="assistant__status" id="assistant-status" role="status"></p>
             </section>
 
-            <section class="products" id="products" aria-labelledby="products-title">
-              <h2 class="products-title" id="products-title">More ways to get started</h2>
+            <section class="products" id="products" aria-label="Explore hiring products">
               <div class="product-sections" id="product-sections"></div>
             </section>
 
             <section class="shared-actions" id="shared-actions" aria-labelledby="shared-actions-title"></section>
 
-            <aside class="discover-product" id="discover-interviews" aria-labelledby="discover-interviews-title" hidden>
-              <span class="discover-product__icon"><img src="assets/products/interview.svg" alt="" /></span>
-              <div class="discover-product__body">
-                <p class="discover-product__eyebrow">Also available on HackerRank</p>
-                <h2 class="discover-product__title" id="discover-interviews-title">Meet Interviews</h2>
-                <p class="discover-product__description">Go deeper with live pair-programming interviews in a shared coding workspace.</p>
-              </div>
-              <div class="discover-product__actions">
-                <button class="discover-product__try" id="try-interviews" type="button">Try Interviews</button>
-                <a class="discover-product__demo" href="book-demo.html?product=interview">Book a demo</a>
-              </div>
-            </aside>
+            <section class="discover-section" id="discover-interviews" aria-labelledby="discover-interviews-heading" hidden>
+              <h2 class="product-option__heading" id="discover-interviews-heading">Go deep with technical interviews</h2>
+              <aside class="discover-product" aria-labelledby="discover-interviews-title">
+                <span class="discover-product__icon"><img src="assets/products/interview.svg" alt="" /></span>
+                <div class="discover-product__body">
+                  <p class="discover-product__eyebrow">Also available on HackerRank</p>
+                  <h3 class="discover-product__title" id="discover-interviews-title">Meet Interviews</h3>
+                  <p class="discover-product__description">Go deeper with live pair-programming interviews in a shared coding workspace.</p>
+                </div>
+                <div class="discover-product__actions">
+                  <button class="discover-product__try" id="try-interviews" type="button">Try Interviews</button>
+                  <a class="discover-product__demo" href="book-demo.html?product=interview">Book a demo</a>
+                </div>
+              </aside>
+            </section>
 
             <section class="faq" id="faq" aria-labelledby="faq-title"></section>
           </div>
@@ -229,7 +231,7 @@
 };
       var PRODUCTS = [
         {
-          key: 'chakra', name: 'Chakra', image: 'assets/products/chakra.svg',
+          key: 'chakra', name: 'Chakra', heading: 'Start screening candidates', image: 'assets/products/chakra.svg',
           setup: {
             request: 'Help me with my HackerRank workspace for Chakra AI screening. Here is my question or request:'
           },
@@ -246,7 +248,7 @@
           ]
         },
         {
-          key: 'interviews', name: 'Interviews', image: 'assets/products/interview.svg',
+          key: 'interviews', name: 'Interviews', heading: 'Go deep with technical interviews', image: 'assets/products/interview.svg',
           setup: {
             request: 'Help me with my HackerRank workspace for live pair-programming interviews. Here is my question or request:'
           },
@@ -287,10 +289,11 @@
 
       function sectionsHTML(products) {
         return products.map(function (product) {
-          return '<section class="psection" aria-labelledby="title-' + product.key + '">' +
+          return '<div class="product-option"><h2 class="product-option__heading">' + product.heading + '</h2>' +
+            '<section class="psection" aria-labelledby="title-' + product.key + '">' +
             '<div class="psection__head">' +
               '<span class="psection__icon"><img src="' + product.image + '" alt="" /></span>' +
-              '<div class="psection__identity"><h2 class="psection__label" id="title-' + product.key + '">' + product.name + '</h2>' +
+              '<div class="psection__identity"><h3 class="psection__label" id="title-' + product.key + '">' + product.name + '</h3>' +
                 '<p class="psection__note">' + product.description + '</p></div>' +
             '</div>' +
             '<div class="psection__tasks">' + product.tasks.map(function (task, index) {
@@ -302,7 +305,7 @@
                 '<span class="product-task__arrow">' + arrow + '</span>' +
               '</' + tag + '>';
             }).join('') + '</div>' +
-          '</section>';
+          '</section></div>';
         }).join('');
       }
 

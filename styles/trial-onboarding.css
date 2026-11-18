@@ -308,7 +308,8 @@ body {
 /* Task-first product sections. Each product owns its three actions. */
 .hero-title { margin: 6px 0 12px; font-size: clamp(30px, 3.2vw, 40px); line-height: 1.2; text-align: center; }
 .hero-title:focus { outline: none; }
-.products-title { margin: 0 0 20px; font-size: 18px; font-weight: 700; }
+.product-option { min-width: 0; }
+.product-option__heading { margin: 0 0 16px; font-size: 18px; line-height: 1.4; font-weight: 700; }
 .product-sections { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
 .products[data-count="1"] { max-width: 820px; margin-inline: auto; }
 .products[data-count="1"] .product-sections { grid-template-columns: minmax(0, 1fr); }
@@ -374,8 +375,9 @@ body {
 .shared-action__button:hover { border-color: var(--foreground); background: var(--accent); }
 
 /* Introduce live Interviews after the Chakra workspace actions. */
-.discover-product { display: flex; align-items: center; gap: 16px; max-width: 820px; margin: 40px auto 0; padding: 24px; border: 1px solid var(--border); border-radius: var(--hrds-radius-xl); background: var(--muted); }
-.discover-product[hidden] { display: none; }
+.discover-section { max-width: 820px; margin: 40px auto 0; }
+.discover-section[hidden] { display: none; }
+.discover-product { display: flex; align-items: center; gap: 16px; padding: 24px; border: 1px solid var(--border); border-radius: var(--hrds-radius-xl); background: var(--muted); }
 .discover-product__icon { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--border); border-radius: var(--hrds-radius-lg); background: var(--card); }
 .discover-product__icon img { width: 27px; height: 27px; }
 .discover-product__body { flex: 1; min-width: 0; }
