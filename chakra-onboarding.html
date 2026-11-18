@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="styles/hrds/theme.css" />
   <link rel="stylesheet" href="styles/hrds/fonts.css" />
   <link rel="stylesheet" href="styles/trial-onboarding.css?v=38" />
-  <link rel="stylesheet" href="styles/chakra-onboarding.css?v=1" />
+  <link rel="stylesheet" href="styles/chakra-onboarding.css?v=2" />
 </head>
 <body>
 
@@ -68,13 +68,12 @@
           <div class="canvas__inner">
             <section class="assistant" aria-labelledby="hero-title">
               <h1 class="hero-title serif" id="hero-title" tabindex="-1">How would you like to get started?</h1>
-              <p class="assistant__intro" id="assistant-description">Ask questions, get clarity, or let Chakra help with setup.</p>
               <form class="composer" id="assistant-form">
                 <div class="composer__inner">
-                  <textarea class="composer__field" id="composer-field" rows="2" aria-label="Ask Chakra to set things up for you" aria-describedby="assistant-description" placeholder="Ask Chakra to set things up for you..." title="Ask Chakra to set things up for you" required></textarea>
+                  <textarea class="composer__field" id="composer-field" rows="2" aria-label="Ask HackerRank to set things up for you" placeholder="Ask HackerRank to set things up for you..." title="Ask HackerRank to set things up for you" required></textarea>
                   <div class="composer__footer">
-                    <div class="composer__prompts" id="composer-prompts" role="group" aria-label="Ideas for your Chakra copilot"></div>
-                    <button class="composer__send" type="submit" aria-label="Send message to Chakra copilot" title="Send message" disabled>
+                    <div class="composer__prompts" id="composer-prompts" role="group" aria-label="Ideas for your HackerRank copilot"></div>
+                    <button class="composer__send" type="submit" aria-label="Send message to HackerRank copilot" title="Send message" disabled>
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
                     </button>
                   </div>
@@ -187,13 +186,7 @@
 
       function sectionsHTML(products) {
         return products.map(function (product) {
-          return '<div class="product-option"><h2 class="product-option__heading">' + product.heading + '</h2>' +
-            '<section class="psection" aria-labelledby="title-' + product.key + '">' +
-            '<div class="psection__head">' +
-              '<span class="psection__icon"><img src="' + product.image + '" alt="" /></span>' +
-              '<div class="psection__identity"><h3 class="psection__label" id="title-' + product.key + '">' + product.name + '</h3>' +
-                '<p class="psection__note">' + product.description + '</p></div>' +
-            '</div>' +
+          return '<section class="psection" aria-label="Chakra actions">' +
             '<div class="psection__tasks" style="--task-count: ' + product.tasks.length + '">' + product.tasks.map(function (task, index) {
               var tag = task.href ? 'a' : 'button';
               var attributes = task.href ? 'href="' + task.href + '"' : 'type="button" data-product="' + product.key + '" data-task="' + index + '"';
@@ -203,7 +196,7 @@
                 '<span class="product-task__arrow">' + arrow + '</span>' +
               '</' + tag + '>';
             }).join('') + '</div>' +
-          '</section></div>';
+          '</section>';
         }).join('');
       }
 
@@ -235,7 +228,7 @@
           window.Intercom('showNewMessage', message);
           return;
         }
-        status.textContent = 'Opening the Chakra assistant…';
+        status.textContent = 'Opening the HackerRank assistant…';
         var intercom = function () { intercom.q.push(arguments); };
         intercom.q = [];
         window.Intercom = intercom;
