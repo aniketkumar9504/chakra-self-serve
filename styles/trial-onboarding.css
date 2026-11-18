@@ -306,8 +306,9 @@ body {
 .canvas__inner { max-width: 1120px; margin: 0 auto; }
 
 /* Task-first product sections. Each product owns its three actions. */
-.hero-title { margin: 6px 0 38px; font-size: clamp(30px, 3.2vw, 40px); line-height: 1.2; text-align: center; }
+.hero-title { margin: 6px 0 12px; font-size: clamp(30px, 3.2vw, 40px); line-height: 1.2; text-align: center; }
 .hero-title:focus { outline: none; }
+.products-title { margin: 0 0 20px; font-size: 18px; font-weight: 700; }
 .product-sections { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
 .psection { min-width: 0; padding: 26px 26px 8px; border: 1px solid var(--border); border-radius: var(--hrds-radius-xl); background: var(--card); }
 .psection__head { display: flex; align-items: center; gap: 12px; }
@@ -328,9 +329,9 @@ body {
 .product-task:hover .product-task__arrow { border-color: var(--foreground); background: var(--accent); }
 .product-task--primary:hover .product-task__arrow { background: var(--secondary-hover); }
 
-/* The helper follows the product actions, above FAQs, in document order. */
-.assistant { position: relative; margin: 42px auto 0; max-width: 820px; text-align: center; }
-.assistant__title { margin: 0 0 18px; font-size: 16px; font-weight: 600; }
+/* Lead with a concrete Chakra setup action, then offer product alternatives. */
+.assistant { position: relative; margin: 0 auto 48px; max-width: 820px; text-align: center; }
+.assistant__intro { margin: 0 0 24px; font-size: 15px; line-height: 1.6; color: var(--muted-foreground); }
 .composer { position: relative; padding: 1.5px; border-radius: var(--hrds-radius-circle); background: linear-gradient(100deg, #8ae9ff 0%, #9c99ff 55%, #d2f5b9 100%); box-shadow: 0 8px 26px -16px #9c99ff; }
 .composer__inner { display: flex; align-items: center; gap: 14px; min-height: 62px; padding: 9px 12px 9px 20px; background: var(--card); border-radius: inherit; }
 .composer__mark { flex: none; width: 25px; height: 25px; }
@@ -338,7 +339,7 @@ body {
 .composer__field::placeholder { color: var(--muted-foreground); opacity: 1; }
 .composer__field:focus { outline: none; }
 .composer:focus-within { outline: 2px solid var(--foreground); outline-offset: 4px; }
-.composer__send { flex: none; display: grid; place-items: center; width: 38px; height: 38px; padding: 0; border: 0; border-radius: var(--hrds-radius-circle); color: var(--secondary-foreground); background: var(--secondary); cursor: pointer; }
+.composer__send { flex: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 10px 16px; font-size: 14px; font-weight: 700; border: 0; border-radius: var(--hrds-radius-circle); color: var(--secondary-foreground); background: var(--secondary); cursor: pointer; }
 .composer__send:hover { background: var(--secondary-hover); }
 .composer__send svg { width: 20px; height: 20px; }
 .assistant__status { margin: 10px 0 0; font-size: 13px; color: var(--muted-foreground); }
@@ -372,12 +373,16 @@ button:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px soli
 @media (max-width: 700px) {
   .product-sections { grid-template-columns: minmax(0, 1fr); gap: 20px; }
   .canvas { margin: 12px; padding: 28px 20px 40px; }
-  .hero-title { margin-bottom: 28px; }
+  .hero-title { margin-bottom: 12px; }
   .psection { padding: 22px 20px 4px; }
   .psection__note { min-height: 0; margin-bottom: 20px; }
   .product-task { min-height: 86px; }
-  .assistant { margin-top: 32px; }
-  .assistant__title { font-size: 15px; line-height: 1.5; }
+  .assistant { margin-bottom: 34px; }
+  .assistant__intro { font-size: 14px; }
+  .composer { border-radius: var(--hrds-radius-xl); }
+  .composer__inner { flex-wrap: wrap; }
+  .composer__send { width: 100%; }
+  .composer__field { min-height: 40px; }
   .composer__inner { gap: 10px; padding-left: 14px; }
   .composer__field { font-size: 14px; }
   .faq { margin-top: 34px; }

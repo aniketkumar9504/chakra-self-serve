@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="styles/hrds/tokens.css" />
   <link rel="stylesheet" href="styles/hrds/theme.css" />
   <link rel="stylesheet" href="styles/hrds/fonts.css" />
-  <link rel="stylesheet" href="styles/trial-onboarding.css?v=29" />
+  <link rel="stylesheet" href="styles/trial-onboarding.css?v=30" />
 </head>
 <body>
 
@@ -108,23 +108,24 @@
 
         <div class="canvas">
           <div class="canvas__inner">
-            <h1 class="hero-title serif" id="hero-title" tabindex="-1">How would you like to get started?</h1>
-
-            <div class="product-sections" id="product-sections"></div>
-
-            <section class="assistant" aria-labelledby="assistant-title">
-              <h2 class="assistant__title" id="assistant-title">Ask HackerRank to set things up for you</h2>
+            <section class="assistant" aria-labelledby="hero-title">
+              <h1 class="hero-title serif" id="hero-title" tabindex="-1">Create your first role with Chakra</h1>
+              <p class="assistant__intro" id="assistant-description">Paste a job description to set up an AI screening interview for your role.</p>
               <form class="composer" id="assistant-form">
                 <div class="composer__inner">
                   <img class="composer__mark" src="assets/products/chakra.svg" alt="" aria-hidden="true" />
-                  <input class="composer__field" id="composer-field" type="text" aria-label="Ask HackerRank to set things up for you" placeholder="Create a role, invite teammates, or connect your ATS…" required />
-                  <button class="composer__send" type="submit" aria-label="Send to HackerRank assistant">
+                  <input class="composer__field" id="composer-field" type="text" aria-label="Job description for your first Chakra" aria-describedby="assistant-description" placeholder="Paste your job description here…" required />
+                  <button class="composer__send" type="submit" aria-label="Create a Chakra with HackerRank assistant">
+                    <span>Create a Chakra</span>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
                   </button>
                 </div>
               </form>
               <p class="assistant__status" id="assistant-status" role="status"></p>
             </section>
+
+            <h2 class="products-title">More ways to get started</h2>
+            <div class="product-sections" id="product-sections"></div>
 
             <section class="faq" id="faq" aria-labelledby="faq-title"></section>
           </div>
@@ -315,6 +316,10 @@
       document.getElementById('product-sections').addEventListener('click', function (event) {
         var button = event.target.closest('button[data-task]');
         if (!button) return;
+        if (button.dataset.product === 'chakra' && button.dataset.task === '0') {
+          document.getElementById('composer-field').focus();
+          return;
+        }
         var product = PRODUCTS.find(function (item) { return item.key === button.dataset.product; });
         openAssistant(product.tasks[Number(button.dataset.task)].prompt);
       });
