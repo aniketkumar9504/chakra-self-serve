@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="styles/hrds/tokens.css" />
   <link rel="stylesheet" href="styles/hrds/theme.css" />
   <link rel="stylesheet" href="styles/hrds/fonts.css" />
-  <link rel="stylesheet" href="styles/trial-onboarding.css?v=35" />
+  <link rel="stylesheet" href="styles/trial-onboarding.css?v=36" />
 </head>
 <body>
 
@@ -141,8 +141,8 @@
                   <p class="discover-product__description">Go deeper with live pair-programming interviews in a shared coding workspace.</p>
                 </div>
                 <div class="discover-product__actions">
-                  <button class="discover-product__try" id="try-interviews" type="button">Try Interviews</button>
-                  <a class="discover-product__demo" href="book-demo.html?product=interview">Book a demo</a>
+                  <button class="discover-product__try" id="try-interviews" type="button">Try a live interview</button>
+                  <button class="discover-product__library" id="explore-interview-library" type="button">Explore question library</button>
                 </div>
               </aside>
             </section>
@@ -231,7 +231,7 @@
 };
       var PRODUCTS = [
         {
-          key: 'chakra', name: 'Chakra', heading: 'Start screening candidates', image: 'assets/products/chakra.svg',
+          key: 'chakra', name: 'Chakra', heading: 'Start screening candidates', demoHref: 'book-demo.html?product=chakra', image: 'assets/products/chakra.svg',
           setup: {
             request: 'Help me with my HackerRank workspace for Chakra AI screening. Here is my question or request:'
           },
@@ -243,12 +243,11 @@
           description: 'An AI interviewer that screens candidates at scale.',
           tasks: [
             { title: 'Set up a role', description: 'Paste a job description to create an AI interview.', prompt: 'Help me set up a role on Chakra using my job description.', primary: true },
-            { title: 'Try as a candidate', description: 'Experience an AI interview from the candidate’s seat.', prompt: 'I want to try Chakra as a candidate. Help me get started.' },
-            { title: 'Book a demo', description: 'Explore Chakra with a product specialist.', href: 'book-demo.html?product=chakra' }
+            { title: 'Try as a candidate', description: 'Experience an AI interview from the candidate’s seat.', prompt: 'I want to try Chakra as a candidate. Help me get started.' }
           ]
         },
         {
-          key: 'interviews', name: 'Interviews', heading: 'Go deep with technical interviews', image: 'assets/products/interview.svg',
+          key: 'interviews', name: 'Interviews', heading: 'Go deep with technical interviews', demoHref: 'book-demo.html?product=interview', image: 'assets/products/interview.svg',
           setup: {
             request: 'Help me with my HackerRank workspace for live pair-programming interviews. Here is my question or request:'
           },
@@ -260,8 +259,8 @@
           description: 'Live pair-programming interviews in a shared workspace.',
           tasks: [
             { title: 'Set up an interview', description: 'Choose questions and create a live coding session.', prompt: 'Help me set up my first live pair-programming interview.', primary: true },
-            { title: 'Try as a candidate', description: 'Explore the live coding environment for yourself.', prompt: 'I want to try Interviews as a candidate. Help me explore the live coding environment.' },
-            { title: 'Book a demo', description: 'Explore Interviews with a product specialist.', href: 'book-demo.html?product=interview' }
+            { title: 'Explore the question library', description: 'Find questions for your next technical interview.', prompt: 'Help me explore the HackerRank question library for live technical interviews.' },
+            { title: 'Try a live interview', description: 'Explore a live coding session in the shared workspace.', prompt: 'Help me try a live HackerRank interview in the shared coding workspace.' }
           ]
         }
       ];
@@ -296,7 +295,7 @@
               '<div class="psection__identity"><h3 class="psection__label" id="title-' + product.key + '">' + product.name + '</h3>' +
                 '<p class="psection__note">' + product.description + '</p></div>' +
             '</div>' +
-            '<div class="psection__tasks">' + product.tasks.map(function (task, index) {
+            '<div class="psection__tasks" style="--task-count: ' + product.tasks.length + '">' + product.tasks.map(function (task, index) {
               var tag = task.href ? 'a' : 'button';
               var attributes = task.href ? 'href="' + task.href + '"' : 'type="button" data-product="' + product.key + '" data-task="' + index + '"';
               return '<' + tag + ' class="product-task' + (task.primary ? ' product-task--primary' : '') + '" ' + attributes + ' aria-label="' + task.title + ' — ' + product.name + '">' +
@@ -371,7 +370,7 @@
         var field = document.getElementById('composer-field');
         field.value = '';
         updateComposer();
-        document.querySelector('.trial__link').href = leadProduct.tasks[2].href;
+        document.querySelector('.trial__link').href = leadProduct.demoHref;
         document.querySelectorAll('.hrw-nav__link').forEach(function (link) {
           link.classList.toggle('is-active', link.getAttribute('data-nav') === (key === 'interviews' ? 'interviews' : 'chakra'));
         });
@@ -414,7 +413,10 @@
         openAssistant(product.tasks[Number(button.dataset.task)].prompt);
       });
       document.getElementById('try-interviews').addEventListener('click', function () {
-        openAssistant('I would like to explore HackerRank Interviews. Help me try a live pair-programming interview.');
+        openAssistant(PRODUCTS[1].tasks[2].prompt);
+      });
+      document.getElementById('explore-interview-library').addEventListener('click', function () {
+        openAssistant(PRODUCTS[1].tasks[1].prompt);
       });
       document.getElementById('shared-actions').addEventListener('click', function (event) {
         var button = event.target.closest('button[data-shared-action]');
