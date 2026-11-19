@@ -327,8 +327,9 @@ button:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px soli
   *, *::before, *::after { transition: none !important; }
 }
 
-/* A page-wide half-ellipse rises from the bottom; the composer stays neutral. */
-.both-dashboard { background: radial-gradient(ellipse 95% 65% at 50% 100%, rgba(138, 233, 255, 0.7) 0%, rgba(156, 153, 255, 0.2) 42%, transparent 82%), var(--background); }
+/* A fixed half-ellipse rises from the viewport bottom, including the first fold. */
+.both-dashboard { isolation: isolate; background: var(--background); }
+.both-dashboard::before { content: ""; position: fixed; inset: 0 0 auto; height: 100dvh; z-index: -1; pointer-events: none; background: radial-gradient(ellipse 95% 70% at 50% 100%, rgba(138, 233, 255, 0.7) 0%, rgba(156, 153, 255, 0.2) 42%, transparent 82%); }
 .both-dashboard .composer { padding: 1px; background: var(--border); box-shadow: 0 12px 28px -20px rgba(20, 20, 25, 0.22); }
 .both-dashboard .composer::before { content: none; }
 
