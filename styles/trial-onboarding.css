@@ -327,8 +327,13 @@ button:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px soli
   *, *::before, *::after { transition: none !important; }
 }
 
+/* A page-wide half-ellipse rises from the bottom; the composer stays neutral. */
+.both-dashboard { background: radial-gradient(ellipse 95% 65% at 50% 100%, rgba(138, 233, 255, 0.7) 0%, rgba(156, 153, 255, 0.2) 42%, transparent 82%), var(--background); }
+.both-dashboard .composer { padding: 1px; background: var(--border); box-shadow: 0 12px 28px -20px rgba(20, 20, 25, 0.22); }
+.both-dashboard .composer::before { content: none; }
+
 /* Match the reference's spacious heading, composer, and next-section rhythm. */
-.both-dashboard .canvas { padding-top: clamp(112px, 14vh, 160px); }
+.both-dashboard .canvas { padding-top: clamp(112px, 14vh, 160px); background: transparent; }
 .both-dashboard .assistant { margin-bottom: clamp(160px, 20vh, 224px); }
 .both-dashboard .hero-title { margin-bottom: 20px; font-size: clamp(36px, 3.5vw, 48px); }
 .both-dashboard .assistant__intro { margin-bottom: 48px; }
