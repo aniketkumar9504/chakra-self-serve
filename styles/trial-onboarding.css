@@ -327,14 +327,20 @@ button:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px soli
   *, *::before, *::after { transition: none !important; }
 }
 
-/* Give the combined product dashboard more room around its first actions. */
-.both-dashboard .canvas { padding-top: 88px; }
-.both-dashboard .assistant { margin-bottom: 88px; }
-.both-dashboard .product-sections { gap: 32px; }
+/* Match the reference's spacious heading, composer, and next-section rhythm. */
+.both-dashboard .canvas { padding-top: clamp(112px, 14vh, 160px); }
+.both-dashboard .assistant { margin-bottom: clamp(160px, 20vh, 224px); }
+.both-dashboard .hero-title { margin-bottom: 20px; font-size: clamp(36px, 3.5vw, 48px); }
+.both-dashboard .assistant__intro { margin-bottom: 48px; }
+.both-dashboard .product-option__heading { margin-bottom: 24px; }
+.both-dashboard .product-sections { gap: 40px; }
 .both-dashboard .faq { margin-top: 64px; }
 @media (max-width: 700px) {
-  .both-dashboard .canvas { padding-top: 48px; }
-  .both-dashboard .assistant { margin-bottom: 56px; }
-  .both-dashboard .product-sections { gap: 24px; }
+  .both-dashboard .canvas { padding-top: 72px; }
+  .both-dashboard .assistant { margin-bottom: 88px; }
+  .both-dashboard .hero-title { margin-bottom: 16px; font-size: 32px; }
+  .both-dashboard .assistant__intro { margin-bottom: 32px; }
+  .both-dashboard .product-option__heading { margin-bottom: 20px; }
+  .both-dashboard .product-sections { gap: 32px; }
   .both-dashboard .faq { margin-top: 48px; }
 }
