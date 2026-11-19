@@ -8,9 +8,9 @@
   <link rel="stylesheet" href="styles/hrds/tokens.css" />
   <link rel="stylesheet" href="styles/hrds/theme.css" />
   <link rel="stylesheet" href="styles/hrds/fonts.css" />
-  <link rel="stylesheet" href="styles/trial-onboarding.css?v=39" />
+  <link rel="stylesheet" href="styles/trial-onboarding.css?v=40" />
 </head>
-<body>
+<body class="both-dashboard">
 
   <!-- Trial dashboard: start with both products. -->
   <section id="screen-dashboard">
@@ -81,8 +81,6 @@
             <section class="products" id="products" aria-label="Explore hiring products">
               <div class="product-sections" id="product-sections"></div>
             </section>
-
-            <section class="shared-actions" id="shared-actions" aria-labelledby="shared-actions-title"></section>
 
             <section class="discover-section" id="discover-interviews" aria-labelledby="discover-interviews-heading" hidden>
               <h2 class="product-option__heading" id="discover-interviews-heading">Go deep with technical interviews</h2>
@@ -216,22 +214,10 @@
           ]
         }
       ];
-      var SHARED_ACTIONS = [
-        {
-          title: 'Invite your teammates', description: 'Bring recruiters, hiring managers, and interviewers together.', action: 'Invite',
-          icon: '<circle cx="8" cy="8" r="3"/><circle cx="17" cy="9" r="2.3"/><path d="M2 20c0-3.3 2.7-5 6-5s6 1.7 6 5M15 15c2.8 0 5 1.4 5 4"/>',
-          prompt: 'Help me invite teammates to our HackerRank workspace.'
-        },
-        {
-          title: 'Connect your ATS', description: 'Sync candidate results and interview outcomes into your workflow.', action: 'Connect',
-          icon: '<path d="M7 7l4 4M3 21l5-5M14 4l2 2M18 8l2 2M13 7l4 4a3 3 0 010 4l-1 1-8-8 1-1a3 3 0 014 0z"/>',
-          prompt: 'Help me connect our ATS to HackerRank.'
-        },
-        {
-          title: 'Learn what HackerRank can do', description: 'Take a quick tour of your hiring workspace and tools.', action: 'Watch demo',
-          icon: '<path d="M4 5a2 2 0 012-2h13v16H6a2 2 0 00-2 2zM19 3v18"/>',
-          prompt: 'Give me a tour of the HackerRank platform and the tools available in our workspace.'
-        }
+      var WORKSPACE_SUGGESTIONS = [
+        { label: 'Invite my teammates', message: 'Help me invite teammates to our HackerRank workspace.' },
+        { label: 'Connect my ATS', message: 'Help me connect our ATS to HackerRank.' },
+        { label: 'What can HackerRank do?', message: 'Give me a tour of the HackerRank platform and the tools available in our workspace.' }
       ];
       var leadProduct;
       var assistantRequest;
@@ -258,18 +244,6 @@
             }).join('') + '</div>' +
           '</section></div>';
         }).join('');
-      }
-
-      function sharedActionsHTML() {
-        return '<h2 class="shared-actions__title" id="shared-actions-title">Other things you can set up</h2>' +
-          '<ul class="shared-actions__list" role="list">' + SHARED_ACTIONS.map(function (action, index) {
-            return '<li class="shared-action">' +
-              '<span class="shared-action__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + action.icon + '</svg></span>' +
-              '<div class="shared-action__body"><h3 class="shared-action__title">' + action.title + '</h3>' +
-                '<p class="shared-action__description">' + action.description + '</p></div>' +
-              '<button class="shared-action__button" type="button" data-shared-action="' + index + '">' + action.action + '</button>' +
-            '</li>';
-          }).join('') + '</ul>';
       }
 
       function faqHTML(items) {
@@ -315,7 +289,7 @@
         assistantRequest = key === 'both'
           ? 'Help me with my HackerRank workspace for Chakra screening and live Interviews. Here is my question or request:' : setup.request;
         assistantSuggestions = key === 'both'
-          ? [PRODUCTS[0].suggestions[0], PRODUCTS[1].suggestions[0], PRODUCTS[0].suggestions[1]] : leadProduct.suggestions;
+          ? WORKSPACE_SUGGESTIONS : leadProduct.suggestions;
         document.getElementById('composer-prompts').innerHTML = assistantSuggestions.map(function (suggestion, index) {
           return '<button class="composer__prompt" type="button" data-suggestion="' + index + '">' + suggestion.label + '</button>';
         }).join('');
@@ -335,7 +309,6 @@
         var sections = document.getElementById('product-sections');
         document.getElementById('products').dataset.count = products.length;
         sections.innerHTML = sectionsHTML(products);
-        document.getElementById('shared-actions').innerHTML = sharedActionsHTML();
         document.getElementById('discover-interviews').hidden = key !== 'chakra';
         document.getElementById('faq').innerHTML = faqHTML(cfg.faq);
       }
@@ -358,10 +331,6 @@
       });
       document.getElementById('explore-interview-library').addEventListener('click', function () {
         openAssistant(PRODUCTS[1].tasks.find(function (task) { return task.id === 'library'; }).prompt);
-      });
-      document.getElementById('shared-actions').addEventListener('click', function (event) {
-        var button = event.target.closest('button[data-shared-action]');
-        if (button) openAssistant(SHARED_ACTIONS[Number(button.dataset.sharedAction)].prompt);
       });
       function updateComposer() {
         document.querySelector('.composer__send').disabled = !document.getElementById('composer-field').value.trim();

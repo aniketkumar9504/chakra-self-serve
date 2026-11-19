@@ -326,3 +326,15 @@ button:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px soli
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; }
 }
+
+/* Give the combined product dashboard more room around its first actions. */
+.both-dashboard .canvas { padding-top: 88px; }
+.both-dashboard .assistant { margin-bottom: 88px; }
+.both-dashboard .product-sections { gap: 32px; }
+.both-dashboard .faq { margin-top: 64px; }
+@media (max-width: 700px) {
+  .both-dashboard .canvas { padding-top: 48px; }
+  .both-dashboard .assistant { margin-bottom: 56px; }
+  .both-dashboard .product-sections { gap: 24px; }
+  .both-dashboard .faq { margin-top: 48px; }
+}
